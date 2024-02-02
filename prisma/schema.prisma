@@ -12,14 +12,58 @@ datasource db {
 
 model Branch {
   id         String @id @default(auto()) @map("_id") @db.ObjectId
+  username   String @unique
+  email      String @unique
+  password   String
   village    String
   postOffice String
   ps         String
   district   String
   mosjid     String
-  name       String
+  name       String @unique
   fatherName String
   address    String
   title      String
   phone      String
+}
+
+model Loan {
+  id            String  @id @default(auto()) @map("_id") @db.ObjectId
+  username      String  @unique
+  village       String
+  post          String
+  policeStation String
+  distict       String
+  branch        String
+  name          String
+  fatherName    String
+  motherName    String
+  occupation    String
+  phone         String
+  ammount       String
+  status        String?
+}
+
+model Admin {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  name     String
+  email    String
+  password String
+}
+
+model Doner {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  username String
+  name     String
+  phone    String
+  photos   String
+  diposit  String
+}
+
+model payment {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  loanId        String
+  amount        String
+  transactionId String
+  createAt      DateTime @default(now())
 }
