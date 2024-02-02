@@ -1,10 +1,11 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
     <div className="m-4">
-      <h1 className="text-2xl mx-4">Hello Arafat Foundation</h1>
-      <h2 className=" m-4 text-2xl text-blue-700">Coming Soon</h2>
+      <h1 className="mx-4 text-2xl">Hello Arafat Foundation</h1>
+      <Link className="mx-4 text-xl font-bold text-blue-400" href='/karze-hasana'>Karze hasana</Link>
     </div>
   );
 }

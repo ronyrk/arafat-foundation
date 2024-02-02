@@ -9,3 +9,17 @@ datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
 }
+
+model Branch {
+  id         String @id @default(auto()) @map("_id") @db.ObjectId
+  village    String
+  postOffice String
+  ps         String
+  district   String
+  mosjid     String
+  name       String
+  fatherName String
+  address    String
+  title      String
+  phone      String
+}
