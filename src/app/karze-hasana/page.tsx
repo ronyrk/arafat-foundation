@@ -182,12 +182,35 @@ function page() {
 						<div className="ml-4">
 							<p>A great plan of action. But there is no office. no employee No administrative costs. No operating costs. Top to bottom everyone is working completely unpaid. It has been made mosque-based with a local management team using mosques completely free of charge without spending a single penny.</p>
 							<p className="my-2">If you want to spread a wide-based micro-credit program among the marginalized poor from village to village on a completely voluntary basis without incurring any cost, it can be done using mosques.</p>
+							<ul className="ml-4 list-disc">
+								<li className='my-1'>Bangladesh is a country of mosques. Some villages have up to five or six mosques. To facilitate the division of the lending areas into very small units mosque based, so that the borrowers can access services very easily.</li>
+								<li className='my-1'>As the lending area is very small  the management team and the borrowers get to know each other very closely and overall management becomes easier for the management team. It would be almost impossible to get the members of the branch management team together except on Fridays.</li>
+								<li className='my-1'>Almost all the Muslims in an area attend the mosque at a certain time on Fridays. If loans are disbursed openly in the presence of local residents after Juma  there is much less chance of corruption or irregularities.</li>
+							</ul>
+							<p>If we conduct social service activities centered on mosques, many people will come forward in many kinds of social service activities after seeing us. Inshallah </p>
 						</div>
 					</AccordionContent>
 				</AccordionItem>
-
+				<AccordionItem value="item-13">
+					<AccordionTrigger>How to identify those involved with the Arafat Foundation?</AccordionTrigger>
+					<AccordionContent>
+						<ul className='ml-4 list-disc'>
+							<li>Arafat Foundation  is receiving love and support from countless people for its unique features and programs. Which is increasing day by day.</li>
+							<li> In this opportunity of human love and support, some may resort to deception and fraud. To confirm the identity of someone associated with Masjid.Life, ask them to show their name, photo and identity or designation from the Arafat Foundation website.</li>
+						</ul>
+					</AccordionContent>
+				</AccordionItem>
+				<AccordionItem value="item-14">
+					<AccordionTrigger>Special Caution to Donors and Lenders :-</AccordionTrigger>
+					<AccordionContent>
+						<ul className="ml-4 list-disc">
+							<li className='my-1'>Do not deposit money in any bank account or Bikash or in cash or in any other way which is not mentioned on the website of Arafat Foundation.</li>
+							<li className='my-1'>Anyone who has given any donation or loan to Arafat Foundation, if it is not found in the DONORS & LENDERS list - then that money has not been credited to Arafat Foundation as Hasana. That means  no poor people are benefiting from your given money. You may be a victim of fraud. Immediately question the person through whom the money was given. Arafat Foundation has no responsibility or liability for your donation.</li>
+							<li className='my-1'>You  have donated to Arafat Foundation but your name is not in Arafat Foundation&#39;s DONORS & LENDERS list! If this is the case, please inform us immediately with the name and branch number of the person to whom the money has been paid</li>
+						</ul>
+					</AccordionContent>
+				</AccordionItem>
 			</Accordion>
-
 		</div>
 	)
 }
