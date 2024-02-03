@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Anek_Bangla } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Anek_Bangla({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Arafat Foundation",
