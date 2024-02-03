@@ -5,7 +5,6 @@ import { usePathname } from 'next/navigation'
 
 function Sidebar() {
 	const pathname = usePathname();
-	console.log(pathname)
 	return (
 		<div className='flex flex-col bg-gray-100 border-2 rounded'>
 			<Link className={` pl-4 py-3 text-[15px] font-semibold rounded-md hover:bg-gray-200 hover:text-black ${pathname === "/karze-hasana" ? "bg-color-main text-white" : " text-black"}`} href="/karze-hasana">About Us</Link>
