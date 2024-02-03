@@ -68,15 +68,6 @@ function page() {
 						</ul>
 					</AccordionContent>
 				</AccordionItem>
-				<AccordionItem value="item-5">
-					<AccordionTrigger className='md:ml-[-4px]'>We mainly publicize our needs through various social media to source funds. We pay the amount received from there to the customer. </AccordionTrigger>
-					<AccordionContent>
-						<ul className='list-disc'>
-							<li className='my-1'>First: We encourage  the local  rich/ well-to-do people/wealthy people of the area where we receive the request to give Hasan for the said loan.</li>
-							<li className='my-1'>In those areas where no one from the local people comes forward to give Korje Hasana - Arafat Foundation tries to manage funds from the Korje Hasana Project.</li>
-						</ul>
-					</AccordionContent>
-				</AccordionItem>
 				<AccordionItem value="item-6">
 					<AccordionTrigger>New Branch Opening Process and Management Team Formation:-</AccordionTrigger>
 					<AccordionContent>
