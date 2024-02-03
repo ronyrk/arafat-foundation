@@ -69,7 +69,7 @@ function page() {
 					</AccordionContent>
 				</AccordionItem>
 				<AccordionItem value="item-5">
-					<AccordionTrigger className='ml-[-8px]'>We mainly publicize our needs through various social media to source funds. We pay the amount received from there to the customer. </AccordionTrigger>
+					<AccordionTrigger className='md:ml-[-4px]'>We mainly publicize our needs through various social media to source funds. We pay the amount received from there to the customer. </AccordionTrigger>
 					<AccordionContent>
 						<ul className='list-disc'>
 							<li className='my-1'>First: We encourage  the local  rich/ well-to-do people/wealthy people of the area where we receive the request to give Hasan for the said loan.</li>
