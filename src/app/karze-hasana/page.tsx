@@ -69,7 +69,7 @@ function page() {
 					</AccordionContent>
 				</AccordionItem>
 				<AccordionItem value="item-5">
-					<AccordionTrigger className='ml-[-8px]'>We mainly publicize our needs through various social media to source funds. We pay the amount received from there to the customer. </AccordionTrigger>
+					<AccordionTrigger className='md:ml-[-4px]'>We mainly publicize our needs through various social media to source funds. We pay the amount received from there to the customer. </AccordionTrigger>
 					<AccordionContent>
 						<ul className='list-disc'>
 							<li className='my-1'>First: We encourage  the local  rich/ well-to-do people/wealthy people of the area where we receive the request to give Hasan for the said loan.</li>
@@ -160,7 +160,7 @@ function page() {
 				</AccordionItem>
 				<AccordionItem value="item-10">
 					<AccordionTrigger>
-						<h2 className='ml-[-2px] md:ml-[0px]'>Publication or manipulation of image of borrower:-</h2>
+						<h2 className=''>Publication or manipulation of image of borrower:-</h2>
 					</AccordionTrigger>
 					<AccordionContent>
 						<p className="ml-4 font-bold">The images are published for transparency and to prevent the possibility of irregularities or corruption. </p>
@@ -194,7 +194,7 @@ function page() {
 					</AccordionContent>
 				</AccordionItem>
 				<AccordionItem value="item-13">
-					<AccordionTrigger className='ml-[-30px] md:ml-[0px]'>How to identify those involved with the Arafat Foundation?</AccordionTrigger>
+					<AccordionTrigger className=''>How to identify those involved with the Arafat Foundation?</AccordionTrigger>
 					<AccordionContent>
 						<ul className='ml-4 list-disc'>
 							<li className='my-1'>Arafat Foundation  is receiving love and support from countless people for its unique features and programs. Which is increasing day by day.</li>
