@@ -14,12 +14,12 @@ export default function KarzeHasanaLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<section className="mx-24 my-4">
-			<div className="flex flex-row gap-2">
-				<div className=" basis-1/4">
+		<section className="md:mx-24 mx-2 md:my-4 my-2">
+			<div className="flex md:flex-row flex-col gap-4">
+				<div className="basis-1/5">
 					<Sidebar />
 				</div>
-				<div className="p-2 bg-white border-2 rounded-md basis-3/4">{children}</div>
+				<div className="md:p-2 p-1  bg-white border-2 rounded-md basis-4/5">{children}</div>
 			</div>
 		</section>
 	);
