@@ -1,3 +1,4 @@
+"use client";
 import React from 'react'
 import { AlignJustify, HeartHandshake, Linkedin, Mail, PhoneCall } from 'lucide-react';
 import Image from 'next/image';
@@ -7,15 +8,14 @@ import { Button } from "@/components/ui/button";
 import {
 	Sheet,
 	SheetContent,
-	SheetDescription,
-	SheetHeader,
-	SheetTitle,
 	SheetTrigger,
 } from "@/components/ui/sheet"
+import { usePathname } from 'next/navigation';
 
 
 
 function Navbar() {
+	const pathname = usePathname();
 	return (
 		<>
 			<div className='md:px-20  flex justify-between bg-color-main py-2'>
@@ -31,22 +31,22 @@ function Navbar() {
 					<a href="/" className="text-white rounded px-[2px]"><Linkedin className='text-white  hover:text-orange-500 cursor-pointer' size={18} /></a>
 				</div>
 			</div>
-			<div className="md:px-20 px-2 flex flex-row justify-between gap-2 md:gap-0 items-center">
+			<div className="md:px-20 px-4 flex flex-row justify-between gap-2 md:gap-0 items-center">
 				<Image className='w-[120px] h-[100] object-contain py-[2px]' src={Logo} alt='logo' />
 				<div className=' hidden md:flex'>
-					<Link href='https://arafatfoundation.org' className='text-[16px] py-10 mx-3 font-semibold transition delay-300 duration-300 hover:border-color-sub hover:border-b-4'>
+					<Link href='https://arafatfoundation.org' className='text-[16px] py-10 mx-3 font-semibold transition delay-300 duration-300 hover:border-color-sub hover:border-b-4 hover:text-color-sub'>
 						হোম
 					</Link>
-					<Link href='https://arafatfoundation.org/about-us/' className='text-[16px] py-10 mx-3 font-semibold transition delay-300 duration-300 hover:border-color-sub hover:border-b-4'>
+					<Link href='https://arafatfoundation.org/about-us/' className='text-[16px] py-10 mx-3 font-semibold transition delay-300 duration-300 hover:border-color-sub hover:border-b-4 hover:text-color-sub'>
 						আমাদের সম্পর্কে
 					</Link>
-					<Link href='' className='text-[16px] py-10 mx-3 font-semibold transition delay-300 duration-300 hover:border-color-sub hover:border-b-4'>
+					<Link href='https://arafatfoundation.org/donation-verify/' className='text-[16px] py-10 mx-3 font-semibold transition delay-300 duration-300 hover:border-color-sub hover:text-color-sub hover:border-b-4' >
 						DONATION VERIFY
 					</Link>
-					<Link href='/karze-hasana' className='text-[16px] py-10 mx-3 font-semibold transition delay-300 duration-300 hover:border-color-sub hover:border-b-4'>
+					<Link href='/karze-hasana' className={`text-[16px] py-10 mx-3 font-semibold transition delay-300 duration-300 hover:border-color-sub hover:text-color-sub hover:border-b-4 ${pathname === "/karze-hasana" ? "border-b-4 border-color-sub text-color-sub" : ""}`}>
 						কর্জে হাসানা
 					</Link>
-					<Link href='https://arafatfoundation.org/donation-verify/' className='text-[16px] py-10 mx-3 font-semibold transition delay-300 duration-300 hover:border-color-sub hover:border-b-4'>
+					<Link href='https://arafatfoundation.org/donation-verify/' className='text-[16px] py-10 mx-3 font-semibold transition delay-300 duration-300 hover:border-color-sub hover:text-color-sub hover:border-b-4'>
 						যোগাযোগ
 					</Link>
 				</div>
