@@ -8,9 +8,9 @@ import { Button } from "@/components/ui/button";
 
 function Footer() {
 	return (
-		<div className="md:px-20 py-4 px-4">
+		<div className="md:px-20 px-4">
 			<div className="flex md:flex-row flex-col  md:justify-between justify-center">
-				<div className="flex basis-1/4 flex-col items-center my-2">
+				<div className="flex basis-1/4 flex-col items-center my-2 bg-green-400 p-4 py-2">
 					<Image
 						alt='logo'
 						src={logo}
@@ -22,8 +22,8 @@ function Footer() {
 					<h2 className=" text-black text-[14px] py-2 px-2">আরাফাত ফাউন্ডেশন একটি অরাজনৈতিক, অলাভজনক, উম্মাহর ঐক্য , শিক্ষা , দাওয়াহ ও মানব কল্যাণে নিবে দিত সেবা মূলমূক প্রতিষ্ঠান।</h2>
 					<Button asChild className=' w-28 flex items-center bg-color-main hover:transition hover:delay-150 hover:duration-300 hover:bg-color-sub' size={"lg"}><Link href="https://arafatfoundation.org/donate/">দান করুন <span className='ml-[6px]'><HeartHandshake /></span></Link></Button>
 				</div>
-				<div className="flex basis-1/4 flex-col  px-6">
-					<h2 className="text-[24px] font-semibold border-b-4 border-black pr-4">তালিকা</h2>
+				<div className="flex basis-1/4 flex-col  px-4">
+					<h2 className="text-[24px] font-semibold border-b-4 border-black">তালিকা</h2>
 					<div className="flex flex-col py-4">
 						<Link href="/" className=' text-[15px] font-semibold flex flex-row hover:text-color-sub py-1' > <span className=''><ChevronRight /></span>হোম </Link>
 						<Link href="/" className=' text-[15px] font-semibold flex flex-row hover:text-color-sub py-1' > <span className=''><ChevronRight /></span>
@@ -38,8 +38,8 @@ function Footer() {
 							যোগাযোগ </Link>
 					</div>
 				</div>
-				<div className="flex basis-1/4 flex-col px-6">
-					<h2 className="text-[24px] font-semibold border-b-4 border-black pr-4">আমাদের কার্যক্রম</h2>
+				<div className="flex basis-1/4 flex-col px-4">
+					<h2 className="text-[24px] font-semibold border-b-4 border-black">আমাদের কার্যক্রম</h2>
 					<div className="flex flex-col py-4">
 						<Link href="/" className=' text-[15px] font-semibold flex flex-row hover:text-color-sub py-1' > <span className=''><ChevronRight /></span>
 							ইসলাম প্রচার </Link>
@@ -60,8 +60,8 @@ function Footer() {
 							ইফতার ও রমাদান ফুড বিতরণ </Link>
 					</div>
 				</div>
-				<div className="flex basis-1/4 flex-col px-6">
-					<h2 className="text-[24px] font-semibold border-b-4 border-black pr-8">যোগাযোগের তথ্য</h2>
+				<div className="flex basis-1/4 flex-col px-4">
+					<h2 className="text-[24px] font-semibold border-b-4 border-black">যোগাযোগের তথ্য</h2>
 					<div className="flex flex-col gap-0">
 						<Link href='/'>
 							<div className="flex flex-row items-center">
