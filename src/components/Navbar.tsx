@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/sheet"
 import { usePathname } from 'next/navigation';
 import HeaderSlider from './HeaderSlider';
+import HeaderContent from './HeaderContent';
 
 
 
@@ -72,6 +73,7 @@ function Navbar() {
 				</div>
 			</div>
 			<HeaderSlider />
+			<HeaderContent />
 		</>
 	)
 }
