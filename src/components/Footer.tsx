@@ -10,7 +10,7 @@ import banner from '../../public/banner.png';
 function Footer() {
 	return (
 		<div className="">
-			<div className='relative md:h-[380px]'>
+			<div className='relative md:h-[380px] h-[1080px]'>
 				<Image
 					alt='background images'
 					src={banner}
