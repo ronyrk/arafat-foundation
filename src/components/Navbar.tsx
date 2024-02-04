@@ -1,6 +1,6 @@
 "use client";
 import React from 'react'
-import { AlignJustify, HeartHandshake, Linkedin, Mail, PhoneCall } from 'lucide-react';
+import { AlignJustify, HandHeart, Linkedin, Mail, PhoneCall } from 'lucide-react';
 import Image from 'next/image';
 import Logo from '../../public/arafat-logo.png';
 import Link from 'next/link';
@@ -55,7 +55,7 @@ function Navbar() {
 					</Link>
 				</div>
 				<div>
-					<Button asChild className=' bg-color-main hover:transition hover:delay-150 hover:duration-300 hover:bg-color-sub' size={"lg"}><Link href="https://arafatfoundation.org/donate/">দান করুন <span className='ml-[6px]'><HeartHandshake /></span></Link></Button>
+					<Button asChild className=' w-28 bg-color-main hover:transition hover:delay-150 hover:duration-300 hover:bg-color-sub' size={"lg"}><Link href="https://arafatfoundation.org/donate/">দান করুন <span className='ml-[6px]'><HandHeart /></span></Link></Button>
 				</div>
 				<div className="md:hidden flex">
 					<Sheet>
