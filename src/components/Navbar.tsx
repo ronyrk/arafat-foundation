@@ -72,7 +72,7 @@ function Navbar() {
 					</Sheet>
 				</div>
 			</div>
-			<HeaderSlider />
+			{/* <HeaderSlider /> */}
 			<HeaderContent />
 		</>
 	)
