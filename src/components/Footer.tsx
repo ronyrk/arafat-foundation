@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 
 function Footer() {
 	return (
-		<div className="md:px-20 px-4">
+		<div className="md:mx-20 px-4">
 			<div className="flex md:flex-row flex-col  md:justify-between justify-center">
 				<div className="flex basis-1/4 flex-col items-center my-2 bg-green-400 p-4 py-2">
 					<Image
