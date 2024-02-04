@@ -2,7 +2,7 @@
 import React from 'react'
 import { AlignJustify, HeartHandshake, Linkedin, Mail, PhoneCall } from 'lucide-react';
 import Image from 'next/image';
-import Logo from '../../public/karze-hasana1.png';
+import Logo from '../../public/arafat-logo.png';
 import Link from 'next/link';
 import { Button } from "@/components/ui/button";
 import {
@@ -33,7 +33,7 @@ function Navbar() {
 			</div>
 			<div className="md:px-20 px-4 flex flex-row justify-between gap-2 md:gap-0 items-center">
 				<Link href="/">
-					<Image className='w-[120px] h-[100] object-contain py-[2px]' src={Logo} placeholder='blur' alt='logo' />
+					<Image className='w-[120px] h-[100] object-contain rounded' src={Logo} placeholder='blur' alt='logo' />
 				</Link>
 				<div className=' hidden md:flex'>
 					<Link href='/' className={`text-[16px] py-10 mx-3 font-semibold transition delay-300 duration-300 hover:border-color-sub hover:text-color-sub hover:border-b-4 ${pathname === "/" ? "border-b-4 border-color-sub text-color-sub" : ""}`}>
