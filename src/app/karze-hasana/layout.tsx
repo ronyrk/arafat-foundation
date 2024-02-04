@@ -19,7 +19,7 @@ export default function KarzeHasanaLayout({
 				<div className="basis-1/5">
 					<Sidebar />
 				</div>
-				<div className="md:p-2 p-1  bg-white border-2 rounded-md basis-4/5">{children}</div>
+				<div className="bg-white border-2 rounded-md basis-4/5">{children}</div>
 			</div>
 		</section>
 	);
