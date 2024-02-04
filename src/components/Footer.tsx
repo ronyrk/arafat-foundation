@@ -17,7 +17,8 @@ function Footer() {
 					fill
 					sizes='100vw'
 					placeholder='blur'
-					className='-z-20 opacity-90'
+					priority
+					className='-z-20'
 				/>
 				<div className=" absolute top-6 left-0">
 					<div className="md:px-20 px-4 ">
