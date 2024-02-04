@@ -20,8 +20,8 @@ function Navbar() {
 	const pathname = usePathname();
 	return (
 		<>
-			<div className='md:px-20  flex justify-between bg-color-main py-2'>
-				<div className=" flex flex-row gap-2 px-12 items-center">
+			<div className='md:px-20 px-4 flex justify-between bg-color-main py-2'>
+				<div className=" flex flex-row gap-2 md:px-12 px-2 items-center">
 					<PhoneCall className='text-orange-400 hover:text-orange-500 font-bold cursor-pointer' size={13} />
 					<span className='text-white text-[13px] font-medium  hover:text-orange-400 cursor-pointer pr-2'>01602505070</span>
 					<Mail className='text-orange-400 hover:text-orange-500 font-bold cursor-pointer' size={13} />
@@ -72,7 +72,7 @@ function Navbar() {
 					</Sheet>
 				</div>
 			</div>
-			{/* <HeaderSlider /> */}
+			<HeaderSlider />
 			<HeaderContent />
 		</>
 	)
