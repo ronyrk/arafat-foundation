@@ -121,7 +121,7 @@ function Footer() {
 						</div>
 						<div className="">
 							<hr className=" border-b-[1px] border-gray-400 w-full my-2" />
-							<div className="flex  justify-between items-center px-4">
+							<div className="flex  justify-between items-center px-2">
 								<h2 className=" text-sm font-medium text-[#F5F5F5]">স্বত্ব &#169; {new Date().getFullYear()}  আরাফাত ফাউন্ডেশন - সর্বস্বত্ব সংরক্ষিত।</h2>
 								<h2 className=" text-sm font-medium text-[#F5F5F5]">পরিষেবার শর্তাবলী
 									গোপনীয়তা নীতি</h2>
