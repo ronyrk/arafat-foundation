@@ -9,8 +9,8 @@ import banner from '../../public/banner.png';
 
 function Footer() {
 	return (
-		<div>
-			<div className='relative md:h-[440px] h-[1100px]'>
+		<div className="">
+			<div className='relative md:h-[380px] h-[1080px]'>
 				<Image
 					alt='background images'
 					src={banner}
@@ -119,9 +119,9 @@ function Footer() {
 							</div>
 
 						</div>
-						<div className="">
+						<div>
 							<hr className=" border-b-[1px] border-gray-400 w-full my-2" />
-							<div className="flex  justify-between items-center px-4">
+							<div className="flex  justify-between items-center px-2">
 								<h2 className=" text-sm font-medium text-[#F5F5F5]">স্বত্ব &#169; {new Date().getFullYear()}  আরাফাত ফাউন্ডেশন - সর্বস্বত্ব সংরক্ষিত।</h2>
 								<h2 className=" text-sm font-medium text-[#F5F5F5]">পরিষেবার শর্তাবলী
 									গোপনীয়তা নীতি</h2>
