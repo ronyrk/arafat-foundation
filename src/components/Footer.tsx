@@ -10,7 +10,7 @@ import banner from '../../public/banner.png';
 function Footer() {
 	return (
 		<div className="">
-			<div className='relative md:h-[440px] h-[1100px]'>
+			<div className='relative md:h-[440px] h-[1140px] md:bg-inherit bg-purple-900'>
 				<Image
 					alt='background images'
 					src={banner}
@@ -18,12 +18,12 @@ function Footer() {
 					sizes='100vw'
 					placeholder='blur'
 					priority
-					className='-z-20'
+					className='-z-20 md:brightness-50'
 				/>
-				<div className=" absolute top-6 left-0">
+				<div className=" absolute top-6 left-0 z-10">
 					<div className="md:px-20 px-4 ">
 						<div className="flex md:flex-row flex-col  md:justify-between justify-center">
-							<div className="flex basis-1/4 flex-col items-center my-2 p-4 py-2">
+							<div className="md:flex basis-1/4 flex-col items-center my-2 p-4 py-2">
 								<Image
 									alt='logo'
 									src={logo}
@@ -119,9 +119,9 @@ function Footer() {
 							</div>
 
 						</div>
-						<div>
-							<hr className=" border-b-[1px] border-gray-400 w-full my-2" />
-							<div className="flex  justify-between items-center px-2">
+						<div className='md:mt-8'>
+							<hr className=" border-b-[1px] border-gray-400 w-full my-3" />
+							<div className="flex  justify-between items-center">
 								<h2 className=" text-sm font-medium text-[#F5F5F5]">স্বত্ব &#169; {new Date().getFullYear()}  আরাফাত ফাউন্ডেশন - সর্বস্বত্ব সংরক্ষিত।</h2>
 								<h2 className=" text-sm font-medium text-[#F5F5F5]">পরিষেবার শর্তাবলী
 									গোপনীয়তা নীতি</h2>
