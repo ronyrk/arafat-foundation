@@ -10,7 +10,7 @@ import banner from '../../public/banner.png';
 function Footer() {
 	return (
 		<div className="">
-			<div className='relative md:h-[440px] h-[1140px] md:bg-inherit bg-purple-900'>
+			<div className='relative md:h-[440px] h-[1140px] md:bg-inherit bg-color-main'>
 				<Image
 					alt='background images'
 					src={banner}
