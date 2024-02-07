@@ -3,6 +3,7 @@ import { Anek_Bangla } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { ContextProvider } from "@/components/ContextProvider";
 
 const inter = Anek_Bangla({ subsets: ["latin"] });
 
@@ -19,9 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Navbar />
-        {children}
-        <Footer />
+        <ContextProvider><Navbar />{children}<Footer /></ContextProvider>
       </body>
     </html>
   );
