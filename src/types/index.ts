@@ -23,3 +23,9 @@ export interface BranchIProps {
 	psPhone: string,
 	district: string,
 };
+export interface UserNameIProps {
+	username: string,
+}
+export interface ParamsIProps {
+	params: UserNameIProps,
+}
