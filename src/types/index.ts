@@ -7,3 +7,25 @@ export interface DonorIProps {
 	about: string,
 	photos: string,
 };
+
+export interface BranchIProps {
+	username: string,
+	email: string,
+	password: string,
+	village: string,
+	postOffice: string,
+	policeStation: string,
+	mosjid: string,
+	name: string,
+	psFatherName: string,
+	address: string,
+	psName: string,
+	psPhone: string,
+	district: string,
+};
+export interface UserNameIProps {
+	username: string,
+}
+export interface ParamsIProps {
+	params: UserNameIProps,
+}
