@@ -30,16 +30,13 @@ export function SingInForm() {
 
 	// 1. Define your form.
 	const form = useForm<z.infer<typeof formSchema>>({
-		resolver: zodResolver(formSchema),
-		defaultValues: {
-			email: "",
-			password: "",
-		},
+		resolver: zodResolver(formSchema)
 	});
 	// 2. Define a submit handler.
 	function onSubmit(values: z.infer<typeof formSchema>) {
-		const phone = values.email;
+		const email = values.email;
 		const password = values.password;
+		console.log(email, password);
 	}
 
 	return (
@@ -52,7 +49,7 @@ export function SingInForm() {
 						<FormItem>
 							<FormLabel>Email</FormLabel>
 							<FormControl>
-								<Input placeholder="example@gmail.com" {...field} />
+								<Input className="bg-white" placeholder="example@gmail.com" {...field} />
 							</FormControl>
 							<FormMessage />
 						</FormItem>
@@ -65,7 +62,7 @@ export function SingInForm() {
 						<FormItem>
 							<FormLabel>Password</FormLabel>
 							<FormControl>
-								<Input placeholder="password" {...field} />
+								<Input className="bg-white" placeholder="password" {...field} />
 							</FormControl>
 							<FormMessage />
 						</FormItem>

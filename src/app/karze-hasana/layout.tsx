@@ -1,3 +1,5 @@
+import HeaderContent from "@/components/HeaderContent";
+import HeaderSlider from "@/components/HeaderSlider";
 import Sidebar from "@/components/Sidebar";
 import type { Metadata } from "next";
 
@@ -14,12 +16,16 @@ export default function KarzeHasanaLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<section className="md:mx-20 md:my-4 my-2">
-			<div className="flex md:flex-row flex-col gap-4">
-				<div className="basis-1/5">
-					<Sidebar />
+		<section>
+			<HeaderSlider />
+			<HeaderContent />
+			<div className="md:mx-20 md:my-4 my-2">
+				<div className="flex md:flex-row flex-col gap-4">
+					<div className="basis-1/5">
+						<Sidebar />
+					</div>
+					<div className=" md:p-2 p-1 bg-white border-2 rounded-md basis-4/5">{children}</div>
 				</div>
-				<div className=" md:p-2 p-1 bg-white border-2 rounded-md basis-4/5">{children}</div>
 			</div>
 		</section>
 	);
