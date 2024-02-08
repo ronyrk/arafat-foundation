@@ -4,8 +4,8 @@ import { NextResponse } from "next/server";
 export const GET = async () => {
 	try {
 		const result = await prisma.branch.findMany();
-		return NextResponse.json(result);
+		return NextResponse.json("ok");
 	} catch (error) {
-		throw new Error("Server Error");
+		console.log("error");
 	}
 };
