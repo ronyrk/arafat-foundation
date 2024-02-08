@@ -51,13 +51,16 @@ model Admin {
   password String
 }
 
-model Doner {
+model Donor {
   id       String @id @default(auto()) @map("_id") @db.ObjectId
-  username String
+  username String @unique
+  email    String @unique
+  password String
   name     String
   phone    String
   photos   String
-  diposit  String
+  about    String
+  amount   String @default("00")
 }
 
 model payment {

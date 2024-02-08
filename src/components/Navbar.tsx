@@ -72,8 +72,6 @@ function Navbar() {
 					</Sheet>
 				</div>
 			</div>
-			<HeaderSlider />
-			<HeaderContent />
 		</div>
 	)
 }
