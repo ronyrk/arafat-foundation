@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
-import { DonorIProps } from "../../../../type";
+import { DonorIProps } from "@/types";
 
 // Donor List
 export const GET = async () => {
