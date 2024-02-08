@@ -1,9 +1,13 @@
+import prisma from "@/lib/prisma"
 import { NextResponse } from "next/server";
+
+
 
 export const GET = async () => {
 	try {
-		return NextResponse.json({ message: "ok" });
+		const result = await prisma.branch.findMany();
+		return NextResponse.json("ok");
 	} catch (error) {
-		console.log("error");
+		return NextResponse.json({ message: "error" });
 	}
 };
