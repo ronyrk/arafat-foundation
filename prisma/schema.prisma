@@ -11,20 +11,20 @@ datasource db {
 }
 
 model Branch {
-  id         String @id @default(auto()) @map("_id") @db.ObjectId
-  username   String @unique
-  email      String @unique
-  password   String
-  village    String
-  postOffice String
-  ps         String
-  district   String
-  mosjid     String
-  name       String @unique
-  fatherName String
-  address    String
-  title      String
-  phone      String
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  username      String @unique
+  email         String @unique
+  password      String
+  village       String
+  postOffice    String
+  policeStation String
+  district      String
+  mosjid        String
+  name          String @unique
+  psFatherName  String
+  address       String
+  psName        String
+  psPhone       String
 }
 
 model Loan {
