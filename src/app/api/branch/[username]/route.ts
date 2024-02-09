@@ -7,12 +7,12 @@ export const dynamic = 'force-dynamic'
 export const GET = async (request: Request, { params }: ParamsIProps) => {
 	try {
 		const { username } = params;
-		const result = await prisma.branch.findUnique({
-			where: {
-				username,
-			}
-		});
-		return NextResponse.json(result);
+
+		const [info, loanList] = await Promise.all([
+			prisma.branch.findUnique({ where: { username } }),
+			prisma.loan.findMany({ where: { branch: username } }),
+		]);
+		return NextResponse.json({ info, loanList });
 	} catch (error) {
 		throw new Error("Server Error");
 	}

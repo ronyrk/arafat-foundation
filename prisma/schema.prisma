@@ -29,20 +29,21 @@ model Branch {
 }
 
 model Loan {
-  id            String  @id @default(auto()) @map("_id") @db.ObjectId
-  username      String  @unique
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  username      String @unique
   village       String
   post          String
   policeStation String
-  distict       String
+  district      String
   branch        String
   name          String
   fatherName    String
   motherName    String
   occupation    String
   phone         String
-  ammount       String
-  status        String?
+  amount        String
+  photosUrl     String
+  status        Status @default(RUNNING)
 }
 
 model Admin {
@@ -68,8 +69,15 @@ model Donor {
 
 model payment {
   id            String   @id @default(auto()) @map("_id") @db.ObjectId
-  loanId        String
+  loanusername  String
+  phone         String
   amount        String
   transactionId String
   createAt      DateTime @default(now())
+}
+
+enum Status {
+  PENDING
+  RUNNING
+  COMPLETED
 }

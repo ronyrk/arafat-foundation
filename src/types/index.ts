@@ -34,3 +34,20 @@ export interface LoginIProps {
 	email: string,
 	password: string,
 }
+
+export interface LoanIProps {
+	username: string,
+	village: string,
+	post: string,
+	policeStation: string,
+	district: string,
+	branch: string,
+	name: string,
+	fatherName: string,
+	motherName: string,
+	occupation: string,
+	phone: string,
+	amount: string,
+	status: string,
+	photosUrl: string
+};
