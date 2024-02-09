@@ -9,12 +9,17 @@ interface ParamsIProps {
 	params: LoanProps
 }
 
+export const dynamic = 'force-dynamic'
+
 export const GET = async (request: Request, { params }: ParamsIProps) => {
 	try {
 		const { username, loanusername } = params;
-		const info = await prisma.loan.findUnique({ where: { username: loanusername } })
-		return NextResponse.json({ info });
+		const [info, paymentList] = await Promise.all([
+			prisma.loan.findUnique({ where: { username: loanusername } }),
+			prisma.payment.findMany({ where: { loanusername } })
+		]);
+		return NextResponse.json({ info, paymentList });
 	} catch (error) {
 		console.log(error);
 	}
-}
+};
