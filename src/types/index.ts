@@ -29,3 +29,8 @@ export interface UserNameIProps {
 export interface ParamsIProps {
 	params: UserNameIProps,
 }
+
+export interface LoginIProps {
+	email: string,
+	password: string,
+}

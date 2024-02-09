@@ -27,6 +27,6 @@ export const POST = async (request: Request) => {
 		return NextResponse.json({ message: "Successfully Branch Created", result }, { status: 201 });
 	} catch (error) {
 		// throw new Error("Server Error");
-		console.log(error);
+		return NextResponse.json({ message: error });
 	}
 }
