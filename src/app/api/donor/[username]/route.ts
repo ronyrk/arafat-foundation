@@ -18,3 +18,36 @@ export const GET = async (request: Request, { params }: ParamsIProps) => {
 		throw new Error("Server Error");
 	}
 };
+
+// Single branch Updated
+
+export const PATCH = async (request: Request, { params }: ParamsIProps) => {
+	try {
+		const { username } = params;
+		const body = await request.json();
+		const { password, phone, photos, about } = body;
+		const result = await prisma.donor.update({
+			where: { username },
+			data: {
+				password,
+				phone,
+				photos,
+				about
+			}
+		})
+		return NextResponse.json({ message: "successfully updated", result })
+	} catch (error) {
+		return NextResponse.json({ error });
+	}
+};
+
+// Deleted branch
+export const DELETE = async (request: Request, { params }: ParamsIProps) => {
+	try {
+		const { username } = params;
+		await prisma.donor.delete({ where: { username } });
+		return NextResponse.json({ message: "deleted successfully" });
+	} catch (error) {
+		return NextResponse.json({ error });
+	}
+}
