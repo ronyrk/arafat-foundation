@@ -25,6 +25,7 @@ model Branch {
   address       String
   psName        String
   psPhone       String
+  status        String @default("BRANCH")
 }
 
 model Loan {
@@ -61,6 +62,7 @@ model Donor {
   photos   String
   about    String
   amount   String @default("00")
+  status   String @default("DONOR")
 }
 
 model payment {
