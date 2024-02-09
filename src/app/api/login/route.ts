@@ -6,6 +6,8 @@ import { cookies } from 'next/headers'
 
 const secretKey = "gfjgjfghjsjdkdsjkdjkds";
 
+export const dynamic = 'force-dynamic'
+
 export const POST = async (request: NextRequest) => {
 	try {
 		const body: LoginIProps = await request.json();

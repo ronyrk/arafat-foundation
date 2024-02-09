@@ -25,15 +25,22 @@ export interface BranchIProps {
 };
 export interface UserNameIProps {
 	username: string,
-}
+};
 export interface ParamsIProps {
 	params: UserNameIProps,
-}
+};
+
+export interface IdProps {
+	id: string,
+};
+export interface ParamsIdIProps {
+	params: IdProps
+};
 
 export interface LoginIProps {
 	email: string,
 	password: string,
-}
+};
 
 export interface LoanIProps {
 	username: string,
@@ -50,4 +57,11 @@ export interface LoanIProps {
 	amount: string,
 	status: string,
 	photosUrl: string
+};
+
+export interface PaymentIProps {
+	loanusername: string,
+	phone: string,
+	amount: string,
+	transactionId: string
 };

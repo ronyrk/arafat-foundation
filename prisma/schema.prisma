@@ -67,6 +67,15 @@ model Donor {
   status   String @default("DONOR")
 }
 
+model Request {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  loanusername  String
+  phone         String
+  amount        String
+  transactionId String
+  createAt      DateTime @default(now())
+}
+
 model payment {
   id            String   @id @default(auto()) @map("_id") @db.ObjectId
   loanusername  String
