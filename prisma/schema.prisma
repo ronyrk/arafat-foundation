@@ -48,8 +48,9 @@ model Loan {
 model Admin {
   id       String @id @default(auto()) @map("_id") @db.ObjectId
   name     String
-  email    String
+  email    String @unique
   password String
+  photourl String
 }
 
 model Donor {
