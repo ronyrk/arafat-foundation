@@ -1,4 +1,4 @@
-import { ParamsIProps } from "@/types";
+import { DonorIProps, ParamsIProps } from "@/types";
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 
@@ -24,17 +24,18 @@ export const GET = async (request: Request, { params }: ParamsIProps) => {
 export const PATCH = async (request: Request, { params }: ParamsIProps) => {
 	try {
 		const { username } = params;
-		const body = await request.json();
-		const { password, phone, photos, about } = body;
+		const body: DonorIProps = await request.json();
+		const { password, code, photoUrl, about, amount } = body;
 		const result = await prisma.donor.update({
 			where: { username },
 			data: {
 				password,
-				phone,
-				photos,
-				about
+				about,
+				code,
+				photoUrl,
+				amount
 			}
-		})
+		});
 		return NextResponse.json({ message: "successfully updated", result })
 	} catch (error) {
 		return NextResponse.json({ error });

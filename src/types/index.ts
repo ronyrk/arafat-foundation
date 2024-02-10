@@ -1,12 +1,16 @@
 export interface DonorIProps {
+	id?: string,
+	username: string,
 	email: string,
+	code: string,
 	password: string,
 	name: string,
-	username: string,
-	phone: string,
+	photoUrl: string,
 	about: string,
-	photos: string,
-	photoUrl: string
+	amount: string,
+	lives: string,
+	hometown: string
+	status: string
 };
 
 export interface BranchIProps {
@@ -46,20 +50,24 @@ export interface LoginIProps {
 };
 
 export interface LoanIProps {
+	id?: string,
 	username: string,
-	village: string,
-	post: string,
-	policeStation: string,
-	district: string,
-	branch: string,
 	name: string,
-	fatherName: string,
-	motherName: string,
+	code: string,
+	branch: string,
+	address: string,
+	about?: string,
+	disbursed: string,
+	recovered: string,
+	balance: string,
+	form1: string,
+	form2: string,
+	nidfont: string,
+	nidback: string,
 	occupation: string,
 	phone: string,
-	amount: string,
+	photosUrl: string,
 	status: string,
-	photosUrl: string
 };
 
 export interface PaymentIProps {
