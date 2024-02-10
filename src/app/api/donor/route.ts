@@ -8,7 +8,7 @@ export const dynamic = 'force-dynamic'
 export const GET = async () => {
 	try {
 		const result = await prisma.donor.findMany();
-		return NextResponse.json({ result });
+		return NextResponse.json(result);
 	} catch (error) {
 		throw new Error("Server Error");
 	}

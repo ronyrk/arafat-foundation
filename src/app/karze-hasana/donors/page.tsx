@@ -10,27 +10,27 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button"
 import Link from 'next/link';
-import { BranchIProps } from '@/types';
+import { BranchIProps, DonorIProps } from '@/types';
 import { unstable_noStore } from 'next/cache';
 import { Input } from '@/components/ui/input';
 
-async function BranchList() {
+async function DonorList() {
 	unstable_noStore();
-	let res = await fetch('https://arafatfoundation.vercel.app/api/branch');
+	let res = await fetch('https://arafatfoundation.vercel.app/api/donor');
 	if (!res.ok) {
 		throw new Error("Failed to fetch data");
 	};
-	let branches: BranchIProps[] = await res.json();
+	const donors: DonorIProps[] = await res.json();
 
 	return (
 		<TableBody>
 			{
-				branches.map((item, index: number) => (
+				donors.map((item, index: number) => (
 					<TableRow key={index}>
-						<TableCell className="font-medium">{index + 1}</TableCell>
-						<TableCell className="font-medium uppercase">{item.mosjid}</TableCell>
-						<TableCell className="font-medium uppercase" >{item.district}</TableCell>
+						<TableCell className="font-medium">{item.code}</TableCell>
 						<TableCell className="font-medium uppercase">{item.name}</TableCell>
+						<TableCell className="font-medium uppercase" >{item.amount}</TableCell>
+						<TableCell className="font-medium uppercase">{item.status}</TableCell>
 						<TableCell className="font-medium uppercase">
 							<Button size={"sm"} asChild>
 								<Link className=' bg-color-sub hover:bg-color-main ' href={`/branch/${item.username}`}>DETAILS</Link>
@@ -56,15 +56,15 @@ async function page() {
 				<TableCaption>A list of your recent invoices.</TableCaption>
 				<TableHeader>
 					<TableRow>
-						<TableHead>INDEX</TableHead>
-						<TableHead>BRANCH</TableHead>
-						<TableHead>DISTRICT</TableHead>
-						<TableHead>P. NAME</TableHead>
+						<TableHead>CODE</TableHead>
+						<TableHead>NAME</TableHead>
+						<TableHead>AMOUNT</TableHead>
+						<TableHead>TYPE</TableHead>
 						<TableHead>DETAILS</TableHead>
 					</TableRow>
 				</TableHeader>
 				<Suspense fallback={<h2 className=' text-center p-4'>Loading...</h2>} >
-					<BranchList />
+					<DonorList />
 				</Suspense>
 			</Table>
 
