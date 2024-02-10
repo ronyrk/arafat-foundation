@@ -4,6 +4,8 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ContextProvider } from "@/components/ContextProvider";
+import TanStackProvider from "@/components/TanStackProvider";
+import { Toaster } from "react-hot-toast";
 
 const inter = Anek_Bangla({ subsets: ["latin"] });
 
@@ -20,7 +22,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ContextProvider><Navbar />{children}<Footer /></ContextProvider>
+        <TanStackProvider>
+          <ContextProvider>
+            <Navbar />
+            {children}
+            <Toaster />
+            <Footer />
+          </ContextProvider>
+        </TanStackProvider>
       </body>
     </html>
   );

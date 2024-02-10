@@ -15,6 +15,11 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { useRouter } from "next/navigation"
+import axios from "axios"
+import { useMutation } from "@tanstack/react-query"
+import { LoginIProps } from "@/types"
+import toast from "react-hot-toast"
+import { useUser } from "./ContextProvider"
 
 
 
@@ -26,7 +31,17 @@ const formSchema = z.object({
 });
 
 export function SingInForm() {
+	const { user, setUser } = useUser();
 	const router = useRouter();
+	// Login
+	const { mutate, isPending } = useMutation({
+		mutationFn: async ({ email, password }: LoginIProps) => {
+			const response = await axios.post("/api/login", {
+				email, password
+			});
+			return response.data;
+		},
+	});
 
 	// 1. Define your form.
 	const form = useForm<z.infer<typeof formSchema>>({
@@ -36,7 +51,21 @@ export function SingInForm() {
 	function onSubmit(values: z.infer<typeof formSchema>) {
 		const email = values.email;
 		const password = values.password;
-		console.log(email, password);
+		mutate({ email, password }, {
+			onSuccess: (data) => {
+				if (data?.username) {
+					localStorage.setItem('username', data?.username);
+					setUser(data);
+					toast.success("Login Successfully");
+					router.push(`/karze-hasana`)
+				} else {
+					toast.error("Login Failed")
+				}
+			},
+			onError: (error) => {
+				toast.error("Login Failed");
+			}
+		});
 	}
 
 	return (
@@ -68,7 +97,7 @@ export function SingInForm() {
 						</FormItem>
 					)}
 				/>
-				<Button type="submit">Submit</Button>
+				{isPending ? <Button type="submit" disabled>Loading...</Button> : <Button type="submit">Submit</Button>}
 			</form>
 		</Form>
 	);

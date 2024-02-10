@@ -16,6 +16,7 @@ model Branch {
   email         String @unique
   password      String
   village       String
+  photoUrl      String
   postOffice    String
   policeStation String
   district      String
@@ -62,6 +63,7 @@ model Donor {
   name     String
   phone    String
   photos   String
+  photoUrl String
   about    String
   amount   String @default("00")
   status   String @default("DONOR")

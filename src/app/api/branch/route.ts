@@ -17,11 +17,11 @@ export const GET = async () => {
 export const POST = async (request: Request) => {
 	try {
 		const body: BranchIProps = await request.json();
-		const { name, username, email, password, village, policeStation, postOffice, psFatherName, psName, psPhone, address, district, mosjid } = body;
+		const { name, username, email, password, village, policeStation, postOffice, psFatherName, psName, psPhone, address, district, mosjid, photoUrl } = body;
 		console.log(body);
 		const result = await prisma.branch.create({
 			data: {
-				username, email, password, village, district, policeStation, postOffice, psName, psFatherName, psPhone, address, name, mosjid
+				username, email, password, village, district, policeStation, postOffice, psName, psFatherName, psPhone, address, name, mosjid, photoUrl
 			}
 		});
 		return NextResponse.json({ message: "Successfully Branch Created", result }, { status: 201 });

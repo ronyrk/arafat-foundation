@@ -6,9 +6,11 @@ export interface DonorIProps {
 	phone: string,
 	about: string,
 	photos: string,
+	photoUrl: string
 };
 
 export interface BranchIProps {
+	id?: string,
 	username: string,
 	email: string,
 	password: string,
@@ -22,6 +24,7 @@ export interface BranchIProps {
 	psName: string,
 	psPhone: string,
 	district: string,
+	photoUrl: string
 };
 export interface UserNameIProps {
 	username: string,

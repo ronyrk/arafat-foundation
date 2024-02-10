@@ -16,17 +16,25 @@ export const POST = async (request: NextRequest) => {
 			return NextResponse.json({ message: "Invalid request. Email and password are required." });
 		};
 		const [branch, donor] = await Promise.all([
-			prisma.branch.findUnique({ where: { email } }),
-			prisma.donor.findUnique({ where: { email } })
+			prisma.branch.findUnique({
+				where: { email }, select: {
+					username: true, name: true, email: true, photoUrl: true, status: true, password: true
+				}
+			}),
+			prisma.donor.findUnique({
+				where: { email }, select: {
+					username: true, name: true, email: true, photoUrl: true, status: true, password: true
+				}
+			})
 		]);
 		if (!branch) {
 			if (donor) {
 				if (donor.password === password) {
-					const payload = { id: donor.id, status: donor.status, username: donor.username };
+					const payload = { status: donor.status, username: donor.username };
 
 					const token = JWT.sign(payload, secretKey, { expiresIn: "1h" })
 					cookies().set("token", token);
-					return NextResponse.json({ message: "Login successfully", token });
+					return NextResponse.json(donor);
 				} else {
 					return NextResponse.json({ message: "Your password is incorrect" });
 				}
@@ -35,10 +43,10 @@ export const POST = async (request: NextRequest) => {
 			}
 		} else {
 			if (branch.password === password) {
-				const payload = { id: branch.id, status: branch.status, username: branch.username };
+				const payload = { status: branch.status, username: branch.username };
 				const token = JWT.sign(payload, secretKey, { expiresIn: "1h" })
 				cookies().set("token", token);
-				return NextResponse.json({ message: "Login successfully", token });
+				return NextResponse.json(branch);
 			} else {
 				return NextResponse.json({ message: "Your password is incorrect" });
 			}
