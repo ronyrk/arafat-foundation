@@ -30,21 +30,24 @@ model Branch {
 }
 
 model Loan {
-  id            String @id @default(auto()) @map("_id") @db.ObjectId
-  username      String @unique
-  village       String
-  post          String
-  policeStation String
-  district      String
-  branch        String
-  name          String
-  fatherName    String
-  motherName    String
-  occupation    String
-  phone         String
-  amount        String
-  photosUrl     String
-  status        Status @default(RUNNING)
+  id         String  @id @default(auto()) @map("_id") @db.ObjectId
+  username   String  @unique
+  name       String
+  code       String  @unique
+  branch     String
+  address    String
+  about      String?
+  disbursed  String
+  recovered  String
+  balance    String
+  form1      String
+  form2      String
+  nidfont    String
+  nidback    String
+  occupation String
+  phone      String
+  photosUrl  String
+  status     Status  @default(RUNNING)
 }
 
 model Admin {
@@ -59,13 +62,14 @@ model Donor {
   id       String @id @default(auto()) @map("_id") @db.ObjectId
   username String @unique
   email    String @unique
+  code     String @unique
   password String
   name     String
-  phone    String
-  photos   String
   photoUrl String
   about    String
-  amount   String @default("00")
+  amount   String
+  lives    String
+  hometown String
   status   String @default("DONOR")
 }
 

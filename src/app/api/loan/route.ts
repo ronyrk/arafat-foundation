@@ -8,10 +8,10 @@ export const dynamic = 'force-dynamic'
 export const POST = async (request: Request) => {
 	try {
 		const body: LoanIProps = await request.json();
-		const { username, village, post, policeStation, district, branch, name, fatherName, motherName, occupation, phone, amount, photosUrl } = body;
+		const { username, name, code, branch, address, about, disbursed, recovered, balance, form1, form2, nidback, nidfont, occupation, phone, photosUrl } = body;
 		const loan = await prisma.loan.create({
 			data: {
-				username, village, post, policeStation, district, branch, name, fatherName, motherName, occupation, phone, amount, photosUrl
+				username, name, code, branch, address, about, disbursed, recovered, balance, form1, form2, nidback, nidfont, occupation, phone, photosUrl
 			}
 		});
 		return NextResponse.json({ message: "loan created Successfully", loan });
