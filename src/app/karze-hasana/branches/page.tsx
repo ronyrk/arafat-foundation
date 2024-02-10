@@ -32,7 +32,7 @@ async function BranchList() {
 						<TableCell className="font-medium uppercase">{item.name}</TableCell>
 						<TableCell className="font-medium uppercase">
 							<Button size={"sm"} asChild>
-								<Link className=' bg-color-sub hover:bg-color-main ' href={`branch/${item.username}`}>DETAILS</Link>
+								<Link className=' bg-color-sub hover:bg-color-main ' href={`/branch/${item.username}`}>DETAILS</Link>
 							</Button>
 
 						</TableCell>
