@@ -2,11 +2,12 @@
 import React, { ReactNode, createContext, useContext, useEffect, useState } from 'react'
 
 export interface User {
-	id: string,
+	username: string,
 	name: string,
 	email: string,
 	photoUrl: string,
 	status: string,
+	password?: string,
 };
 
 interface ContextType {
@@ -32,26 +33,26 @@ export function ContextProvider({ children }: { children: ReactNode }) {
 	const [Guest, setGust] = useState(false);
 
 	// User Call all Time 
-	// useEffect(() => {
-	// 	const id = localStorage.getItem('id');
-	// 	if (id) {
-	// 		const getUser = async (id: string) => {
-	// 			try {
-	// 				const res = await fetch(`/api/users/${id}`);
-	// 				const data = await res.json();
-	// 				setUser(data);
-	// 				setIsLoading(false);
-	// 			} catch (error) {
-	// 				setIsLoading(false);
-	// 			}
+	useEffect(() => {
+		const username = localStorage.getItem('username');
+		if (username) {
+			const getUser = async (username: string) => {
+				try {
+					const res = await fetch(`/api/${username}`);
+					const data = await res.json();
+					setUser(data);
+					setIsLoading(false);
+				} catch (error) {
+					setIsLoading(false);
+				}
 
-	// 		};
-	// 		getUser(id);
-	// 	} else {
-	// 		setGust(true);
-	// 		// console.log("Guest Users");
-	// 	}
-	// }, []);
+			};
+			getUser(username);
+		} else {
+			setGust(true);
+			console.log("Guest Users");
+		}
+	}, []);
 
 
 	return <GlobalContext.Provider value={{ user, setUser, isUserLoading }} >{children}</GlobalContext.Provider>
