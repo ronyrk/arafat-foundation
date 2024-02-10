@@ -10,30 +10,31 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button"
 import Link from 'next/link';
-import { BranchIProps } from '@/types';
+import { BranchIProps, DonorIProps, LoanIProps } from '@/types';
 import { unstable_noStore } from 'next/cache';
 import { Input } from '@/components/ui/input';
 
-async function BranchList() {
+async function BorrowersList() {
 	unstable_noStore();
-	let res = await fetch('https://arafatfoundation.vercel.app/api/branch');
+	let res = await fetch('https://arafatfoundation.vercel.app/api/loan');
 	if (!res.ok) {
 		throw new Error("Failed to fetch data");
 	};
-	let branches: BranchIProps[] = await res.json();
+	const borrowers: LoanIProps[] = await res.json();
 
 	return (
 		<TableBody>
 			{
-				branches.map((item, index: number) => (
+				borrowers.map((item, index: number) => (
 					<TableRow key={index}>
-						<TableCell className="font-medium">{index + 1}</TableCell>
-						<TableCell className="font-medium uppercase">{item.mosjid}</TableCell>
-						<TableCell className="font-medium uppercase" >{item.district}</TableCell>
+						<TableCell className="font-medium">{item.code}</TableCell>
 						<TableCell className="font-medium uppercase">{item.name}</TableCell>
+						<TableCell className="font-medium uppercase" >{item.disbursed}</TableCell>
+						<TableCell className="font-medium uppercase">{item.recovered}</TableCell>
+						<TableCell className="font-medium uppercase">{item.balance}</TableCell>
 						<TableCell className="font-medium uppercase">
 							<Button className='bg-color-sub' size={"sm"} asChild>
-								<Link href={`/branches/${item.username}`}>DETAILS</Link>
+								<Link href={`borrowers/${item.username}`}>DETAILS</Link>
 							</Button>
 
 						</TableCell>
@@ -56,15 +57,16 @@ async function page() {
 				<TableCaption>A list of your recent invoices.</TableCaption>
 				<TableHeader>
 					<TableRow>
-						<TableHead>INDEX</TableHead>
-						<TableHead>BRANCH</TableHead>
-						<TableHead>DISTRICT</TableHead>
-						<TableHead>P. NAME</TableHead>
+						<TableHead>CODE</TableHead>
+						<TableHead>BORROWERS NAME</TableHead>
+						<TableHead>DISBURSED</TableHead>
+						<TableHead>RECOVERED</TableHead>
+						<TableHead>BALANCE</TableHead>
 						<TableHead>DETAILS</TableHead>
 					</TableRow>
 				</TableHeader>
 				<Suspense fallback={<h2 className=' text-center p-4'>Loading...</h2>} >
-					<BranchList />
+					<BorrowersList />
 				</Suspense>
 			</Table>
 
