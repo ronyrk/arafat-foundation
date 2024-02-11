@@ -16,8 +16,8 @@ async function page({ params }: ParamsIProps) {
 	const { username } = params;
 	const data: LoanIProps = await getUser(username);
 	return (
-		<div className='flex flex-col gap-4'>
-			<div className="flex flex-row justify-between gap-2">
+		<div className='flex flex-col gap-3'>
+			<div className="flex md:flex-row flex-col justify-between gap-3 px-2">
 				<div className=" basis-3/12 border-[2px] p-2 flex justify-around relative rounded">
 					<Image className=' rounded-md object-cover' src={data.photosUrl} alt={data.name} width={260} height={140} />
 					<span className=" absolute top-3 bg-white left-2 border-[2px] text-[13px] font-normal p-[2px] rounded">ঋণগ্রহীতা</span>
