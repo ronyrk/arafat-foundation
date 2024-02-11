@@ -14,35 +14,35 @@ import { BranchIProps } from '@/types';
 import { unstable_noStore } from 'next/cache';
 import { Input } from '@/components/ui/input';
 
-// async function BranchList() {
-// 	unstable_noStore();
-// 	let res = await fetch('https://arafatfoundation.vercel.app/api/branch');
-// 	if (!res.ok) {
-// 		throw new Error("Failed to fetch data");
-// 	};
-// 	let branches: BranchIProps[] = await res.json();
+async function BranchList() {
+	unstable_noStore();
+	let res = await fetch('https://arafatfoundation.vercel.app/api/branch');
+	if (!res.ok) {
+		throw new Error("Failed to fetch data");
+	};
+	let branches: BranchIProps[] = await res.json();
 
-// 	return (
-// 		<TableBody>
-// 			{
-// 				branches.map((item, index: number) => (
-// 					<TableRow key={index}>
-// 						<TableCell className="font-medium">{item.code}</TableCell>
-// 						<TableCell className="font-medium uppercase">{item.branchName}</TableCell>
-// 						<TableCell className="font-medium uppercase" >{item.district}</TableCell>
-// 						<TableCell className="font-medium uppercase">{item.ps}</TableCell>
-// 						<TableCell className="font-medium uppercase">
-// 							<Button className='bg-color-sub' size={"sm"} asChild>
-// 								<Link href={`/branches/${item.username}`}>DETAILS</Link>
-// 							</Button>
+	return (
+		<TableBody>
+			{
+				branches.map((item, index: number) => (
+					<TableRow key={index}>
+						<TableCell className="font-medium">{item.code}</TableCell>
+						<TableCell className="font-medium uppercase">{item.branchName}</TableCell>
+						<TableCell className="font-medium uppercase" >{item.district}</TableCell>
+						<TableCell className="font-medium uppercase">{item.ps}</TableCell>
+						<TableCell className="font-medium uppercase">
+							<Button className='bg-color-sub' size={"sm"} asChild>
+								<Link href={`/branches/${item.username}`}>DETAILS</Link>
+							</Button>
 
-// 						</TableCell>
-// 					</TableRow>
-// 				))
-// 			}
-// 		</TableBody>
-// 	)
-// };
+						</TableCell>
+					</TableRow>
+				))
+			}
+		</TableBody>
+	)
+};
 
 
 
@@ -64,7 +64,7 @@ async function page() {
 					</TableRow>
 				</TableHeader>
 				<Suspense fallback={<h2 className=' text-center p-4'>Loading...</h2>} >
-					{/* <BranchList /> */}
+					<BranchList />
 				</Suspense>
 			</Table>
 
