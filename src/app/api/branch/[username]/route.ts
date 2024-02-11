@@ -24,19 +24,13 @@ export const PATCH = async (request: Request, { params }: ParamsIProps) => {
 	try {
 		const { username } = params;
 		const body = await request.json();
-		const { password, psFatherName, psName, psPhone, address, mosjid } = body;
+		const { password } = body;
 		const result = await prisma.branch.update({
 			where: {
 				username
 			},
 			data: {
 				password,
-				psFatherName,
-				psName,
-				psPhone,
-				address,
-				mosjid
-
 			}
 		});
 		return NextResponse.json({ message: "successfully updated", result })
