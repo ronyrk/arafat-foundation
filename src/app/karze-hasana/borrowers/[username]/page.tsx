@@ -1,3 +1,4 @@
+import BorrowersDocuments from '@/components/BorrowersDocuments';
 import { LoanIProps, ParamsIProps } from '@/types'
 import Image from 'next/image';
 import React from 'react'
@@ -28,14 +29,7 @@ async function page({ params }: ParamsIProps) {
 					<h2 className=" font-normal text-[15px]  text-color-main"><span className="font-semibold mr-2">বকেয়া ঋণ:</span>1000</h2>
 					<h2 className=" font-normal text-[15px]  text-color-main"><span className="font-semibold mr-2">ফোন:</span>01793874052</h2>
 				</div>
-				<div className=" basis-5/12 border-[2px] rounded px-3 py-1 flex flex-col justify-around">
-					<h2 className=" font-semibold text-xl py-2 text-color-main">Borrowers Documents</h2>
-					<h2 className=" font-semibold text-[15px] py-2 text-color-main">Application Form 1</h2>
-					<h2 className=" font-semibold text-[15px] py-2 text-color-main">Application Form 2</h2>
-					<h2 className=" font-semibold text-[15px] py-2 text-color-main">NID Front</h2>
-					<h2 className=" font-semibold text-[15px] py-2 text-color-main">NID Back</h2>
-
-				</div>
+				<BorrowersDocuments data={data} />
 			</div>
 		</div>
 	)
