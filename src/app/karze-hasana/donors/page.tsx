@@ -57,7 +57,7 @@ async function page() {
 				<TableHeader>
 					<TableRow>
 						<TableHead>CODE</TableHead>
-						<TableHead>NAME</TableHead>
+						<TableHead className='w-[300px]'>NAME</TableHead>
 						<TableHead>AMOUNT</TableHead>
 						<TableHead>TYPE</TableHead>
 						<TableHead>DETAILS</TableHead>
