@@ -33,7 +33,7 @@ async function BranchList() {
 						<TableCell className="font-medium uppercase">{item.ps}</TableCell>
 						<TableCell className="font-medium uppercase">
 							<Button className='bg-color-sub' size={"sm"} asChild>
-								<Link href={`/branches/${item.username}`}>DETAILS</Link>
+								<Link href={`branches/${item.username}`}>DETAILS</Link>
 							</Button>
 
 						</TableCell>
@@ -57,7 +57,7 @@ async function page() {
 				<TableHeader>
 					<TableRow>
 						<TableHead>CODE</TableHead>
-						<TableHead className='w-[100px]'>BRANCH</TableHead>
+						<TableHead className='w-[300px]'>BRANCH</TableHead>
 						<TableHead>DISTRICT</TableHead>
 						<TableHead>PS(TANA)</TableHead>
 						<TableHead>DETAILS</TableHead>
