@@ -1,5 +1,6 @@
 import BorrowersList from '@/components/BorrowersList';
 import { BranchIProps, ParamsIProps } from '@/types'
+import { cookies } from 'next/headers';
 import React from 'react'
 
 async function getData(username: string) {
@@ -11,15 +12,16 @@ async function getData(username: string) {
 };
 
 async function page({ params }: ParamsIProps) {
+	cookies();
 	const { username } = params;
 	const response = await getData(username);
 	const data: BranchIProps = await response.info;
 	return (
-		<div className='px-4 border-2 rounded p-1'>
+		<div className='p-1 px-4 border-2 rounded'>
 			<div className="flex flex-col">
-				<h2 className="text-center text-2xl font-medium text-color-main py-1">Branch details</h2>
-				<h2 className="text-center text-3xl font-medium text-color-main py-1">{data.branchName}</h2>
-				<h2 className="text-center text-xl font-medium text-color-main py-1">ঠিকানা:- {data.address}</h2>
+				<h2 className="py-1 text-2xl font-medium text-center text-color-main">Branch details</h2>
+				<h2 className="py-1 text-3xl font-medium text-center text-color-main">{data.branchName}</h2>
+				<h2 className="py-1 text-xl font-medium text-center text-color-main">ঠিকানা:- {data.address}</h2>
 			</div>
 			<BorrowersList response={response} />
 		</div>
