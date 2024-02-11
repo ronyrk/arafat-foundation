@@ -1,4 +1,5 @@
 import BorrowersDocuments from '@/components/BorrowersDocuments';
+import BorrowersTransaction from '@/components/BorrowersTransaction';
 import { LoanIProps, ParamsIProps } from '@/types'
 import Image from 'next/image';
 import React from 'react'
@@ -15,9 +16,9 @@ async function page({ params }: ParamsIProps) {
 	const { username } = params;
 	const data: LoanIProps = await getUser(username);
 	return (
-		<div>
+		<div className='flex flex-col gap-4'>
 			<div className="flex flex-row justify-between gap-2">
-				<div className=" basis-2/12 border-[2px] p-2 flex justify-around relative rounded">
+				<div className=" basis-3/12 border-[2px] p-2 flex justify-around relative rounded">
 					<Image className=' rounded-md object-cover' src={data.photosUrl} alt={data.name} width={260} height={140} />
 					<span className=" absolute top-3 bg-white left-2 border-[2px] text-[13px] font-normal p-[2px] rounded">ঋণগ্রহীতা</span>
 				</div>
@@ -32,6 +33,10 @@ async function page({ params }: ParamsIProps) {
 				</div>
 				<BorrowersDocuments data={data} />
 			</div>
+			<div className="p-4">
+				<h2 className="text-[16px] font-normal text-color-main">{data.about} </h2>
+			</div>
+			<BorrowersTransaction />
 		</div>
 	)
 }
