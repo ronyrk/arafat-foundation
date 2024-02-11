@@ -15,7 +15,7 @@ function BorrowersDocuments(params: any) {
 	const data: LoanIProps = params.data;
 	const { nidback, nidfont, form1, form2 } = data;
 	return (
-		<div className=" basis-5/12 border-[2px] rounded px-3 py-1 flex flex-col justify-around">
+		<div className=" basis-4/12 border-[2px] rounded px-3 py-1 flex flex-col justify-around">
 			<h2 className=" font-semibold text-xl py-2 text-color-main">Borrowers Documents</h2>
 			<div className="px-4">
 				<div className=" flex flex-row justify-between items-center">
