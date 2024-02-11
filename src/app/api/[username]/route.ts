@@ -10,7 +10,7 @@ export const GET = async (request: Request, { params }: ParamsIProps) => {
 		// Alternative
 		const user = await prisma.branch.findUnique({
 			where: { username }, select: {
-				username: true, name: true, email: true, photoUrl: true, status: true
+				username: true, email: true, photoUrl: true, status: true
 			}
 		});
 		if (!user) {

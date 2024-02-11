@@ -27,10 +27,10 @@ async function BranchList() {
 			{
 				branches.map((item, index: number) => (
 					<TableRow key={index}>
-						<TableCell className="font-medium">{index + 1}</TableCell>
-						<TableCell className="font-medium uppercase">{item.mosjid}</TableCell>
+						<TableCell className="font-medium">{item.code}</TableCell>
+						<TableCell className="font-medium uppercase">{item.branchName}</TableCell>
 						<TableCell className="font-medium uppercase" >{item.district}</TableCell>
-						<TableCell className="font-medium uppercase">{item.name}</TableCell>
+						<TableCell className="font-medium uppercase">{item.ps}</TableCell>
 						<TableCell className="font-medium uppercase">
 							<Button className='bg-color-sub' size={"sm"} asChild>
 								<Link href={`/branches/${item.username}`}>DETAILS</Link>
@@ -56,10 +56,10 @@ async function page() {
 				<TableCaption>A list of your recent invoices.</TableCaption>
 				<TableHeader>
 					<TableRow>
-						<TableHead>INDEX</TableHead>
+						<TableHead>CODE</TableHead>
 						<TableHead className='w-[100px]'>BRANCH</TableHead>
 						<TableHead>DISTRICT</TableHead>
-						<TableHead>P. NAME</TableHead>
+						<TableHead>PS(TANA)</TableHead>
 						<TableHead>DETAILS</TableHead>
 					</TableRow>
 				</TableHeader>

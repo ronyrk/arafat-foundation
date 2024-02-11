@@ -18,12 +18,12 @@ export const POST = async (request: NextRequest) => {
 		const [branch, donor] = await Promise.all([
 			prisma.branch.findUnique({
 				where: { email }, select: {
-					username: true, name: true, email: true, photoUrl: true, status: true, password: true
+					username: true, email: true, photoUrl: true, status: true, password: true
 				}
 			}),
 			prisma.donor.findUnique({
 				where: { email }, select: {
-					username: true, name: true, email: true, photoUrl: true, status: true, password: true
+					username: true, email: true, photoUrl: true, status: true, password: true
 				}
 			})
 		]);

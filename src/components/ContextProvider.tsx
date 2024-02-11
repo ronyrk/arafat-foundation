@@ -3,7 +3,6 @@ import React, { ReactNode, createContext, useContext, useEffect, useState } from
 
 export interface User {
 	username: string,
-	name: string,
 	email: string,
 	photoUrl: string,
 	status: string,

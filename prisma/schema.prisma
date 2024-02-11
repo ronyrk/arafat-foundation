@@ -11,22 +11,34 @@ datasource db {
 }
 
 model Branch {
-  id            String @id @default(auto()) @map("_id") @db.ObjectId
-  username      String @unique
-  email         String @unique
-  password      String
-  village       String
-  photoUrl      String
-  postOffice    String
-  policeStation String
-  district      String
-  mosjid        String
-  name          String @unique
-  psFatherName  String
-  address       String
-  psName        String
-  psPhone       String
-  status        String @default("BRANCH")
+  id                   String   @id @default(auto()) @map("_id") @db.ObjectId
+  code                 String   @unique
+  username             String   @unique
+  email                String   @unique
+  branchName           String   @unique
+  district             String
+  ps                   String
+  password             String
+  address              String
+  photoUrl             String[]
+  teamLeaderName       String
+  teamLeaderPhone      String
+  teamLeaderAddress    String
+  teamLeaderOccupation String
+  teamLeaderPhotoUrl   String
+  presidentName        String
+  presidentAddress     String
+  presidentPhone       String
+  presidentOccupation  String
+  ImamName             String
+  ImamAddress          String
+  ImamPhone            String
+  ImamOccupation       String
+  SecretaryName        String
+  SecretaryAddress     String
+  SecretaryPhone       String
+  SecretaryOccupation  String
+  status               String   @default("BRANCH")
 }
 
 model Loan {
