@@ -57,7 +57,7 @@ async function page() {
 				<TableHeader>
 					<TableRow>
 						<TableHead>INDEX</TableHead>
-						<TableHead>BRANCH</TableHead>
+						<TableHead className='w-[100px]'>BRANCH</TableHead>
 						<TableHead>DISTRICT</TableHead>
 						<TableHead>P. NAME</TableHead>
 						<TableHead>DETAILS</TableHead>
