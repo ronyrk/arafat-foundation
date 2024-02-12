@@ -51,15 +51,15 @@ function BorrowersList(params: RequestParams) {
 								<AccordionItem value="item-3">
 									<AccordionTrigger className='text-lg font-medium text-color-main'>টিম লিডার</AccordionTrigger>
 									<AccordionContent>
-										<div className="flex flex-row gap-1">
-											<div className="basis-9/12 border-[2px] rounded py-1 px-4 flex flex-col justify-around">
+										<div className="flex md:flex-row flex-col gap-1">
+											<div className="md:basis-9/12 w-full border-[2px] rounded py-1 md:px-4 px-2 flex flex-col justify-around">
 												<h2 className=" font-normal text-[15px]  text-color-main"><span className="mr-2 font-semibold">নাম:</span>{teamLeaderName}</h2>
 												<h2 className=" font-normal text-[15px]  text-color-main"><span className="mr-2 font-semibold">ফোন :</span>{teamLeaderPhone}</h2>
 												<h2 className=" font-normal text-[15px]  text-color-main"><span className="mr-2 font-semibold">ঠিকানা :</span>{teamLeaderAddress}</h2>
 												<h2 className=" font-normal text-[15px]  text-color-main"><span className="mr-2 font-semibold">পেশা:</span>{teamLeaderOccupation}</h2>
 											</div>
 
-											<div className="basis-3/12 border-[2px]  flex justify-around rounded">
+											<div className="md:basis-3/12 w-full border-[2px]  flex justify-around rounded">
 												<Image className='object-cover rounded' src={teamLeaderPhotoUrl} alt={teamLeaderName} width={260} height={140} />
 											</div>
 
@@ -120,7 +120,7 @@ function BorrowersList(params: RequestParams) {
 				<AccordionItem value="item-8">
 					<AccordionTrigger className='text-lg font-medium text-color-main'>মসজিদের ছবি</AccordionTrigger>
 					<AccordionContent>
-						<div className="grid grid-cols-4 gap-4 p-2 justify-items-center">
+						<div className="grid md:grid-cols-4 grid-cols-2 md:gap-4 gap-1 md:p-2 p-1 justify-items-center">
 							{
 								photoUrl.map((item, index) => (
 									<div key={index} >
