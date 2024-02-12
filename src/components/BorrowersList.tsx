@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import {
 	Accordion,
 	AccordionContent,
@@ -15,6 +15,18 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog"
+import {
+	Table,
+	TableBody,
+	TableCaption,
+	TableCell,
+	TableHead,
+	TableHeader,
+	TableRow,
+} from "@/components/ui/table";
+import { Input } from '@/components/ui/input';
+import Link from 'next/link';
+import { Button } from "@/components/ui/button"
 
 
 interface RequestParams {
@@ -27,16 +39,57 @@ interface RequestParams {
 
 
 
-function BorrowersList(params: RequestParams) {
+async function BorrowersList(params: RequestParams) {
 	const { branchName, teamLeaderName, teamLeaderAddress, teamLeaderOccupation, teamLeaderPhone, teamLeaderPhotoUrl, photoUrl, presidentAddress, presidentName, presidentOccupation, presidentPhone, SecretaryAddress, SecretaryName, SecretaryOccupation, SecretaryPhone, ImamAddress, ImamName, ImamOccupation, ImamPhone } = params.response.info;
+	const loanList: LoanIProps[] = params.response.loanList;
 	return (
 		<div className='p-2'>
 			<Accordion type="single" className='py-1' collapsible>
 				<AccordionItem value="item-1">
 					<AccordionTrigger className='text-lg font-medium text-color-main'>Borrowers List</AccordionTrigger>
 					<AccordionContent>
-						<div className="">
+						<div className="flex flex-col gap-2">
 							<h2 className="text-base font-medium text-center">{branchName} এর আওতাধীন ঋণ গ্রহীতার লিস্ট</h2>
+							<div className='flex flex-col'>
+								<div className="px-4 py-2 flex justify-end">
+									<Input className='w-64' type="text" placeholder="Search" />
+								</div>
+								<Table>
+									<TableCaption>A list of your recent invoices.</TableCaption>
+									<TableHeader>
+										<TableRow>
+											<TableHead>CODE</TableHead>
+											<TableHead className='w-[300px]'>BORROWERS NAME</TableHead>
+											<TableHead>DISBURSED</TableHead>
+											<TableHead>RECOVERED</TableHead>
+											<TableHead>BALANCE</TableHead>
+											<TableHead>DETAILS</TableHead>
+										</TableRow>
+									</TableHeader>
+									<Suspense fallback={<h2 className=' text-center p-4'>Loading...</h2>} >
+										<TableBody>
+											{
+												loanList.map((item, index: number) => (
+													<TableRow key={index}>
+														<TableCell className="font-medium">{item.code}</TableCell>
+														<TableCell className="font-medium uppercase">{item.name}</TableCell>
+														<TableCell className="font-medium uppercase" >{item.disbursed}</TableCell>
+														<TableCell className="font-medium uppercase">{item.recovered}</TableCell>
+														<TableCell className="font-medium uppercase">{item.balance}</TableCell>
+														<TableCell className="font-medium uppercase">
+															<Button className='bg-color-sub' size={"sm"} asChild>
+																<Link href={`/karze-hasana/borrowers/${item.username}`}>DETAILS</Link>
+															</Button>
+
+														</TableCell>
+													</TableRow>
+												))
+											}
+										</TableBody>
+									</Suspense>
+								</Table>
+
+							</div>
 						</div>
 					</AccordionContent>
 				</AccordionItem>
