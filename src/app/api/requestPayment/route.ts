@@ -18,10 +18,10 @@ export const GET = async () => {
 export const POST = async (request: Request) => {
 	try {
 		const body: PaymentIProps = await request.json();
-		const { loanusername, phone, amount, transactionId } = body;
+		const { loanusername, photoUrl, amount, method } = body;
 		const payment = await prisma.request.create({
 			data: {
-				loanusername, phone, amount, transactionId
+				loanusername, photoUrl, amount, method
 			}
 		});
 		const info = await prisma.loan.findUnique({ where: { username: loanusername } });
