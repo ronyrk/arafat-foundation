@@ -1,2 +1,2 @@
 ## Getting Started
-## arafatfoundation.vercel.
+## arafatfoundation.vercel.app
