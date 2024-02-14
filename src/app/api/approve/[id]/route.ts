@@ -8,10 +8,10 @@ export const dynamic = 'force-dynamic'
 export const POST = async (request: Request) => {
 	try {
 		const body: PaymentIProps = await request.json();
-		const { loanusername, phone, amount, transactionId } = body;
+		const { loanusername, photoUrl, amount, method } = body;
 		const payment = await prisma.payment.create({
 			data: {
-				loanusername, phone, amount, transactionId
+				loanusername, photoUrl, amount, method
 			}
 		});
 		return NextResponse.json({ message: "payment Successfully Added", payment });
