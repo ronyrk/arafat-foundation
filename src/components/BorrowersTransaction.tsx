@@ -22,13 +22,23 @@ async function LoanList({ username, loanAmount }: { username: string, loanAmount
 	}
 	const data: PaymentIProps[] = await res.json();
 
+	const loadAmount = async (amount: string, index: number) => {
+		const sumArray = data.slice(0, index + 1);
+		let indexPaymentString: string[] = [];
+		const result = sumArray.forEach((item) => indexPaymentString.push(item.amount));
+		let indexPayment = indexPaymentString.map(Number);
+		const loanSumAmount = indexPayment.reduce((accumulator, currentValue) => accumulator - currentValue, 500000);
+		console.log(loanSumAmount, amount, "sum read");
+		return "9000"
+	}
+
 	return (
 		<TableBody>
 			{
 				data.map((item, index) => (
 					<TableRow key={index}>
 						<TableCell>{`${Moment(item.createAt).subtract(1, "years").format('DD/MM/YYYY')}`}</TableCell>
-						<TableCell>BDT ={loanAmount}/=</TableCell>
+						<TableCell>BDT ={loadAmount(item.amount, index)}/=</TableCell>
 						<TableCell>BDT ={item.amount}/=</TableCell>
 						<TableCell>BDT ={parseInt(loanAmount) - parseInt(item.amount)}/=</TableCell>
 					</TableRow>
