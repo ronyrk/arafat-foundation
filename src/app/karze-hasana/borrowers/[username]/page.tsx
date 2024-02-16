@@ -1,10 +1,12 @@
 import BorrowersDocuments from '@/components/BorrowersDocuments';
 import BorrowersTransaction from '@/components/BorrowersTransaction';
 import { LoanIProps, ParamsIProps } from '@/types'
+import { unstable_noStore } from 'next/cache';
 import Image from 'next/image';
 import React from 'react'
 
 async function getUser(username: string) {
+	unstable_noStore();
 	const res = await fetch(`https://arafatfoundation.vercel.app/api/loan/${username}`);
 	if (!res.ok) {
 		throw new Error("Failed to fetch data");
@@ -15,6 +17,7 @@ async function getUser(username: string) {
 async function page({ params }: ParamsIProps) {
 	const { username } = params;
 	const data: LoanIProps = await getUser(username);
+	console.log(data, "single")
 	return (
 		<div className='flex flex-col gap-3'>
 			<div className="flex md:flex-row flex-col justify-between gap-3 px-2">
