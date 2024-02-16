@@ -10,9 +10,42 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button"
 import Link from 'next/link';
-import { LoanIProps } from '@/types';
+import { LoanIProps, PaymentIProps } from '@/types';
 import { unstable_noStore } from 'next/cache';
 import { Input } from '@/components/ui/input';
+import { getUser } from './[username]/page';
+
+async function duePayment(username: string) {
+	unstable_noStore();
+	const response = await fetch(`https://arafatfoundation.vercel.app/api/loan_list/${username}`);
+	if (!response.ok) {
+		throw new Error("Failed to fetch data");
+	}
+	const paymentList: PaymentIProps[] = await response.json();
+	const data: LoanIProps = await getUser(username);
+
+	let indexPaymentString: string[] = ["0"];
+	const result = paymentList.forEach((item) => indexPaymentString.push(item.amount));
+	let indexPayment = indexPaymentString.map(Number);
+	const Amount = indexPayment.reduce((accumulator, currentValue) => accumulator - currentValue, Number(data.balance));
+	return `${Amount}`;
+}
+async function allPayment(username: string) {
+	unstable_noStore();
+	const response = await fetch(`https://arafatfoundation.vercel.app/api/loan_list/${username}`);
+	if (!response.ok) {
+		throw new Error("Failed to fetch data");
+	}
+	const paymentList: PaymentIProps[] = await response.json();
+	const data: LoanIProps = await getUser(username);
+	let indexPaymentString: string[] = ["0"];
+	const result = paymentList.forEach((item) => indexPaymentString.push(item.amount));
+	let indexPayment = indexPaymentString.map(Number);
+	const Amount = indexPayment.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+	return `${Amount}`;
+
+
+}
 
 async function BorrowersList() {
 	unstable_noStore();
@@ -22,6 +55,7 @@ async function BorrowersList() {
 	};
 	const borrowers: LoanIProps[] = await res.json();
 
+
 	return (
 		<TableBody>
 			{
@@ -29,9 +63,9 @@ async function BorrowersList() {
 					<TableRow key={index}>
 						<TableCell className="font-medium">{item.code}</TableCell>
 						<TableCell className="font-medium uppercase">{item.name}</TableCell>
-						<TableCell className="font-medium uppercase" >{item.disbursed}</TableCell>
-						<TableCell className="font-medium uppercase">{item.recovered}</TableCell>
-						<TableCell className="font-medium uppercase">{item.balance}</TableCell>
+						<TableCell className="font-medium uppercase" >{item.balance}</TableCell>
+						<TableCell className="font-medium uppercase">{allPayment(item?.username)}</TableCell>
+						<TableCell className="font-medium uppercase">{duePayment(item?.username)}</TableCell>
 						<TableCell className="font-medium uppercase">
 							<Button className='bg-color-sub' size={"sm"} asChild>
 								<Link href={`borrowers/${item.username}`}>DETAILS</Link>
@@ -54,7 +88,6 @@ async function page() {
 				<Input className='w-64' type="text" placeholder="Search" />
 			</div>
 			<Table>
-				<TableCaption>A list of your recent invoices.</TableCaption>
 				<TableHeader>
 					<TableRow>
 						<TableHead>CODE</TableHead>
