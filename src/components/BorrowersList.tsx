@@ -55,7 +55,6 @@ async function BorrowersList(params: RequestParams) {
 									<Input className='w-64' type="text" placeholder="Search" />
 								</div>
 								<Table>
-									<TableCaption>A list of your recent invoices.</TableCaption>
 									<TableHeader>
 										<TableRow>
 											<TableHead>CODE</TableHead>

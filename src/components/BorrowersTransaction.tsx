@@ -13,8 +13,6 @@ import { PaymentIProps } from '@/types';
 import Moment from "moment"
 
 async function LoanList({ username, loanAmount }: { username: string, loanAmount: string }) {
-	const options: any = { year: 'numeric', month: '2-digit', day: '2-digit' };
-
 	unstable_noStore();
 	const res = await fetch(`https://arafatfoundation.vercel.app/api/loan_list/${username}`);
 	if (!res.ok) {
@@ -22,14 +20,24 @@ async function LoanList({ username, loanAmount }: { username: string, loanAmount
 	}
 	const data: PaymentIProps[] = await res.json();
 
-	const loadAmount = async (amount: string, index: number) => {
-		const sumArray = data.slice(0, index + 1);
-		let indexPaymentString: string[] = [];
+	const loadAmountMain = async (amount: string, index: number) => {
+		const sumArray = data.slice(0, index);
+		let indexPaymentString: string[] = ["0"];
 		const result = sumArray.forEach((item) => indexPaymentString.push(item.amount));
 		let indexPayment = indexPaymentString.map(Number);
-		const loanSumAmount = indexPayment.reduce((accumulator, currentValue) => accumulator - currentValue, 500000);
-		console.log(loanSumAmount, amount, "sum read");
-		return "9000"
+		const loanSumAmount = indexPayment.reduce((accumulator, currentValue) => accumulator - currentValue, Number(amount));
+		return `${loanSumAmount}`;
+	};
+
+	const loanOutStanding = async (amount: string, index: number, paymentAmount: string) => {
+		const sumArray = data.slice(0, index);
+		const payment = Number(paymentAmount);
+		let indexPaymentString: string[] = ["0"];
+		sumArray.forEach((item) => indexPaymentString.push(item.amount));
+		let indexPayment = indexPaymentString.map(Number);
+		const loanSumAmount = indexPayment.reduce((accumulator, currentValue) => accumulator - currentValue, Number(amount));
+		const result = loanSumAmount - payment;
+		return result;
 	}
 
 	return (
@@ -38,9 +46,9 @@ async function LoanList({ username, loanAmount }: { username: string, loanAmount
 				data.map((item, index) => (
 					<TableRow key={index}>
 						<TableCell>{`${Moment(item.createAt).subtract(1, "years").format('DD/MM/YYYY')}`}</TableCell>
-						<TableCell>BDT ={loadAmount(item.amount, index)}/=</TableCell>
+						<TableCell>BDT ={loadAmountMain(loanAmount, index)}/=</TableCell>
 						<TableCell>BDT ={item.amount}/=</TableCell>
-						<TableCell>BDT ={parseInt(loanAmount) - parseInt(item.amount)}/=</TableCell>
+						<TableCell>BDT ={loanOutStanding(loanAmount, index, item.amount)}/=</TableCell>
 					</TableRow>
 				))
 			}
