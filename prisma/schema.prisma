@@ -103,6 +103,24 @@ model payment {
   createAt     DateTime @default(now())
 }
 
+model DonorRequest {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  donorUsername String
+  photoUrl      String
+  amount        String
+  method        String
+  createAt      DateTime @default(now())
+}
+
+model DonorPayment {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  donorUsername String
+  photoUrl      String
+  amount        String
+  method        String
+  createAt      DateTime @default(now())
+}
+
 enum Status {
   PENDING
   RUNNING
