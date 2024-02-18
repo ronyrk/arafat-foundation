@@ -115,9 +115,8 @@ model DonorRequest {
 model DonorPayment {
   id            String   @id @default(auto()) @map("_id") @db.ObjectId
   donorUsername String
-  photoUrl      String
   amount        String
-  method        String
+  loanPayment   String
   createAt      DateTime @default(now())
 }
 
