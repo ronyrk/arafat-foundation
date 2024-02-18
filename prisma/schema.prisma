@@ -82,7 +82,7 @@ model Donor {
   amount   String
   lives    String
   hometown String
-  status   String @default("DONOR")
+  status   String
 }
 
 model Request {
@@ -103,20 +103,12 @@ model payment {
   createAt     DateTime @default(now())
 }
 
-model DonorRequest {
-  id            String   @id @default(auto()) @map("_id") @db.ObjectId
-  donorUsername String
-  photoUrl      String
-  amount        String
-  method        String
-  createAt      DateTime @default(now())
-}
-
 model DonorPayment {
   id            String   @id @default(auto()) @map("_id") @db.ObjectId
   donorUsername String
   amount        String
   loanPayment   String
+  type          String
   createAt      DateTime @default(now())
 }
 

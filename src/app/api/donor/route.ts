@@ -19,9 +19,9 @@ export const GET = async () => {
 export const POST = async (request: Request) => {
 	try {
 		const body: DonorIProps = await request.json();
-		const { username, email, code, password, name, photoUrl, about, amount, lives, hometown } = body;
+		const { username, email, code, password, name, photoUrl, about, amount, lives, hometown, status } = body;
 		const result = await prisma.donor.create({
-			data: { username, email, code, password, name, photoUrl, about, amount, lives, hometown }
+			data: { username, email, code, password, name, photoUrl, about, amount, lives, hometown, status }
 		});
 		return NextResponse.json({ message: "successfully Donor Created", result }, { status: 200 });
 	} catch (error) {
