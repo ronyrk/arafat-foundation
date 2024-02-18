@@ -15,12 +15,6 @@ function page() {
 
 			<div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
 				<SingInForm />
-				<p className="mt-10 text-center text-sm text-gray-500">
-					Not a member?{' '}
-					<Link href="/register" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
-						Sing Up
-					</Link>
-				</p>
 			</div>
 		</div>
 	)

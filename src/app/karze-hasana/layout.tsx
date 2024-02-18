@@ -17,7 +17,7 @@ export default function KarzeHasanaLayout({
 }>) {
 	return (
 		<section>
-			{/* <HeaderSlider /> */}
+			<HeaderSlider />
 			<HeaderContent />
 			<div className="md:mx-20 md:my-4 my-2">
 				<div className="flex md:flex-row flex-col gap-4">
