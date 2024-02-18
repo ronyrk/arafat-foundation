@@ -108,7 +108,7 @@ model DonorPayment {
   donorUsername String
   amount        String
   loanPayment   String
-  type          String
+  type          String?
   createAt      DateTime @default(now())
 }
 
