@@ -2,7 +2,6 @@ import React, { Suspense } from 'react'
 import {
 	Table,
 	TableBody,
-	TableCaption,
 	TableCell,
 	TableHead,
 	TableHeader,
@@ -25,30 +24,29 @@ async function TableRowList(params: ParamsIProps) {
 	};
 	const data: DonorPaymentIProps[] = await res.json();
 
-	const loanPayment = async (amount: string, status: string) => {
-		if (status === 'DONOR') {
-			return 'N/A'
-		} else {
+	const loanAmount = async (amount: string, type: string) => {
+		if (type === "increase") {
 			return `BDT =${amount}/=`
+		} else {
+			return 'N/A'
 		}
-	};
-	const TotalAmount = async (amount: string, index: number) => {
-		let indexStringArray = ["0"];
-		const stringArray = data.slice(0, index + 1);
-		const arrayString = stringArray.forEach((item) => indexStringArray.push(item.amount));
-		const paymentArray = indexStringArray.map(Number);
-		const sumAmount = paymentArray.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
-		return `${sumAmount}`;
 	}
 
+	const loanPayment = async (amount: string, type: string) => {
+		if (type === "return") {
+			return `BDT =${amount}/=`
+		} else {
+			return 'N/A'
+		}
+	};
 	return (
 		<TableBody>
 			{
 				data.map((item, index) => (
 					<TableRow key={index}>
 						<TableCell>{`${moment(item.createAt).subtract(1, "years").format('DD/MM/YYYY')}`}</TableCell>
-						<TableCell>BDT ={item.amount}/=</TableCell>
-						<TableCell className='px-4'>{loanPayment(item.amount, status)} </TableCell>
+						<TableCell>{loanAmount(item.amount, item.type)}</TableCell>
+						<TableCell className='px-4'>{loanPayment(item.loanPayment, item.type)} </TableCell>
 					</TableRow>
 				))
 			}

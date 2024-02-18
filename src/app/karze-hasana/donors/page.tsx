@@ -10,9 +10,10 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button"
 import Link from 'next/link';
-import { BranchIProps, DonorIProps } from '@/types';
+import { BranchIProps, DonorIProps, DonorPaymentIProps } from '@/types';
 import { unstable_noStore } from 'next/cache';
 import { Input } from '@/components/ui/input';
+
 
 async function DonorList() {
 	unstable_noStore();
@@ -22,6 +23,40 @@ async function DonorList() {
 	};
 	const donors: DonorIProps[] = await res.json();
 
+
+	const TotalAmount = async (status: string, username: string) => {
+		unstable_noStore();
+		const response = await fetch(`https://arafatfoundation.vercel.app/api/donor_payment/donor/${username}`);
+		if (!response.ok) {
+			throw new Error("Failed fetch Data");
+		};
+		const paymentList: DonorPaymentIProps[] = await response.json();
+		if (status === "LEADER") {
+			const returnArray = paymentList.filter((item) => item.type === "return");
+			let returnStringArray: string[] = [];
+			returnArray.forEach((item) => returnStringArray.push(item.loanPayment));
+			const returnNumberArray = returnStringArray.map(Number);
+			const totalReturn = returnNumberArray.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+
+			const increaseArray = paymentList.filter((item) => item.type === "increase");
+			let increaseStringArray: string[] = [];
+			increaseArray.forEach((item) => increaseStringArray.push(item.amount));
+			const increaseNumberArray = increaseStringArray.map(Number);
+			const totalIncrease = increaseNumberArray.reduce((accumulator, currentValue) => accumulator + currentValue, 0)
+			return totalIncrease - totalReturn;
+		} else {
+			let amountStringArray: string[] = [];
+			const Create = paymentList.forEach((item) => amountStringArray.push(item.amount));
+			// Convert String Array to Number Array
+			let AmountArray = amountStringArray.map(Number);
+			const totalAmount = AmountArray.reduce((accumulator, currentValue) => accumulator + currentValue, 0)
+			// console.log(totalAmount, 'number array');
+			return `${totalAmount}`
+		}
+
+	}
+
+
 	return (
 		<TableBody>
 			{
@@ -29,7 +64,7 @@ async function DonorList() {
 					<TableRow key={index}>
 						<TableCell className="font-medium">{item.code}</TableCell>
 						<TableCell className="font-medium uppercase">{item.name}</TableCell>
-						<TableCell className="font-medium uppercase" >{item.amount}</TableCell>
+						<TableCell className="font-medium uppercase" >{TotalAmount(item.status, item.username)}</TableCell>
 						<TableCell className="font-medium uppercase">{item.status}</TableCell>
 						<TableCell className="font-medium uppercase">
 							<Button className='bg-color-sub' size={"sm"} asChild>

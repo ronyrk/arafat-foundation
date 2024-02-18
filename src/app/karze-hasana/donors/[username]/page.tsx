@@ -25,13 +25,29 @@ async function page({ params }: ParamsIProps) {
 	const paymentList: DonorPaymentIProps[] = await res.json();
 
 	const TotalAmount = async () => {
-		let amountStringArray: string[] = [];
-		const Create = paymentList.forEach((item) => amountStringArray.push(item.amount));
-		// Convert String Array to Number Array
-		let AmountArray = amountStringArray.map(Number);
-		const totalAmount = AmountArray.reduce((accumulator, currentValue) => accumulator + currentValue, 0)
-		console.log(totalAmount, 'number array');
-		return `${totalAmount}`
+		if (data.status === "LEADER") {
+			const returnArray = paymentList.filter((item) => item.type === "return");
+			let returnStringArray: string[] = [];
+			returnArray.forEach((item) => returnStringArray.push(item.loanPayment));
+			const returnNumberArray = returnStringArray.map(Number);
+			const totalReturn = returnNumberArray.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+
+			const increaseArray = paymentList.filter((item) => item.type === "increase");
+			let increaseStringArray: string[] = [];
+			increaseArray.forEach((item) => increaseStringArray.push(item.amount));
+			const increaseNumberArray = increaseStringArray.map(Number);
+			const totalIncrease = increaseNumberArray.reduce((accumulator, currentValue) => accumulator + currentValue, 0)
+			return totalIncrease - totalReturn;
+		} else {
+			let amountStringArray: string[] = [];
+			const Create = paymentList.forEach((item) => amountStringArray.push(item.amount));
+			// Convert String Array to Number Array
+			let AmountArray = amountStringArray.map(Number);
+			const totalAmount = AmountArray.reduce((accumulator, currentValue) => accumulator + currentValue, 0)
+			// console.log(totalAmount, 'number array');
+			return `${totalAmount}`
+		}
+
 	}
 
 	return (
@@ -39,7 +55,7 @@ async function page({ params }: ParamsIProps) {
 			<div className="flex md:flex-row flex-col justify-between gap-3 px-2">
 				<div className=" basis-3/12 border-[2px] p-2 flex justify-around relative rounded">
 					<Image className=' rounded-md object-cover' src={data.photoUrl} alt={data.name} width={260} height={140} />
-					<span className=" absolute top-3 bg-white left-2 border-[2px] text-[13px] font-normal p-[2px] rounded">Donor</span>
+					<span className=" absolute top-3 bg-white left-2 border-[2px] text-[13px] lowercase font-normal p-[2px] rounded">{data.status}</span>
 				</div>
 				<div className="basis-9/12 border-[2px] rounded p-1 px-2 flex flex-col justify-around">
 					<h2 className=" font-semibold text-xl py-1  text-color-main">{data.name}</h2>
