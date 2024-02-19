@@ -4,7 +4,8 @@ import React from 'react';
 import logo from '../../public/karze-hasana.png';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Lock } from 'lucide-react';
-import Marquees from './Marquee';
+import Marquee from 'react-fast-marquee'
+
 import Link from 'next/link';
 import { useUser } from './ContextProvider';
 import {
@@ -28,7 +29,9 @@ function HeaderSlider() {
 
 				<Image src={logo} className='md:mr-4 border-dashed rounded basis-1/12 border-white md:pr-4 pr-1 border-r-2 md:w-32 w-16 md:h-20 h-10' alt='logo' placeholder='blur' />
 				<div className="basis-10/12">
-					<Marquees />
+					<Marquee className='md:py-4'>
+						<h2 className="md:text-xl text-base text-white px-8">কর্জে হাসানা: সুদ যেখানে হার মানতে বাধ্য (দরিদ্র এবং সুবিধা বঞ্চিতদের জন্য 100% সুদ-মুক্ত ঋণ ♦ কোন সুদ নেই ♦ কোন প্রসেসিং ফি নেই ♦ কোন গোপন চার্জ নেই ♦ কোন সার্ভিস চার্জ নেই ♦ কোন আবেদন ফি নেই♦ কোন লাভ নেই।)</h2>
+					</Marquee>
 				</div>
 				<div className="md:px-4 px-2 basis-1/12">
 					{user?.username ?
