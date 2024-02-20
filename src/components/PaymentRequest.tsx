@@ -39,7 +39,7 @@ const FormSchema = z.object({
 });
 
 const initialState = {
-	imageUrl: "",
+	photoUrl: "",
 	message: "",
 	error: false
 };
