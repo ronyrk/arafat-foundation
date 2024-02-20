@@ -11,6 +11,7 @@ import {
 import { unstable_noStore } from 'next/cache';
 import { PaymentIProps } from '@/types';
 import Moment from "moment"
+import PaymentRequest from './PaymentRequest';
 
 async function LoanList({ username, loanAmount }: { username: string, loanAmount: string }) {
 	unstable_noStore();
@@ -60,6 +61,7 @@ async function LoanList({ username, loanAmount }: { username: string, loanAmount
 function BorrowersTransaction({ username, loanAmount }: { username: string, loanAmount: string }) {
 	return (
 		<div className=' border-[2px] rounded-sm px-2'>
+			<PaymentRequest />
 			<h2 className=" text-center font-semibold text-xl py-2 text-color-main uppercase">Transaction</h2>
 			<Table>
 				<TableHeader>
