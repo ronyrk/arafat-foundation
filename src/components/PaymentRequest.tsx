@@ -106,7 +106,7 @@ function PaymentRequest({ username, branch }: { username: string, branch: string
 						</DialogHeader>
 						<div className="flex flex-col gap-2">
 							<form action={formAction} className='flex flex-row gap-1'>
-								<input type="file" name="image" id="image" accept='images/*' />
+								<input type="file" name="image" id="image" accept='image/*' />
 								{pending ? <Button disabled>Uploading..</Button> : <Button type="submit">Submit</Button>}
 							</form>
 							{
