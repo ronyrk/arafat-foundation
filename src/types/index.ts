@@ -89,13 +89,13 @@ export interface PaymentIProps {
 	photoUrl: string,
 	amount: string,
 	method: string,
-	createAt: Date
+	createAt?: Date
 };
 export interface DonorPaymentIProps {
 	id?: string,
 	donorUsername: string,
 	loanPayment: string,
 	amount: string,
-	createAt: Date,
+	createAt?: Date,
 	type: string,
 };

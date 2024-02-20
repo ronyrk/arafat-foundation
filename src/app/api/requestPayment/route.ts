@@ -24,8 +24,7 @@ export const POST = async (request: Request) => {
 				loanusername, photoUrl, amount, method
 			}
 		});
-		const info = await prisma.loan.findUnique({ where: { username: loanusername } });
-		return NextResponse.json({ message: "payment Successfully Added", payment, info });
+		return NextResponse.json({ message: "payment Successfully Added", payment });
 	} catch (error) {
 		return NextResponse.json({ message: error });
 	}

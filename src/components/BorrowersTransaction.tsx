@@ -2,14 +2,13 @@ import React, { Suspense } from 'react'
 import {
 	Table,
 	TableBody,
-	TableCaption,
 	TableCell,
 	TableHead,
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
 import { unstable_noStore } from 'next/cache';
-import { PaymentIProps } from '@/types';
+import { LoanIProps, PaymentIProps } from '@/types';
 import Moment from "moment"
 import PaymentRequest from './PaymentRequest';
 
@@ -58,10 +57,10 @@ async function LoanList({ username, loanAmount }: { username: string, loanAmount
 }
 
 
-function BorrowersTransaction({ username, loanAmount }: { username: string, loanAmount: string }) {
+function BorrowersTransaction({ username, loanAmount, data }: { username: string, data: LoanIProps, loanAmount: string }) {
 	return (
 		<div className=' border-[2px] rounded-sm px-2'>
-			<PaymentRequest />
+			<PaymentRequest username={username} branch={data.branch} />
 			<h2 className=" text-center font-semibold text-xl py-2 text-color-main uppercase">Transaction</h2>
 			<Table>
 				<TableHeader>

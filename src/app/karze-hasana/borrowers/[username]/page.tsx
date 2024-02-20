@@ -22,8 +22,8 @@ async function page({ params }: ParamsIProps) {
 	if (!res.ok) {
 		throw new Error("Failed to fetch data");
 	}
-
 	const paymentList: PaymentIProps[] = await res.json();
+
 	const data: LoanIProps = await getUser(username);
 
 	const duePayment = async () => {
@@ -62,7 +62,7 @@ async function page({ params }: ParamsIProps) {
 			<div className="p-4">
 				<h2 className="text-[16px] font-normal text-color-main">{data.about} </h2>
 			</div>
-			<BorrowersTransaction username={username} loanAmount={data.balance} />
+			<BorrowersTransaction username={username} data={data} loanAmount={data.balance} />
 		</div>
 	)
 }
