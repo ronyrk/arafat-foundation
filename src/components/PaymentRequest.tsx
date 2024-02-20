@@ -67,10 +67,21 @@ function PaymentRequest() {
 						<DialogTitle className='text-center text-color-main'>Payment Request</DialogTitle>
 					</DialogHeader>
 					<div className="flex flex-col gap-2">
-						<form action={formAction} className='flex flex-row gap-1'>
-							<input type="file" name="image" id="image" accept='images/*' multiple />
-							<Button type="submit" disabled={pending}>Submit</Button>
-						</form>
+						{
+							pending ? <p className=' text-center text-color-main'>Uploading...</p> :
+								<>
+									<form action={formAction} className='flex flex-row gap-1'>
+										<input type="file" name="image" id="image" accept='images/*' />
+										<Button type="submit" disabled={pending}>Submit</Button>
+									</form>
+								</>
+						}
+						{
+							state.photoUrl.length > 5 ? <p className='text-center text-color-main'>Image Uploaded</p> : " No Upload"
+						}
+						{
+							state.error === true && <p className='text-center text-color-sub'>Image Uploaded failed</p>
+						}
 						<Form {...form}>
 							<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
 								<FormField
