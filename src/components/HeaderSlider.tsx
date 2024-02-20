@@ -20,8 +20,13 @@ import {
 } from "@/components/ui/alert-dialog"
 
 
+
 function HeaderSlider() {
-	const { user, setUser } = useUser();
+	const { user, setUser, isUserLoading } = useUser();
+	const logOut = () => {
+		setUser(null);
+		localStorage.removeItem("username");
+	};
 	return (
 		<div className=" bg-color-main">
 			<div className='md:px-20 px-4 h-100 flex flex-row justify-between items-center py-2'>
@@ -32,32 +37,33 @@ function HeaderSlider() {
 						<div className="md:text-xl text-base text-white md:px-10 px-4">কর্জে হাসানা:- সুদ যেখানে হার মানতে বাধ্য (দরিদ্র এবং সুবিধা বঞ্চিতদের জন্য 100% সুদ-মুক্ত ঋণ ♦ কোন সুদ নেই ♦ কোন প্রসেসিং ফি নেই ♦ কোন গোপন চার্জ নেই ♦ কোন সার্ভিস চার্জ নেই ♦ কোন আবেদন ফি নেই♦ কোন লাভ নেই।)</div>
 					</Marquee>
 				</div>
-				<div className=" px-2">
-					{user?.username ?
+				{isUserLoading ? <h2 className='text-center'>Loading...</h2> :
+					<div className=" px-2">
+						{user?.username ?
+							<AlertDialog>
+								<AlertDialogTrigger>
+									<Avatar>
+										<AvatarImage src={user?.photoUrl} />
+										<AvatarFallback>U</AvatarFallback>
+									</Avatar>
+								</AlertDialogTrigger>
+								<AlertDialogContent>
+									<AlertDialogHeader>
+										<AlertDialogTitle>Are you absolutely logout?</AlertDialogTitle>
+									</AlertDialogHeader>
+									<AlertDialogFooter>
+										<AlertDialogCancel className=' text-color-main'>Cancel</AlertDialogCancel>
+										<AlertDialogAction onClick={logOut} >Continue</AlertDialogAction>
+									</AlertDialogFooter>
+								</AlertDialogContent>
+							</AlertDialog>
 
-						<AlertDialog>
-							<AlertDialogTrigger>
-								<Avatar>
-									<AvatarImage src={user?.photoUrl} />
-									<AvatarFallback>U</AvatarFallback>
-								</Avatar>
-							</AlertDialogTrigger>
-							<AlertDialogContent>
-								<AlertDialogHeader>
-									<AlertDialogTitle>Are you absolutely logout?</AlertDialogTitle>
-								</AlertDialogHeader>
-								<AlertDialogFooter>
-									<AlertDialogCancel className=' text-color-main'>Cancel</AlertDialogCancel>
-									<AlertDialogAction>Continue</AlertDialogAction>
-								</AlertDialogFooter>
-							</AlertDialogContent>
-						</AlertDialog>
-
-						: <Link href="/login" className="font-semibold leading-6 hover:text-color-sub">
-							<h2 className='text-white'><Lock /></h2>
-						</Link>
-					}
-				</div>
+							: <Link href="/login" className="font-semibold leading-6 hover:text-color-sub">
+								<h2 className='text-white'><Lock /></h2>
+							</Link>
+						}
+					</div>
+				}
 			</div>
 		</div>
 	)
