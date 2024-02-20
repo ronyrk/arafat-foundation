@@ -35,6 +35,7 @@ import axios from "axios"
 import { PaymentIProps } from '@/types'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
+import { useUser } from './ContextProvider'
 
 
 const FormSchema = z.object({
@@ -50,7 +51,9 @@ const initialState = {
 
 
 
-function PaymentRequest({ username }: { username: string }) {
+function PaymentRequest({ username, branch }: { username: string, branch: string }) {
+
+	const { user, isUserLoading } = useUser();
 	const router = useRouter();
 	const form = useForm<z.infer<typeof FormSchema>>({
 		resolver: zodResolver(FormSchema),
@@ -90,74 +93,75 @@ function PaymentRequest({ username }: { username: string }) {
 				toast.error("payment Request Created Failed");
 			}
 		});
-
-
-	}
+	};
 	return (
 		<div className="py-2">
-			<Dialog>
-				<DialogTrigger><Button variant="outline" className="bg-color-main">Payment Request</Button></DialogTrigger>
-				<DialogContent className="sm:max-w-[425px]">
-					<DialogHeader>
-						<DialogTitle className='text-center text-color-main'>Payment Request</DialogTitle>
-					</DialogHeader>
-					<div className="flex flex-col gap-2">
-						<form action={formAction} className='flex flex-row gap-1'>
-							<input type="file" name="image" id="image" accept='images/*' />
-							{pending ? <Button disabled>Uploading..</Button> : <Button type="submit">Submit</Button>}
-						</form>
-						{
-							state.photoUrl.length > 5 && <p className='text-center text-color-main'>{state.message}</p>
-						}
-						{
-							state.error === true && <p className='text-center text-color-sub'>{state.message}</p>
-						}
-						<Form {...form}>
-							<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
-								<FormField
-									control={form.control}
-									name="amount"
-									render={({ field }) => (
-										<FormItem>
-											<FormLabel>Amount</FormLabel>
-											<FormControl>
-												<Input type='number' placeholder="amount" {...field} />
-											</FormControl>
-											<FormMessage />
-										</FormItem>
-									)}
-								/>
-								<FormField
-									control={form.control}
-									name="method"
-									render={({ field }) => (
-										<FormItem>
-											<FormLabel>method</FormLabel>
-											<FormControl>
-												<Select onValueChange={field.onChange} defaultValue={field.value}>
-													<FormControl>
-														<SelectTrigger>
-															<SelectValue placeholder="Select a verified method" />
-														</SelectTrigger>
-													</FormControl>
-													<SelectContent>
-														<SelectItem value="bkash">Bkash</SelectItem>
-														<SelectItem value="nagad">Nagad</SelectItem>
-														<SelectItem value="bank">Bank</SelectItem>
-													</SelectContent>
-												</Select>
-											</FormControl>
-											<FormMessage />
-										</FormItem>
-									)}
-								/>
-								{isPending ? <Button disabled type="submit">Loading...</Button> : <Button disabled={state.photoUrl.length < 6} type="submit">Submit</Button>}
+			{
+				user?.username === branch &&
+				<Dialog>
+					<DialogTrigger><Button variant="outline" className="bg-color-main">Payment Request</Button></DialogTrigger>
+					<DialogContent className="sm:max-w-[425px]">
+						<DialogHeader>
+							<DialogTitle className='text-center text-color-main'>Payment Request</DialogTitle>
+						</DialogHeader>
+						<div className="flex flex-col gap-2">
+							<form action={formAction} className='flex flex-row gap-1'>
+								<input type="file" name="image" id="image" accept='images/*' />
+								{pending ? <Button disabled>Uploading..</Button> : <Button type="submit">Submit</Button>}
 							</form>
-						</Form>
-					</div>
-				</DialogContent>
-			</Dialog>
+							{
+								state.photoUrl.length > 5 && <p className='text-center text-color-main'>{state.message}</p>
+							}
+							{
+								state.error === true && <p className='text-center text-color-sub'>{state.message}</p>
+							}
+							<Form {...form}>
+								<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
+									<FormField
+										control={form.control}
+										name="amount"
+										render={({ field }) => (
+											<FormItem>
+												<FormLabel>Amount</FormLabel>
+												<FormControl>
+													<Input type='number' placeholder="amount" {...field} />
+												</FormControl>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+									<FormField
+										control={form.control}
+										name="method"
+										render={({ field }) => (
+											<FormItem>
+												<FormLabel>method</FormLabel>
+												<FormControl>
+													<Select onValueChange={field.onChange} defaultValue={field.value}>
+														<FormControl>
+															<SelectTrigger>
+																<SelectValue placeholder="Select a verified method" />
+															</SelectTrigger>
+														</FormControl>
+														<SelectContent>
+															<SelectItem value="bkash">Bkash</SelectItem>
+															<SelectItem value="nagad">Nagad</SelectItem>
+															<SelectItem value="bank">Bank</SelectItem>
+														</SelectContent>
+													</Select>
+												</FormControl>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+									{isPending ? <Button disabled type="submit">Loading...</Button> : <Button disabled={state.photoUrl.length < 6} type="submit">Submit</Button>}
+								</form>
+							</Form>
+						</div>
+					</DialogContent>
+				</Dialog>
 
+			}
 		</div>
 	)
 }
