@@ -33,11 +33,11 @@ function HeaderSlider() {
 
 				<Image src={logo} className='md:mr-4 mr-1 border-dashed rounded border-white md:pr-4 pr-1 border-r-2 md:w-32 w-16 md:h-20 h-10' alt='logo' placeholder='blur' />
 				<div className="">
-					<Marquee className='md:py-4'>
+					<Marquee className='py-4'>
 						<div className="md:text-xl text-base text-white md:px-10 px-4">কর্জে হাসানা:- সুদ যেখানে হার মানতে বাধ্য (দরিদ্র এবং সুবিধা বঞ্চিতদের জন্য 100% সুদ-মুক্ত ঋণ ♦ কোন সুদ নেই ♦ কোন প্রসেসিং ফি নেই ♦ কোন গোপন চার্জ নেই ♦ কোন সার্ভিস চার্জ নেই ♦ কোন আবেদন ফি নেই♦ কোন লাভ নেই।)</div>
 					</Marquee>
 				</div>
-				{isUserLoading ? <h2 className='text-center'>Loading...</h2> :
+				{isUserLoading === true ? <h2 className='text-center text-white px-2'>Loading...</h2> :
 					<div className=" px-2">
 						{user?.username ?
 							<AlertDialog>
