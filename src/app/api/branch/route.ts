@@ -24,7 +24,13 @@ export const POST = async (request: Request) => {
 				username, password, email, branchName, address, photoUrl, teamLeaderName, teamLeaderAddress, teamLeaderPhone, teamLeaderOccupation, teamLeaderPhotoUrl, presidentName, presidentAddress, presidentPhone, presidentOccupation, ImamName, ImamAddress, ImamPhone, ImamOccupation, SecretaryName, SecretaryAddress, SecretaryPhone, SecretaryOccupation, code, district, ps
 			}
 		});
-		return NextResponse.json({ message: "Successfully Branch Created", result }, { status: 201 });
+		return NextResponse.json({ message: "Successfully Branch Created", result }, {
+			status: 201, headers: {
+				'Access-Control-Allow-Origin': '*',
+				'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+				'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+			}
+		});
 	} catch (error) {
 		// throw new Error("Server Error");
 		return NextResponse.json({ message: error });

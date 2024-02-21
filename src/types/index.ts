@@ -41,7 +41,7 @@ export interface BranchIProps {
 	SecretaryAddress: string,
 	SecretaryPhone: string,
 	SecretaryOccupation: string,
-	status: string,
+	status?: string,
 };
 export interface UserNameIProps {
 	username: string,

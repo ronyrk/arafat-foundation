@@ -7,7 +7,15 @@ const nextConfig = {
 				hostname: '**',
 			},
 		],
-	}
+	},
+	async rewrites() {
+		return [
+			{
+				source: '/api/:path*',
+				destination: 'https://arafatfoundation.vercel.app/:path*',
+			},
+		]
+	},
 };
 
 export default nextConfig;
