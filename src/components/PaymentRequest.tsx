@@ -30,7 +30,7 @@ import {
 } from "@/components/ui/select"
 import { useFormState, useFormStatus } from 'react-dom'
 import { uploadImage } from '@/lib/ImageUpload';
-import { useMutation, useQuery } from "@tanstack/react-query"
+import { useMutation } from "@tanstack/react-query"
 import axios from "axios"
 import { PaymentIProps } from '@/types'
 import toast from 'react-hot-toast'

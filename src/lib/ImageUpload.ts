@@ -30,7 +30,7 @@ export async function imageRead(fileName: string) {
 
 // Upload Image S3
 export async function uploadImage(prevState: { message: string, error: boolean, photoUrl: string }, formData: any) {
-	const file = formData.get("image");
+	const file = formData.get("teamLeaderPicture");
 	console.log(file);
 	if (file?.size === 0) {
 		return { message: "select a image", error: true, photoUrl: "" };
