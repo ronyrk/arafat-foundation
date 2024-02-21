@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import { ContextProvider } from "@/components/ContextProvider";
 import TanStackProvider from "@/components/TanStackProvider";
 import { Toaster } from "react-hot-toast";
+import { ChevronDownCircle } from 'lucide-react';
 
 const inter = Anek_Bangla({ subsets: ["latin"] });
 
@@ -21,13 +22,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${inter.className} bg-slate-50 relative`}>
         <TanStackProvider>
           <ContextProvider>
             <Navbar />
             {children}
             <Toaster />
             <Footer />
+            <div className=" fixed right-8 z-10 bottom-10 bg-gray-100 rounded-full">
+              <a className="" href="#top"><ChevronDownCircle size={40} /> </a>
+            </div>
           </ContextProvider>
         </TanStackProvider>
       </body>

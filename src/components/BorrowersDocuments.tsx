@@ -1,5 +1,6 @@
+"use client";
 import { LoanIProps } from '@/types'
-import React from 'react'
+import React, { Suspense } from 'react'
 import {
 	Dialog,
 	DialogContent,
@@ -7,6 +8,11 @@ import {
 } from "@/components/ui/dialog"
 import { View } from 'lucide-react';
 import Image from 'next/image';
+import { useUser } from './ContextProvider';
+import FormOne from "../../public/form-one-part.png"
+import FormTwo from "../../public/form-part-two.png"
+import nidFont from "../../public/nid-font.png"
+import nidBack from "../../public/nid-back.png"
 
 
 
@@ -14,6 +20,7 @@ import Image from 'next/image';
 function BorrowersDocuments(params: any) {
 	const data: LoanIProps = params.data;
 	const { nidback, nidfont, form1, form2 } = data;
+	const { user, isUserLoading } = useUser();
 	return (
 		<div className=" basis-4/12 border-[2px] rounded px-3 py-1 flex flex-col justify-around">
 			<h2 className=" font-semibold text-xl py-2 text-color-main">Borrowers Documents</h2>
@@ -23,9 +30,15 @@ function BorrowersDocuments(params: any) {
 					<button>
 						<Dialog>
 							<DialogTrigger><View /></DialogTrigger>
+
 							<DialogContent>
-								<Image src={form1} alt="application from" className='rounded object-cover flex justify-center' width={400} height={240} />
+								<Suspense fallback={<h2 className='text-center'>Loading...</h2>}>
+									{
+										user?.email ? <Image src={form1} alt="application from" className='rounded ' width={450} height={200} /> : <Image src={FormOne} placeholder='blur' alt="application from" className='rounded object-fill' width={500} height={240} />
+									}
+								</Suspense>
 							</DialogContent>
+
 						</Dialog>
 					</button>
 				</div>
@@ -35,7 +48,11 @@ function BorrowersDocuments(params: any) {
 						<Dialog>
 							<DialogTrigger><View /></DialogTrigger>
 							<DialogContent>
-								<Image src={form2} alt="application from" className='rounded object-cover flex justify-center' width={400} height={240} />
+								<Suspense fallback={<h2 className='text-center'>Loading...</h2>}>
+									{
+										user?.email ? <Image src={form2} alt="application from" className='rounded ' width={450} height={200} /> : <Image src={FormTwo} placeholder='blur' alt="application from" className='rounded object-fill' width={500} height={240} />
+									}
+								</Suspense>
 							</DialogContent>
 						</Dialog>
 					</button>
@@ -46,7 +63,11 @@ function BorrowersDocuments(params: any) {
 						<Dialog>
 							<DialogTrigger><View /></DialogTrigger>
 							<DialogContent>
-								<Image src={nidfont} alt="nid font" className='rounded object-cover' width={400} height={240} />
+								<Suspense fallback={<h2 className='text-center'>Loading...</h2>}>
+									{
+										user?.email ? <Image src={nidfont} alt="application from" className='rounded ' width={450} height={200} /> : <Image src={nidFont} placeholder='blur' alt="application from" className='rounded object-fill' width={500} height={240} />
+									}
+								</Suspense>
 							</DialogContent>
 						</Dialog>
 					</button>
@@ -57,13 +78,17 @@ function BorrowersDocuments(params: any) {
 						<Dialog>
 							<DialogTrigger><View /></DialogTrigger>
 							<DialogContent>
-								<Image src={nidback} alt="nid back" className='rounded object-cover' width={400} height={240} />
+								<Suspense fallback={<h2 className='text-center'>Loading...</h2>}>
+									{
+										user?.email ? <Image src={nidback} alt="application from" className='rounded ' width={450} height={200} /> : <Image src={nidBack} placeholder='blur' alt="application from" className='rounded object-fill' width={500} height={240} />
+									}
+								</Suspense>
 							</DialogContent>
 						</Dialog>
 					</button>
 				</div>
 			</div>
-		</div>
+		</div >
 	)
 }
 
