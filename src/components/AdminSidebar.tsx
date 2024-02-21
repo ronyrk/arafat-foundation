@@ -5,7 +5,7 @@ import React from 'react'
 
 function AdminSidebar() {
 	const path = usePathname();
-	console.log(path)
+	// console.log(path)
 	return (
 		<div className=' h-[280px]'>
 			<div className="flex flex-col  pb-2">

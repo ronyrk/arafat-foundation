@@ -13,6 +13,8 @@ import Link from 'next/link';
 import { BranchIProps } from '@/types';
 import { unstable_noStore } from 'next/cache';
 import { Input } from '@/components/ui/input';
+import DeleteButton from '@/components/DeleteButton';
+
 
 async function BranchList() {
 	unstable_noStore();
@@ -32,10 +34,7 @@ async function BranchList() {
 						<TableCell className="font-medium uppercase" >{item.district}</TableCell>
 						<TableCell className="font-medium uppercase">{item.ps}</TableCell>
 						<TableCell className="font-medium uppercase">
-							<Button className='bg-color-sub' size={"sm"} asChild>
-								<Link href={`branches/${item.username}`}>DETAILS</Link>
-							</Button>
-
+							<DeleteButton username={item.username} />
 						</TableCell>
 					</TableRow>
 				))
