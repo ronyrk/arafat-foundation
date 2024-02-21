@@ -9,8 +9,8 @@ import {
 import { View } from 'lucide-react';
 import Image from 'next/image';
 import { useUser } from './ContextProvider';
-import FormOne from "../../public/form-one-part.png"
-import FormTwo from "../../public/form-part-two.png"
+import FormTwo from "../../public/form-one-part.png"
+import FormOne from "../../public/form-part-two.png"
 import nidFont from "../../public/nid-font.png"
 import nidBack from "../../public/nid-back.png"
 
