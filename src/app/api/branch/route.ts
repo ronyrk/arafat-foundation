@@ -25,11 +25,7 @@ export const POST = async (request: Request) => {
 			}
 		});
 		return NextResponse.json({ message: "Successfully Branch Created", result }, {
-			status: 201, headers: {
-				'Access-Control-Allow-Origin': '*',
-				'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-				'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-			}
+			status: 201
 		});
 	} catch (error) {
 		// throw new Error("Server Error");

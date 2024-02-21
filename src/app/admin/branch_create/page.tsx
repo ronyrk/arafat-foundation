@@ -74,7 +74,7 @@ function BranchCreate() {
 
 	const { mutate, isPending } = useMutation({
 		mutationFn: async ({ username, email, password, branchName, address, photoUrl, teamLeaderName, teamLeaderAddress, teamLeaderPhone, teamLeaderOccupation, teamLeaderPhotoUrl, presidentName, presidentAddress, presidentPhone, presidentOccupation, ImamName, ImamAddress, ImamPhone, ImamOccupation, SecretaryName, SecretaryAddress, SecretaryPhone, SecretaryOccupation, code, district, ps }: BranchIProps) => {
-			const response = await axios.post("/api/branch", {
+			const response = await axios.post("/api/admin_branch", {
 				username, email, password, branchName, address, photoUrl, teamLeaderName, teamLeaderAddress, teamLeaderPhone, teamLeaderOccupation, teamLeaderPhotoUrl, presidentName, presidentAddress, presidentPhone, presidentOccupation, ImamName, ImamAddress, ImamPhone, ImamOccupation, SecretaryName, SecretaryAddress, SecretaryPhone, SecretaryOccupation, code, district, ps
 			});
 			return response.data;
@@ -125,7 +125,7 @@ function BranchCreate() {
 			}
 		});
 	};
-	console.log(state, stateBranch);
+	// console.log(state, stateBranch);
 
 	return (
 		<div className=" flex flex-col gap-2">
