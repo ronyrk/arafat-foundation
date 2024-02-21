@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Anek_Bangla } from "next/font/google";
 import "./globals.css";
-// import Navbar from "@/components/Navbar";
-// import Footer from "@/components/Footer";
-// import { ContextProvider } from "@/components/ContextProvider";
-// import TanStackProvider from "@/components/TanStackProvider";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import { ContextProvider } from "@/components/ContextProvider";
+import TanStackProvider from "@/components/TanStackProvider";
 import { Toaster } from "react-hot-toast";
 import { ChevronDownCircle } from 'lucide-react';
 
@@ -23,17 +23,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} bg-slate-50 relative`}>
-        {/* <TanStackProvider>
+        <TanStackProvider>
           <ContextProvider>
-            <Navbar /> */}
-        {children}
-        <Toaster />
-        {/* <Footer /> */}
-        <div className=" fixed right-8 z-10 bottom-10 bg-gray-100 rounded-full">
-          <a className="" href="#top"><ChevronDownCircle size={40} /> </a>
-        </div>
-        {/* </ContextProvider>
-        </TanStackProvider> */}
+            <Navbar />
+            {children}
+            <Toaster />
+            <Footer />
+            <div className=" fixed right-8 z-10 bottom-10 bg-gray-100 rounded-full">
+              <a className="" href="#top"><ChevronDownCircle size={40} /> </a>
+            </div>
+          </ContextProvider>
+        </TanStackProvider>
       </body>
     </html>
   );
