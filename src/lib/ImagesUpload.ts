@@ -29,10 +29,10 @@ export async function imageRead(fileName: string) {
 }
 
 // Upload Image S3
-export async function uploadImages(prevState: { message: string, error: boolean, photoUrl: string[] }, formData: any,) {
-	const images = formData.getAll("BranchPicture");
+export async function uploadImage(prevState: { message: string, error: boolean, photoUrl: string }, formData: any,) {
+	const images = formData.getAll("image");
 	try {
-		const photoUrl = [];
+		const photoUrl: string[] = [];
 
 		for (const file of images) {
 			const buffer = Buffer.from(await file.arrayBuffer());
@@ -47,10 +47,11 @@ export async function uploadImages(prevState: { message: string, error: boolean,
 			await s3Client.send(command);
 			const imageUrl = await imageRead(fileName);
 			photoUrl.push(imageUrl);
+			console.log(photoUrl);
 		}
 		revalidatePath("/");
 		return { message: "Image upload  successfully", error: false, photoUrl };
 	} catch (e) {
-		return { message: "Image upload failed", error: true, photoUrl: [] };
+		return { message: "Image upload failed", error: true, photoUrl: "" };
 	}
 }

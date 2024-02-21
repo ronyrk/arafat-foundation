@@ -30,7 +30,7 @@ import {
 } from "@/components/ui/select"
 import { useFormState, useFormStatus } from 'react-dom'
 import { uploadImage } from '@/lib/ImageUpload';
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQuery } from "@tanstack/react-query"
 import axios from "axios"
 import { PaymentIProps } from '@/types'
 import toast from 'react-hot-toast'
@@ -105,8 +105,8 @@ function PaymentRequest({ username, branch }: { username: string, branch: string
 							<DialogTitle className='text-center text-color-main'>Payment Request</DialogTitle>
 						</DialogHeader>
 						<div className="flex flex-col gap-2">
-							<form action={formAction} className='flex flex-row w-4/5 justify-between items-center gap-1'>
-								<input type="file" name="image" id="image" accept='image/*' />
+							<form action={formAction} className='flex flex-row gap-1'>
+								<input type="file" name="image" id="image" accept='images/*' />
 								{pending ? <Button disabled>Uploading..</Button> : <Button type="submit">Submit</Button>}
 							</form>
 							{
@@ -116,7 +116,7 @@ function PaymentRequest({ username, branch }: { username: string, branch: string
 								state.error === true && <p className='text-center text-color-sub'>{state.message}</p>
 							}
 							<Form {...form}>
-								<form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-3">
+								<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
 									<FormField
 										control={form.control}
 										name="amount"

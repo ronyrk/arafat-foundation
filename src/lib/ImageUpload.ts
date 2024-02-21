@@ -30,14 +30,13 @@ export async function imageRead(fileName: string) {
 
 // Upload Image S3
 export async function uploadImage(prevState: { message: string, error: boolean, photoUrl: string }, formData: any) {
-	const file = formData.get("teamLeaderPicture");
-	// console.log(file);
+	const file = formData.get("image");
 	if (file?.size === 0) {
 		return { message: "select a image", error: true, photoUrl: "" };
 	}
 	try {
 		const buffer = Buffer.from(await file.arrayBuffer());
-		const fileName = `Image/${Date.now().toString()}.jpg`;
+		const fileName = `Image/${file?.name}+${Date.now().toString}.jpg`;
 		const params = {
 			Bucket: process.env.NEXT_AWS_S3_BUCKET_NAME,
 			Key: `${fileName}`,
