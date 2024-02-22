@@ -29,13 +29,14 @@ import {
 	SelectValue,
 } from "@/components/ui/select"
 import { useFormState, useFormStatus } from 'react-dom'
-import { uploadImage } from '@/lib/ImageUpload';
 import { useMutation, useQuery } from "@tanstack/react-query"
 import axios from "axios"
 import { PaymentIProps } from '@/types'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
 import { useUser } from './ContextProvider'
+import { UploadButton } from '@/lib/uploading';
+
 
 
 const FormSchema = z.object({
@@ -52,8 +53,9 @@ const initialState = {
 
 
 function PaymentRequest({ username, branch }: { username: string, branch: string }) {
-
+	const [image, setImage] = useState<string | undefined>("")
 	const { user, isUserLoading } = useUser();
+
 	const router = useRouter();
 	const form = useForm<z.infer<typeof FormSchema>>({
 		resolver: zodResolver(FormSchema),
@@ -69,11 +71,9 @@ function PaymentRequest({ username, branch }: { username: string, branch: string
 		},
 	});
 
-	const [state, formAction] = useFormState(uploadImage, initialState);
-	const { pending } = useFormStatus();
 
 	function onSubmit(data: z.infer<typeof FormSchema>) {
-		const photoUrl = state.photoUrl;
+		const photoUrl = image as string;
 		const amount = data.amount;
 		const method = data.method;
 		const loanusername = username;
@@ -104,19 +104,23 @@ function PaymentRequest({ username, branch }: { username: string, branch: string
 						<DialogHeader>
 							<DialogTitle className='text-center text-color-main'>Payment Request</DialogTitle>
 						</DialogHeader>
-						<div className="flex flex-col gap-2">
-							<form action={formAction} className='flex flex-row w-4/5 justify-between items-center gap-1'>
-								<input type="file" name="image" id="image" accept='image/*' />
-								{pending ? <Button disabled>Uploading..</Button> : <Button type="submit">Submit</Button>}
-							</form>
-							{
-								state.photoUrl.length > 5 && <p className='text-center text-color-main'>{state.message}</p>
-							}
-							{
-								state.error === true && <p className='text-center text-color-sub'>{state.message}</p>
-							}
+						<div className="flex flex-col gap-1 md:px-4 px-2">
+							<Label >Payment Transaction photo</Label>
+							<UploadButton
+								className=' bg-color-sub mx-4 py-1 rounded-md'
+								endpoint="imageUploader"
+								onClientUploadComplete={(res) => {
+									// Do something with the response
+									setImage(res[0].url);
+									toast.success("Image Upload successfully")
+								}}
+								onUploadError={(error: Error) => {
+									// Do something with the error.
+									toast.error(error.message);
+								}}
+							/>
 							<Form {...form}>
-								<form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-3">
+								<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
 									<FormField
 										control={form.control}
 										name="amount"
@@ -154,7 +158,7 @@ function PaymentRequest({ username, branch }: { username: string, branch: string
 											</FormItem>
 										)}
 									/>
-									{isPending ? <Button disabled type="submit">Loading...</Button> : <Button disabled={state.photoUrl.length < 6} type="submit">Submit</Button>}
+									{isPending ? <Button disabled type="submit">Loading...</Button> : <Button disabled={image === ''} type="submit">Submit</Button>}
 								</form>
 							</Form>
 						</div>
