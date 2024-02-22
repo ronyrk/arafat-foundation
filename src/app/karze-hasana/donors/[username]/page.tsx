@@ -43,7 +43,7 @@ async function page({ params }: ParamsIProps) {
 			const Create = paymentList.forEach((item) => amountStringArray.push(item.amount));
 			// Convert String Array to Number Array
 			let AmountArray = amountStringArray.map(Number);
-			const totalAmount = AmountArray.reduce((accumulator, currentValue) => accumulator + currentValue, 0)
+			const totalAmount = AmountArray.reduce((accumulator, currentValue) => accumulator + currentValue, Number(data.amount));
 			// console.log(totalAmount, 'number array');
 			return `${totalAmount}`
 		}

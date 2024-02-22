@@ -24,7 +24,7 @@ async function DonorList() {
 	const donors: DonorIProps[] = await res.json();
 
 
-	const TotalAmount = async (status: string, username: string) => {
+	const TotalAmount = async (status: string, username: string, amount: string) => {
 		unstable_noStore();
 		const response = await fetch(`https://arafatfoundation.vercel.app/api/donor_payment/donor/${username}`);
 		if (!response.ok) {
@@ -49,7 +49,7 @@ async function DonorList() {
 			const Create = paymentList.forEach((item) => amountStringArray.push(item.amount));
 			// Convert String Array to Number Array
 			let AmountArray = amountStringArray.map(Number);
-			const totalAmount = AmountArray.reduce((accumulator, currentValue) => accumulator + currentValue, 0)
+			const totalAmount = AmountArray.reduce((accumulator, currentValue) => accumulator + currentValue, Number(amount));
 			// console.log(totalAmount, 'number array');
 			return `${totalAmount}`
 		}
@@ -64,7 +64,7 @@ async function DonorList() {
 					<TableRow key={index}>
 						<TableCell className="font-medium">{item.code}</TableCell>
 						<TableCell className="font-medium uppercase">{item.name}</TableCell>
-						<TableCell className="font-medium uppercase" >{TotalAmount(item.status, item.username)}</TableCell>
+						<TableCell className="font-medium uppercase" >{TotalAmount(item.status, item.username, item.amount)}</TableCell>
 						<TableCell className="font-medium uppercase">{item.status}</TableCell>
 						<TableCell className="font-medium uppercase">
 							<Button className='bg-color-sub' size={"sm"} asChild>
