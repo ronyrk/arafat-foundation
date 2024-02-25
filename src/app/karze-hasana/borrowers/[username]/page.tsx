@@ -1,5 +1,6 @@
 import BorrowersDocuments from '@/components/BorrowersDocuments';
 import BorrowersTransaction from '@/components/BorrowersTransaction';
+import PhoneNumber from '@/components/PhoneNumber';
 import { LoanIProps, ParamsIProps, PaymentIProps } from '@/types'
 import { unstable_noStore } from 'next/cache';
 import Image from 'next/image';
@@ -55,7 +56,7 @@ async function page({ params }: ParamsIProps) {
 					<h2 className=" font-normal text-[15px]  text-color-main"><span className="font-semibold mr-2">মোট ঋণ:</span>{data.balance}</h2>
 					<h2 className=" font-normal text-[15px]  text-color-main"><span className="font-semibold mr-2">মোট পরিশোধিত ঋণ:</span>{allPayment()}</h2>
 					<h2 className=" font-normal text-[15px]  text-color-main"><span className="font-semibold mr-2">বকেয়া ঋণ:</span>{duePayment()}</h2>
-					<h2 className=" font-normal text-[15px]  text-color-main"><span className="font-semibold mr-2">ফোন:</span>01793874052</h2>
+					<PhoneNumber phone={data.phone} />
 				</div>
 				<BorrowersDocuments data={data} />
 			</div>
