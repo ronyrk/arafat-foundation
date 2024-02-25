@@ -1,7 +1,8 @@
-import Image from "next/image";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 export default function Home() {
+  redirect('/karze-hasana');
   return (
     <div className="m-4">
       <h1 className="mx-4 text-2xl">Hello Arafat Foundation</h1>

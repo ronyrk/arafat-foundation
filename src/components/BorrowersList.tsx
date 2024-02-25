@@ -5,7 +5,7 @@ import {
 	AccordionItem,
 	AccordionTrigger,
 } from "@/components/ui/accordion"
-import { BranchIProps, LoanIProps } from '@/types';
+import { BranchIProps, LoanIProps, PaymentIProps } from '@/types';
 import Image from 'next/image';
 import {
 	Dialog,
@@ -27,6 +27,8 @@ import {
 import { Input } from '@/components/ui/input';
 import Link from 'next/link';
 import { Button } from "@/components/ui/button"
+import { getUser } from '@/app/karze-hasana/borrowers/[username]/page';
+import { unstable_noStore } from 'next/cache';
 
 
 interface RequestParams {
@@ -36,7 +38,37 @@ interface RequestParams {
 	}
 };
 
+async function duePayment(username: string) {
+	unstable_noStore();
+	const response = await fetch(`https://arafatfoundation.vercel.app/api/loan_list/${username}`);
+	if (!response.ok) {
+		throw new Error("Failed to fetch data");
+	}
+	const paymentList: PaymentIProps[] = await response.json();
+	const data: LoanIProps = await getUser(username);
 
+	let indexPaymentString: string[] = ["0"];
+	const result = paymentList.forEach((item) => indexPaymentString.push(item.amount));
+	let indexPayment = indexPaymentString.map(Number);
+	const Amount = indexPayment.reduce((accumulator, currentValue) => accumulator - currentValue, Number(data.balance));
+	return `${Amount}`;
+}
+async function allPayment(username: string) {
+	unstable_noStore();
+	const response = await fetch(`https://arafatfoundation.vercel.app/api/loan_list/${username}`);
+	if (!response.ok) {
+		throw new Error("Failed to fetch data");
+	}
+	const paymentList: PaymentIProps[] = await response.json();
+	const data: LoanIProps = await getUser(username);
+	let indexPaymentString: string[] = ["0"];
+	const result = paymentList.forEach((item) => indexPaymentString.push(item.amount));
+	let indexPayment = indexPaymentString.map(Number);
+	const Amount = indexPayment.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+	return `${Amount}`;
+
+
+}
 
 
 async function BorrowersList(params: RequestParams) {
@@ -72,8 +104,8 @@ async function BorrowersList(params: RequestParams) {
 													<TableRow key={index}>
 														<TableCell className="font-medium">{item.code}</TableCell>
 														<TableCell className="font-medium uppercase">{item.name}</TableCell>
-														<TableCell className="font-medium uppercase" >{item.disbursed}</TableCell>
-														<TableCell className="font-medium uppercase">{item.recovered}</TableCell>
+														<TableCell className="font-medium uppercase" >{duePayment(item.username)}</TableCell>
+														<TableCell className="font-medium uppercase">{allPayment(item.username)}</TableCell>
 														<TableCell className="font-medium uppercase">{item.balance}</TableCell>
 														<TableCell className="font-medium uppercase">
 															<Button className='bg-color-sub' size={"sm"} asChild>
