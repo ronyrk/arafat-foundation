@@ -9,6 +9,15 @@ import { unstable_noStore } from 'next/cache';
 import { FaqIProps } from '@/types';
 import { cookies } from 'next/headers';
 
+
+async function htmlConvert(data: string) {
+	return (
+		<div className="p-2">
+			<div dangerouslySetInnerHTML={{ __html: data }} />
+		</div>
+	)
+}
+
 async function Question() {
 	unstable_noStore();
 	let res = await fetch('https://af-admin.vercel.app/api/faq');
@@ -16,6 +25,7 @@ async function Question() {
 		throw new Error("Failed to fetch data list");
 	};
 	const data: FaqIProps[] = await res.json();
+
 	return (
 		<Accordion type="single" collapsible>
 			{
@@ -23,7 +33,7 @@ async function Question() {
 					<AccordionItem key={index} value={index.toString()}>
 						<AccordionTrigger>{item.title}</AccordionTrigger>
 						<AccordionContent>
-							{item.description}
+							{htmlConvert(item.description)}
 						</AccordionContent>
 					</AccordionItem>
 				))
