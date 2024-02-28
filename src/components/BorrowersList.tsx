@@ -130,7 +130,7 @@ async function BorrowersList(params: RequestParams) {
 					<AccordionTrigger className='text-lg font-medium text-color-main'>ম্যানেজমেন্ট টিম</AccordionTrigger>
 					<AccordionContent>
 						<div className="">
-							<h2 className="text-base font-medium text-center">{branchName} এর আওতাধীন ঋণ গ্রহীতার লিস্ট</h2>
+							<h2 className="text-base font-medium text-center">{branchName} এর ম্যানেজমেন্ট টিম</h2>
 							<Accordion type="single" collapsible>
 								<AccordionItem value="item-3">
 									<AccordionTrigger className='text-lg font-medium text-color-main'>টিম লিডার</AccordionTrigger>

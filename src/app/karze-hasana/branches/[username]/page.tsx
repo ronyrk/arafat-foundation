@@ -5,6 +5,9 @@ import React from 'react'
 import prisma from '@/lib/prisma';
 import { unstable_noStore } from 'next/cache';
 
+type Props = {
+	params: { username: string }
+};
 
 export async function generateMetadata({ params }: Props) {
 	unstable_noStore();
@@ -22,10 +25,6 @@ async function getData(username: string) {
 		throw new Error("Failed to fetch data");
 	};
 	return res.json();
-};
-
-type Props = {
-	params: { username: string }
 };
 
 
