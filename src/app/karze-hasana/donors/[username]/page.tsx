@@ -1,4 +1,5 @@
 import DonorTable from '@/components/DonorTable';
+import { Share } from '@/components/Share';
 import { DonorIProps, DonorPaymentIProps, ParamsIProps } from '@/types'
 import { unstable_noStore } from 'next/cache';
 import Image from 'next/image';
@@ -29,6 +30,7 @@ export async function generateMetadata({ params }: Props) {
 					url: donor.photoUrl, // Must be an absolute URL
 					width: 800,
 					height: 600,
+					alt: donor.name,
 				},
 				{
 					url: donor.photoUrl, // Must be an absolute URL
@@ -37,21 +39,10 @@ export async function generateMetadata({ params }: Props) {
 					alt: donor.name,
 				},
 			],
-		}
-	}
+		},
+	};
 };
 
-// export const metadata = {
-// 	openGraph: {
-// 		title: 'Next.js',
-// 		description: 'The React Framework for the Web',
-// 		url: 'https://nextjs.org',
-// 		siteName: 'Next.js',
-
-// 		locale: 'en_US',
-// 		type: 'website',
-// 	},
-// }
 
 async function page({ params }: ParamsIProps) {
 	const { username } = params;
@@ -106,6 +97,9 @@ async function page({ params }: ParamsIProps) {
 			</div>
 			<div className="p-4">
 				<h2 className="text-[16px] font-normal text-color-main">{data.about} </h2>
+			</div>
+			<div className="py-2 px-4">
+				<Share username={data.username} type='donor' />
 			</div>
 			<DonorTable data={data} />
 		</div>

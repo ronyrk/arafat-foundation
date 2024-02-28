@@ -78,7 +78,7 @@ async function BorrowersList(params: RequestParams) {
 		<div className='p-2'>
 			<Accordion type="single" className='py-1' collapsible>
 				<AccordionItem value="item-1">
-					<AccordionTrigger className='text-lg font-medium text-color-main'>Borrowers List</AccordionTrigger>
+					<AccordionTrigger className='text-lg font-medium text-color-main'>ঋণ গ্রহীতার লিস্ট</AccordionTrigger>
 					<AccordionContent>
 						<div className="flex flex-col gap-2">
 							<h2 className="text-base font-medium text-center">{branchName} এর আওতাধীন ঋণ গ্রহীতার লিস্ট</h2>

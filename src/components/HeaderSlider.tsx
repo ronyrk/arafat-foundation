@@ -58,7 +58,7 @@ function HeaderSlider() {
 						</AlertDialog>
 
 						: <Link href="/login" className="font-semibold leading-6 hover:text-color-sub">
-							<h2 className='text-white'><Lock /></h2>
+							<h2 className='text-white'><Lock className='w-4' /></h2>
 						</Link>
 					}
 				</div>
