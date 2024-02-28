@@ -23,8 +23,35 @@ export async function generateMetadata({ params }: Props) {
 	return {
 		title: donor.name,
 		description: donor.about,
+		openGraph: {
+			images: [
+				{
+					url: donor.photoUrl, // Must be an absolute URL
+					width: 800,
+					height: 600,
+				},
+				{
+					url: donor.photoUrl, // Must be an absolute URL
+					width: 1800,
+					height: 1600,
+					alt: donor.name,
+				},
+			],
+		}
 	}
 };
+
+// export const metadata = {
+// 	openGraph: {
+// 		title: 'Next.js',
+// 		description: 'The React Framework for the Web',
+// 		url: 'https://nextjs.org',
+// 		siteName: 'Next.js',
+
+// 		locale: 'en_US',
+// 		type: 'website',
+// 	},
+// }
 
 async function page({ params }: ParamsIProps) {
 	const { username } = params;
