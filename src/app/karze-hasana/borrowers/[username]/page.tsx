@@ -24,6 +24,22 @@ export async function generateMetadata({ params }: Props) {
 	return {
 		title: user.name,
 		description: user.about,
+		openGraph: {
+			images: [
+				{
+					url: user.photosUrl, // Must be an absolute URL
+					width: 800,
+					height: 600,
+					alt: user.name,
+				},
+				{
+					url: user.photosUrl, // Must be an absolute URL
+					width: 1800,
+					height: 1600,
+					alt: user.name,
+				},
+			],
+		}
 	}
 };
 

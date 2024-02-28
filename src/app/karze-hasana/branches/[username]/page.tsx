@@ -15,6 +15,22 @@ export async function generateMetadata({ params }: Props) {
 	const data = await prisma.branch.findUnique({ where: { username } });
 	return {
 		title: data?.branchName,
+		openGraph: {
+			images: [
+				{
+					url: data?.photoUrl.at(0), // Must be an absolute URL
+					width: 800,
+					height: 600,
+					alt: data?.branchName,
+				},
+				{
+					url: data?.photoUrl.at(0), // Must be an absolute URL
+					width: 1800,
+					height: 1600,
+					alt: data?.branchName,
+				},
+			],
+		}
 	}
 };
 

@@ -29,6 +29,7 @@ export async function generateMetadata({ params }: Props) {
 					url: donor.photoUrl, // Must be an absolute URL
 					width: 800,
 					height: 600,
+					alt: donor.name,
 				},
 				{
 					url: donor.photoUrl, // Must be an absolute URL
@@ -37,21 +38,10 @@ export async function generateMetadata({ params }: Props) {
 					alt: donor.name,
 				},
 			],
-		}
-	}
+		},
+	};
 };
 
-// export const metadata = {
-// 	openGraph: {
-// 		title: 'Next.js',
-// 		description: 'The React Framework for the Web',
-// 		url: 'https://nextjs.org',
-// 		siteName: 'Next.js',
-
-// 		locale: 'en_US',
-// 		type: 'website',
-// 	},
-// }
 
 async function page({ params }: ParamsIProps) {
 	const { username } = params;
