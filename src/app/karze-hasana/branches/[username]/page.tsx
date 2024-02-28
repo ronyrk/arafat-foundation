@@ -2,6 +2,16 @@ import BorrowersList from '@/components/BorrowersList';
 import { BranchIProps, ParamsIProps } from '@/types'
 import { cookies } from 'next/headers';
 import React from 'react'
+import prisma from '@/lib/prisma';
+
+
+export async function generateMetadata({ params }: Props) {
+	const username = params.username;
+	const data = await prisma.branch.findUnique({ where: { username } });
+	return {
+		title: data?.branchName,
+	}
+};
 
 async function getData(username: string) {
 	const res = await fetch(`https://arafatfoundation.vercel.app/api/branch/${username}`);
@@ -15,15 +25,6 @@ type Props = {
 	params: { username: string }
 };
 
-
-
-export async function generateMetadata({ params }: Props) {
-	const branch: BranchIProps = await getData(params.username);
-	return {
-		title: branch.branchName,
-		description: branch.code,
-	}
-};
 
 async function page({ params }: ParamsIProps) {
 	cookies();
