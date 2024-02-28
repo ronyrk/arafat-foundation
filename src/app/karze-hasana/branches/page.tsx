@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 
 async function BranchList() {
 	unstable_noStore();
-	let res = await fetch('https://arafatfoundation.vercel.app/api/branc');
+	let res = await fetch('https://arafatfoundation.vercel.app/api/branch');
 	if (!res.ok) {
 		throw new Error("Failed to fetch data");
 	};

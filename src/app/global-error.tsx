@@ -20,7 +20,7 @@ export default function GlobalError({
 						</p>
 					</div>
 					<Button
-						className="inline-flex w-fit h-10 items-center justify-center rounded-md border border-gray-200 bg-color-main text-white px-8 text-sm font-medium shadow-sm transition-colors hover:bg-color-sub hover:text-color-main/50"
+						className="inline-flex w-fit h-10 items-center justify-center rounded-md border border-gray-200 bg-color-main text-white px-8 text-sm font-medium shadow-sm transition-colors hover:bg-color-sub"
 						onClick={() => reset()}
 					>
 						Refresh
