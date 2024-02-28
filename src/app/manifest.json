@@ -1,0 +1,8 @@
+{
+	"name": "ArafatFoundationWeb",
+	"short_name": "ArafatFoundationWeb",
+	"start_url": ".",
+	"display": "standalone",
+	"background_color": "#fff",
+	"description": "A readable Arafat Foundation app."
+}
