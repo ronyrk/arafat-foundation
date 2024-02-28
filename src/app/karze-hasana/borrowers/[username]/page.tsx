@@ -6,6 +6,9 @@ import { unstable_noStore } from 'next/cache';
 import Image from 'next/image';
 import React from 'react'
 
+type Props = {
+	params: { username: string }
+};
 export async function getUser(username: string) {
 	unstable_noStore();
 	const res = await fetch(`https://arafatfoundation.vercel.app/api/loan/${username}`);
@@ -14,6 +17,17 @@ export async function getUser(username: string) {
 	};
 	return res.json();
 };
+
+
+export async function generateMetadata({ params }: Props) {
+	const user: LoanIProps = await getUser(params.username);
+	return {
+		title: user.name,
+		description: user.about,
+	}
+};
+
+
 
 async function page({ params }: ParamsIProps) {
 	const { username } = params;

@@ -13,6 +13,19 @@ async function getUser(username: string) {
 	return res.json();
 };
 
+type Props = {
+	params: { username: string }
+};
+
+
+export async function generateMetadata({ params }: Props) {
+	const donor: DonorIProps = await getUser(params.username);
+	return {
+		title: donor.name,
+		description: donor.about,
+	}
+};
+
 async function page({ params }: ParamsIProps) {
 	const { username } = params;
 	const data: DonorIProps = await getUser(username);
