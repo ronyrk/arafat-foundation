@@ -4,6 +4,7 @@ import { cookies } from 'next/headers';
 import React from 'react'
 import prisma from '@/lib/prisma';
 import { unstable_noStore } from 'next/cache';
+import { Share } from '@/components/Share';
 
 type Props = {
 	params: { username: string }
@@ -57,6 +58,9 @@ async function page({ params }: ParamsIProps) {
 				<h2 className="py-1 text-xl font-medium text-center text-color-main">ঠিকানা:- {data.address}</h2>
 			</div>
 			<BorrowersList response={response} />
+			<div className="py-2 px-4">
+				<Share username={data.username} type='branch' />
+			</div>
 		</div>
 	)
 }

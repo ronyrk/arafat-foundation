@@ -3,10 +3,11 @@ import BorrowersDocuments from '@/components/BorrowersDocuments';
 import BorrowersTransaction from '@/components/BorrowersTransaction';
 import PhoneNumber from '@/components/PhoneNumber';
 import PhotoBlur from '@/components/PhotoBlur';
+import { Share } from '@/components/Share';
 import { LoanIProps, ParamsIProps, PaymentIProps } from '@/types'
 import { unstable_noStore } from 'next/cache';
-import Image from 'next/image';
 import React from 'react'
+
 
 type Props = {
 	params: { username: string }
@@ -91,6 +92,9 @@ async function page({ params }: ParamsIProps) {
 					<PhoneNumber phone={data.phone} />
 				</div>
 				<BorrowersDocuments data={data} />
+			</div>
+			<div className="py-2 px-4">
+				<Share username={data.username} type='borrowers' />
 			</div>
 			<div className="p-4">
 				<h2 className="text-[16px] font-normal text-color-main">{data.about} </h2>

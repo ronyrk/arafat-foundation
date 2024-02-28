@@ -1,4 +1,5 @@
 import DonorTable from '@/components/DonorTable';
+import { Share } from '@/components/Share';
 import { DonorIProps, DonorPaymentIProps, ParamsIProps } from '@/types'
 import { unstable_noStore } from 'next/cache';
 import Image from 'next/image';
@@ -96,6 +97,9 @@ async function page({ params }: ParamsIProps) {
 			</div>
 			<div className="p-4">
 				<h2 className="text-[16px] font-normal text-color-main">{data.about} </h2>
+			</div>
+			<div className="py-2 px-4">
+				<Share username={data.username} type='donor' />
 			</div>
 			<DonorTable data={data} />
 		</div>
