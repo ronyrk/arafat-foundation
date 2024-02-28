@@ -1,6 +1,8 @@
+import AddressBlur from '@/components/AddressBlur';
 import BorrowersDocuments from '@/components/BorrowersDocuments';
 import BorrowersTransaction from '@/components/BorrowersTransaction';
 import PhoneNumber from '@/components/PhoneNumber';
+import PhotoBlur from '@/components/PhotoBlur';
 import { LoanIProps, ParamsIProps, PaymentIProps } from '@/types'
 import { unstable_noStore } from 'next/cache';
 import Image from 'next/image';
@@ -76,12 +78,12 @@ async function page({ params }: ParamsIProps) {
 		<div className='flex flex-col gap-3'>
 			<div className="flex md:flex-row flex-col justify-between gap-3 px-2">
 				<div className=" basis-3/12 border-[2px] p-2 flex justify-around relative rounded">
-					<Image className=' rounded-md object-cover' src={data.photosUrl} alt={data.name} width={260} height={140} />
+					<PhotoBlur url={data.photosUrl} name={data.name} />
 					<span className=" absolute top-3 bg-white left-2 border-[2px] text-[13px] font-normal p-[2px] rounded">ঋণগ্রহীতা</span>
 				</div>
 				<div className="basis-5/12 border-[2px] rounded p-1 px-2 flex flex-col justify-around">
 					<h2 className=" font-semibold text-xl py-1  text-color-main">{data.name}</h2>
-					<h2 className=" font-normal text-[15px]  text-color-main"><span className="font-semibold mr-2">ঠিকানা :</span>{data.address}</h2>
+					<AddressBlur address={data.address} />
 					<h2 className=" font-normal text-[15px]  text-color-main"><span className="font-semibold mr-2">পেশা:</span>{data.occupation}</h2>
 					<h2 className=" font-normal text-[15px]  text-color-main"><span className="font-semibold mr-2">মোট ঋণ:</span>{data.balance}</h2>
 					<h2 className=" font-normal text-[15px]  text-color-main"><span className="font-semibold mr-2">মোট পরিশোধিত ঋণ:</span>{allPayment()}</h2>
