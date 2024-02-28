@@ -3,9 +3,11 @@ import { BranchIProps, ParamsIProps } from '@/types'
 import { cookies } from 'next/headers';
 import React from 'react'
 import prisma from '@/lib/prisma';
+import { unstable_noStore } from 'next/cache';
 
 
 export async function generateMetadata({ params }: Props) {
+	unstable_noStore();
 	const username = params.username;
 	const data = await prisma.branch.findUnique({ where: { username } });
 	return {
@@ -14,6 +16,7 @@ export async function generateMetadata({ params }: Props) {
 };
 
 async function getData(username: string) {
+	unstable_noStore();
 	const res = await fetch(`https://arafatfoundation.vercel.app/api/branch/${username}`);
 	if (!res.ok) {
 		throw new Error("Failed to fetch data");
