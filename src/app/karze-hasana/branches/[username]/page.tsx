@@ -11,6 +11,20 @@ async function getData(username: string) {
 	return res.json();
 };
 
+type Props = {
+	params: { username: string }
+};
+
+
+
+export async function generateMetadata({ params }: Props) {
+	const branch: BranchIProps = await getData(params.username);
+	return {
+		title: branch.branchName,
+		description: branch.code,
+	}
+};
+
 async function page({ params }: ParamsIProps) {
 	cookies();
 	const { username } = params;
