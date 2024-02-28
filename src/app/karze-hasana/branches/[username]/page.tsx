@@ -59,7 +59,7 @@ async function page({ params }: ParamsIProps) {
 			</div>
 			<BorrowersList response={response} />
 			<div className="py-2 px-4">
-				<Share username={data.username} type='branch' />
+				<Share username={data.username} type='branches' />
 			</div>
 		</div>
 	)
