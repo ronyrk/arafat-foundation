@@ -5,13 +5,6 @@ import prisma from '@/lib/prisma';
 
 export const runtime = 'edge'
 
-export const size = {
-	width: 1200,
-	height: 630,
-}
-
-export const contentType = 'image/png';
-
 export default async function Image({ params }: { params: { username: string } }) {
 	const username = params.username;
 	const donor = await prisma.donor.findUnique({ where: { username } });
@@ -19,20 +12,33 @@ export default async function Image({ params }: { params: { username: string } }
 		(
 			<div
 				style={{
-					fontSize: 48,
-					background: 'white',
+					display: 'flex',
+					fontSize: 60,
+					color: 'black',
+					background: '#f6f6f6',
 					width: '100%',
 					height: '100%',
-					display: 'flex',
-					alignItems: 'center',
+					paddingTop: 50,
+					flexDirection: 'column',
 					justifyContent: 'center',
+					alignItems: 'center',
 				}}
 			>
-				<img src={donor?.photoUrl} alt={donor?.name} />
+				<img
+					width="256"
+					height="256"
+					src={donor?.photoUrl}
+					style={{
+						borderRadius: 128,
+					}}
+					alt={donor?.name}
+				/>
+				<p>github.com/{username}</p>
 			</div>
 		),
 		{
-			...size,
-		}
-	)
+			width: 1200,
+			height: 630,
+		},
+	);
 }
