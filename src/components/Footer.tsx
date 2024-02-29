@@ -84,7 +84,7 @@ function Footer() {
 												</div>
 												<div className="flex flex-col my-2  ml-[3px]">
 													<span className='text-[14px]  text-white font-medium'>Phone</span>
-													<span className=' text-[15px] text-white font-semibold'>01602505070</span>
+													<a className=' text-[15px] text-white font-semibold' href="tel:01602505070">01602505070</a>
 												</div>
 											</div>
 										</div>
@@ -97,7 +97,7 @@ function Footer() {
 												</div>
 												<div className="flex flex-col my-2  ml-[3px]">
 													<span className='text-[14px] font-medium  text-white'>Email</span>
-													<span className=' text-[15px] font-semibold  text-white'>contact@arafatfoundation.org</span>
+													<a className=' text-[15px] font-semibold  text-white' href="mailto:contact@arafatfoundation.org">contact@arafatfoundation.org</a>
 												</div>
 											</div>
 										</div>
