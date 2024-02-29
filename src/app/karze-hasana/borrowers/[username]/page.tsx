@@ -79,7 +79,7 @@ async function page({ params }: ParamsIProps) {
 		<div className='flex flex-col gap-3'>
 			<div className="flex md:flex-row flex-col justify-between gap-3 px-2">
 				<div className=" basis-3/12 border-[2px] p-2 flex justify-around relative rounded">
-					<PhotoBlur url={data.photosUrl} name={data.name} />
+					<PhotoBlur url={data?.photosUrl} name={data?.name} />
 					<span className=" absolute top-3 bg-white left-2 border-[2px] text-[13px] font-normal p-[2px] rounded">ঋণগ্রহীতা</span>
 				</div>
 				<div className="basis-5/12 border-[2px] rounded p-1 px-2 flex flex-col justify-around">
