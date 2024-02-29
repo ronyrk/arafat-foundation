@@ -82,10 +82,10 @@ function Payment({ params }: {
 		// Send Payload payment Request
 		mutate({ loanusername, photoUrl, amount, method, createAt }, {
 			onSuccess: ({ message, payment }: { message: string, payment: PaymentIProps }) => {
+				// console.log(message, payment, "output");
 				if (payment.id) {
 					toast.success(message);
 					router.push(`/karze-hasana/borrowers/${username}`);
-
 				} else {
 					toast.error("payment Request Created Failed");
 				}
@@ -147,7 +147,7 @@ function Payment({ params }: {
 						<div className="flex flex-col gap-2">
 							<Label >Payment Transaction photo</Label>
 							<UploadButton
-								className=' bg-color-sub py-1 rounded-md w-[350px]'
+								className="ut-button:bg-color-sub  w-[350px] ut-button:ut-readying:bg-color-sub/80"
 								endpoint="imageUploader"
 								onClientUploadComplete={(res) => {
 									// Do something with the response
@@ -197,7 +197,7 @@ function Payment({ params }: {
 								</FormItem>
 							)}
 						/>
-						{isPending ? <Button disabled type="submit">Loading...</Button> : <Button disabled={image === ''} type="submit">Submit</Button>}
+						{isPending ? <Button disabled>Loading...</Button> : <Button disabled={image === ''} type="submit">Submit</Button>}
 					</form>
 				</Form>
 			</div>
