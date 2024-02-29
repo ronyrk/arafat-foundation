@@ -1,4 +1,5 @@
 import DonorTable from '@/components/DonorTable';
+import PhotoBlur from '@/components/PhotoBlur';
 import { Share } from '@/components/Share';
 import { DonorIProps, DonorPaymentIProps, ParamsIProps } from '@/types'
 import { unstable_noStore } from 'next/cache';
@@ -85,7 +86,7 @@ async function page({ params }: ParamsIProps) {
 		<div className='flex flex-col gap-3'>
 			<div className="flex md:flex-row flex-col justify-between gap-3 px-2">
 				<div className=" basis-3/12 border-[2px] p-2 flex justify-around relative rounded">
-					<Image className=' rounded-md object-cover' src={data.photoUrl} alt={data.name} width={260} height={140} />
+					<PhotoBlur name={data.name} url={data.photoUrl} />
 					<span className=" absolute top-3 bg-white left-2 border-[2px] text-[13px] lowercase font-normal p-[2px] rounded">{data.status}</span>
 				</div>
 				<div className="basis-9/12 border-[2px] rounded p-1 px-2 flex flex-col justify-around">
