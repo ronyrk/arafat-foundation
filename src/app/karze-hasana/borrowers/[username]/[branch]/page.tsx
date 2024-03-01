@@ -110,7 +110,7 @@ function Payment({ params }: {
 							name="date"
 							render={({ field }) => (
 								<FormItem className="flex flex-col w-[350px]">
-									<FormLabel>Date of birth</FormLabel>
+									<FormLabel>Date</FormLabel>
 									<Popover>
 										<PopoverTrigger asChild>
 											<FormControl>
