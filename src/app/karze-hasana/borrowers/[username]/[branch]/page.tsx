@@ -77,7 +77,9 @@ function Payment({ params }: {
 		const amount = data.amount;
 		const method = data.method;
 		const loanusername = username;
-		const createAt = data.date;
+		const previous = data.date;
+		const createAt = new Date(previous);
+		createAt.setDate(previous.getDate() + 1);
 
 		// Send Payload payment Request
 		mutate({ loanusername, photoUrl, amount, method, createAt }, {
