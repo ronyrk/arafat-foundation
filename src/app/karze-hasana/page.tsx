@@ -13,7 +13,7 @@ import { cookies } from 'next/headers';
 async function htmlConvert(data: string) {
 	return (
 		<div className="p-2">
-			<div dangerouslySetInnerHTML={{ __html: data }} />
+			<div className='list-disc' dangerouslySetInnerHTML={{ __html: data }} />
 		</div>
 	)
 }
