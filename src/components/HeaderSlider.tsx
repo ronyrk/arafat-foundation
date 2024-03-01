@@ -51,8 +51,8 @@ function HeaderSlider() {
 									<AlertDialogTitle>Are you absolutely logout?</AlertDialogTitle>
 								</AlertDialogHeader>
 								<AlertDialogFooter>
-									<AlertDialogCancel className=' text-color-main'>Cancel</AlertDialogCancel>
-									<AlertDialogAction onClick={logOut} >Continue</AlertDialogAction>
+									<AlertDialogCancel className=' text-color-main'>No</AlertDialogCancel>
+									<AlertDialogAction onClick={logOut} >Yes</AlertDialogAction>
 								</AlertDialogFooter>
 							</AlertDialogContent>
 						</AlertDialog>

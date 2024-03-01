@@ -96,7 +96,7 @@ export interface DonorPaymentIProps {
 	donorUsername: string,
 	loanPayment: string,
 	amount: string,
-	createAt?: Date,
+	createAt: Date,
 	type: string,
 };
 export interface FaqIProps {
