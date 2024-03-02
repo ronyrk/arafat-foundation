@@ -60,6 +60,25 @@ async function DonorList() {
 		}
 
 	}
+	const allReturnAmount = async (status: string, username: string) => {
+		unstable_noStore();
+		const response = await fetch(`https://arafatfoundation.vercel.app/api/donor_payment/donor/${username}`);
+		if (!response.ok) {
+			throw new Error("Failed fetch Data");
+		};
+		const paymentList: DonorPaymentIProps[] = await response.json();
+		if (status === "LEADER") {
+			const returnArray = paymentList.filter((item) => item.type === "return");
+			let returnStringArray: string[] = [];
+			returnArray.forEach((item) => returnStringArray.push(item.loanPayment));
+			const returnNumberArray = returnStringArray.map(Number);
+			const totalReturn = returnNumberArray.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+
+			return totalReturn;
+		} else {
+			return 'N/A'
+		}
+	}
 
 
 	return (
@@ -70,10 +89,11 @@ async function DonorList() {
 						<TableCell className="font-medium">{item.code}</TableCell>
 						<TableCell className="font-medium uppercase">{item.name}</TableCell>
 						<TableCell className="font-medium uppercase" >{TotalAmount(item.status, item.username, item.amount)}</TableCell>
+						<TableCell className="font-medium uppercase" >{allReturnAmount(item.status, item.username)}</TableCell>
 						<TableCell className="font-medium uppercase">{item.status}</TableCell>
 						<TableCell className="font-medium uppercase">
 							<Button className='bg-color-sub' size={"sm"} asChild>
-								<Link href={`donors/${item.username}`}>DETAILS</Link>
+								<Link href={`donor-and-lenders/${item.username}`}>DETAILS</Link>
 							</Button>
 
 						</TableCell>
@@ -98,6 +118,7 @@ async function page() {
 						<TableHead>CODE</TableHead>
 						<TableHead className='w-[300px]'>NAME</TableHead>
 						<TableHead>AMOUNT</TableHead>
+						<TableHead>RETURNED AMOUNT</TableHead>
 						<TableHead>TYPE</TableHead>
 						<TableHead>DETAILS</TableHead>
 					</TableRow>

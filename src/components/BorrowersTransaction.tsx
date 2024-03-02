@@ -66,7 +66,7 @@ function BorrowersTransaction({ username, loanAmount, data }: { username: string
 				<TableHeader>
 					<TableRow>
 						<TableHead>DATE</TableHead>
-						<TableHead>LOAD AMOUNT</TableHead>
+						<TableHead>LOAN AMOUNT</TableHead>
 						<TableHead>LOAN PAYMENT</TableHead>
 						<TableHead>LOAN OUTSTANDING</TableHead>
 					</TableRow>
