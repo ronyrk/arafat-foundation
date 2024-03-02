@@ -73,7 +73,7 @@ async function DonorList() {
 						<TableCell className="font-medium uppercase">{item.status}</TableCell>
 						<TableCell className="font-medium uppercase">
 							<Button className='bg-color-sub' size={"sm"} asChild>
-								<Link href={`donors/${item.username}`}>DETAILS</Link>
+								<Link href={`donor-and-lenders/${item.username}`}>DETAILS</Link>
 							</Button>
 
 						</TableCell>
