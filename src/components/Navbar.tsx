@@ -36,7 +36,7 @@ function Navbar() {
 					<a href="/" className="text-white rounded px-[2px]"><Linkedin className='text-white  hover:text-orange-500 cursor-pointer' size={18} /></a>
 				</div>
 			</div>
-			<div className="md:px-20 px-4 flex flex-row justify-between gap-2 md:gap-0 items-center">
+			<div className="md:px-20 px-4 flex flex-row justify-between  bg-[#FFFFFF] gap-2 md:gap-0 items-center">
 				<Link href="/">
 					<Image className='w-[120px] h-[100] py-2 object-contain rounded' src={Logo} placeholder='blur' alt='logo' />
 				</Link>
