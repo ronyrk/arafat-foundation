@@ -12,8 +12,8 @@ import { cookies } from 'next/headers';
 
 async function htmlConvert(data: string) {
 	return (
-		<div className="p-2">
-			<div className='list-disc' dangerouslySetInnerHTML={{ __html: data }} />
+		<div className="px-[20px] py-2">
+			<div dangerouslySetInnerHTML={{ __html: data }} />
 		</div>
 	)
 }
@@ -30,7 +30,7 @@ async function Question() {
 		<Accordion type="single" collapsible>
 			{
 				data.map((item, index) => (
-					<AccordionItem key={index} value={index.toString()}>
+					<AccordionItem className=' hover:bg-[#EAEAF5]' key={index} value={index.toString()}>
 						<AccordionTrigger>{item.title}</AccordionTrigger>
 						<AccordionContent>
 							{htmlConvert(item.description)}
@@ -45,7 +45,7 @@ async function Question() {
 function page() {
 	cookies();
 	return (
-		<div className='p-1 bg-gray-100 border-2 rounded'>
+		<div className='p-1 bg-[#F3F3F3] border-2 rounded'>
 			<Suspense fallback={<h2>Loading...</h2>}>
 				<Question />
 			</Suspense>
