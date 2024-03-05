@@ -22,8 +22,8 @@ function Footer() {
 				/>
 				<div className=" absolute top-6 left-0 z-10">
 					<div className="md:px-20 px-4 ">
-						<div className="flex md:flex-row flex-col  md:justify-between justify-center">
-							<div className="md:flex basis-1/4 flex-col items-center my-2 p-4 py-2">
+						<div className="flex md:flex-row flex-col md:justify-between justify-center">
+							<div className="md:flex basis-1/4 flex-col my-2 px-4 py-2 gap-x-10">
 								<Image
 									alt='logo'
 									src={logo}
@@ -32,7 +32,7 @@ function Footer() {
 									height={110}
 									className=''
 								/>
-								<h2 className=" text-sm font-medium text-[#F5F5F5] p-2">আরাফাত ফাউন্ডেশন একটি অরাজনৈতিক, অলাভজনক, উম্মাহর ঐক্য , শিক্ষা , দাওয়াহ ও মানব কল্যাণে নিবে দিত সেবা মূলমূক প্রতিষ্ঠান।</h2>
+								<h2 className=" text-sm font-medium text-[#F5F5F5] py-4">আরাফাত ফাউন্ডেশন একটি অরাজনৈতিক, অলাভজনক, উম্মাহর ঐক্য , শিক্ষা , দাওয়াহ ও মানব কল্যাণে নিবে দিত সেবা মূলমূক প্রতিষ্ঠান।</h2>
 								<Button asChild className=' w-28 flex items-center bg-color-main hover:transition hover:delay-150 hover:duration-300 hover:bg-color-sub' size={"lg"} variant={"outline"}><Link href="https://arafatfoundation.org/donate/">দান করুন <span className='ml-[6px]'><HandHeart /></span></Link></Button>
 							</div>
 							<div className="flex basis-1/4 flex-col  px-4">
