@@ -74,7 +74,7 @@ async function BorrowersList() {
 						<TableCell className="font-medium uppercase">{duePayment(item?.username)}</TableCell>
 						<TableCell className="font-medium uppercase">
 							<Button className='bg-color-sub' size={"sm"} asChild>
-								<Link href={`borrowers/${item.username}`}>DETAILS</Link>
+								<Link href={`borrowers/${item.username}`}>details</Link>
 							</Button>
 
 						</TableCell>
