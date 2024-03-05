@@ -76,11 +76,11 @@ function Footer() {
 							<div className="flex basis-1/4 flex-col px-4">
 								<h2 className="text-[24px] font-semibold  text-white border-b-4 border-white">যোগাযোগের তথ্য</h2>
 								<div className="flex flex-col gap-0">
-									<Link href='/'>
+									<a href="tel:01602505070">
 										<div className="flex flex-row items-center">
 											<div className="flex flex-row items-center my-1">
 												<div className="bg-gray-300 transition duration-150 ease-in-out hover:bg-color-sub hover:text-white p-3 rounded-md mr-1">
-													<PhoneCall className='' size={25} />
+													<PhoneCall size={17} />
 												</div>
 												<div className="flex flex-col my-2  ml-[3px]">
 													<span className='text-[14px]  text-white font-medium'>Phone</span>
@@ -88,12 +88,12 @@ function Footer() {
 												</div>
 											</div>
 										</div>
-									</Link>
-									<Link href='/'>
+									</a>
+									<a href="mailto:contact@arafatfoundation">
 										<div className="flex flex-row items-center">
 											<div className="flex flex-row items-center my-1">
 												<div className="bg-gray-300 transition duration-150 ease-in-out hover:bg-color-sub hover:text-white p-3 rounded-md mr-1">
-													<Mail className='' size={25} />
+													<Mail size={17} />
 												</div>
 												<div className="flex flex-col my-2  ml-[3px]">
 													<span className='text-[14px] font-medium  text-white'>Email</span>
@@ -101,20 +101,18 @@ function Footer() {
 												</div>
 											</div>
 										</div>
-									</Link>
-									<Link href='/'>
-										<div className="flex flex-row items-center">
-											<div className="flex flex-row items-center my-1">
-												<div className="bg-gray-300 transition duration-150 ease-in-out hover:bg-color-sub hover:text-white p-3 rounded-md mr-1">
-													<MapPin className='' size={25} />
-												</div>
-												<div className="flex flex-col ml-2">
-													<span className='text-[13px] font-medium  text-white'>Location</span>
-													<span className=' text-[14px] font-semibold  text-white'>Yousufpur, Charghat, Rajshahi-6271, Bangladesh</span>
-												</div>
+									</a>
+									<div className="flex flex-row items-center cursor-pointer">
+										<div className="flex flex-row items-center my-1">
+											<div className="bg-gray-300 transition duration-150 ease-in-out hover:bg-color-sub hover:text-white p-3 rounded-md mr-1">
+												<MapPin size={17} />
+											</div>
+											<div className="flex flex-col ml-2">
+												<span className='text-[13px] font-medium  text-white'>Location</span>
+												<span className=' text-[14px] font-semibold  text-white'>Yousufpur, Charghat, Rajshahi-6271, Bangladesh</span>
 											</div>
 										</div>
-									</Link>
+									</div>
 								</div>
 							</div>
 
