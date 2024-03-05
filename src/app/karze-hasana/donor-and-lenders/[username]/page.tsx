@@ -3,7 +3,6 @@ import PhotoBlur from '@/components/PhotoBlur';
 import { Share } from '@/components/Share';
 import { DonorIProps, DonorPaymentIProps, ParamsIProps } from '@/types'
 import { unstable_noStore } from 'next/cache';
-import Image from 'next/image';
 import React from 'react'
 
 async function getUser(username: string) {

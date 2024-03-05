@@ -104,3 +104,13 @@ export interface FaqIProps {
 	title: string,
 	description: string,
 }
+
+export interface MemberIProps {
+	id?: string,
+	branch: string,
+	teamMemberName: string,
+	teamMemberPhone: string,
+	teamMemberAddress: string,
+	teamMemberOccupation: string,
+	teamMemberPhotoUrl: string,
+}
