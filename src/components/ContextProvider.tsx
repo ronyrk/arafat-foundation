@@ -49,7 +49,7 @@ export function ContextProvider({ children }: { children: ReactNode }) {
 			getUser(username);
 		} else {
 			setGust(true);
-			console.log("Guest Users");
+			// console.log("Guest Users");
 		}
 	}, []);
 

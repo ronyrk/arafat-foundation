@@ -21,7 +21,7 @@ type Props = {
 
 export async function generateMetadata({ params }: Props) {
 	const donor: DonorIProps = await getUser(params.username);
-	console.log(donor, "24");
+	// console.log(donor, "24");
 	return {
 		title: donor?.name,
 		description: donor?.about,
