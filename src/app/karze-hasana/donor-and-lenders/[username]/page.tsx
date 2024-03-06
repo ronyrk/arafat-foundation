@@ -21,22 +21,23 @@ type Props = {
 
 export async function generateMetadata({ params }: Props) {
 	const donor: DonorIProps = await getUser(params.username);
+	console.log(donor, "24");
 	return {
-		title: donor.name,
-		description: donor.about,
+		title: donor?.name,
+		description: donor?.about,
 		openGraph: {
 			images: [
 				{
-					url: donor.photoUrl, // Must be an absolute URL
+					url: donor?.photoUrl, // Must be an absolute URL
 					width: 800,
 					height: 600,
-					alt: donor.name,
+					alt: donor?.name,
 				},
 				{
-					url: donor.photoUrl, // Must be an absolute URL
+					url: donor?.photoUrl, // Must be an absolute URL
 					width: 1800,
 					height: 1600,
-					alt: donor.name,
+					alt: donor?.name,
 				},
 			],
 		},
@@ -91,26 +92,33 @@ async function page({ params }: ParamsIProps) {
 			return totalReturn;
 		}
 	}
+	async function getStatus(status: string) {
+		if (status === "LEADER") {
+			return "LENDER"
+		} else {
+			return status
+		}
+	};
 
 	return (
 		<div className='flex flex-col gap-3'>
 			<div className="flex md:flex-row flex-col justify-between gap-3 px-2">
 				<div className=" basis-3/12 border-[2px] p-2 flex justify-around relative rounded">
 					<PhotoBlur name={data.name} url={data.photoUrl} />
-					<span className=" absolute top-3 bg-white left-2 border-[2px] text-[13px] lowercase font-normal p-[2px] rounded">{data.status}</span>
+					<span className=" absolute top-3 bg-white left-2 border-[2px] text-[13px] lowercase font-normal p-[2px] rounded">{getStatus(data.status)}</span>
 				</div>
 				<div className="basis-9/12 border-[2px] rounded p-1 px-2 flex flex-col justify-around">
 					<h2 className=" font-semibold text-xl py-1  text-color-main">{data.name}</h2>
 					<h2 className=" font-normal text-[15px]  text-color-main"><span className="font-semibold mr-2">Lives in :</span>{data.lives} </h2>
 					<h2 className=" font-normal text-[15px]  text-color-main"><span className="font-semibold mr-2">Home town:</span>{data.hometown}</h2>
-					<h2 className=" font-normal text-[15px]  text-color-main"><span className="font-semibold mr-2">Total Lending:</span>{TotalAmount()}</h2>
+					<h2 className=" font-normal text-[15px]  text-color-main"><span className="font-semibold mr-2">{data.status === "LEADER" ? "Total Lending" : "Total Donation"} :- </span>{TotalAmount()}</h2>
 				</div>
 			</div>
 			<div className="p-4">
 				<h2 className="text-[16px] font-normal text-color-main">{data.about} </h2>
 			</div>
 			<div className="py-2 px-4">
-				<Share username={data.username} type='donor' />
+				<Share username={data?.username} type='donor-and-lenders' />
 			</div>
 			<DonorTable data={data} />
 		</div>

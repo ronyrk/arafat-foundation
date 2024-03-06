@@ -80,6 +80,14 @@ async function DonorList() {
 		}
 	}
 
+	async function getStatus(status: string) {
+		if (status === "LEADER") {
+			return "LENDER"
+		} else {
+			return status
+		}
+	};
+
 
 	return (
 		<TableBody>
@@ -90,7 +98,7 @@ async function DonorList() {
 						<TableCell className="font-medium uppercase">{item.name}</TableCell>
 						<TableCell className="font-medium uppercase" >{TotalAmount(item.status, item.username, item.amount)}</TableCell>
 						<TableCell className="font-medium uppercase" >{allReturnAmount(item.status, item.username)}</TableCell>
-						<TableCell className="font-medium uppercase">{item.status}</TableCell>
+						<TableCell className="font-medium uppercase">{getStatus(item?.status)}</TableCell>
 						<TableCell className="font-medium uppercase">
 							<Button className='bg-color-sub' size={"sm"} asChild>
 								<Link href={`donor-and-lenders/${item.username}`}>DETAILS</Link>
