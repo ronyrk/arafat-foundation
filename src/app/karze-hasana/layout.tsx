@@ -16,7 +16,7 @@ export default function KarzeHasanaLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<section>
+		<section className="bg-[#FCFCFD]">
 			<HeaderSlider />
 			<HeaderContent />
 			<div className="md:mx-20 md:my-4 my-2">
@@ -24,7 +24,7 @@ export default function KarzeHasanaLayout({
 					<div className="basis-1/5">
 						<Sidebar />
 					</div>
-					<div className=" md:px-2 bg-[#FCFCFD] rounded-md border-[2px] px-1 py-2 basis-4/5">{children}</div>
+					<div className=" md:px-2 bg-white  rounded-md border-[2px] px-1 py-2 basis-4/5">{children}</div>
 				</div>
 			</div>
 		</section>
