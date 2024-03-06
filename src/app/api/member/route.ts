@@ -19,3 +19,13 @@ export const POST = async (request: Request) => {
 		return NextResponse.json({ error });
 	}
 };
+
+// All Loan
+export const GET = async (request: Request) => {
+	try {
+		const loan = await prisma.member.findMany();
+		return NextResponse.json(loan);
+	} catch (error) {
+		throw new Error("Server Error");
+	}
+}
