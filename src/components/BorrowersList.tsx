@@ -1,3 +1,4 @@
+"use server";
 import React, { Suspense } from 'react'
 import {
 	Accordion,
@@ -5,7 +6,7 @@ import {
 	AccordionItem,
 	AccordionTrigger,
 } from "@/components/ui/accordion"
-import { BranchIProps, LoanIProps, PaymentIProps } from '@/types';
+import { BranchIProps, LoanIProps, MemberIProps, ParamsIProps, PaymentIProps } from '@/types';
 import Image from 'next/image';
 import {
 	Dialog,
@@ -29,7 +30,8 @@ import Link from 'next/link';
 import { Button } from "@/components/ui/button"
 import { getUser } from '@/app/karze-hasana/borrowers/[username]/page';
 import { unstable_noStore } from 'next/cache';
-
+import MemberCreateButton from './MemberCreateButton';
+import prisma from '@/lib/prisma';
 
 interface RequestParams {
 	response: {
@@ -37,6 +39,43 @@ interface RequestParams {
 		loanList: LoanIProps[],
 	}
 };
+
+async function MemberList({ username }: { username: string }) {
+	unstable_noStore();
+	const user = await prisma.member.findMany({ where: { branch: username } });
+
+	return (
+		<Accordion type="single" collapsible>
+			<AccordionItem value="item-3">
+				<AccordionTrigger className='text-lg font-medium text-color-main'>সদস্য</AccordionTrigger>
+				<AccordionContent className=' flex flex-col gap-3'>
+					<MemberCreateButton username={username} />
+					<div className='flex flex-col gap-3'>
+						{
+							user.map((item, index) => (
+								<div key={index} className="flex md:flex-row flex-col gap-1">
+									<div className="md:basis-9/12 w-full border-[2px] rounded md:px-4 px-2 flex flex-col justify-around">
+										<h2 className=" font-normal text-[15px]  text-color-main"><span className="mr-2 font-semibold">নাম:</span>{item.teamMemberName}</h2>
+										<h2 className=" font-normal text-[15px]  text-color-main"><span className="mr-2 font-semibold">ফোন :</span>{item.teamMemberPhone}</h2>
+										<h2 className=" font-normal text-[15px]  text-color-main"><span className="mr-2 font-semibold">ঠিকানা :</span>{item.teamMemberAddress}</h2>
+										<h2 className=" font-normal text-[15px]  text-color-main"><span className="mr-2 font-semibold">পেশা:</span>{item.teamMemberOccupation}</h2>
+									</div>
+
+									<div className="md:basis-3/12 w-full border-[2px]  flex justify-around rounded">
+										<Image className='object-cover rounded' src={item.teamMemberPhotoUrl} alt={item.teamMemberName} width={260} height={140} />
+									</div>
+
+								</div>
+							))
+						}
+					</div>
+				</AccordionContent>
+			</AccordionItem>
+		</Accordion>
+	)
+}
+
+
 
 async function duePayment(username: string) {
 	unstable_noStore();
@@ -72,7 +111,7 @@ async function allPayment(username: string) {
 
 
 async function BorrowersList(params: RequestParams) {
-	const { branchName, teamLeaderName, teamLeaderAddress, teamLeaderOccupation, teamLeaderPhone, teamLeaderPhotoUrl, photoUrl, presidentAddress, presidentName, presidentOccupation, presidentPhone, SecretaryAddress, SecretaryName, SecretaryOccupation, SecretaryPhone, ImamAddress, ImamName, ImamOccupation, ImamPhone } = params.response.info;
+	const { branchName, teamLeaderName, teamLeaderAddress, teamLeaderOccupation, teamLeaderPhone, teamLeaderPhotoUrl, photoUrl, presidentAddress, presidentName, presidentOccupation, presidentPhone, SecretaryAddress, SecretaryName, SecretaryOccupation, SecretaryPhone, ImamAddress, ImamName, ImamOccupation, ImamPhone, username } = params.response.info;
 	const loanList: LoanIProps[] = params.response.loanList;
 	return (
 		<div className='p-2'>
@@ -151,6 +190,8 @@ async function BorrowersList(params: RequestParams) {
 									</AccordionContent>
 								</AccordionItem>
 							</Accordion>
+
+							<MemberList username={username} />
 						</div>
 					</AccordionContent>
 				</AccordionItem>
