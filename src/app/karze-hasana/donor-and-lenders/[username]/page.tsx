@@ -21,22 +21,23 @@ type Props = {
 
 export async function generateMetadata({ params }: Props) {
 	const donor: DonorIProps = await getUser(params.username);
+	console.log(donor, "24");
 	return {
-		title: donor.name,
-		description: donor.about,
+		title: donor?.name,
+		description: donor?.about,
 		openGraph: {
 			images: [
 				{
-					url: donor.photoUrl, // Must be an absolute URL
+					url: donor?.photoUrl, // Must be an absolute URL
 					width: 800,
 					height: 600,
-					alt: donor.name,
+					alt: donor?.name,
 				},
 				{
-					url: donor.photoUrl, // Must be an absolute URL
+					url: donor?.photoUrl, // Must be an absolute URL
 					width: 1800,
 					height: 1600,
-					alt: donor.name,
+					alt: donor?.name,
 				},
 			],
 		},
@@ -110,7 +111,7 @@ async function page({ params }: ParamsIProps) {
 				<h2 className="text-[16px] font-normal text-color-main">{data.about} </h2>
 			</div>
 			<div className="py-2 px-4">
-				<Share username={data.username} type='donor' />
+				<Share username={data?.username} type='donor-and-lenders' />
 			</div>
 			<DonorTable data={data} />
 		</div>
