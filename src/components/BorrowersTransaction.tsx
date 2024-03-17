@@ -13,47 +13,50 @@ import Moment from "moment"
 import PaymentRequest from './PaymentRequest';
 
 async function LoanList({ username, loanAmount }: { username: string, loanAmount: string }) {
-	unstable_noStore();
-	const res = await fetch(`https://arafatfoundation.vercel.app/api/loan_list/${username}`);
-	if (!res.ok) {
-		throw new Error("Failed to fetch data");
+	try {
+		unstable_noStore();
+		const res = await fetch(`https://arafatfoundation.vercel.app/api/loan_list/${username}`);
+		if (!res.ok) {
+			throw new Error("Failed to fetch data");
+		}
+		const data: PaymentIProps[] = await res.json();
+		const calculateRemainingLoanAmount = async (amount: string, index: number) => {
+			const sumArray = data.slice(0, index - 1);
+			let indexPaymentString: string[] = ["0"];
+			sumArray.forEach((item) => indexPaymentString.push(item.amount));
+			let indexPayment = indexPaymentString.map(Number)
+			const loanSumAmount = indexPayment.reduce((accumulator, currentValue) => accumulator - currentValue, Number(amount));
+			return `${loanSumAmount}`;
+		};
+
+		const loanOutStanding = async (amount: string, index: number, paymentAmount: string) => {
+			const sumArray = data.slice(0, index - 1);
+			const payment = Number(paymentAmount);
+			let indexPaymentString: string[] = ["0"];
+			sumArray.forEach((item) => indexPaymentString.push(item.amount));
+			let indexPayment = indexPaymentString.map(Number);
+			const loanSumAmount = indexPayment.reduce((accumulator, currentValue) => accumulator - currentValue, Number(amount));
+			const result = loanSumAmount - payment;
+			return result;
+		}
+
+		return (
+			<TableBody>
+				{
+					data.map((item, index) => (
+						<TableRow key={index}>
+							<TableCell>{`${Moment(item.createAt).subtract(1, "years").format('DD/MM/YYYY')}`}</TableCell>
+							<TableCell>BDT ={calculateRemainingLoanAmount(loanAmount, data.length - index)}/=</TableCell>
+							<TableCell>BDT ={item.amount}/=</TableCell>
+							<TableCell>BDT ={loanOutStanding(loanAmount, data.length - index, item.amount)}/=</TableCell>
+						</TableRow>
+					))
+				}
+			</TableBody>
+		)
+	} catch (error) {
+		throw new Error("Data fetch failed");
 	}
-	const data: PaymentIProps[] = await res.json();
-
-	const loadAmountMain = async (amount: string, index: number) => {
-		const sumArray = data.slice(0, index - 1);
-		let indexPaymentString: string[] = ["0"];
-		sumArray.forEach((item) => indexPaymentString.push(item.amount));
-		let indexPayment = indexPaymentString.map(Number)
-		const loanSumAmount = indexPayment.reduce((accumulator, currentValue) => accumulator - currentValue, Number(amount));
-		return `${loanSumAmount}`;
-	};
-
-	const loanOutStanding = async (amount: string, index: number, paymentAmount: string) => {
-		const sumArray = data.slice(0, index - 1);
-		const payment = Number(paymentAmount);
-		let indexPaymentString: string[] = ["0"];
-		sumArray.forEach((item) => indexPaymentString.push(item.amount));
-		let indexPayment = indexPaymentString.map(Number);
-		const loanSumAmount = indexPayment.reduce((accumulator, currentValue) => accumulator - currentValue, Number(amount));
-		const result = loanSumAmount - payment;
-		return result;
-	}
-
-	return (
-		<TableBody>
-			{
-				data.map((item, index) => (
-					<TableRow key={index}>
-						<TableCell>{`${Moment(item.createAt).subtract(1, "years").format('DD/MM/YYYY')}`}</TableCell>
-						<TableCell>BDT ={loadAmountMain(loanAmount, data.length - index)}/=</TableCell>
-						<TableCell>BDT ={item.amount}/=</TableCell>
-						<TableCell>BDT ={loanOutStanding(loanAmount, data.length - index, item.amount)}/=</TableCell>
-					</TableRow>
-				))
-			}
-		</TableBody>
-	)
 }
 
 
