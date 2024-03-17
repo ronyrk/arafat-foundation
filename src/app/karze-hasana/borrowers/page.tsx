@@ -59,7 +59,8 @@ async function BorrowersList() {
 	if (!res.ok) {
 		throw new Error("Failed to fetch data");
 	};
-	const borrowers: LoanIProps[] = await res.json();
+	const result = await res.json();
+	const borrowers: LoanIProps[] = result?.slice(0, 5);
 
 
 	return (

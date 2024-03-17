@@ -7,7 +7,11 @@ export const dynamic = 'force-dynamic'
 export const GET = async (request: Request, { params }: ParamsIProps) => {
 	try {
 		const { username } = params;
-		const loanList = await prisma.payment.findMany({ where: { loanusername: username } });
+		const loanList = await prisma.payment.findMany({
+			where: { loanusername: username }, orderBy: {
+				createAt: "desc"
+			}
+		});
 		return NextResponse.json(loanList);
 	} catch (error) {
 		throw new Error("Server Error");

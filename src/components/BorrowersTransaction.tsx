@@ -21,16 +21,16 @@ async function LoanList({ username, loanAmount }: { username: string, loanAmount
 	const data: PaymentIProps[] = await res.json();
 
 	const loadAmountMain = async (amount: string, index: number) => {
-		const sumArray = data.slice(0, index);
+		const sumArray = data.slice(0, index - 1);
 		let indexPaymentString: string[] = ["0"];
-		const result = sumArray.forEach((item) => indexPaymentString.push(item.amount));
-		let indexPayment = indexPaymentString.map(Number);
+		sumArray.forEach((item) => indexPaymentString.push(item.amount));
+		let indexPayment = indexPaymentString.map(Number)
 		const loanSumAmount = indexPayment.reduce((accumulator, currentValue) => accumulator - currentValue, Number(amount));
 		return `${loanSumAmount}`;
 	};
 
 	const loanOutStanding = async (amount: string, index: number, paymentAmount: string) => {
-		const sumArray = data.slice(0, index);
+		const sumArray = data.slice(0, index - 1);
 		const payment = Number(paymentAmount);
 		let indexPaymentString: string[] = ["0"];
 		sumArray.forEach((item) => indexPaymentString.push(item.amount));
@@ -46,9 +46,9 @@ async function LoanList({ username, loanAmount }: { username: string, loanAmount
 				data.map((item, index) => (
 					<TableRow key={index}>
 						<TableCell>{`${Moment(item.createAt).subtract(1, "years").format('DD/MM/YYYY')}`}</TableCell>
-						<TableCell>BDT ={loadAmountMain(loanAmount, index)}/=</TableCell>
+						<TableCell>BDT ={loadAmountMain(loanAmount, data.length - index)}/=</TableCell>
 						<TableCell>BDT ={item.amount}/=</TableCell>
-						<TableCell>BDT ={loanOutStanding(loanAmount, index, item.amount)}/=</TableCell>
+						<TableCell>BDT ={loanOutStanding(loanAmount, data.length - index, item.amount)}/=</TableCell>
 					</TableRow>
 				))
 			}
