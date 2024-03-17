@@ -112,7 +112,7 @@ async function allPayment(username: string) {
 
 async function BorrowersList(params: RequestParams) {
 	const { branchName, teamLeaderName, teamLeaderAddress, teamLeaderOccupation, teamLeaderPhone, teamLeaderPhotoUrl, photoUrl, presidentAddress, presidentName, presidentOccupation, presidentPhone, SecretaryAddress, SecretaryName, SecretaryOccupation, SecretaryPhone, ImamAddress, ImamName, ImamOccupation, ImamPhone, username } = params.response.info;
-	const loanList: LoanIProps[] = params.response.loanList;
+	const loanList: LoanIProps[] = params.response.loanList.slice(0, 5);
 	return (
 		<div className='p-2'>
 			<Accordion type="single" className='py-1' collapsible>

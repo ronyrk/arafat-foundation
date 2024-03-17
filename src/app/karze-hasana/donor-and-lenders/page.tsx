@@ -26,7 +26,8 @@ async function DonorList() {
 	if (!res.ok) {
 		throw new Error("Failed to fetch data");
 	};
-	const donors: DonorIProps[] = await res.json();
+	const result = await res.json();
+	const donors: DonorIProps[] = result?.slice(0, 5);
 
 
 	const TotalAmount = async (status: string, username: string, amount: string) => {
