@@ -1,18 +1,13 @@
 import React from 'react'
-import { Textarea } from "@/components/ui/textarea"
 import {
 	Card,
 	CardContent,
-	CardDescription,
-	CardFooter,
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card"
-import { Label } from '@/components/ui/label'
-import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
 import { Facebook, Instagram, Linkedin, Twitter, Youtube } from 'lucide-react'
 import Link from 'next/link'
+import { FeedBack } from '@/components/FeedBack'
 
 
 function page() {
@@ -28,46 +23,31 @@ function page() {
 							<p className="text-xl font-normal border-b-2  border-gray-200 pb-2 ">Enter your details and we&lsquo;ll get back to you.</p>
 						</CardHeader>
 						<CardContent>
-							<div className="space-y-1">
-								<div className="space-y-1">
-									<Label htmlFor="name">Email</Label>
-									<Input id="name" placeholder="name" type="text" />
-								</div>
-								<div className="space-y-1">
-									<Label htmlFor="email">Email</Label>
-									<Input id="email" placeholder="Email" type="email" />
-								</div>
-								<div className="space-y-1">
-									<Label htmlFor="phone">Phone</Label>
-									<Input id="phone" placeholder="phone" type="tel" />
-								</div>
-								<div className="space-y-1">
-									<Label htmlFor="message">Message</Label>
-									<Textarea className="min-h-[80px]" id="message" placeholder="Your message" />
-								</div>
-							</div>
+							<FeedBack />
 						</CardContent>
-						<CardFooter>
-							<Button className="ml-auto">Submit</Button>
-						</CardFooter>
 					</Card>
 				</div>
 				<div className=" basis-1/2">
-					<div className="max-w-md h-[540px] mx-auto bg-white p-6 rounded-lg shadow flex flex-col justify-around">
+					<div className="max-w-md h-[525px] mx-auto bg-white p-6 rounded-lg shadow flex flex-col justify-around">
 						<h2 className="text-2xl font-semibold border-b-2 border-gray-200 pb-4">Contact Info</h2>
 						<div className="mt-2">
 							<div className="flex items-center space-x-3">
 								<PhoneIcon className="text-blue-500" />
 								<div>
 									<h3 className="text-lg font-medium">Phone</h3>
-									<p className="text-gray-600">01602505070</p>
+									<a href="tel:+8801602505070">
+										<p className="text-gray-600">01602505070</p>
+									</a>
 								</div>
+
 							</div>
 							<div className="flex items-center space-x-3 mt-4">
 								<MailboxIcon className="text-blue-500" />
 								<div>
 									<h3 className="text-lg font-medium">Email</h3>
-									<p className="text-gray-600">contact@arafatfoundation.org</p>
+									<a href="mailto:contact@arafatfoundation.org">
+										<p className="text-gray-600">contact@arafatfoundation.org</p>
+									</a>
 								</div>
 							</div>
 							<div className="flex items-center space-x-3 mt-4">

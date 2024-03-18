@@ -6,12 +6,6 @@ import { useUser } from './ContextProvider'
 
 
 
-
-
-
-
-
-
 function PaymentRequest({ username, branch }: { username: string, branch: string }) {
 	const { user } = useUser();
 
