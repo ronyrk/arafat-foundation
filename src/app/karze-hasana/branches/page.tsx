@@ -14,7 +14,7 @@ import { unstable_noStore } from 'next/cache';
 import { Input } from '@/components/ui/input';
 import { Metadata } from 'next';
 import SearchBox from '@/components/SearchBox';
-import { getBranchSearch } from '@/lib/SearchBranch';
+import { getSearchBranch } from '@/lib/SearchBranch';
 
 export const metadata: Metadata = {
 	title: "Branch List",
@@ -34,7 +34,7 @@ async function BranchList({ searchParams }: {
 	const query = searchParams?.search || "all";
 	try {
 
-		const branches = await getBranchSearch(query);
+		const branches = await getSearchBranch(query);
 		return (
 			<TableBody>
 				{

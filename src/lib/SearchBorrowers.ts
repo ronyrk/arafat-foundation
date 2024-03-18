@@ -2,7 +2,7 @@
 import { unstable_noStore } from "next/cache";
 import prisma from "./prisma";
 
-export async function getBorrowersSearch(query: string) {
+export async function getSearchBorrowers(query: string) {
 	unstable_noStore();
 	if (query === "all") {
 		const result = await prisma.loan.findMany();

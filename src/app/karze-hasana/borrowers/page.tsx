@@ -14,7 +14,7 @@ import { unstable_noStore } from 'next/cache';
 import { getUser } from './[username]/page';
 import { Metadata } from 'next';
 import SearchBox from '@/components/SearchBox';
-import { getBorrowersSearch } from '@/lib/SearchBorrowers';
+import { getSearchBorrowers } from '@/lib/SearchBorrowers';
 
 export const dynamic = 'force-dynamic'
 
@@ -68,7 +68,7 @@ async function BorrowersList({ searchParams }: {
 	const query = searchParams?.search || "all";
 
 	try {
-		const result = await getBorrowersSearch(query);
+		const result = await getSearchBorrowers(query);
 		const borrowers = result?.slice(0, 5);
 
 

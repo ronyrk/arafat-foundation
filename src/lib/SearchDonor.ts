@@ -2,13 +2,13 @@
 import { unstable_noStore } from "next/cache";
 import prisma from "./prisma";
 
-export async function getSearchBranch(query: string) {
+export async function getSearchDonor(query: string) {
 	unstable_noStore();
 	if (query === "all") {
-		const result = await prisma.branch.findMany();
+		const result = await prisma.donor.findMany();
 		return result;
 	}
-	const result = await prisma.branch.findMany({
+	const result = await prisma.donor.findMany({
 		where: {
 			OR: [
 				{
@@ -18,23 +18,11 @@ export async function getSearchBranch(query: string) {
 					}
 				},
 				{
-					district: {
+					name: {
 						contains: query,
 						mode: "insensitive"
 					}
 				},
-				{
-					address: {
-						contains: query,
-						mode: "insensitive"
-					}
-				},
-				{
-					branchName: {
-						contains: query,
-						mode: "insensitive"
-					}
-				}
 			]
 		}
 	})
