@@ -64,7 +64,7 @@ export function FeedBack() {
 			onSuccess: ({ message }: { message: string }) => {
 				console.log(message, "output");
 				toast.success(message);
-				// router.push("/");
+				router.push("/");
 			},
 			onError: (error) => {
 				toast.error("payment Request Created Failed");
@@ -126,7 +126,7 @@ export function FeedBack() {
 						</FormItem>
 					)}
 				/>
-				{isPending ? <Button aria-disabled >Loading</Button> : <Button type="submit">Submit</Button>}
+				{isPending ? <Button disabled >Loading</Button> : <Button type="submit">Submit</Button>}
 			</form>
 		</Form>
 	)
