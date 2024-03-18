@@ -114,3 +114,10 @@ export interface MemberIProps {
 	teamMemberOccupation: string,
 	teamMemberPhotoUrl: string,
 }
+
+export interface SendEmailIProps {
+	name: string,
+	email: string,
+	phone: string,
+	message: string,
+}
