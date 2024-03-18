@@ -9,7 +9,7 @@ export const GET = async (request: Request, { params }: ParamsIProps) => {
 		const { username } = params;
 		const loanList = await prisma.payment.findMany({
 			where: { loanusername: username }, orderBy: {
-				createAt: "desc"
+				createAt: "asc"
 			}
 		});
 		return NextResponse.json(loanList);
