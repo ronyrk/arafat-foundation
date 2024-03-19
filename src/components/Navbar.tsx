@@ -47,6 +47,9 @@ function Navbar() {
 					<Link href='/about-us' className='text-[16px] py-10 mx-3 font-semibold  hover:border-color-sub hover:border-b-4 hover:text-color-sub'>
 						আমাদের সম্পর্কে
 					</Link>
+					<Link href='/our-activities' className='text-[16px] py-10 mx-3 font-semibold  hover:border-color-sub hover:border-b-4 hover:text-color-sub'>
+						আমাদের কার্যক্রম
+					</Link>
 					<Link href='https://arafatfoundation.org/donation-verify/' className='text-[16px] py-10 mx-3 font-semibold hover:border-color-sub hover:text-color-sub hover:border-b-4' >
 						DONATION VERIFY
 					</Link>
@@ -67,6 +70,7 @@ function Navbar() {
 							<div className="flex flex-col gap-2">
 								<Link className='py-2 border-b-2 px-2' href="https://arafatfoundation.org/">হোম</Link>
 								<Link className='py-2 border-b-2 px-2' href="/about-us">আমাদের সম্পর্কে</Link>
+								<Link className='py-2 border-b-2 px-2' href="/our-activities">আমাদের কার্যক্রম</Link>
 								<Link className='py-2 border-b-2 px-2' href="https://arafatfoundation.org/donation-verify/">DONATION VERIFY</Link>
 								<Link className='py-2 border-b-2 px-2' href="/karze-hasana">কর্জে হাসানা</Link>
 								<Link className='py-2 border-b-2 px-2' href="/contact-us">যোগাযোগ</Link>
