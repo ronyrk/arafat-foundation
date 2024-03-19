@@ -76,44 +76,24 @@ async function BorrowersList({ searchParams }: {
 		const length = pageNumber?.length;
 
 		return (
-			<>
-				<Table>
-					<TableHeader>
-						<TableRow>
-							<TableHead>CODE</TableHead>
-							<TableHead className='w-[300px]'>BORROWERS NAME</TableHead>
-							<TableHead>DISBURSED</TableHead>
-							<TableHead>RECOVERED</TableHead>
-							<TableHead>BALANCE</TableHead>
-							<TableHead>DETAILS</TableHead>
+			<TableBody>
+				{
+					borrowers.map((item, index: number) => (
+						<TableRow key={index}>
+							<TableCell className="font-medium">{item?.code}</TableCell>
+							<TableCell className="font-medium uppercase">{item?.name}</TableCell>
+							<TableCell className="font-medium uppercase" >{item?.balance}</TableCell>
+							<TableCell className="font-medium uppercase">{allPayment(item?.username)}</TableCell>
+							<TableCell className="font-medium uppercase">{duePayment(item?.username)}</TableCell>
+							<TableCell className="font-medium uppercase">
+								<Button className='bg-color-sub' size={"sm"} asChild>
+									<Link href={`borrowers/${item?.username}`}>details</Link>
+								</Button>
+							</TableCell>
 						</TableRow>
-					</TableHeader>
-
-					<TableBody>
-						{
-							borrowers.map((item, index: number) => (
-								<TableRow key={index}>
-									<TableCell className="font-medium">{item?.code}</TableCell>
-									<TableCell className="font-medium uppercase">{item?.name}</TableCell>
-									<TableCell className="font-medium uppercase" >{item?.balance}</TableCell>
-									<TableCell className="font-medium uppercase">{allPayment(item?.username)}</TableCell>
-									<TableCell className="font-medium uppercase">{duePayment(item?.username)}</TableCell>
-									<TableCell className="font-medium uppercase">
-										<Button className='bg-color-sub' size={"sm"} asChild>
-											<Link href={`borrowers/${item?.username}`}>details</Link>
-										</Button>
-									</TableCell>
-								</TableRow>
-							))
-						}
-					</TableBody>
-				</Table>
-				<div className="flex justify-center py-2">
-					<PaginationPart data={length} />
-				</div>
-			</>
-
-
+					))
+				}
+			</TableBody>
 		)
 	} catch (error) {
 		throw new Error("Failed Data fetch");
@@ -128,17 +108,39 @@ async function page({ searchParams }: {
 		page?: string,
 	}
 }) {
+	const query = searchParams?.search || "all";
+	try {
+		const pageNumber = await getBorrowers(query);
+		const length = pageNumber?.length;
+		return (
+			<div className='flex flex-col'>
+				<Suspense fallback={<SearchBarFallback />}>
+					<SearchBox />
+				</Suspense>
+				<Table>
+					<TableHeader>
+						<TableRow>
+							<TableHead>CODE</TableHead>
+							<TableHead className='w-[300px]'>BORROWERS NAME</TableHead>
+							<TableHead>DISBURSED</TableHead>
+							<TableHead>RECOVERED</TableHead>
+							<TableHead>BALANCE</TableHead>
+							<TableHead>DETAILS</TableHead>
+						</TableRow>
+					</TableHeader>
+					<Suspense fallback={<h2 className=' text-center p-4'>Loading...</h2>} >
+						<BorrowersList searchParams={searchParams} />
+					</Suspense>
+				</Table>
+				<div className="flex justify-center py-2">
+					<PaginationPart data={length} />
+				</div>
 
-	return (
-		<div className='flex flex-col'>
-			<Suspense fallback={<SearchBarFallback />}>
-				<SearchBox />
-			</Suspense>
-			<Suspense fallback={<h2 className=' text-center p-4'>Loading...</h2>} >
-				<BorrowersList searchParams={searchParams} />
-			</Suspense>
-		</div>
-	)
+			</div>
+		)
+	} catch (error) {
+		throw new Error("Data fetch failed");
+	}
 }
 
 export default page
