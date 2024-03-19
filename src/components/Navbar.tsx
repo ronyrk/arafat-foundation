@@ -44,7 +44,7 @@ function Navbar() {
 					<Link href='/' className={`text-[16px] py-10 mx-3 font-semibold hover:border-color-sub hover:text-color-sub hover:border-b-4 ${pathname === "/" ? "border-b-4 border-color-sub text-color-sub" : ""}`}>
 						হোম
 					</Link>
-					<Link href='https://arafatfoundation.org/about-us/' className='text-[16px] py-10 mx-3 font-semibold  hover:border-color-sub hover:border-b-4 hover:text-color-sub'>
+					<Link href='/about-us' className='text-[16px] py-10 mx-3 font-semibold  hover:border-color-sub hover:border-b-4 hover:text-color-sub'>
 						আমাদের সম্পর্কে
 					</Link>
 					<Link href='https://arafatfoundation.org/donation-verify/' className='text-[16px] py-10 mx-3 font-semibold hover:border-color-sub hover:text-color-sub hover:border-b-4' >
