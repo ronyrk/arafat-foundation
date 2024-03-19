@@ -15,6 +15,8 @@ import { Input } from '@/components/ui/input';
 import { Metadata } from 'next';
 import SearchBox from '@/components/SearchBox';
 import { getSearchBranch } from '@/lib/SearchBranch';
+import { getBranch } from '@/lib/getBranch';
+import PaginationPart from '@/components/Pagination';
 
 export const metadata: Metadata = {
 	title: "Branch List",
@@ -32,9 +34,9 @@ async function BranchList({ searchParams }: {
 	}
 }) {
 	const query = searchParams?.search || "all";
+	const item = searchParams?.page || "1";
 	try {
-
-		const branches = await getSearchBranch(query);
+		const branches = await getSearchBranch(query, item);
 		return (
 			<TableBody>
 				{
@@ -68,28 +70,38 @@ async function page({ searchParams }: {
 		page?: string,
 	}
 }) {
-	return (
-		<div className='flex flex-col'>
-			<Suspense fallback={<SearchBarFallback />}>
-				<SearchBox />
-			</Suspense>
-			<Table>
-				<TableHeader>
-					<TableRow>
-						<TableHead>CODE</TableHead>
-						<TableHead className='md:w-[300px]'>BRANCH</TableHead>
-						<TableHead>DISTRICT</TableHead>
-						<TableHead>PS(TANA)</TableHead>
-						<TableHead>DETAILS</TableHead>
-					</TableRow>
-				</TableHeader>
-				<Suspense fallback={<h2 className=' text-center p-4'>Loading...</h2>} >
-					<BranchList searchParams={searchParams} />
+	const query = searchParams?.search || "all";
+	try {
+		const pageNumber = await getBranch(query);
+		const length = pageNumber?.length;
+		return (
+			<div className='flex flex-col'>
+				<Suspense fallback={<SearchBarFallback />}>
+					<SearchBox />
 				</Suspense>
-			</Table>
+				<Table>
+					<TableHeader>
+						<TableRow>
+							<TableHead>CODE</TableHead>
+							<TableHead className='md:w-[300px]'>BRANCH</TableHead>
+							<TableHead>DISTRICT</TableHead>
+							<TableHead>PS(TANA)</TableHead>
+							<TableHead>DETAILS</TableHead>
+						</TableRow>
+					</TableHeader>
+					<Suspense fallback={<h2 className=' text-center p-4'>Loading...</h2>} >
+						<BranchList searchParams={searchParams} />
+					</Suspense>
+				</Table>
+				<div className="flex justify-center py-4">
+					<PaginationPart data={length} />
+				</div>
+			</div>
+		)
+	} catch (error) {
+		throw new Error("failed Data fetch in Page Number");
+	}
 
-		</div>
-	)
 }
 
 export default page
