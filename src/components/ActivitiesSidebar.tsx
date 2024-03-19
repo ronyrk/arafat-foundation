@@ -22,8 +22,8 @@ const data: NavbarIProps[] = [
 		path: "/our-activities/voluntary-charity"
 	},
 	{
-		name: "তহবিল ও আয়ের এর উৎস",
-		path: "/our-activities/funds-and-income"
+		name: "ইফতার ও রমাদান ফুড বিতরণ",
+		path: "/our-activities/iftar-and-Ramadan-food-distribution"
 	},
 	{
 		name: "ব্যয়ের নীতিমালা",
