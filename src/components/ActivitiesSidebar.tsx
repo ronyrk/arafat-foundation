@@ -10,12 +10,12 @@ interface NavbarIProps {
 
 const data: NavbarIProps[] = [
 	{
-		name: "পরিচিতি",
-		path: "/about-us",
+		name: "স্বাবলম্বীকরণ প্রকল্প",
+		path: "/our-activities",
 	},
 	{
 		name: "নীতি ও আদর্শ",
-		path: "/about-us/principles-and-ideals"
+		path: "/about-us/Nurturing and teaching"
 	},
 	{
 		name: "লক্ষ্য ও উদ্দেশ্য",
