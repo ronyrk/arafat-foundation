@@ -16,6 +16,7 @@ import { Metadata } from 'next';
 import SearchBox from '@/components/SearchBox';
 import { getSearchBorrowers } from '@/lib/SearchBorrowers';
 import PaginationPart from '@/components/Pagination';
+import { getBorrowers } from '@/lib/getBorrowers';
 
 export const dynamic = 'force-dynamic'
 
@@ -67,11 +68,12 @@ async function BorrowersList({ searchParams }: {
 	}
 }) {
 	const query = searchParams?.search || "all";
+	const page = searchParams?.page || "0";
 
 	try {
-		const borrowers = await getSearchBorrowers(query);
-		const length = borrowers?.length || 1;
-
+		const borrowers = await getSearchBorrowers(query, page);
+		const pageNumber = await getBorrowers(query);
+		const length = pageNumber?.length;
 
 		return (
 			<>

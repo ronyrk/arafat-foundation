@@ -5,7 +5,7 @@ import { useSearchParams, usePathname, useRouter } from 'next/navigation'
 
 
 function PaginationPart({ data }: { data: number }) {
-	const totalPage = Math.ceil(data / 3);
+	const totalPage = Math.ceil(data / 10);
 	const pathname = usePathname();
 	const { replace } = useRouter();
 	const searchParams = useSearchParams();
@@ -21,6 +21,7 @@ function PaginationPart({ data }: { data: number }) {
 	};
 	const page = searchParams.get('page');
 	const pageNumber = Number(page);
+	console.log(pageNumber);
 
 	return (
 		<div className=' flex flex-row gap-2'>
