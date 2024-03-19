@@ -62,7 +62,7 @@ export function FeedBack() {
 		const message = values.message;
 		mutate({ name, email, phone, message }, {
 			onSuccess: ({ message }: { message: string }) => {
-				console.log(message, "output");
+				// console.log(message, "output");
 				toast.success(message);
 				router.push("/");
 			},
