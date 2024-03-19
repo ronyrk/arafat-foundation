@@ -18,8 +18,8 @@ const data: NavbarIProps[] = [
 		path: "/our-activities/nurturing-and-teaching"
 	},
 	{
-		name: "লক্ষ্য ও উদ্দেশ্য",
-		path: "/our-activities/aims-and-objectives"
+		name: "সাদাকাহ জারিয়াহ",
+		path: "/our-activities/voluntary-charity"
 	},
 	{
 		name: "তহবিল ও আয়ের এর উৎস",
