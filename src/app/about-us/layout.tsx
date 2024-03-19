@@ -1,7 +1,4 @@
 import ABoutSidebar from "@/components/AboutSidebar";
-import HeaderContent from "@/components/HeaderContent";
-import HeaderSlider from "@/components/HeaderSlider";
-import Sidebar from "@/components/Sidebar";
 import type { Metadata } from "next";
 
 
@@ -18,8 +15,6 @@ export default function AboutLayout({
 }>) {
 	return (
 		<section className="bg-[#FCFCFD]">
-			<HeaderSlider />
-			<HeaderContent />
 			<div className="md:mx-20 md:my-4 my-2">
 				<div className="flex md:flex-row flex-col gap-4">
 					<div className="basis-1/5">
