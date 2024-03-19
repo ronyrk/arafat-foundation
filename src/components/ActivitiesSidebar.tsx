@@ -30,8 +30,8 @@ const data: NavbarIProps[] = [
 		path: "/our-activities/mosque-based-quran-education"
 	},
 	{
-		name: "অর্জনসমূহ",
-		path: "/our-activities/achievements"
+		name: "কর্জে হাসানা",
+		path: "/our-activities/karze-hasana"
 	}
 
 ]
