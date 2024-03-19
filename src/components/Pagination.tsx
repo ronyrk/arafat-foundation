@@ -20,8 +20,7 @@ function PaginationPart({ data }: { data: number }) {
 		replace(`${pathname}?${params.toString()}`);
 	};
 	const page = searchParams.get('page');
-	const pageNumber = Number(page);
-	console.log(pageNumber);
+	const pageNumber = Number(page) || 1;
 
 	return (
 		<div className=' flex flex-row gap-2'>

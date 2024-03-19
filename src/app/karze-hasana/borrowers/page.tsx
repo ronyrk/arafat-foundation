@@ -68,7 +68,7 @@ async function BorrowersList({ searchParams }: {
 	}
 }) {
 	const query = searchParams?.search || "all";
-	const page = searchParams?.page || "0";
+	const page = searchParams?.page || "1";
 
 	try {
 		const borrowers = await getSearchBorrowers(query, page);
