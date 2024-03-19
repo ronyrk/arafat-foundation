@@ -14,24 +14,24 @@ const data: NavbarIProps[] = [
 		path: "/our-activities",
 	},
 	{
-		name: "নীতি ও আদর্শ",
-		path: "/about-us/Nurturing and teaching"
+		name: "এতিমদের লালন-পালন ও শিক্ষাদান",
+		path: "/our-activities/nurturing-and-teaching"
 	},
 	{
 		name: "লক্ষ্য ও উদ্দেশ্য",
-		path: "/about-us/aims-and-objectives"
+		path: "/our-activities/aims-and-objectives"
 	},
 	{
 		name: "তহবিল ও আয়ের এর উৎস",
-		path: "/about-us/funds-and-income"
+		path: "/our-activities/funds-and-income"
 	},
 	{
 		name: "ব্যয়ের নীতিমালা",
-		path: "/about-us/expenditure-policy"
+		path: "/our-activities/expenditure-policy"
 	},
 	{
 		name: "অর্জনসমূহ",
-		path: "/about-us/achievements"
+		path: "/our-activities/achievements"
 	}
 
 ]
@@ -42,7 +42,7 @@ function ActivitiesSidebar() {
 		<div className='flex flex-col bg-[#F1F1FA] border-2 rounded'>
 			{
 				data.map((item, index) => (
-					<Link key={index} className={` pl-4 py-3 text-[15px] font-semibold rounded-md ${pathname === item.path ? "bg-color-main text-white" : " text-black  hover:bg-[#DDDCF0] hover:text-black"}`} href={item.path}>{item.name}</Link>
+					<Link key={index} className={` pl-2 py-3 text-[15px] font-semibold rounded-md ${pathname === item.path ? "bg-color-main text-white" : " text-black  hover:bg-[#DDDCF0] hover:text-black"}`} href={item.path}>{item.name}</Link>
 				))
 			}
 		</div>
