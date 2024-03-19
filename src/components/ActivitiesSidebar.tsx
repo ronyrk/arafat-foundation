@@ -26,8 +26,8 @@ const data: NavbarIProps[] = [
 		path: "/our-activities/iftar-and-Ramadan-food-distribution"
 	},
 	{
-		name: "ব্যয়ের নীতিমালা",
-		path: "/our-activities/expenditure-policy"
+		name: "মসজিদ ভিত্তিক কুরআন শিক্ষা",
+		path: "/our-activities/mosque-based-quran-education"
 	},
 	{
 		name: "অর্জনসমূহ",
