@@ -15,6 +15,8 @@ import { getUser } from './[username]/page';
 import { Metadata } from 'next';
 import SearchBox from '@/components/SearchBox';
 import { getSearchBorrowers } from '@/lib/SearchBorrowers';
+import PaginationPart from '@/components/Pagination';
+import { getBorrowers } from '@/lib/getBorrowers';
 
 export const dynamic = 'force-dynamic'
 
@@ -66,11 +68,12 @@ async function BorrowersList({ searchParams }: {
 	}
 }) {
 	const query = searchParams?.search || "all";
+	const page = searchParams?.page || "1";
 
 	try {
-		const result = await getSearchBorrowers(query);
-		const borrowers = result?.slice(0, 5);
-
+		const borrowers = await getSearchBorrowers(query, page);
+		const pageNumber = await getBorrowers(query);
+		const length = pageNumber?.length;
 
 		return (
 			<TableBody>
@@ -86,7 +89,6 @@ async function BorrowersList({ searchParams }: {
 								<Button className='bg-color-sub' size={"sm"} asChild>
 									<Link href={`borrowers/${item?.username}`}>details</Link>
 								</Button>
-
 							</TableCell>
 						</TableRow>
 					))
@@ -106,30 +108,39 @@ async function page({ searchParams }: {
 		page?: string,
 	}
 }) {
-
-	return (
-		<div className='flex flex-col'>
-			<Suspense fallback={<SearchBarFallback />}>
-				<SearchBox />
-			</Suspense>
-			<Table>
-				<TableHeader>
-					<TableRow>
-						<TableHead>CODE</TableHead>
-						<TableHead className='w-[300px]'>BORROWERS NAME</TableHead>
-						<TableHead>DISBURSED</TableHead>
-						<TableHead>RECOVERED</TableHead>
-						<TableHead>BALANCE</TableHead>
-						<TableHead>DETAILS</TableHead>
-					</TableRow>
-				</TableHeader>
-				<Suspense fallback={<h2 className=' text-center p-4'>Loading...</h2>} >
-					<BorrowersList searchParams={searchParams} />
+	const query = searchParams?.search || "all";
+	try {
+		const pageNumber = await getBorrowers(query);
+		const length = pageNumber?.length;
+		return (
+			<div className='flex flex-col'>
+				<Suspense fallback={<SearchBarFallback />}>
+					<SearchBox />
 				</Suspense>
-			</Table>
+				<Table>
+					<TableHeader>
+						<TableRow>
+							<TableHead>CODE</TableHead>
+							<TableHead className='w-[300px]'>BORROWERS NAME</TableHead>
+							<TableHead>DISBURSED</TableHead>
+							<TableHead>RECOVERED</TableHead>
+							<TableHead>BALANCE</TableHead>
+							<TableHead>DETAILS</TableHead>
+						</TableRow>
+					</TableHeader>
+					<Suspense fallback={<h2 className=' text-center p-4'>Loading...</h2>} >
+						<BorrowersList searchParams={searchParams} />
+					</Suspense>
+				</Table>
+				<div className="flex justify-center py-2">
+					<PaginationPart data={length} />
+				</div>
 
-		</div>
-	)
+			</div>
+		)
+	} catch (error) {
+		throw new Error("Data fetch failed");
+	}
 }
 
 export default page

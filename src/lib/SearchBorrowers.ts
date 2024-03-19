@@ -2,13 +2,25 @@
 import { unstable_noStore } from "next/cache";
 import prisma from "./prisma";
 
-export async function getSearchBorrowers(query: string) {
+export async function getSearchBorrowers(query: string, page: string) {
+	const pageNumber = Number(page) - 1;
+	const take = 10;
+	const skip = take * pageNumber;
+
 	unstable_noStore();
 	if (query === "all") {
-		const result = await prisma.loan.findMany();
+		const result = await prisma.loan.findMany({
+			skip,
+			take,
+			orderBy: {
+				code: "asc"
+			}
+		});
 		return result;
 	}
 	const result = await prisma.loan.findMany({
+		skip,
+		take,
 		where: {
 			OR: [
 				{
@@ -30,6 +42,9 @@ export async function getSearchBorrowers(query: string) {
 					}
 				}
 			]
+		},
+		orderBy: {
+			code: "asc"
 		}
 	})
 	return result;

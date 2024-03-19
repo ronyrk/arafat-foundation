@@ -2,24 +2,13 @@
 import { unstable_noStore } from "next/cache";
 import prisma from "./prisma";
 
-export async function getSearchDonor(query: string, page: string) {
-	const pageNumber = Number(page) - 1;
-	const take = 10;
-	const skip = take * pageNumber;
+export async function getDonor(query: string) {
 	unstable_noStore();
 	if (query === "all") {
-		const result = await prisma.donor.findMany({
-			take,
-			skip,
-			orderBy: {
-				code: "asc"
-			}
-		});
+		const result = await prisma.donor.findMany();
 		return result;
 	}
 	const result = await prisma.donor.findMany({
-		take,
-		skip,
 		where: {
 			OR: [
 				{
@@ -35,9 +24,6 @@ export async function getSearchDonor(query: string, page: string) {
 					}
 				},
 			]
-		},
-		orderBy: {
-			code: "asc"
 		}
 	})
 	return result;
