@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Anek_Bangla } from "next/font/google";
+import { Anek_Bangla as FontSans } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -7,8 +7,12 @@ import { ContextProvider } from "@/components/ContextProvider";
 import TanStackProvider from "@/components/TanStackProvider";
 import { Toaster } from "react-hot-toast";
 import { ChevronUpCircle } from 'lucide-react';
+import { cn } from "@/lib/utils";
 
-const inter = Anek_Bangla({ subsets: ["latin"] });
+const fontSans = FontSans({
+  subsets: ["latin"],
+  variable: "--font-sans",
+});
 
 export const metadata: Metadata = {
   title: "Arafat Foundation",
@@ -21,8 +25,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${inter.className} bg-slate-50 relative`}>
+    <html lang="en" suppressHydrationWarning>
+      <body className={cn(
+        "min-h-screen  bg-slate-50 relative antialiased",
+        fontSans.className
+      )} >
         <TanStackProvider>
           <ContextProvider>
             <Navbar />
