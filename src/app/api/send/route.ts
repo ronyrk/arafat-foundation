@@ -7,6 +7,7 @@ export const POST = async (request: Request) => {
 	try {
 		const body: SendEmailIProps = await request.json();
 		const result = await sendMail(body);
+		console.log(result, "sms")
 		return NextResponse.json({ message: "Feedback Sent Successfully" });
 	} catch (error) {
 		console.log(error);
