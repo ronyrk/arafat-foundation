@@ -3,6 +3,7 @@ import React from 'react'
 import { CircleUserRound, CalendarDays } from 'lucide-react';
 import { Share } from '@/components/Share';
 import { CarouselDemo } from '@/components/CarouselType';
+import DonorCard from '@/components/DonorCard';
 
 function page({ params }: {
 	params: {
@@ -10,10 +11,11 @@ function page({ params }: {
 	}
 }) {
 	const username = params.username;
+
 	return (
 		<div className='py-4'>
-			<div className="flex flex-row gap-2">
-				<div className="basis-4/5">
+			<div className="flex flex-row gap-1">
+				<div className="basis-3/4">
 					<Image src="/Ramadan-activities.jpg" width={828} height={420} className='w-[828px] h-[420px] object-fill rounded' alt='home' />
 					<div className="py-2 flex flex-row gap-2">
 						<h2 className=' flex items-center'><CircleUserRound size={20} /> <span className=' text-sm font-medium px-2'>Abdullah Al Mamun</span> </h2>
@@ -68,7 +70,9 @@ function page({ params }: {
 						</div>
 					</div>
 				</div>
-				<div className=" basis-1/5">hello</div>
+				<div className=" basis-1/4">
+					<DonorCard />
+				</div>
 			</div>
 			<CarouselDemo />
 		</div>

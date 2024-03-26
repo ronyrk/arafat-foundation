@@ -13,7 +13,7 @@ import { Button } from '@/components/ui/button';
 
 export function CarouselDemo() {
 	return (
-		<>
+		<div className=" bg-gray-100 p-4 rounded-md">
 			<h1 className="text-center text-4xl text-color-main font-semibold py-2">আমাদের প্রকল্পসমূহ</h1>
 			<h1 className="text-center text-xl  text-color-main font-medium py-2">আমি একা কিছু করতে পারবো।  কিন্তু, আমরা সবাই মিলে অনেক কিছু করতে পারবো।</h1>
 			<div className=' flex justify-center flex-col items-center gap-2'>
@@ -53,6 +53,6 @@ export function CarouselDemo() {
 					<CarouselNext className=" text-black border-color-main" />
 				</Carousel>
 			</div>
-		</>
+		</div>
 	)
 }
