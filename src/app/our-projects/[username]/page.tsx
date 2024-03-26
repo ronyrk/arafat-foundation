@@ -14,7 +14,7 @@ function page({ params }: {
 
 	return (
 		<div className='py-4'>
-			<div className="flex flex-row gap-1">
+			<div className="flex md:flex-row flex-col gap-1">
 				<div className="basis-3/4">
 					<Image src="/Ramadan-activities.jpg" width={828} height={420} className='w-[828px] h-[420px] object-fill rounded' alt='home' />
 					<div className="py-2 flex flex-row gap-2">

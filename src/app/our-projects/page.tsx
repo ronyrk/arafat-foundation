@@ -14,7 +14,7 @@ function page() {
 				<h1 className="text-center text-xl  text-color-main font-semibold border-dotted py-2">চলুন সবাই মিলে ভালো কিছু করি</h1>
 				<Image src={icon} alt='icon' />
 			</div>
-			<div className="grid grid-cols-3 gap-3 py-4">
+			<div className="grid md:grid-cols-3 grid-cols-1 gap-3 py-4">
 
 				<div className=" flex justify-center flex-col">
 					<Image src="/Ramadan-activities.jpg" width={382} height={120} className=' w-[382px] h-[260px] object-fill rounded' alt='card' />
