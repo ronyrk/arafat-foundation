@@ -2,6 +2,7 @@ import Image from 'next/image';
 import React from 'react'
 import { CircleUserRound, CalendarDays } from 'lucide-react';
 import { Share } from '@/components/Share';
+import { CarouselDemo } from '@/components/CarouselType';
 
 function page({ params }: {
 	params: {
@@ -69,6 +70,7 @@ function page({ params }: {
 				</div>
 				<div className=" basis-1/5">hello</div>
 			</div>
+			<CarouselDemo />
 		</div>
 	)
 }
