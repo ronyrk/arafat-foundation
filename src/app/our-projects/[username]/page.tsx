@@ -3,6 +3,7 @@ import React from 'react'
 import { CircleUserRound, CalendarDays } from 'lucide-react';
 import { Share } from '@/components/Share';
 import { CarouselDemo } from '@/components/CarouselType';
+import DonorCard from '@/components/DonorCard';
 
 function page({ params }: {
 	params: {
@@ -10,11 +11,12 @@ function page({ params }: {
 	}
 }) {
 	const username = params.username;
+
 	return (
-		<div className='py-4'>
-			<div className="flex flex-row gap-2">
-				<div className="basis-4/5">
-					<Image src="/Ramadan-activities.jpg" width={828} height={420} className='w-[828px] h-[420px] object-fill rounded' alt='home' />
+		<div className='py-4 px-1'>
+			<div className="flex md:flex-row flex-col gap-1">
+				<div className="md:basis-3/4 w-full px-2">
+					<Image src="/Ramadan-activities.jpg" width={828} height={420} className='md:w-[828px] md:h-[420px] object-fill rounded' alt='home' />
 					<div className="py-2 flex flex-row gap-2">
 						<h2 className=' flex items-center'><CircleUserRound size={20} /> <span className=' text-sm font-medium px-2'>Abdullah Al Mamun</span> </h2>
 						<h2 className=' flex items-center'><CalendarDays size={20} /> <span className=' text-sm font-medium px-2'>January 29, 2024</span> </h2>
@@ -22,8 +24,8 @@ function page({ params }: {
 					<div className="py-3">
 						<h2 className=" text-[26px] text-color-main font-semibold">রমজান প্রজেক্ট ২০২৪</h2>
 					</div>
-					<div className="py-2">
-						<p className=" text-sm  font-medium pr-5 leading-relaxed">
+					<div className="p-2">
+						<p className=" text-sm  font-medium leading-relaxed">
 							আসসালামু আলাইকুম।
 							আলহামদুলিল্লাহ, আর অল্প কিছুদিন পরেই আমরা আরো একটা পবিত্র রমজান মাস পেতে যাচ্ছি।
 							এই রমজান মাসে আমরা প্রতিদিন ৫০/১০০ জন অসহায়/সুবিধাবঞ্চিত/দিনমুজুর মানুষকে সেহরি/ইফতার করানোর পরিকল্পনা করছি।
@@ -68,7 +70,9 @@ function page({ params }: {
 						</div>
 					</div>
 				</div>
-				<div className=" basis-1/5">hello</div>
+				<div className=" md:basis-1/4 w-full p-2">
+					<DonorCard />
+				</div>
 			</div>
 			<CarouselDemo />
 		</div>
