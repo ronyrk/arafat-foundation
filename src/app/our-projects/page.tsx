@@ -27,7 +27,51 @@ function page() {
 							<Button variant={"outline"} className=' text-color-main border-color-main border-2 hover:text-white hover:border-color-sub' asChild>
 								<Link href="/login">দান করুন</Link>
 							</Button>
-
+						</div>
+					</div>
+				</div>
+				<div className=" flex justify-center flex-col">
+					<Image src="/Ramadan-activities.jpg" width={382} height={120} className='md:w-[382px] w-full h-[260px] object-fill rounded' alt='card' />
+					<div className="w-full border-2 rounded bg-white px-2">
+						<h2 className=" text-lg font-semibold text-color-main hover:text-color-sub py-2">রমজান প্রজেক্ট ২০২৪</h2>
+						<p className=" text-[15px] font-medium">আসসালামু আলাইকুম।আলহামদুলিল্লাহ, আর অল্প কিছুদিন পরেই আমরা আরো একটা পবিত্র রমজান মাস পেতে যাচ্ছি।এই রমজান মাসে আমরা প্রতিদিন ৫০/১০০ জন</p>
+						<div className="flex md:flex-row justify-around py-2">
+							<Button className=' hover:bg-color-sub' asChild>
+								<Link href="/">বিস্তারিত দেখুন</Link>
+							</Button>
+							<Button variant={"outline"} className=' text-color-main border-color-main border-2 hover:text-white hover:border-color-sub' asChild>
+								<Link href="/login">দান করুন</Link>
+							</Button>
+						</div>
+					</div>
+				</div>
+				<div className=" flex justify-center flex-col">
+					<Image src="/Ramadan-activities.jpg" width={382} height={120} className='md:w-[382px] w-full h-[260px] object-fill rounded' alt='card' />
+					<div className="w-full border-2 rounded bg-white px-2">
+						<h2 className=" text-lg font-semibold text-color-main hover:text-color-sub py-2">রমজান প্রজেক্ট ২০২৪</h2>
+						<p className=" text-[15px] font-medium">আসসালামু আলাইকুম।আলহামদুলিল্লাহ, আর অল্প কিছুদিন পরেই আমরা আরো একটা পবিত্র রমজান মাস পেতে যাচ্ছি।এই রমজান মাসে আমরা প্রতিদিন ৫০/১০০ জন</p>
+						<div className="flex md:flex-row justify-around py-2">
+							<Button className=' hover:bg-color-sub' asChild>
+								<Link href="/">বিস্তারিত দেখুন</Link>
+							</Button>
+							<Button variant={"outline"} className=' text-color-main border-color-main border-2 hover:text-white hover:border-color-sub' asChild>
+								<Link href="/login">দান করুন</Link>
+							</Button>
+						</div>
+					</div>
+				</div>
+				<div className=" flex justify-center flex-col">
+					<Image src="/Ramadan-activities.jpg" width={382} height={120} className='md:w-[382px] w-full h-[260px] object-fill rounded' alt='card' />
+					<div className="w-full border-2 rounded bg-white px-2">
+						<h2 className=" text-lg font-semibold text-color-main hover:text-color-sub py-2">রমজান প্রজেক্ট ২০২৪</h2>
+						<p className=" text-[15px] font-medium">আসসালামু আলাইকুম।আলহামদুলিল্লাহ, আর অল্প কিছুদিন পরেই আমরা আরো একটা পবিত্র রমজান মাস পেতে যাচ্ছি।এই রমজান মাসে আমরা প্রতিদিন ৫০/১০০ জন</p>
+						<div className="flex md:flex-row justify-around py-2">
+							<Button className=' hover:bg-color-sub' asChild>
+								<Link href="/">বিস্তারিত দেখুন</Link>
+							</Button>
+							<Button variant={"outline"} className=' text-color-main border-color-main border-2 hover:text-white hover:border-color-sub' asChild>
+								<Link href="/login">দান করুন</Link>
+							</Button>
 						</div>
 					</div>
 				</div>
