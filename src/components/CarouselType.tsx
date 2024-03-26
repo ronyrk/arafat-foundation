@@ -32,10 +32,10 @@ export function CarouselDemo() {
 							<CarouselItem key={index} className="md:basis-1/3">
 								<div className=" flex justify-center items-center flex-col">
 									<Image src="/Ramadan-activities.jpg" width={382} height={120} className=' md:w-[382px] w-[300px] md:h-[260px] h-[200px] object-fill rounded' alt='card' />
-									<div className="md:w-[382px] w-[300px] border-2 p-2 rounded bg-white">
-										<h2 className=" text-lg font-semibold px-2 text-color-main hover:text-color-sub py-2">রমজান প্রজেক্ট ২০২৪</h2>
-										<p className=" text-[15px] font-medium px-2">আসসালামু আলাইকুম।আলহামদুলিল্লাহ, আর অল্প কিছুদিন পরেই আমরা আরো একটা পবিত্র রমজান মাস পেতে যাচ্ছি।এই রমজান মাসে আমরা প্রতিদিন ৫০/১০০ জন</p>
-										<div className="flex flex-row justify-around py-2 ">
+									<div className="md:w-[382px] w-[300px] border-2 p-4 rounded bg-white">
+										<h2 className=" text-lg font-semibold text-color-main hover:text-color-sub py-1">রমজান প্রজেক্ট ২০২৪</h2>
+										<p className=" text-[13px]  font-medium">আসসালামু আলাইকুম।আলহামদুলিল্লাহ, আর অল্প কিছুদিন পরেই আমরা আরো একটা পবিত্র রমজান মাস পেতে যাচ্ছি।এই রমজান মাসে আমরা প্রতিদিন ৫০/১০০ জন</p>
+										<div className="flex flex-row justify-around py-1 ">
 											<Button className='md:w-[175px] hover:bg-color-sub' asChild>
 												<Link href="/">বিস্তারিত দেখুন</Link>
 											</Button>
