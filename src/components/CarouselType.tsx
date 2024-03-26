@@ -31,15 +31,15 @@ export function CarouselDemo() {
 						{Array.from({ length: 5 }).map((_, index) => (
 							<CarouselItem key={index} className="md:basis-1/3">
 								<div className=" flex justify-center items-center flex-col">
-									<Image src="/Ramadan-activities.jpg" width={382} height={120} className=' md:w-[382px] w-[300px] md:h-[260px] h-[200px] object-fill rounded' alt='card' />
-									<div className="md:w-[382px] w-[300px] border-2 p-4 rounded bg-white">
+									<Image src="/Ramadan-activities.jpg" width={382} height={120} className=' md:w-[382px] w-full md:h-[260px] h-[200px] object-fill rounded' alt='card' />
+									<div className="w-full border-2 p-2 rounded bg-white">
 										<h2 className=" text-lg font-semibold text-color-main hover:text-color-sub py-1">রমজান প্রজেক্ট ২০২৪</h2>
 										<p className=" text-[13px]  font-medium">আসসালামু আলাইকুম।আলহামদুলিল্লাহ, আর অল্প কিছুদিন পরেই আমরা আরো একটা পবিত্র রমজান মাস পেতে যাচ্ছি।এই রমজান মাসে আমরা প্রতিদিন ৫০/১০০ জন</p>
 										<div className="flex flex-row justify-around py-1 ">
-											<Button className='md:w-[175px] hover:bg-color-sub' asChild>
+											<Button className='w-fit hover:bg-color-sub' asChild>
 												<Link href="/">বিস্তারিত দেখুন</Link>
 											</Button>
-											<Button variant={"outline"} className='md:w-[175px] text-color-main border-color-main hover:border-color-sub border-2 hover:text-white' asChild>
+											<Button variant={"outline"} className=' w-fit text-color-main border-color-main hover:border-color-sub border-2 hover:text-white' asChild>
 												<Link href="/login">দান করুন</Link>
 											</Button>
 
