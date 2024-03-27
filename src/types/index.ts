@@ -131,3 +131,11 @@ export interface ProjectsProps {
 	createAt: Date,
 	username: string,
 }
+export interface NewsProps {
+	id: string,
+	title: string,
+	photoUrl: string,
+	description: string,
+	createAt: Date,
+	username: string,
+}

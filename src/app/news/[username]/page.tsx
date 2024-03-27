@@ -2,20 +2,19 @@ import Image from 'next/image';
 import React from 'react'
 import { CircleUserRound, CalendarDays } from 'lucide-react';
 import { Share } from '@/components/Share';
-import { CarouselDemo } from '@/components/CarouselType';
-import DonorCard from '@/components/DonorCard';
 import { unstable_noStore } from 'next/cache';
-import { ProjectsProps } from '@/types';
+import { NewsProps, ProjectsProps } from '@/types';
 import moment from 'moment';
-import { getProjectSingle } from '@/lib/getProjectSingle';
-
+import NewsPortal from '@/components/NewsPortal';
+import { getNews } from '@/lib/getNews';
+import { getNewsSingle } from '@/lib/getNewsSingle';
 
 type Props = {
 	params: { username: string }
 };
 
 export async function generateMetadata({ params }: Props) {
-	const news = await getProjectSingle(params.username);
+	const news = await getNewsSingle(params.username);
 	return {
 		title: news?.title,
 		description: news?.description,
@@ -40,33 +39,39 @@ export async function generateMetadata({ params }: Props) {
 
 async function htmlConvert(data: string) {
 	return (
-		<div className="py-2">
-			<div dangerouslySetInnerHTML={{ __html: data }} />
-		</div>
+		<main className="py-2">
+			<section dangerouslySetInnerHTML={{ __html: data }} />
+		</main>
 	)
 }
 
-async function page({ params }: {
+async function page({ params, searchParams }: {
 	params: {
 		username: string
+	},
+	searchParams?: {
+		news?: string,
 	}
 }) {
 	const username = params.username;
+	const query = searchParams?.news || "all";
+
+	const newsList = await getNews(query);
 
 	unstable_noStore();
-	let res = await fetch(`https://af-admin.vercel.app/api/project/${username}`);
+	let res = await fetch(`https://af-admin.vercel.app/api/news/${username}`);
 	if (!res.ok) {
 		throw new Error("Failed to fetch data list");
 	};
 	const data: ProjectsProps = await res.json();
 
 	return (
-		<div className='py-4 px-1'>
+		<div className='md:px-20 px-4 py-4'>
 			<div className="flex md:flex-row flex-col gap-1">
-				<div className="md:basis-2/3 w-full px-2">
+				<div className="md:basis-2/3 w-full">
 					<Image src={data.photoUrl} width={828} height={420} className='md:w-[828px] md:h-[420px] object-fill rounded' alt={data.username} />
 					<div className="py-2 flex flex-row gap-2">
-						<h2 className=' flex items-center'><CircleUserRound size={20} /> <span className=' text-sm font-medium px-2'>{data.author}</span> </h2>
+						<h2 className=' flex items-center'><CircleUserRound size={20} /> <span className=' text-sm font-medium px-2 lowercase'>Admin</span> </h2>
 						<h2 className=' flex items-center'><CalendarDays size={20} /> <span className=' text-sm font-medium px-2'>{`${moment(data.createAt).format('MMMM DD, YYYY')}`}</span> </h2>
 					</div>
 					<div className="py-3">
@@ -82,10 +87,9 @@ async function page({ params }: {
 					</div>
 				</div>
 				<div className=" md:basis-1/3 w-full px-3">
-					<DonorCard />
+					<NewsPortal newsList={newsList} />
 				</div>
 			</div>
-			<CarouselDemo />
 		</div>
 	)
 }
