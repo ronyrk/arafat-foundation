@@ -121,3 +121,13 @@ export interface SendEmailIProps {
 	phone: string,
 	message: string,
 }
+export interface ProjectsProps {
+	id: string,
+	author: string,
+	title: string,
+	photoUrl: string,
+	shortDes: string,
+	description: string,
+	createAt: Date,
+	username: string,
+}
