@@ -5,6 +5,7 @@ import { Share } from '@/components/Share';
 import { unstable_noStore } from 'next/cache';
 import { ProjectsProps } from '@/types';
 import moment from 'moment';
+import NewsPortal from '@/components/NewsPortal';
 
 async function htmlConvert(data: string) {
 	return (
@@ -50,7 +51,7 @@ async function page({ params }: {
 					</div>
 				</div>
 				<div className=" md:basis-1/3 w-full px-3">
-
+					<NewsPortal />
 				</div>
 			</div>
 		</div>
