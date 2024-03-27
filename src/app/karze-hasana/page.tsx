@@ -12,7 +12,7 @@ import { cookies } from 'next/headers';
 
 async function htmlConvert(data: string) {
 	return (
-		<div className="px-[20px] py-2">
+		<div className="py-2">
 			<div dangerouslySetInnerHTML={{ __html: data }} />
 		</div>
 	)
