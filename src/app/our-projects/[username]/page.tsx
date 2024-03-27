@@ -7,6 +7,36 @@ import DonorCard from '@/components/DonorCard';
 import { unstable_noStore } from 'next/cache';
 import { ProjectsProps } from '@/types';
 import moment from 'moment';
+import { getProjectSingle } from '@/lib/getProjectSingle';
+
+
+type Props = {
+	params: { username: string }
+};
+
+export async function generateMetadata({ params }: Props) {
+	const news = await getProjectSingle(params.username);
+	return {
+		title: news?.title,
+		description: news?.description,
+		openGraph: {
+			images: [
+				{
+					url: news?.photoUrl, // Must be an absolute URL
+					width: 800,
+					height: 600,
+					alt: news?.title,
+				},
+				{
+					url: news?.photoUrl, // Must be an absolute URL
+					width: 1800,
+					height: 1600,
+					alt: news?.title,
+				},
+			],
+		}
+	}
+};
 
 async function htmlConvert(data: string) {
 	return (

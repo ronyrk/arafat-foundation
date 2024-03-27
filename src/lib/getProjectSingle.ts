@@ -2,9 +2,9 @@
 import { unstable_noStore } from "next/cache";
 import prisma from "./prisma";
 
-export async function getNewsSingle(username: string) {
+export async function getProjectSingle(username: string) {
 	unstable_noStore();
-	const result = await prisma.news.findUnique({
+	const result = await prisma.project.findUnique({
 		where: {
 			username
 		}
