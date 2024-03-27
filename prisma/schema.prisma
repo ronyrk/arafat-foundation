@@ -123,6 +123,15 @@ model DonorPayment {
   createAt      DateTime
 }
 
+model News {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  createAt    DateTime @default(now())
+  photoUrl    String
+  description String
+  title       String
+  username    String   @unique
+}
+
 enum Status {
   PENDING
   RUNNING

@@ -3,9 +3,39 @@ import React from 'react'
 import { CircleUserRound, CalendarDays } from 'lucide-react';
 import { Share } from '@/components/Share';
 import { unstable_noStore } from 'next/cache';
-import { ProjectsProps } from '@/types';
+import { NewsProps, ProjectsProps } from '@/types';
 import moment from 'moment';
 import NewsPortal from '@/components/NewsPortal';
+import { getNews } from '@/lib/getNews';
+import { getNewsSingle } from '@/lib/getNewsSingle';
+
+type Props = {
+	params: { username: string }
+};
+
+export async function generateMetadata({ params }: Props) {
+	const news = await getNewsSingle(params.username);
+	return {
+		title: news?.title,
+		description: news?.description,
+		openGraph: {
+			images: [
+				{
+					url: news?.photoUrl, // Must be an absolute URL
+					width: 800,
+					height: 600,
+					alt: news?.title,
+				},
+				{
+					url: news?.photoUrl, // Must be an absolute URL
+					width: 1800,
+					height: 1600,
+					alt: news?.title,
+				},
+			],
+		}
+	}
+};
 
 async function htmlConvert(data: string) {
 	return (
@@ -15,15 +45,21 @@ async function htmlConvert(data: string) {
 	)
 }
 
-async function page({ params }: {
+async function page({ params, searchParams }: {
 	params: {
 		username: string
+	},
+	searchParams?: {
+		news?: string,
 	}
 }) {
 	const username = params.username;
+	const query = searchParams?.news || "all";
+
+	const newsList = await getNews(query);
 
 	unstable_noStore();
-	let res = await fetch(`https://af-admin.vercel.app/api/project/${username}`);
+	let res = await fetch(`https://af-admin.vercel.app/api/news/${username}`);
 	if (!res.ok) {
 		throw new Error("Failed to fetch data list");
 	};
@@ -35,7 +71,7 @@ async function page({ params }: {
 				<div className="md:basis-2/3 w-full">
 					<Image src={data.photoUrl} width={828} height={420} className='md:w-[828px] md:h-[420px] object-fill rounded' alt={data.username} />
 					<div className="py-2 flex flex-row gap-2">
-						<h2 className=' flex items-center'><CircleUserRound size={20} /> <span className=' text-sm font-medium px-2'>{data.author}</span> </h2>
+						<h2 className=' flex items-center'><CircleUserRound size={20} /> <span className=' text-sm font-medium px-2 lowercase'>Admin</span> </h2>
 						<h2 className=' flex items-center'><CalendarDays size={20} /> <span className=' text-sm font-medium px-2'>{`${moment(data.createAt).format('MMMM DD, YYYY')}`}</span> </h2>
 					</div>
 					<div className="py-3">
@@ -51,7 +87,7 @@ async function page({ params }: {
 					</div>
 				</div>
 				<div className=" md:basis-1/3 w-full px-3">
-					<NewsPortal />
+					<NewsPortal newsList={newsList} />
 				</div>
 			</div>
 		</div>
