@@ -8,9 +8,9 @@ import moment from 'moment';
 
 async function htmlConvert(data: string) {
 	return (
-		<div className="py-2">
-			<div dangerouslySetInnerHTML={{ __html: data }} />
-		</div>
+		<main className="py-2">
+			<section dangerouslySetInnerHTML={{ __html: data }} />
+		</main>
 	)
 }
 
@@ -50,7 +50,7 @@ async function page({ params }: {
 					</div>
 				</div>
 				<div className=" md:basis-1/3 w-full px-3">
-					<h2 className="">Hello World</h2>
+
 				</div>
 			</div>
 		</div>
