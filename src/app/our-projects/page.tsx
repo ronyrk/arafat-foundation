@@ -14,7 +14,7 @@ async function Projects() {
 	};
 	const data: ProjectsProps[] = await res.json();
 	return (
-		<div className="grid md:grid-cols-3 grid-cols-1 md:gap-3 gap-1 p-2">
+		<div className="grid md:grid-cols-3 grid-cols-1 justify-stretch md:gap-3 gap-1 p-2">
 			{
 				data.map((item, index) => (
 					<div key={index} className=" flex justify-center flex-col">

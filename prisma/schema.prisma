@@ -143,6 +143,16 @@ model Project {
   username    String   @unique
 }
 
+model Donate {
+  id       String  @id @default(auto()) @map("_id") @db.ObjectId
+  name     String
+  email    String
+  amount   String
+  method   String?
+  photoUrl String?
+  about    String?
+}
+
 enum Status {
   PENDING
   RUNNING
