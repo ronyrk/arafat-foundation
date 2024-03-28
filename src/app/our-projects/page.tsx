@@ -17,12 +17,12 @@ async function Projects() {
 		<div className="grid md:grid-cols-3 grid-cols-1 justify-stretch md:gap-3 gap-1 p-2">
 			{
 				data.map((item, index) => (
-					<div key={index} className=" flex justify-center flex-col">
+					<div key={index} className=" flex  border-2 shadow-md  justify-around flex-col">
 						<Image src={item.photoUrl} width={382} height={120} className='md:w-[382px] w-full h-[260px] object-fill rounded' alt={item.username} />
-						<div className="w-full border-2 rounded bg-white px-2">
+						<div className="w-full bg-white  justify-stretch px-2">
 							<h2 className=" text-lg font-semibold text-color-main hover:text-color-sub py-2">{item.title}</h2>
 							<p className=" text-[15px] font-medium">{item.shortDes}</p>
-							<div className="flex md:flex-row justify-around py-2">
+							<div className="flex md:flex-row  justify-between py-2">
 								<Button className=' hover:bg-color-sub' asChild>
 									<Link href={`our-projects/${item.username}`}>বিস্তারিত দেখুন</Link>
 								</Button>

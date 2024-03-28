@@ -66,10 +66,10 @@ async function page({ params, searchParams }: {
 	const data: ProjectsProps = await res.json();
 
 	return (
-		<div className='md:px-20 px-4 py-4'>
+		<div className=''>
 			<div className="flex md:flex-row flex-col gap-1">
-				<div className="md:basis-2/3 w-full">
-					<Image src={data.photoUrl} width={828} height={420} className='md:w-[828px] md:h-[420px] object-fill rounded' alt={data.username} />
+				<div className="md:basis-3/4 w-full">
+					<Image src={data?.photoUrl} width={828} height={420} className='md:w-[828px] md:h-[420px] object-fill rounded' alt={data.username} />
 					<div className="py-2 flex flex-row gap-2">
 						<h2 className=' flex items-center'><CircleUserRound size={20} /> <span className=' text-sm font-medium px-2 lowercase'>Admin</span> </h2>
 						<h2 className=' flex items-center'><CalendarDays size={20} /> <span className=' text-sm font-medium px-2'>{`${moment(data.createAt).format('MMMM DD, YYYY')}`}</span> </h2>
@@ -86,7 +86,7 @@ async function page({ params, searchParams }: {
 						</div>
 					</div>
 				</div>
-				<div className=" md:basis-1/3 w-full px-3">
+				<div className=" md:basis-1/4 w-full pl-2">
 					<NewsPortal newsList={newsList} />
 				</div>
 			</div>

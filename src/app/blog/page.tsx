@@ -18,14 +18,14 @@ async function BlogsList() {
 		<div className="grid md:grid-cols-3 grid-cols-1 justify-stretch md:gap-3 gap-1 p-2">
 			{
 				data.map((item, index) => (
-					<Link key={index} href={`our-projects/${item.username}`}>
+					<Link key={index} href={`blog/${item.username}`}>
 						<div className=" flex justify-center flex-col border-2 rounded-md shadow-xl  py-2">
 							<Image src={item.photoUrl} width={382} height={120} className='md:w-[382px] w-full h-[260px] object-fill rounded' alt={item.username} />
 							<div className="w-full border-t-2 py-2 justify-around  bg-white px-2">
 								<h3 className=" text-sm font-medium text-color-main hover:text-color-sub py-2">Blog  /  {`${moment(item.createAt).format('DD MMMM, YYYY')}`}</h3>
 								<h2 className="  text-lg font-semibold text-color-main hover:text-color-sub py-2">{item.title}</h2>
 								<p className=" text-[14px] py-1 font-medium">{item.shortDes}</p>
-								<Link className=' text-sm font-bold py-1 hover:text-color-sub' href={`our-projects/${item.username}`}>CONTINUE READING</Link>
+								<Link className=' text-sm font-bold py-1 hover:text-color-sub' href={`blog/${item.username}`}>CONTINUE READING</Link>
 							</div>
 						</div>
 					</Link>

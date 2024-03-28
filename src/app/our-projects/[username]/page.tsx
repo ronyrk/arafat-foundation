@@ -61,9 +61,9 @@ async function page({ params }: {
 	const data: ProjectsProps = await res.json();
 
 	return (
-		<div className='py-4 px-1'>
+		<div className=''>
 			<div className="flex md:flex-row flex-col gap-1">
-				<div className="md:basis-2/3 w-full px-2">
+				<div className="md:basis-2/3 w-full pr-1">
 					<Image src={data.photoUrl} width={828} height={420} className='md:w-[828px] md:h-[420px] object-fill rounded' alt={data.username} />
 					<div className="py-2 flex flex-row gap-2">
 						<h2 className=' flex items-center'><CircleUserRound size={20} /> <span className=' text-sm font-medium px-2'>{data.author}</span> </h2>
@@ -81,7 +81,7 @@ async function page({ params }: {
 						</div>
 					</div>
 				</div>
-				<div className=" md:basis-1/3 w-full px-3">
+				<div className=" md:basis-1/3 w-full pl-1">
 					<DonorCard />
 				</div>
 			</div>
