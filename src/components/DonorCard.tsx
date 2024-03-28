@@ -20,6 +20,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useState } from "react"
 import { Textarea } from "./ui/textarea"
 import Link from "next/link"
+import { UploadButton } from "@/lib/uploading"
+import toast from "react-hot-toast"
+import { DonateProps } from "@/types"
 
 
 const formSchema = z.object({
@@ -33,6 +36,7 @@ const formSchema = z.object({
 
 function DonorPaymentCreate() {
 	const router = useRouter();
+	const [image, setImage] = useState<string | undefined>("");
 	const [paymentType, setPaymentType] = useState<string>("");
 
 	const handleTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -45,33 +49,38 @@ function DonorPaymentCreate() {
 		resolver: zodResolver(formSchema),
 	});
 
-	// const { mutate, isPending } = useMutation({
-	// 	mutationFn: async ({ donorUsername, amount, loanPayment, type, createAt }: DonorPaymentIPropsSend) => {
-	// 		const response = await axios.post("/api/donor_payment", {
-	// 			donorUsername, amount, loanPayment, type, createAt
-	// 		});
-	// 		return response.data;
-	// 	},
-	// });
+	const { mutate, isPending } = useMutation({
+		mutationFn: async ({ name, email, amount, photoUrl, method, about }: DonateProps) => {
+			const response = await axios.post("/api/donate", {
+				name, email, amount, photoUrl, about, method
+			});
+			return response.data;
+		},
+	});
 
 	// 2. Define a submit handler.
 	function onSubmit(values: z.infer<typeof formSchema>) {
 		const amount = values.amount;
-		// const type = userType;
-		// Donor /Lender Payment Created
-		// mutate({ donorUsername, amount, loanPayment, type, createAt }, {
-		// 	onSuccess: (data: DonorPaymentIProps) => {
-		// 		if (data?.id) {
-		// 			toast.success("Donor Payment Create Successfully");
-		// 		} else {
-		// 			throw new Error("Donor Payment Created Failed")
-		// 		}
-		// 		router.push(`/dashboard/donor/payment`);
-		// 	},
-		// 	onError: (error) => {
-		// 		toast.error("Donor payment Request Created Failed");
-		// 	}
-		// });
+		const name = values.name;
+		const email = values.email;
+		const method = values.method;
+		const about = values.about;
+		const photoUrl = image;
+
+
+		mutate({ name, email, amount, photoUrl, about, method }, {
+			onSuccess: (data: DonateProps) => {
+				if (data?.id) {
+					toast.success("Donate Successfully");
+				} else {
+					throw new Error("Donate Failed")
+				}
+				router.push(`/our-projects`);
+			},
+			onError: (error) => {
+				toast.error("Donate Failed");
+			}
+		});
 	};
 	// console.log(state, stateBranch);
 
@@ -189,6 +198,23 @@ function DonorPaymentCreate() {
 										)}
 									/>
 								}
+								{
+									paymentType === "outside"
+									&& <div className="flex flex-col gap-2 py-2">
+										<UploadButton
+											className="ut-button:bg-color-sub  w-[350px] ut-button:ut-readying:bg-color-sub/80"
+											endpoint="imageUploader"
+											onClientUploadComplete={(res) => {
+												// Do something with the response
+												setImage(res[0].url);
+												toast.success("Image Upload successfully")
+											}}
+											onUploadError={(error: Error) => {
+												// Do something with the error.
+												toast.error(error.message);
+											}}
+										/>
+									</div>}
 								<FormField
 									control={form.control}
 									name="about"
@@ -208,7 +234,9 @@ function DonorPaymentCreate() {
 								/>
 
 							</div>
-							<Button type="submit">Submit</Button>
+							{
+								paymentType === "" || isPending ? <Button disabled>Loading...</Button> : <Button type="submit">Submit</Button>
+							}
 						</form>
 					</Form>
 				</div>

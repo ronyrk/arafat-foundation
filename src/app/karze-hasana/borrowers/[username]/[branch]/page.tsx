@@ -51,7 +51,7 @@ function Payment({ params }: {
 
 	const { username, branch } = params;
 
-	const [image, setImage] = useState<string | undefined>("")
+	const [image, setImage] = useState<string | undefined>("");
 
 
 	const router = useRouter();

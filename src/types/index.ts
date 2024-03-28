@@ -139,3 +139,12 @@ export interface NewsProps {
 	createAt: Date,
 	username: string,
 }
+export interface DonateProps {
+	id?: string,
+	name: string,
+	email: string,
+	amount: string,
+	method?: string,
+	photoUrl?: string,
+	about?: string,
+}
