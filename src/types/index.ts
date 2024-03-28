@@ -138,6 +138,7 @@ export interface NewsProps {
 	description: string,
 	createAt: Date,
 	username: string,
+	shortDes: string,
 }
 export interface DonateProps {
 	id?: string,
