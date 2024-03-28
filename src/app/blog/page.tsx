@@ -24,7 +24,7 @@ async function BlogsList() {
 							<div className="w-full border-t-2 py-2 justify-around  bg-white px-2">
 								<h3 className=" text-sm font-medium text-color-main hover:text-color-sub py-2">Blog  /  {`${moment(item.createAt).format('DD MMMM, YYYY')}`}</h3>
 								<h2 className=" text-lg font-semibold text-color-main hover:text-color-sub py-2">{item.title}</h2>
-								<Link className=' font-bold hover:text-color-sub' href={`our-projects/${item.username}`}>CONTINUE READING</Link>
+								<Link className=' text-sm font-bold hover:text-color-sub' href={`our-projects/${item.username}`}>CONTINUE READING</Link>
 							</div>
 						</div>
 					</Link>
