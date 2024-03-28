@@ -144,13 +144,14 @@ model Project {
 }
 
 model Donate {
-  id       String  @id @default(auto()) @map("_id") @db.ObjectId
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
   name     String
   email    String
   amount   String
   method   String?
   photoUrl String?
   about    String?
+  createAt DateTime @default(now())
 }
 
 enum Status {
