@@ -34,7 +34,7 @@ const formSchema = z.object({
 });
 
 
-function ChildPaymentCreate() {
+function ChildDonation() {
 	const router = useRouter();
 	const [image, setImage] = useState<string | undefined>("");
 	const [paymentType, setPaymentType] = useState<string>("");
@@ -245,4 +245,4 @@ function ChildPaymentCreate() {
 	)
 }
 
-export default ChildPaymentCreate;
+export default ChildDonation;

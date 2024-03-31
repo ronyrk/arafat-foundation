@@ -6,6 +6,8 @@ import DonationTable from '@/components/DonationTable';
 import DisbursementTable from '@/components/DisbursementTable';
 import { Share } from '@/components/Share';
 import { ChildCarousel } from '@/components/ChildCarousel';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTrigger } from '@/components/ui/dialog';
+import ChildDonation from '@/components/ChildDonation';
 
 function page({ params }: {
 	params: {
@@ -19,7 +21,7 @@ function page({ params }: {
 					<div className="relative h-fit flex flex-col border-2 rounded-md shadow-md ">
 						<Image src="/hhjui.png" width={248} height={120} className='w-full h-[260px] object-fill rounded' alt="photo" />
 						<p className="absolute px-2 py-[2px] text-sm bg-white rounded top-2 left-2">স্কুল</p>
-						<div className="w-full px-1 bg-white">
+						<div className="w-full px-2 py-1 bg-white">
 							<h2 className="py-2 text-xl font-semibold text-color-main hover:text-color-sub">মোসাঃ মাহফুজা</h2>
 							<div className="flex flex-row py-1">
 								<h2 className="text-[15px] font-medium">স্বপ্ন :</h2>
@@ -33,10 +35,17 @@ function page({ params }: {
 								<h2 className="text-[15px]  inline  font-medium">ঠিকানা:</h2>
 								<h2 className="text-[15px] pl-2 font-medium">টাংগন-পশ্চিম পাড়া, ইউসুফপুর,চারঘাট, রাজশাহী</h2>
 							</div>
-							<div className="p-2">
-								<Button className=' w-full px-4 text-white rounded-sm bg-color-main hover:bg-color-sub' asChild>
-									<Link href="#">স্পন্সর করুন</Link>
-								</Button>
+							<div className="p-2 flex justify-center">
+								<Dialog>
+									<DialogTrigger>
+										<Button className=' w-full px-8 text-white rounded-sm bg-color-main hover:bg-color-sub'>
+											স্পন্সর করুন
+										</Button>
+									</DialogTrigger>
+									<DialogContent className='p-4'>
+										<ChildDonation />
+									</DialogContent>
+								</Dialog>
 							</div>
 						</div>
 					</div>
