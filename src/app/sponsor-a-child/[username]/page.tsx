@@ -5,6 +5,7 @@ import Image from 'next/image'
 import DonationTable from '@/components/DonationTable';
 import DisbursementTable from '@/components/DisbursementTable';
 import { Share } from '@/components/Share';
+import { ChildCarousel } from '@/components/ChildCarousel';
 
 function page({ params }: {
 	params: {
@@ -61,6 +62,7 @@ function page({ params }: {
 			<div className="py-4 px-2">
 				<Share type='share' username='1' />
 			</div>
+			<ChildCarousel />
 		</div>
 	)
 }
