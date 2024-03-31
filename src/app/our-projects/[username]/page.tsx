@@ -3,11 +3,12 @@ import React from 'react'
 import { CircleUserRound, CalendarDays } from 'lucide-react';
 import { Share } from '@/components/Share';
 import { CarouselDemo } from '@/components/CarouselType';
-import DonorCard from '@/components/DonorCard';
+import DonorCard from '@/components/ProjectDonation';
 import { unstable_noStore } from 'next/cache';
 import { ProjectsProps } from '@/types';
 import moment from 'moment';
 import { getProjectSingle } from '@/lib/getProjectSingle';
+import ProjectDonation from '@/components/ProjectDonation';
 
 
 type Props = {
@@ -82,7 +83,7 @@ async function page({ params }: {
 					</div>
 				</div>
 				<div className=" md:basis-1/3 w-full pl-1">
-					<DonorCard />
+					<ProjectDonation data={data} />
 				</div>
 			</div>
 			<CarouselDemo />

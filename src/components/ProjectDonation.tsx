@@ -22,7 +22,7 @@ import { Textarea } from "./ui/textarea"
 import Link from "next/link"
 import { UploadButton } from "@/lib/uploading"
 import toast from "react-hot-toast"
-import { DonateProps } from "@/types"
+import { DonateProps, ProjectsProps } from "@/types"
 
 
 const formSchema = z.object({
@@ -34,7 +34,7 @@ const formSchema = z.object({
 });
 
 
-function DonorPaymentCreate() {
+function ProjectDonation({ data }: { data: ProjectsProps }) {
 	const router = useRouter();
 	const [image, setImage] = useState<string | undefined>("");
 	const [paymentType, setPaymentType] = useState<string>("");
@@ -87,8 +87,8 @@ function DonorPaymentCreate() {
 	return (
 		<>
 			<div className=' bg-gray-200 rounded p-2'>
-				<h2 className="text-xl font-medium py-1">রমজান প্রজেক্ট</h2>
-				<p className="text-sm  font-medium pr-1 leading-relaxed">অরাফাত ফাউন্ডেশনের রমজান প্রজেক্টে কর্মসুচির মধ্যে অসহায়/সুবিধাবঞ্চিত/দিনমুজুর মানুষকে সেহরি এবং ইফতার প্রদান, গরিব পরিবার গুলিকে রমজানের প্রয়োজনীয় খাদ্য সরবারহ করা সহ অন্যান্য কর্মসুচি রয়েছে।</p>
+				<h2 className="text-xl font-medium py-1">{data.title}</h2>
+				<p className="text-sm  font-medium pr-1 leading-relaxed">{data.shortDes}</p>
 
 				<div className="flex flex-col gap-1">
 					<Form {...form}>
@@ -245,4 +245,4 @@ function DonorPaymentCreate() {
 	)
 }
 
-export default DonorPaymentCreate;
+export default ProjectDonation;
