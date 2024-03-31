@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { unstable_noStore } from 'next/cache';
 import { ProjectsProps } from '@/types';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import ChildDonation from '@/components/ChildDonation';
 
 async function Child() {
 	unstable_noStore();
@@ -38,9 +40,16 @@ async function Child() {
 								<Button className='w-[130px] px-4 text-white rounded-sm bg-color-sub hover:bg-color-main' asChild>
 									<Link href={`our-projects/${item.username}`}>প্রোফাইল দেখুন</Link>
 								</Button>
-								<Button className='w-[130px] px-4 text-white rounded-sm bg-color-main hover:bg-color-sub' asChild>
-									<Link href="#">স্পন্সর করুন</Link>
-								</Button>
+								<Dialog>
+									<DialogTrigger>
+										<Button className='w-[130px] px-4 text-white rounded-sm bg-color-main hover:bg-color-sub'>
+											স্পন্সর করুন
+										</Button>
+									</DialogTrigger>
+									<DialogContent className='p-4'>
+										<ChildDonation />
+									</DialogContent>
+								</Dialog>
 							</div>
 						</div>
 					</div>
