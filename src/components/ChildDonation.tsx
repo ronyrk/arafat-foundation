@@ -22,7 +22,7 @@ import { Textarea } from "./ui/textarea"
 import Link from "next/link"
 import { UploadButton } from "@/lib/uploading"
 import toast from "react-hot-toast"
-import { DonateProps } from "@/types"
+import { DonateProps, SponsorProps } from "@/types"
 
 
 const formSchema = z.object({
@@ -34,7 +34,7 @@ const formSchema = z.object({
 });
 
 
-function ChildDonation() {
+function ChildDonation({ username }: { username: string }) {
 	const router = useRouter();
 	const [image, setImage] = useState<string | undefined>("");
 	const [paymentType, setPaymentType] = useState<string>("");
@@ -50,8 +50,8 @@ function ChildDonation() {
 	});
 
 	const { mutate, isPending } = useMutation({
-		mutationFn: async ({ name, email, amount, photoUrl, method, about }: DonateProps) => {
-			const response = await axios.post("/api/donate", {
+		mutationFn: async ({ name, email, amount, photoUrl, method, about }: SponsorProps) => {
+			const response = await axios.post("/api/sponsor-child", {
 				name, email, amount, photoUrl, about, method
 			});
 			return response.data;
@@ -68,19 +68,19 @@ function ChildDonation() {
 		const photoUrl = image;
 
 
-		// mutate({ name, email, amount, photoUrl, about, method }, {
-		// 	onSuccess: (data: DonateProps) => {
-		// 		if (data?.id) {
-		// 			toast.success("Donate Successfully");
-		// 		} else {
-		// 			throw new Error("Donate Failed")
-		// 		}
-		// 		router.push(`/our-projects`);
-		// 	},
-		// 	onError: (error) => {
-		// 		toast.error("Donate Failed");
-		// 	}
-		// });
+		mutate({ name, email, amount, photoUrl, about, method, username }, {
+			onSuccess: (data: SponsorProps) => {
+				if (data?.id) {
+					toast.success("Donate Successfully");
+				} else {
+					throw new Error("Donate Failed")
+				}
+				router.push(`/sponsor-a-child`);
+			},
+			onError: (error) => {
+				toast.error("Donate Failed");
+			}
+		});
 	};
 	// console.log(state, stateBranch);
 

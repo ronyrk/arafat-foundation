@@ -14,6 +14,7 @@ function page({ params }: {
 		username: string
 	}
 }) {
+	const { username } = params;
 	return (
 		<div className='py-2 '>
 			<div className='flex gap-x-3'>
@@ -43,7 +44,7 @@ function page({ params }: {
 										</Button>
 									</DialogTrigger>
 									<DialogContent className='p-4'>
-										<ChildDonation />
+										<ChildDonation username={username} />
 									</DialogContent>
 								</Dialog>
 							</div>

@@ -68,7 +68,7 @@ export async function ChildCarousel() {
 													</Button>
 												</DialogTrigger>
 												<DialogContent className='p-4'>
-													<ChildDonation />
+													<ChildDonation username={item.username} />
 												</DialogContent>
 											</Dialog>
 										</div>

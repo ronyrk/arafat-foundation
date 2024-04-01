@@ -47,7 +47,7 @@ async function Child() {
 										</Button>
 									</DialogTrigger>
 									<DialogContent className='p-4'>
-										<ChildDonation />
+										<ChildDonation username={item.username} />
 									</DialogContent>
 								</Dialog>
 							</div>
