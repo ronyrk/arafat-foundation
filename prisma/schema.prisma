@@ -154,6 +154,17 @@ model Donate {
   createAt DateTime @default(now())
 }
 
+model Child {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  username    String @unique
+  name        String
+  photoUrl    String
+  description String
+  dream       String
+  phone       String
+  address     String
+}
+
 enum Status {
   PENDING
   RUNNING
