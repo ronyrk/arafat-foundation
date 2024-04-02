@@ -54,7 +54,7 @@ const invoices = [
   },
 ]
 
-function DonationTable() {
+function DonationTable({ username }: { username: string }) {
   return (
     <Table>
       <TableHeader>

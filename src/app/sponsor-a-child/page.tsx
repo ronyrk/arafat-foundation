@@ -4,7 +4,7 @@ import icon from '../../../public/divider.svg';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { unstable_noStore } from 'next/cache';
-import { ChildIProps, ProjectsProps } from '@/types';
+import { ChildIProps } from '@/types';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import ChildDonation from '@/components/ChildDonation';
 

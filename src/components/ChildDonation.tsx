@@ -89,8 +89,6 @@ function ChildDonation({ item }: { item: ChildIProps }) {
 		<>
 			<div className=' bg-gray-200 rounded p-2'>
 				<h2 className="text-xl font-medium py-1">{item.name}</h2>
-				<p className="text-sm  font-medium pr-1 leading-relaxed">{item.description.slice(0, 100)}</p>
-
 				<div className="flex flex-col gap-1">
 					<Form {...form}>
 						<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
