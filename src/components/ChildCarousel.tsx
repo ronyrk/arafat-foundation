@@ -61,16 +61,9 @@ export async function ChildCarousel() {
 											<Button className='w-[130px] px-4 text-white rounded-sm bg-color-sub hover:bg-color-main' asChild>
 												<Link href={`our-projects/${item.username}`}>প্রোফাইল দেখুন</Link>
 											</Button>
-											<Dialog>
-												<DialogTrigger>
-													<Button className='w-[130px] px-4 text-white rounded-sm bg-color-main hover:bg-color-sub'>
-														স্পন্সর করুন
-													</Button>
-												</DialogTrigger>
-												<DialogContent className='p-4'>
-													<ChildDonation item={item} />
-												</DialogContent>
-											</Dialog>
+											<Button className='w-[130px] px-4 text-white rounded-sm bg-color-main hover:bg-color-sub' asChild>
+												<Link href={`/donation/${item.username}`}>স্পন্সর করুন</Link>
+											</Button>
 										</div>
 									</div>
 								</div>

@@ -1,16 +1,15 @@
 import React from 'react'
-import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image'
 import DonationTable from '@/components/DonationTable';
 import DisbursementTable from '@/components/DisbursementTable';
-import { Share } from '@/components/Share';
 import { ChildCarousel } from '@/components/ChildCarousel';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import ChildDonation from '@/components/ChildDonation';
 import { unstable_noStore } from 'next/cache';
 import { ChildIProps } from '@/types';
 import { SingleShare } from '@/components/SingleShare';
+import Link from 'next/link';
 
 async function htmlConvert(data: string) {
 	return (
@@ -54,16 +53,9 @@ async function page({ params }: {
 								<h2 className="text-[15px] pl-2 font-medium">{data.address}</h2>
 							</div>
 							<div className="p-2 flex justify-center">
-								<Dialog>
-									<DialogTrigger>
-										<Button className=' w-full px-8 text-white rounded-sm bg-color-main hover:bg-color-sub'>
-											স্পন্সর করুন
-										</Button>
-									</DialogTrigger>
-									<DialogContent className='p-4'>
-										<ChildDonation item={data} />
-									</DialogContent>
-								</Dialog>
+								<Button className='w-[130px] px-4 text-white rounded-sm bg-color-main hover:bg-color-sub' asChild>
+									<Link href={`/donation/${data?.username}`}>স্পন্সর করুন</Link>
+								</Button>
 							</div>
 						</div>
 					</div>
