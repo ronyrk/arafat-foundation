@@ -22,7 +22,7 @@ import { Textarea } from "./ui/textarea"
 import Link from "next/link"
 import { UploadButton } from "@/lib/uploading"
 import toast from "react-hot-toast"
-import { DonateProps } from "@/types"
+import { ChildIProps, DonateProps, SponsorProps } from "@/types"
 
 
 const formSchema = z.object({
@@ -34,7 +34,7 @@ const formSchema = z.object({
 });
 
 
-function ChildDonation() {
+function ChildDonation({ item }: { item: ChildIProps }) {
 	const router = useRouter();
 	const [image, setImage] = useState<string | undefined>("");
 	const [paymentType, setPaymentType] = useState<string>("");
@@ -50,8 +50,8 @@ function ChildDonation() {
 	});
 
 	const { mutate, isPending } = useMutation({
-		mutationFn: async ({ name, email, amount, photoUrl, method, about }: DonateProps) => {
-			const response = await axios.post("/api/donate", {
+		mutationFn: async ({ name, email, amount, photoUrl, method, about }: SponsorProps) => {
+			const response = await axios.post("/api/sponsor-child", {
 				name, email, amount, photoUrl, about, method
 			});
 			return response.data;
@@ -66,30 +66,29 @@ function ChildDonation() {
 		const method = values.method;
 		const about = values.about;
 		const photoUrl = image;
+		const username = item.username;
 
 
-		// mutate({ name, email, amount, photoUrl, about, method }, {
-		// 	onSuccess: (data: DonateProps) => {
-		// 		if (data?.id) {
-		// 			toast.success("Donate Successfully");
-		// 		} else {
-		// 			throw new Error("Donate Failed")
-		// 		}
-		// 		router.push(`/our-projects`);
-		// 	},
-		// 	onError: (error) => {
-		// 		toast.error("Donate Failed");
-		// 	}
-		// });
+		mutate({ name, email, amount, photoUrl, about, method, username }, {
+			onSuccess: (data: SponsorProps) => {
+				if (data?.id) {
+					toast.success("Donate Successfully");
+				} else {
+					throw new Error("Donate Failed")
+				}
+				router.push(`/sponsor-a-child`);
+			},
+			onError: (error) => {
+				toast.error("Donate Failed");
+			}
+		});
 	};
 	// console.log(state, stateBranch);
 
 	return (
 		<>
 			<div className=' bg-gray-200 rounded p-2'>
-				<h2 className="text-xl font-medium py-1">রমজান প্রজেক্ট</h2>
-				<p className="text-sm  font-medium pr-1 leading-relaxed">অরাফাত ফাউন্ডেশনের রমজান প্রজেক্টে কর্মসুচির মধ্যে অসহায়/সুবিধাবঞ্চিত/দিনমুজুর মানুষকে সেহরি এবং ইফতার প্রদান, গরিব পরিবার গুলিকে রমজানের প্রয়োজনীয় খাদ্য সরবারহ করা সহ অন্যান্য কর্মসুচি রয়েছে।</p>
-
+				<h2 className="text-xl font-medium py-1">{item.name}</h2>
 				<div className="flex flex-col gap-1">
 					<Form {...form}>
 						<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">

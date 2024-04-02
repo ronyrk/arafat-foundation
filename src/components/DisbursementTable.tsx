@@ -64,7 +64,7 @@ const invoices = [
   },
 ]
 
-function DisbursementTable() {
+function DisbursementTable({ username }: { username: string }) {
   return (
     <Table>
       <TableHeader>
