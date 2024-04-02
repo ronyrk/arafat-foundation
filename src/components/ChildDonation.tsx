@@ -22,7 +22,7 @@ import { Textarea } from "./ui/textarea"
 import Link from "next/link"
 import { UploadButton } from "@/lib/uploading"
 import toast from "react-hot-toast"
-import { DonateProps, SponsorProps } from "@/types"
+import { ChildIProps, DonateProps, SponsorProps } from "@/types"
 
 
 const formSchema = z.object({
@@ -34,7 +34,7 @@ const formSchema = z.object({
 });
 
 
-function ChildDonation({ username }: { username: string }) {
+function ChildDonation({ item }: { item: ChildIProps }) {
 	const router = useRouter();
 	const [image, setImage] = useState<string | undefined>("");
 	const [paymentType, setPaymentType] = useState<string>("");
@@ -66,6 +66,7 @@ function ChildDonation({ username }: { username: string }) {
 		const method = values.method;
 		const about = values.about;
 		const photoUrl = image;
+		const username = item.username;
 
 
 		mutate({ name, email, amount, photoUrl, about, method, username }, {
@@ -87,8 +88,8 @@ function ChildDonation({ username }: { username: string }) {
 	return (
 		<>
 			<div className=' bg-gray-200 rounded p-2'>
-				<h2 className="text-xl font-medium py-1">রমজান প্রজেক্ট</h2>
-				<p className="text-sm  font-medium pr-1 leading-relaxed">অরাফাত ফাউন্ডেশনের রমজান প্রজেক্টে কর্মসুচির মধ্যে অসহায়/সুবিধাবঞ্চিত/দিনমুজুর মানুষকে সেহরি এবং ইফতার প্রদান, গরিব পরিবার গুলিকে রমজানের প্রয়োজনীয় খাদ্য সরবারহ করা সহ অন্যান্য কর্মসুচি রয়েছে।</p>
+				<h2 className="text-xl font-medium py-1">{item.name}</h2>
+				<p className="text-sm  font-medium pr-1 leading-relaxed">{item.description.slice(0, 100)}</p>
 
 				<div className="flex flex-col gap-1">
 					<Form {...form}>

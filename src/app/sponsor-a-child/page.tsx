@@ -4,37 +4,37 @@ import icon from '../../../public/divider.svg';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { unstable_noStore } from 'next/cache';
-import { ProjectsProps } from '@/types';
+import { ChildIProps, ProjectsProps } from '@/types';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import ChildDonation from '@/components/ChildDonation';
 
 async function Child() {
 	unstable_noStore();
-	let res = await fetch('https://af-admin.vercel.app/api/project');
+	let res = await fetch('https://af-admin.vercel.app/api/child');
 	if (!res.ok) {
 		throw new Error("Failed to fetch data list");
 	};
-	const data: ProjectsProps[] = await res.json();
+	const data: ChildIProps[] = await res.json();
 	return (
 		<div className="grid grid-cols-2 gap-1 p-2 md:grid-cols-4 justify-stretch md:gap-3">
 			{
 				data.map((item, index) => (
 					<div key={index} className="relative flex flex-col border-2 rounded-md shadow-md ">
-						<Image src="/hhjui.png" width={248} height={120} className='w-full h-[260px] object-fill rounded' alt={item.username} />
+						<Image src={item.photoUrl} width={248} height={120} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className='w-full h-[260px] object-fill rounded' alt={item.username} />
 						<p className="absolute px-2 py-[2px] text-sm bg-white rounded top-2 left-2">স্কুল</p>
 						<div className="w-full px-1 bg-white">
-							<h2 className="py-2 text-xl font-semibold text-color-main hover:text-color-sub">মোসাঃ মাহফুজা</h2>
+							<h2 className="py-2 text-xl font-semibold text-color-main hover:text-color-sub">{item.name}</h2>
 							<div className="flex flex-row py-1">
 								<h2 className="text-[15px] font-medium">স্বপ্ন :</h2>
-								<h2 className="text-[15px] pl-6 font-medium">বিসিএস ক্যাডার</h2>
+								<h2 className="text-[15px] pl-6 font-medium">{item.dream}</h2>
 							</div>
 							<div className="flex flex-row py-1">
 								<h2 className="text-[15px]  font-medium">ফোন :</h2>
-								<h2 className="text-[15px] pl-4 font-medium">01738123456</h2>
+								<h2 className="text-[15px] pl-4 font-medium">{item.phone}</h2>
 							</div>
 							<div className="flex flex-row py-1">
 								<h2 className="text-[15px]  inline  font-medium">ঠিকানা:</h2>
-								<h2 className="text-[15px] pl-2 font-medium">টাংগন-পশ্চিম পাড়া, ইউসুফপুর,চারঘাট, রাজশাহী</h2>
+								<h2 className="text-[15px] pl-2 font-medium">{item.address}</h2>
 							</div>
 							<div className="flex justify-around py-2 md:flex-row">
 								<Button className='w-[130px] px-4 text-white rounded-sm bg-color-sub hover:bg-color-main' asChild>
@@ -47,7 +47,7 @@ async function Child() {
 										</Button>
 									</DialogTrigger>
 									<DialogContent className='p-4'>
-										<ChildDonation username={item.username} />
+										<ChildDonation item={item} />
 									</DialogContent>
 								</Dialog>
 							</div>

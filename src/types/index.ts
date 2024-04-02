@@ -159,3 +159,13 @@ export interface SponsorProps {
 	photoUrl?: string,
 	about?: string,
 }
+export interface ChildIProps {
+	id?: string,
+	name: string,
+	username: string,
+	description: string,
+	photoUrl: string,
+	dream: string,
+	phone: string,
+	address: string
+}
