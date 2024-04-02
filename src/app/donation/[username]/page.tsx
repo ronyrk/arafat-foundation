@@ -18,11 +18,11 @@ import axios from "axios"
 import { useRouter } from "next/navigation"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { useState } from "react"
-import { Textarea } from "./ui/textarea"
 import Link from "next/link"
 import { UploadButton } from "@/lib/uploading"
 import toast from "react-hot-toast"
 import { ChildIProps, DonateProps, SponsorProps } from "@/types"
+import { Textarea } from "@/components/ui/textarea"
 
 
 const formSchema = z.object({
@@ -34,10 +34,15 @@ const formSchema = z.object({
 });
 
 
-function ChildDonation({ item }: { item: ChildIProps }) {
+function ChildDonation({ params }: {
+	params: {
+		username: string
+	}
+}) {
 	const router = useRouter();
 	const [image, setImage] = useState<string | undefined>("");
 	const [paymentType, setPaymentType] = useState<string>("");
+	const { username } = params;
 
 	const handleTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
 		const selectedValue = e.target.value;
@@ -66,7 +71,6 @@ function ChildDonation({ item }: { item: ChildIProps }) {
 		const method = values.method;
 		const about = values.about;
 		const photoUrl = image;
-		const username = item.username;
 
 
 		mutate({ name, email, amount, photoUrl, about, method, username }, {
@@ -76,7 +80,7 @@ function ChildDonation({ item }: { item: ChildIProps }) {
 				} else {
 					throw new Error("Donate Failed");
 				}
-				router.push(`/sponsor-a-child`);
+				router.push(`/sponsor-a-child/${username}`);
 			},
 			onError: (error) => {
 				toast.error("Donate Failed");
@@ -86,9 +90,9 @@ function ChildDonation({ item }: { item: ChildIProps }) {
 	// console.log(state, stateBranch);
 
 	return (
-		<>
-			<div className='rounded'>
-				<div className="flex flex-col">
+		<div>
+			<div className='rounded  py-4'>
+				<div className="flex flex-col items-center gap-2">
 					<Form {...form}>
 						<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-1">
 							<div className=" grid grid-cols-1 items-center gap-[2px]">
@@ -241,7 +245,7 @@ function ChildDonation({ item }: { item: ChildIProps }) {
 					</Form>
 				</div>
 			</div>
-		</>
+		</div>
 	)
 }
 

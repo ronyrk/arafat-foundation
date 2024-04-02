@@ -6,6 +6,18 @@ import { Button } from '@/components/ui/button';
 import { unstable_noStore } from 'next/cache';
 import { ChildIProps } from '@/types';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import {
+	AlertDialog,
+	AlertDialogAction,
+	AlertDialogCancel,
+	AlertDialogContent,
+	AlertDialogDescription,
+	AlertDialogFooter,
+	AlertDialogHeader,
+	AlertDialogTitle,
+	AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+
 import ChildDonation from '@/components/ChildDonation';
 
 async function Child() {
@@ -36,20 +48,13 @@ async function Child() {
 								<h2 className="text-[15px]  inline  font-medium">ঠিকানা:</h2>
 								<h2 className="text-[15px] pl-2 font-medium">{item.address}</h2>
 							</div>
-							<div className="flex justify-around py-2 md:flex-row">
-								<Button className='w-[130px] px-4 text-white rounded-sm bg-color-sub hover:bg-color-main' asChild>
+							<div className="flex justify-around md:py-2 py-1 flex-col gap-2 md:flex-row">
+								<Button className='md:w-[130px] md:px-4 px-1 text-white rounded-sm bg-color-sub hover:bg-color-main' asChild>
 									<Link href={`sponsor-a-child/${item.username}`}>প্রোফাইল দেখুন</Link>
 								</Button>
-								<Dialog>
-									<DialogTrigger>
-										<Button className='w-[130px] px-4 text-white rounded-sm bg-color-main hover:bg-color-sub'>
-											স্পন্সর করুন
-										</Button>
-									</DialogTrigger>
-									<DialogContent className='p-4'>
-										<ChildDonation item={item} />
-									</DialogContent>
-								</Dialog>
+								<Button className='md:w-[130px] md:px-4 px-1 text-white rounded-sm bg-color-main hover:bg-color-sub' asChild>
+									<Link href={`/donation/${item.username}`}>স্পন্সর করুন</Link>
+								</Button>
 							</div>
 						</div>
 					</div>
