@@ -1,10 +1,8 @@
 import React from 'react'
-import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image'
 import DonationTable from '@/components/DonationTable';
 import DisbursementTable from '@/components/DisbursementTable';
-import { Share } from '@/components/Share';
 import { ChildCarousel } from '@/components/ChildCarousel';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import ChildDonation from '@/components/ChildDonation';

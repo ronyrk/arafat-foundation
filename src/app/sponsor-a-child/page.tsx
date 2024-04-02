@@ -38,7 +38,7 @@ async function Child() {
 							</div>
 							<div className="flex justify-around py-2 md:flex-row">
 								<Button className='w-[130px] px-4 text-white rounded-sm bg-color-sub hover:bg-color-main' asChild>
-									<Link href={`our-projects/${item.username}`}>প্রোফাইল দেখুন</Link>
+									<Link href={`sponsor-a-child/${item.username}`}>প্রোফাইল দেখুন</Link>
 								</Button>
 								<Dialog>
 									<DialogTrigger>
