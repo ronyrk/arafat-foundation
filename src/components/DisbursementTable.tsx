@@ -3,7 +3,6 @@ import {
   Table,
   TableBody,
   TableCell,
-  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
@@ -14,57 +13,28 @@ import {
   DialogContent,
   DialogDescription,
   DialogHeader,
-  DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
+import { unstable_noStore } from 'next/cache'
+import { DisbursementIProps } from '@/types'
+import moment from 'moment'
+
+async function htmlConvert(data: string) {
+  return (
+    <div className="py-2">
+      <div dangerouslySetInnerHTML={{ __html: data }} />
+    </div>
+  )
+}
 
 
-const invoices = [
-  {
-    invoice: "INV001",
-    paymentStatus: "Paid",
-    totalAmount: "$250.00",
-    paymentMethod: "Credit Card",
-  },
-  {
-    invoice: "INV002",
-    paymentStatus: "Pending",
-    totalAmount: "$150.00",
-    paymentMethod: "PayPal",
-  },
-  {
-    invoice: "INV003",
-    paymentStatus: "Unpaid",
-    totalAmount: "$350.00",
-    paymentMethod: "Bank Transfer",
-  },
-  {
-    invoice: "INV004",
-    paymentStatus: "Paid",
-    totalAmount: "$450.00",
-    paymentMethod: "Credit Card",
-  },
-  {
-    invoice: "INV005",
-    paymentStatus: "Paid",
-    totalAmount: "$550.00",
-    paymentMethod: "PayPal",
-  },
-  {
-    invoice: "INV006",
-    paymentStatus: "Pending",
-    totalAmount: "$200.00",
-    paymentMethod: "Bank Transfer",
-  },
-  {
-    invoice: "INV007",
-    paymentStatus: "Unpaid",
-    totalAmount: "$300.00",
-    paymentMethod: "Credit Card",
-  },
-]
-
-function DisbursementTable({ username }: { username: string }) {
+async function DisbursementTable({ username }: { username: string }) {
+  unstable_noStore();
+  let res = await fetch(`https://af-admin.vercel.app/api/disbursement/${username}`);
+  if (!res.ok) {
+    throw new Error("Failed to fetch data list");
+  };
+  const data: DisbursementIProps[] = await res.json();
   return (
     <Table>
       <TableHeader>
@@ -75,10 +45,10 @@ function DisbursementTable({ username }: { username: string }) {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {invoices.map((invoice) => (
-          <TableRow key={invoice.invoice}>
-            <TableCell className="font-medium uppercase">{invoice.invoice}</TableCell>
-            <TableCell className="font-medium uppercase">{invoice.paymentStatus}</TableCell>
+        {data.map((item, index) => (
+          <TableRow key={index}>
+            <TableCell className="font-medium uppercase">{`${moment(item.date).subtract(1, "years").format('DD/MM/YYYY')}`}</TableCell>
+            <TableCell className="font-medium uppercase">BDT= {item.amount} /=</TableCell>
             <TableCell className="font-medium uppercase">
               <Dialog>
                 <DialogTrigger>
@@ -86,11 +56,12 @@ function DisbursementTable({ username }: { username: string }) {
                     Details
                   </Button>
                 </DialogTrigger>
-                <DialogContent className='p-4'>
+                <DialogContent className='p-8 bg-white'>
                   <DialogHeader>
                     <DialogDescription>
-                      This action cannot be undone. This will permanently delete your account
-                      and remove your data from our servers.
+                      {
+                        htmlConvert(item.description)
+                      }
                     </DialogDescription>
                   </DialogHeader>
                 </DialogContent>

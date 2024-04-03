@@ -158,6 +158,7 @@ export interface SponsorProps {
 	method?: string,
 	photoUrl?: string,
 	about?: string,
+	createAt?: Date,
 }
 export interface ChildIProps {
 	id?: string,
@@ -168,4 +169,11 @@ export interface ChildIProps {
 	dream: string,
 	phone: string,
 	address: string
+}
+export interface DisbursementIProps {
+	id?: string,
+	date: Date,
+	description: string,
+	username: string,
+	amount: string,
 }
