@@ -4,13 +4,15 @@ import Image from 'next/image'
 import DonationTable from '@/components/DonationTable';
 import DisbursementTable from '@/components/DisbursementTable';
 import { ChildCarousel } from '@/components/ChildCarousel';
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
-import ChildDonation from '@/components/ChildDonation';
 import { unstable_noStore } from 'next/cache';
 import { ChildIProps } from '@/types';
 import { SingleShare } from '@/components/SingleShare';
 import Link from 'next/link';
+import prisma from '@/lib/prisma';
 
+type Props = {
+	params: { username: string }
+};
 async function htmlConvert(data: string) {
 	return (
 		<div className="py-2">
@@ -18,6 +20,37 @@ async function htmlConvert(data: string) {
 		</div>
 	)
 }
+
+export async function generateMetadata({ params }: Props) {
+	unstable_noStore();
+	const user = await prisma.child.findUnique({
+		where: {
+			username: params.username
+		}
+	})
+	return {
+		title: user?.name,
+		description: htmlConvert(user?.description as string),
+		openGraph: {
+			images: [
+				{
+					url: user?.photoUrl, // Must be an absolute URL
+					width: 800,
+					height: 600,
+					alt: user?.name,
+				},
+				{
+					url: user?.photoUrl, // Must be an absolute URL
+					width: 1800,
+					height: 1600,
+					alt: user?.name,
+				},
+			],
+		}
+	}
+};
+
+
 
 async function page({ params }: {
 	params: {

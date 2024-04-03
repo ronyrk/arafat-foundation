@@ -48,7 +48,7 @@ async function DisbursementTable({ username }: { username: string }) {
         {data.map((item, index) => (
           <TableRow key={index}>
             <TableCell className="font-medium uppercase">{`${moment(item.date).subtract(1, "years").format('DD/MM/YYYY')}`}</TableCell>
-            <TableCell className="font-medium uppercase">{item.amount}</TableCell>
+            <TableCell className="font-medium uppercase">BDT= {item.amount} /=</TableCell>
             <TableCell className="font-medium uppercase">
               <Dialog>
                 <DialogTrigger>
