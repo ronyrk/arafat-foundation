@@ -8,6 +8,7 @@ import TanStackProvider from "@/components/TanStackProvider";
 import { Toaster } from "react-hot-toast";
 import { ChevronUpCircle } from 'lucide-react';
 import { cn } from "@/lib/utils";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -34,6 +35,7 @@ export default function RootLayout({
           <ContextProvider>
             <Navbar />
             {children}
+            <SpeedInsights />
             <Toaster />
             <Footer />
             <div className=" fixed right-8 z-10 bottom-10 bg-gray-100 rounded-full">
