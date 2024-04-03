@@ -158,7 +158,7 @@ export interface SponsorProps {
 	method?: string,
 	photoUrl?: string,
 	about?: string,
-	createAt: Date,
+	createAt?: Date,
 }
 export interface ChildIProps {
 	id?: string,
