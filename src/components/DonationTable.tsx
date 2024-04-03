@@ -8,6 +8,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import { unstable_noStore } from 'next/cache';
+import { SponsorProps } from '@/types';
+import moment from 'moment';
+import { TotalSumChildDonation } from '@/lib/totalSum';
 
 const invoices = [
   {
@@ -54,7 +58,14 @@ const invoices = [
   },
 ]
 
-function DonationTable({ username }: { username: string }) {
+async function DonationTable({ username }: { username: string }) {
+  unstable_noStore();
+  let res = await fetch(`https://af-admin.vercel.app/api/donation/${username}`);
+  if (!res.ok) {
+    throw new Error("Failed to fetch data list");
+  };
+  const data: SponsorProps[] = await res.json();
+  console.log(data, "table");
   return (
     <Table>
       <TableHeader>
@@ -65,18 +76,18 @@ function DonationTable({ username }: { username: string }) {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {invoices.map((invoice) => (
-          <TableRow key={invoice.invoice}>
-            <TableCell className="font-medium uppercase">{invoice.invoice}</TableCell>
-            <TableCell className="font-medium uppercase">{invoice.paymentStatus}</TableCell>
-            <TableCell className="font-medium uppercase">{invoice.totalAmount}</TableCell>
+        {data.map((item, index) => (
+          <TableRow key={index}>
+            <TableCell className="font-medium uppercase">{`${moment(item.createAt).subtract(1, "years").format('DD/MM/YYYY')}`}</TableCell>
+            <TableCell className="font-medium uppercase">{item.name}</TableCell>
+            <TableCell className="font-medium uppercase">BDT= {item.amount} /=</TableCell>
           </TableRow>
         ))}
       </TableBody>
       <TableFooter>
         <TableRow>
           <TableCell className=' text-center uppercase' colSpan={2}>Total</TableCell>
-          <TableCell className="uppercase text-base font-semibold text-color-main">$2,500.00</TableCell>
+          <TableCell className="uppercase text-base font-semibold text-color-main">BDT= {TotalSumChildDonation(username)} /=</TableCell>
         </TableRow>
       </TableFooter>
     </Table>
