@@ -6,14 +6,8 @@ import { SendEmailIProps } from "@/types";
 
 export const sendMail = async ({ email, phone, name, message }: SendEmailIProps) => {
 	const { SMTP_PASSWORD, SMTP_EMAIL } = process.env;
-	const connection = {
-		host: 'arafatfoundation.org',
-		port: 465,
-	};
 	const transport = nodemailer.createTransport({
-		host: connection.host,
-		port: connection.port,
-		secure: true,
+		service: "gmail",
 		auth: {
 			user: SMTP_EMAIL,
 			pass: SMTP_PASSWORD,
