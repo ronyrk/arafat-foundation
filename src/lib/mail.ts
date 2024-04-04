@@ -54,11 +54,11 @@ color: #007bff;
 </body>
 </html>`
 		});
-		console.log(testResult, "test", sendRequest)
+		// console.log(testResult, "test", sendRequest)
 
 		return sendRequest;
 	} catch (error) {
-		console.log(error);
+		// console.log(error);
 		throw new Error("Server Failed");
 
 	}

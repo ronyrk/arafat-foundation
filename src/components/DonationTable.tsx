@@ -65,7 +65,7 @@ async function DonationTable({ username }: { username: string }) {
     throw new Error("Failed to fetch data list");
   };
   const data: SponsorProps[] = await res.json();
-  console.log(data, "table");
+  // console.log(data, "table");
   return (
     <Table>
       <TableHeader>
