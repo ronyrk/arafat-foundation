@@ -3,7 +3,13 @@ import React from 'react'
 import icon from "../../../public/divider.svg"
 import Image from 'next/image'
 
-function page() {
+function page({ searchParams }: {
+	searchParams?: {
+		type?: string,
+		page?: string,
+	}
+}) {
+	const query = searchParams?.type || "all";
 	return (
 		<section className="bg-[#FCFCFD]">
 			<div className="md:mx-20 md:my-4 my-2">
