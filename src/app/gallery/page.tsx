@@ -15,7 +15,7 @@ function page() {
 					<div className="basis-1/5">
 						<GallerySidebar />
 					</div>
-					<div className=" md:px-2 bg-white  rounded-md border-[2px] px-1 py-2 basis-4/5">
+					<div className=" md:p-1 bg-white  rounded-md border-[2px] basis-4/5">
 						<div className="grid md:grid-cols-3 grid-cols-1 md:gap-3 gap-1">
 							<div className=" flex justify-center p-2">
 								<Image src="/gallery-14.jpg" className=' rounded-md hover:opacity-90' width={308} height={288} alt='icon' />
