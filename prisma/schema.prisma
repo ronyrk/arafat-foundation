@@ -177,6 +177,12 @@ model Child {
   address     String
 }
 
+model Gallery {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  category String
+  content  String
+}
+
 enum Status {
   PENDING
   RUNNING
