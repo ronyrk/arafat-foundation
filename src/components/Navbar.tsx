@@ -41,7 +41,7 @@ function Navbar() {
 					<Image className='w-[120px] h-[100] py-2 object-contain rounded' src={Logo} placeholder='blur' alt='logo' />
 				</Link>
 				<div className='hidden md:flex'>
-					<Link href='/' className={`text-[16px] py-10 mx-3 font-semibold hover:border-color-sub hover:text-color-sub border-white border-b-4 ${pathname === "/" ? "border-b-4 border-color-sub text-color-sub" : ""}`}>
+					<Link href='/' className={`text-[16px] py-10 mx-3 font-semibold hover:border-color-sub hover:text-color-sub border-white border-b-4 ${pathname === "/" ? "border-color-sub text-color-sub" : ""}`}>
 						হোম
 					</Link>
 					<Link href='/about-us' className='text-[16px] py-10 mx-3 font-semibold  hover:border-color-sub  border-white border-b-4 hover:text-color-sub'>
@@ -50,8 +50,8 @@ function Navbar() {
 					<Link href='/our-activities' className='text-[16px] py-10 mx-3 font-semibold  hover:border-color-sub  border-white border-b-4 hover:text-color-sub'>
 						আমাদের কার্যক্রম
 					</Link>
-					<Link href='https://arafatfoundation.org/donation-verify/' className='text-[16px] py-10 mx-3 font-semibold hover:border-color-sub hover:text-color-sub  border-white border-b-4' >
-						DONATION VERIFY
+					<Link href="/gallery" className='text-[16px] py-10 mx-3 font-semibold hover:border-color-sub hover:text-color-sub  border-white border-b-4' >
+						গ্যালারি
 					</Link>
 					<Link href='/karze-hasana' className={`text-[16px] py-10 mx-3 font-semibold hover:border-color-sub hover:text-color-sub border-white border-b-4 ${pathname === "/karze-hasana" || pathname === "/karze-hasana/branches" || pathname === "/karze-hasana/" || pathname === "/karze-hasana/donor-and-lenders" || pathname === "/karze-hasana/borrowers" ? "border-b-4 border-color-sub text-color-sub" : ""}`}>
 						কর্জে হাসানা
@@ -71,7 +71,7 @@ function Navbar() {
 								<Link className='px-2 py-2 border-b-2' href="https://arafatfoundation.org/">হোম</Link>
 								<Link className='px-2 py-2 border-b-2' href="/about-us">আমাদের সম্পর্কে</Link>
 								<Link className='px-2 py-2 border-b-2' href="/our-activities">আমাদের কার্যক্রম</Link>
-								<Link className='px-2 py-2 border-b-2' href="https://arafatfoundation.org/donation-verify/">DONATION VERIFY</Link>
+								<Link className='px-2 py-2 border-b-2' href="/gallery">DONATION VERIFY</Link>
 								<Link className='px-2 py-2 border-b-2' href="/karze-hasana">কর্জে হাসানা</Link>
 								<Link className='px-2 py-2 border-b-2' href="/contact-us">যোগাযোগ</Link>
 							</div>
