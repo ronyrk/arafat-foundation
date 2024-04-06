@@ -182,3 +182,8 @@ export interface GalleryIProps {
 	category: string,
 	content: string,
 }
+export interface CategoryIProps {
+	id?: string,
+	name: string,
+	path: string,
+}
