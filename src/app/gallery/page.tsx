@@ -17,7 +17,7 @@ async function GalleryList({ query }: { query: string }) {
 			<DialogTrigger>
 				{
 					data.map((item, index) => (
-						<div key={index} className=" flex justify-center p-2">
+						<div key={index} className=" flex justify-center w-[308px] h-[288px] p-1">
 							<Image src={item.content} className=' rounded-md hover:opacity-90' width={308} height={208} alt={item.category} />
 						</div>
 					))
