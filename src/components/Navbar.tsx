@@ -12,6 +12,34 @@ import {
 } from "@/components/ui/sheet"
 import { usePathname } from 'next/navigation';
 
+interface NavIProps {
+	name: string,
+	path: string,
+}
+
+const nav: NavIProps[] = [
+	{
+		name: "আমাদের সম্পর্কে",
+		path: "about-us"
+	},
+	{
+		name: "আমাদের কার্যক্রম",
+		path: "our-activities"
+	},
+	{
+		name: "গ্যালারি",
+		path: "gallery"
+	},
+	{
+		name: "কর্জে হাসানা",
+		path: "karze-hasana"
+	},
+	{
+		name: "যোগাযোগ",
+		path: "contact-us"
+	}
+];
+
 
 
 function Navbar() {
@@ -41,24 +69,16 @@ function Navbar() {
 					<Image className='w-[120px] h-[100] py-2 object-contain rounded' src={Logo} placeholder='blur' alt='logo' />
 				</Link>
 				<div className='hidden md:flex'>
-					<Link href='/' className={`text-[16px] py-10 mx-3 font-semibold hover:border-color-sub hover:text-color-sub  border-b-4 ${pathname === "/" ? "border-color-sub text-color-sub" : "border-white"}`}>
+					<Link href="/" className={`text-[16px] py-10 mx-3 font-semibold hover:border-color-sub hover:text-color-sub  border-b-4 ${pathname === "/" ? "border-color-sub text-color-sub" : "border-white"}`}>
 						হোম
 					</Link>
-					<Link href='/about-us' className='text-[16px] py-10 mx-3 font-semibold  hover:border-color-sub  border-white border-b-4 hover:text-color-sub'>
-						আমাদের সম্পর্কে
-					</Link>
-					<Link href='/our-activities' className='text-[16px] py-10 mx-3 font-semibold  hover:border-color-sub  border-white border-b-4 hover:text-color-sub'>
-						আমাদের কার্যক্রম
-					</Link>
-					<Link href="/gallery" className='text-[16px] py-10 mx-3 font-semibold hover:border-color-sub hover:text-color-sub  border-white border-b-4' >
-						গ্যালারি
-					</Link>
-					<Link href='/karze-hasana' className={`text-[16px] py-10 mx-3 font-semibold hover:border-color-sub hover:text-color-sub border-white border-b-4 ${pathname === "/karze-hasana" || pathname === "/karze-hasana/branches" || pathname === "/karze-hasana/" || pathname === "/karze-hasana/donor-and-lenders" || pathname === "/karze-hasana/borrowers" ? "border-b-4 border-color-sub text-color-sub" : ""}`}>
-						কর্জে হাসানা
-					</Link>
-					<Link href='/contact-us' className='text-[16px] py-10 mx-3 font-semibold hover:border-color-sub hover:text-color-sub  border-white border-b-4'>
-						যোগাযোগ
-					</Link>
+					{
+						nav.map((item, index) => (
+							<Link key={index} href={`/${item.path}`} className={`text-[16px] py-10 mx-3 font-semibold hover:border-color-sub hover:text-color-sub  border-b-4 ${pathname.startsWith(item?.path, 1) ? "border-color-sub text-color-sub" : "border-white"}`}>
+								{item?.name}
+							</Link>
+						))
+					}
 				</div>
 				<div>
 					<Button asChild className=' w-28 bg-color-main hover:bg-color-sub' size={"lg"}><Link href="https://arafatfoundation.org/donate/">দান করুন <span className='ml-[6px]'><HandHeart /></span></Link></Button>
@@ -67,13 +87,17 @@ function Navbar() {
 					<Sheet>
 						<SheetTrigger><AlignJustify className='mr-4' size={30} /></SheetTrigger>
 						<SheetContent side={"left"}>
-							<div className="flex flex-col gap-2">
-								<Link className='px-2 py-2 border-b-2' href="https://arafatfoundation.org/">হোম</Link>
-								<Link className='px-2 py-2 border-b-2' href="/about-us">আমাদের সম্পর্কে</Link>
-								<Link className='px-2 py-2 border-b-2' href="/our-activities">আমাদের কার্যক্রম</Link>
-								<Link className='px-2 py-2 border-b-2' href="/gallery">DONATION VERIFY</Link>
-								<Link className='px-2 py-2 border-b-2' href="/karze-hasana">কর্জে হাসানা</Link>
-								<Link className='px-2 py-2 border-b-2' href="/contact-us">যোগাযোগ</Link>
+							<div className="flex flex-col gap-y-4">
+								<Link href="/" className={`text-[16px] mx-3 font-semibold hover:border-color-sub hover:text-color-sub  border-b-4 ${pathname === "/" ? "border-color-sub text-color-sub" : "border-white"}`}>
+									হোম
+								</Link>
+								{
+									nav.map((item, index) => (
+										<Link key={index} href={`/${item.path}`} className={`text-[16px]  mx-3 font-semibold hover:border-color-sub hover:text-color-sub  border-b-4 ${pathname.startsWith(item?.path, 1) ? "border-color-sub text-color-sub" : "border-white"}`}>
+											{item?.name}
+										</Link>
+									))
+								}
 							</div>
 						</SheetContent>
 					</Sheet>
