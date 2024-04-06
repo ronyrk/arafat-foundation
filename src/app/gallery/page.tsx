@@ -11,9 +11,10 @@ import {
 	DialogTrigger,
 } from "@/components/ui/dialog"
 import { GalleryCarousel } from '@/components/Gallery'
+import { getGallery } from '@/lib/getGallery'
 
 
-function page({ searchParams }: {
+async function page({ searchParams }: {
 	searchParams?: {
 		type?: string,
 		page?: string,
@@ -21,6 +22,7 @@ function page({ searchParams }: {
 }) {
 	const query = searchParams?.type || "all";
 	const page = searchParams?.page || "1";
+	const data = await getGallery(query);
 	return (
 		<section className="bg-[#FCFCFD]">
 			<div className="md:mx-20 md:my-4 my-2">
@@ -36,13 +38,17 @@ function page({ searchParams }: {
 						<div className="grid md:grid-cols-3 grid-cols-1 md:gap-3 gap-1">
 							<Dialog>
 								<DialogTrigger>
-									<div className=" flex justify-center p-2">
-										<Image src="/gallery-14.jpg" className=' rounded-md hover:opacity-90' width={388} height={288} alt='icon' />
-									</div>
+									{
+										data.map((item, index) => (
+											<div key={index} className=" flex justify-center p-2">
+												<Image src={item.content} className=' rounded-md hover:opacity-90' width={308} height={208} alt={item.category} />
+											</div>
+										))
+									}
 								</DialogTrigger>
 								<DialogContent className=' w-full'>
 									<div className="flex justify-center">
-										<GalleryCarousel />
+										<GalleryCarousel query={query} />
 									</div>
 								</DialogContent>
 							</Dialog>

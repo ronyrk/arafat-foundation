@@ -1,6 +1,4 @@
 import * as React from "react"
-
-import { Card, CardContent } from "@/components/ui/card"
 import {
 	Carousel,
 	CarouselContent,
@@ -9,14 +7,16 @@ import {
 	CarouselPrevious,
 } from "@/components/ui/carousel"
 import Image from "next/image"
+import { getGallery } from "@/lib/getGallery"
 
-export function GalleryCarousel() {
+export async function GalleryCarousel({ query }: { query: string }) {
+	const data = await getGallery(query);
 	return (
 		<Carousel className="w-full">
 			<CarouselContent>
-				{Array.from({ length: 5 }).map((_, index) => (
+				{data?.map((item, index) => (
 					<CarouselItem className=" flex justify-center" key={index}>
-						<Image src="/gallery-14.jpg" className=' rounded-sm object-fill ' width={1024} height={500} alt='icon' />
+						<Image src={item.content} className=' rounded-sm object-fill ' width={1024} height={500} alt={item.category} />
 					</CarouselItem>
 				))}
 			</CarouselContent>

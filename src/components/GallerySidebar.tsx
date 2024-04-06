@@ -20,7 +20,7 @@ function GallerySidebar() {
 	const pathname = usePathname();
 	const { replace } = useRouter();
 	const searchParams = useSearchParams();
-	const handleSearch = useDebouncedCallback((term: string) => {
+	const handleSearch = (term: string) => {
 		const params = new URLSearchParams(searchParams);
 		if (term) {
 			params.set("type", term);
@@ -28,7 +28,7 @@ function GallerySidebar() {
 			params.delete("type");
 		}
 		replace(`${pathname}?${params.toString()}`);
-	}, 100);
+	}
 	const type = searchParams.get('type');
 	return (
 		<div className='flex md:flex-col flex-row flex-wrap bg-[#F1F1FA] border-2 rounded gap-2'>
