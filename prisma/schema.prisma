@@ -183,6 +183,12 @@ model Gallery {
   content  String
 }
 
+model Category {
+  id   String @id @default(auto()) @map("_id") @db.ObjectId
+  name String @unique
+  path String @unique
+}
+
 enum Status {
   PENDING
   RUNNING
