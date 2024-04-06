@@ -1,17 +1,36 @@
 import GallerySidebar from '@/components/GallerySidebar'
-import React from 'react'
+import React, { Suspense } from 'react'
 import icon from "../../../public/divider.svg"
 import Image from 'next/image'
 import {
 	Dialog,
 	DialogContent,
-	DialogDescription,
-	DialogHeader,
-	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog"
 import { GalleryCarousel } from '@/components/Gallery'
 import { getGallery } from '@/lib/getGallery'
+
+async function GalleryList({ query }: { query: string }) {
+	const data = await getGallery(query);
+	return (
+		<Dialog>
+			<DialogTrigger>
+				{
+					data.map((item, index) => (
+						<div key={index} className=" flex justify-center p-2">
+							<Image src={item.content} className=' rounded-md hover:opacity-90' width={308} height={208} alt={item.category} />
+						</div>
+					))
+				}
+			</DialogTrigger>
+			<DialogContent className=' w-full'>
+				<div className="flex justify-center">
+					<GalleryCarousel query={query} />
+				</div>
+			</DialogContent>
+		</Dialog>
+	)
+}
 
 
 async function page({ searchParams }: {
@@ -22,7 +41,6 @@ async function page({ searchParams }: {
 }) {
 	const query = searchParams?.type || "all";
 	const page = searchParams?.page || "1";
-	const data = await getGallery(query);
 	return (
 		<section className="bg-[#FCFCFD]">
 			<div className="md:mx-20 md:my-4 my-2">
@@ -31,28 +49,16 @@ async function page({ searchParams }: {
 					<Image src={icon} alt='icon' />
 				</div>
 				<div className="flex md:flex-row flex-col gap-4">
-					<div className="basis-1/5">
-						<GallerySidebar />
-					</div>
+					<Suspense fallback={<h2>Loading...</h2>}>
+						<div className="basis-1/5">
+							<GallerySidebar />
+						</div>
+					</Suspense>
 					<div className=" md:p-1 bg-white  rounded-md border-[2px] basis-4/5">
 						<div className="grid md:grid-cols-3 grid-cols-1 md:gap-3 gap-1">
-							<Dialog>
-								<DialogTrigger>
-									{
-										data.map((item, index) => (
-											<div key={index} className=" flex justify-center p-2">
-												<Image src={item.content} className=' rounded-md hover:opacity-90' width={308} height={208} alt={item.category} />
-											</div>
-										))
-									}
-								</DialogTrigger>
-								<DialogContent className=' w-full'>
-									<div className="flex justify-center">
-										<GalleryCarousel query={query} />
-									</div>
-								</DialogContent>
-							</Dialog>
-
+							<Suspense fallback={<h2>Loading...</h2>}>
+								<GalleryList query={query} />
+							</Suspense>
 						</div>
 					</div>
 				</div>

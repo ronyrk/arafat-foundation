@@ -41,7 +41,7 @@ function Navbar() {
 					<Image className='w-[120px] h-[100] py-2 object-contain rounded' src={Logo} placeholder='blur' alt='logo' />
 				</Link>
 				<div className='hidden md:flex'>
-					<Link href='/' className={`text-[16px] py-10 mx-3 font-semibold hover:border-color-sub hover:text-color-sub border-white border-b-4 ${pathname === "/" ? "border-color-sub text-color-sub" : ""}`}>
+					<Link href='/' className={`text-[16px] py-10 mx-3 font-semibold hover:border-color-sub hover:text-color-sub  border-b-4 ${pathname === "/" ? "border-color-sub text-color-sub" : "border-white"}`}>
 						হোম
 					</Link>
 					<Link href='/about-us' className='text-[16px] py-10 mx-3 font-semibold  hover:border-color-sub  border-white border-b-4 hover:text-color-sub'>

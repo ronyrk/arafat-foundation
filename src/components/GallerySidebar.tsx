@@ -4,7 +4,6 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import React from 'react'
-import { useDebouncedCallback } from 'use-debounce';
 
 
 function GallerySidebar() {
