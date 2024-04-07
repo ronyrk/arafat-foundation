@@ -35,7 +35,7 @@ function GallerySidebar() {
 				isLoading ? <h2>Loading...</h2> : <>
 					<button onClick={() => {
 						handleSearch("all");
-					}} className={`py-2 px-2 text-[15px] font-semibold rounded-md ${type === "all" ? "bg-color-main text-white" : " text-black  hover:bg-[#DDDCF0] hover:text-black"}`}>সকল</button>
+					}} className={`py-2 px-2 text-[15px] font-semibold rounded-md ${type === null ? "bg-color-main text-white" : " text-black  hover:bg-[#DDDCF0] hover:text-black"} ${type === "all" ? "bg-color-main text-white" : " text-black  hover:bg-[#DDDCF0] hover:text-black"}`}>সকল</button>
 					{
 						data?.map((item, index) => (
 

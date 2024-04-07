@@ -13,22 +13,27 @@ import { getGallery } from '@/lib/getGallery'
 async function GalleryList({ query }: { query: string }) {
 	const data = await getGallery(query);
 	return (
-		<Dialog>
-			<DialogTrigger>
-				{
-					data.map((item, index) => (
-						<div key={index} className=" flex justify-center w-[308px] h-[288px] p-1">
-							<Image src={item.content} className=' rounded-md hover:opacity-90' width={308} height={208} alt={item.category} />
-						</div>
-					))
-				}
-			</DialogTrigger>
-			<DialogContent className=' w-full'>
-				<div className="flex justify-center">
-					<GalleryCarousel query={query} />
-				</div>
-			</DialogContent>
-		</Dialog>
+		<>
+			{
+				data.map((item, index) => (
+					<Dialog key={index}>
+						<DialogTrigger>
+							<div className=" flex justify-center w-[308px] h-[288px] p-1">
+								{
+									item.category === "video" ? <iframe width="308" height="280" className='object-fill rounded-md' src={`${item.content}`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen ></iframe> : <Image src={item.content} className=' rounded-md hover:opacity-90' width={308} height={208} alt={item.category} />
+								}
+							</div>
+						</DialogTrigger>
+						<DialogContent className=' w-full'>
+							<div className="flex justify-center">
+								<GalleryCarousel query={query} />
+							</div>
+						</DialogContent>
+					</Dialog>
+				))
+			}
+		</>
+
 	)
 }
 
