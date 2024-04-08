@@ -10,7 +10,7 @@ import banner from '../../public/banner.png';
 function Footer() {
 	return (
 		<div className="">
-			<div className='relative md:h-[440px] h-[1140px] md:bg-inherit bg-color-main'>
+			<div className=' md:h-[440px] relative '>
 				<Image
 					alt='background images'
 					src={banner}
@@ -20,9 +20,9 @@ function Footer() {
 					priority
 					className='-z-20 md:brightness-50'
 				/>
-				<div className=" absolute top-6 left-0 z-10">
+				<div className=" absolute top-4 left-0 z-10 md:bg-inherit bg-color-main">
 					<div className="md:px-20 px-4 ">
-						<div className="flex md:flex-row flex-col md:justify-between justify-center">
+						<div className="grid md:grid-cols-4 grid-cols-1 gap-2">
 							<div className="md:flex basis-1/4 flex-col my-2 px-4 py-2 gap-x-10">
 								<Image
 									alt='logo'
