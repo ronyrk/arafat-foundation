@@ -11,10 +11,7 @@ export async function getGallery(query: string) {
 	}
 	const result = await prisma.gallery.findMany({
 		where: {
-			category: {
-				contains: query,
-				mode: "insensitive"
-			}
+			category: query
 		}
 	})
 	return result;
