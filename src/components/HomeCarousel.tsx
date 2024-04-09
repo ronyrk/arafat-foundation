@@ -31,7 +31,7 @@ function HomeCarousel() {
 							<div className=" absolute md:left-24 left-10  md:top-24 top-10 z-30 leading-loose">
 								<h2 className=" md:text-[40px] text-[12px] font-bold pt-1 text-white">সদকা মানুষের বিপদ দূরীভূত করে</h2>
 								<h2 className=" md:text-[40px] text-[18px] font-bold text-white">অপমৃত্যু থেকে বাঁচায় এবং পাপ মোচন করে |</h2>
-								<p className=" text-white md:text-xl text-[12px] font-semibold py-4">আরাফাত ফাউন্ডেশন একটি রাজনৈতিক এবং অলাভজনক মূলত <br /> মানব কল্যাণমূলক  নিবেদিত সেবামূলক  প্রতিষ্ঠান</p>
+								<p className=" text-white md:text-xl text-[12px] font-semibold pb-4 pt-2">আরাফাত ফাউন্ডেশন একটি রাজনৈতিক এবং অলাভজনক মূলত <br /> মানব কল্যাণমূলক  নিবেদিত সেবামূলক  প্রতিষ্ঠান</p>
 								{/* <p className=" pb-2 text-white md:text-xl text-sm font-semibold "> মানব কল্যাণমূলক  নিবেদিত সেবামূলক  প্রতিষ্ঠান</p> */}
 								<Button size={"lg"} className=" px-8 py-2 bg-color-sub hover:bg-color-main">দান করুন</Button>
 
