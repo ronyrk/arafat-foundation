@@ -40,7 +40,7 @@ async function Projects() {
 
 async function OurProject() {
 	return (
-		<div className='py-2'>
+		<div className='py-2 md:px-20 md:py-4 bg-[#FCFCFD]'>
 			<h1 className="py-2 text-4xl font-semibold text-center text-color-main">আমাদের প্রকল্পসমূহ</h1>
 			<h1 className="py-2 text-xl font-medium text-center text-color-main">আমি একা কিছু করতে পারবো।  কিন্তু, আমরা সবাই মিলে অনেক কিছু করতে পারবো।</h1>
 			<div className='flex flex-col items-center justify-center gap-2 '>
@@ -50,6 +50,11 @@ async function OurProject() {
 			<Suspense fallback={<h2>Loading...</h2>}>
 				<Projects />
 			</Suspense>
+			<div className="py-4 flex justify-center">
+				<Button size={"lg"} className=' bg-white border-black  hover:border-color-sub text-black hover:bg-color-sub hover:text-white border-2' asChild>
+					<Link href="/our-projects">আরো দেখুন</Link>
+				</Button>
+			</div>
 		</div >
 	)
 }
