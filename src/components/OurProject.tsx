@@ -50,6 +50,11 @@ async function OurProject() {
 			<Suspense fallback={<h2>Loading...</h2>}>
 				<Projects />
 			</Suspense>
+			<div className="py-4 flex justify-center">
+				<Button size={"lg"} className=' bg-white border-black  hover:border-color-sub text-black hover:bg-color-sub hover:text-white border-2' asChild>
+					<Link href="/our-projects">আরো দেখুন</Link>
+				</Button>
+			</div>
 		</div >
 	)
 }
