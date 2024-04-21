@@ -20,10 +20,8 @@ async function GalleryList({ query }: { query: string }) {
 						<DialogTrigger>
 							<Image src={item.content} className='rounded-md  hover:opacity-90' width={308} height={208} alt={item.category} />
 						</DialogTrigger>
-						<DialogContent className=''>
-							<div className="">
-								<GalleryCarousel query={query} />
-							</div>
+						<DialogContent>
+							<GalleryCarousel query={query} />
 						</DialogContent>
 					</Dialog>
 				))
