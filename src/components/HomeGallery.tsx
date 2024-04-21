@@ -19,8 +19,8 @@ async function GalleryList({ query }: { query: string }) {
 			{
 				data.map((item, index) => (
 					<Dialog key={index}>
-						<DialogTrigger>
-							<div className=" flex justify-center w-[308px] h-[288px] p-1">
+						<DialogTrigger className=''>
+							<div className="flex justify-center md:w-[308px] md:h-[288px] w-[100px] h-[80px] p-1 ">
 								{
 									item.category === "video" ? <iframe width="308" height="280" className='object-fill rounded-md' src={`${item.content}`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen ></iframe> : <Image src={item.content} className='rounded-md hover:opacity-90' width={308} height={208} alt={item.category} />
 								}

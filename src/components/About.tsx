@@ -12,7 +12,7 @@ function About() {
 			<div className=" basis-2/5">
 				<Image src={imag} className=' rounded-sm' priority alt='about' />
 			</div>
-			<div className=" basis-3/5 px-4">
+			<div className=" basis-3/5 px-1">
 				<h2 className=" text-[30px] font-semibold text-color-main">আরাফাত ফাউন্ডেশন</h2>
 				<hr className=' border-b-2 border-color-sub w-20' />
 				<p className="text-lg pt-6 font-normal leading-relaxed">
@@ -23,7 +23,7 @@ function About() {
 						<Link href="/about-us">বিস্তারিত  <span><TriangleRightIcon /> </span></Link>
 					</Button>
 				</div>
-				<div className="py-2 flex flex-row gap-x-3">
+				<div className="py-2 flex flex-row md:gap-x-2 gap-x-1">
 					<div className=" basis-1/3  hover:text-color-sub bg-gray-100 border-[1px] shadow-lg border-color-main	 py-6 rounded-sm flex justify-center items-center flex-col">
 						<h2 className=" font-normal"><GraduationCap size={80} strokeWidth={2} absoluteStrokeWidth /></h2>
 						<h2 className=" text-[22px] font-semibold">শিক্ষা</h2>

@@ -33,11 +33,6 @@ function HomeGallerySidebar() {
 		<div className='flex flex-row justify-center gap-2 rounded'>
 			{
 				isLoading ? <h2>Loading...</h2> : <>
-					<button onClick={() => {
-						handleSearch("all");
-					}} className={`py-1 px-2 text-[15px] font-semibold border-b-4 ${type === null ? "text-color-sub border-b-4 border-color-sub" : "hover:border-color-sub  hover:text-color-sub"} ${type === "all" ? "text-color-sub border-b-4 border-color-sub  " : "hover:border-color-sub hover:text-color-sub  border-white "}`}>
-						সকল
-					</button>
 					{
 						data?.map((item, index) => (
 
@@ -46,9 +41,6 @@ function HomeGallerySidebar() {
 							}} className={`py-1 px-2 text-[15px] font-semibold border-b-4 ${type === item.path ? "text-color-sub  border-color-sub" : "hover:border-color-sub hover:text-color-sub  border-white "}`}>{item.name}</button>
 						))
 					}
-					<button onClick={() => {
-						handleSearch("video");
-					}} className={`py-1 px-2 text-[15px] border-b-4 font-semibold ${type === "video" ? "text-color-sub  border-color-sub" : " hover:border-color-sub   border-white  hover:text-color-sub"}`}>ভিডিও</button>
 				</>
 			}
 		</div>

@@ -14,9 +14,9 @@ async function Childs() {
 	};
 	const data: ChildIProps[] = await res.json();
 	return (
-		<div className="grid grid-cols-1 gap-1 p-2 md:grid-cols-4 justify-stretch md:gap-3 px-2">
+		<div className="grid grid-cols-1 gap-1 p-2 px-2 md:grid-cols-4 justify-stretch md:gap-3">
 			{
-				data.map((item, index) => (
+				data.slice(0, 4).map((item, index) => (
 					<div key={index} className="relative flex flex-col border-2 rounded-md shadow-md ">
 						<Image src={item.photoUrl} width={248} height={120} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className='w-full h-[260px] object-fill rounded' alt={item.username} />
 						<p className="absolute px-2 py-[2px] text-sm bg-white rounded top-2 left-2">স্কুল</p>
@@ -34,7 +34,7 @@ async function Childs() {
 								<h2 className="text-[15px]  inline  font-medium">ঠিকানা:</h2>
 								<h2 className="text-[15px] pl-2 font-medium">{item.address}</h2>
 							</div>
-							<div className="flex justify-around md:py-2 py-1 flex-col gap-2 md:flex-row">
+							<div className="flex flex-col justify-around gap-2 py-1 md:py-2 md:flex-row">
 								<Button className='md:w-[130px] md:px-4 px-1 text-white rounded-sm bg-color-sub hover:bg-color-main' asChild>
 									<Link href={`sponsor-a-child/${item.username}`}>প্রোফাইল দেখুন</Link>
 								</Button>
@@ -62,8 +62,8 @@ function Child() {
 			<Suspense fallback={<h2>Loading...</h2>}>
 				<Childs />
 			</Suspense>
-			<div className="py-4 flex justify-center">
-				<Button size={"lg"} className=' bg-white border-black  hover:border-color-sub text-black hover:bg-color-sub hover:text-white border-2' asChild>
+			<div className="flex justify-center py-4">
+				<Button size={"lg"} className='text-black bg-white border-2 border-black  hover:border-color-sub hover:bg-color-sub hover:text-white' asChild>
 					<Link href="/sponsor-a-child">আরো দেখুন</Link>
 				</Button>
 			</div>
