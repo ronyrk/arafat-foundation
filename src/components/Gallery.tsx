@@ -16,10 +16,11 @@ export async function GalleryCarousel({ query }: { query: string }) {
 			<CarouselContent>
 				{data?.map((item, index) => (
 					<CarouselItem key={index}>
-						{
-							item.category === "video" ? <iframe width="500" height="500" className='object-fill rounded-md' src={`${item.content}`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen ></iframe> : <Image src={item.content} className=' rounded-sm object-fill ' width={500} height={500} alt={item.category} />
-						}
-
+						<div className="flex items-center justify-center">
+							{
+								item.category === "video" ? <iframe width="540" height="480" className='  object-fill' src={`${item.content}`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen ></iframe> : <Image src={item.content} className=' object-fill rounded-sm' width={600} height={540} alt={item.category} />
+							}
+						</div>
 					</CarouselItem>
 				))}
 			</CarouselContent>
@@ -28,5 +29,4 @@ export async function GalleryCarousel({ query }: { query: string }) {
 		</Carousel>
 	)
 }
-
 

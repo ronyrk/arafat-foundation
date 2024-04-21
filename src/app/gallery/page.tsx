@@ -15,14 +15,14 @@ async function GalleryList({ query }: { query: string }) {
 	return (
 		<div className="grid grid-cols-5 py-3 md:px-1 px-5 md:grid-cols-3 content-stretch gap-3">
 			{
-				data.slice(0, 11).map((item, index) => (
+				data.map((item, index) => (
 					<Dialog key={index}>
 						<DialogTrigger>
 							{
 								item.category === "video" ? <iframe width="308" height="208" className='object-fill rounded-md' src={`${item.content}`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen ></iframe> : <Image src={item.content} className=' rounded-md hover:opacity-90' width={308} height={208} alt={item.category} />
 							}
 						</DialogTrigger>
-						<DialogContent>
+						<DialogContent className='w-fit flex items-center justify-center'>
 							<GalleryCarousel query={query} />
 						</DialogContent>
 					</Dialog>
