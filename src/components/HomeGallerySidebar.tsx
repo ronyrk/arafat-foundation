@@ -2,7 +2,6 @@
 import { CategoryIProps } from '@/types';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import React from 'react'
 
