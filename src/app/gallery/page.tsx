@@ -13,26 +13,22 @@ import { getGallery } from '@/lib/getGallery'
 async function GalleryList({ query }: { query: string }) {
 	const data = await getGallery(query);
 	return (
-		<>
+		<div className="grid grid-cols-5 py-3 md:px-1 px-5 md:grid-cols-3 content-stretch gap-3">
 			{
-				data.map((item, index) => (
+				data.slice(0, 11).map((item, index) => (
 					<Dialog key={index}>
 						<DialogTrigger>
-							<div className=" flex justify-center w-[308px] h-[288px] p-1">
-								{
-									item.category === "video" ? <iframe width="308" height="280" className='object-fill rounded-md' src={`${item.content}`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen ></iframe> : <Image src={item.content} className='rounded-md  hover:opacity-90' width={308} height={208} alt={item.category} />
-								}
-							</div>
+							<Image src={item.content} className='rounded-md  hover:opacity-90' width={308} height={208} alt={item.category} />
 						</DialogTrigger>
-						<DialogContent className='px-2'>
-							<div className="flex justify-center">
+						<DialogContent className=''>
+							<div className="">
 								<GalleryCarousel query={query} />
 							</div>
 						</DialogContent>
 					</Dialog>
 				))
 			}
-		</>
+		</div>
 
 	)
 }
@@ -60,11 +56,9 @@ async function page({ searchParams }: {
 						</div>
 					</Suspense>
 					<div className=" md:p-1 bg-white  rounded-md border-[2px] basis-4/5">
-						<div className="grid grid-cols-1 gap-1 md:grid-cols-3 md:gap-3">
-							<Suspense fallback={<h2>Loading...</h2>}>
-								<GalleryList query={query} />
-							</Suspense>
-						</div>
+						<Suspense fallback={<h2>Loading...</h2>}>
+							<GalleryList query={query} />
+						</Suspense>
 					</div>
 				</div>
 			</div>

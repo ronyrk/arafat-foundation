@@ -4,7 +4,7 @@ import icon from '../../public/divider.svg';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { unstable_noStore } from 'next/cache';
-import { NewsProps, ProjectsProps } from '@/types';
+import { NewsProps } from '@/types';
 import moment from 'moment';
 
 
