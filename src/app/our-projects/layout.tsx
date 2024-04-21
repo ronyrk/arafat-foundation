@@ -14,7 +14,7 @@ export default function OurProjectsLayout({
 }>) {
 	return (
 		<section className="bg-[#FCFCFD]">
-			<div className="md:px-20 md:py-4 py-2">
+			<div className="md:px-20 md:py-4 py-2 mx-2">
 				{children}
 			</div>
 		</section>
