@@ -14,7 +14,7 @@ async function Childs() {
 	};
 	const data: ChildIProps[] = await res.json();
 	return (
-		<div className="grid grid-cols-2 gap-1 p-2 md:grid-cols-4 justify-stretch md:gap-3">
+		<div className="grid grid-cols-1 gap-1 p-2 md:grid-cols-4 justify-stretch md:gap-3 px-2">
 			{
 				data.map((item, index) => (
 					<div key={index} className="relative flex flex-col border-2 rounded-md shadow-md ">
