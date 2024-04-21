@@ -9,6 +9,7 @@ import { ChildIProps } from '@/types';
 import { SingleShare } from '@/components/SingleShare';
 import Link from 'next/link';
 import prisma from '@/lib/prisma';
+import { Item } from '@radix-ui/react-select';
 
 type Props = {
 	params: { username: string }
@@ -70,7 +71,7 @@ async function page({ params }: {
 				<div className="basis-3/12">
 					<div className="relative h-fit flex flex-col border-2 rounded-md shadow-md ">
 						<Image src={data.photoUrl} width={248} height={120} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className='w-full h-[260px] object-fill rounded' alt={data.name} />
-						<p className="absolute px-2 py-[2px] text-sm bg-white rounded top-2 left-2">স্কুল</p>
+						<p className="absolute px-2 py-[2px] text-sm bg-white rounded top-2 left-2">{data.academy}</p>
 						<div className="w-full px-2 py-1 bg-white">
 							<h2 className="py-2 text-xl font-semibold text-color-main hover:text-color-sub">{data.name}</h2>
 							<div className="flex flex-row py-1">

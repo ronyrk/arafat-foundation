@@ -26,7 +26,7 @@ async function Child() {
 				data.map((item, index) => (
 					<div key={index} className="relative flex flex-col border-2 rounded-md shadow-md ">
 						<Image src={item.photoUrl} width={248} height={120} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className='w-full h-[260px] object-fill rounded' alt={item.username} />
-						<p className="absolute px-2 py-[2px] text-sm bg-white rounded top-2 left-2">স্কুল</p>
+						<p className="absolute px-2 py-[2px] text-sm bg-white rounded top-2 left-2">{item.academy}</p>
 						<div className="w-full px-1 bg-white">
 							<h2 className="py-2 text-xl font-semibold text-color-main hover:text-color-sub">{item.name}</h2>
 							<div className="flex flex-row py-1">
