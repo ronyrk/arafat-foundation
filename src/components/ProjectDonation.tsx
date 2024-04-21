@@ -136,45 +136,51 @@ function ProjectDonation({ data }: { data: ProjectsProps }) {
 									</div>
 								}
 								<h2 className="text-[13px] font-medium text-color-main py-2">আপনার অনুদানের তথ্যগুলো দিয়ে সহযোগিতা করুন।</h2>
-								<FormField
-									control={form.control}
-									name="name"
-									render={({ field }) => (
-										<FormItem>
-											<FormLabel>Name</FormLabel>
-											<FormControl>
-												<Input className="bg-white" placeholder="Name" {...field} />
-											</FormControl>
-											<FormMessage />
-										</FormItem>
-									)}
-								/>
-								<FormField
-									control={form.control}
-									name="email"
-									render={({ field }) => (
-										<FormItem>
-											<FormLabel>Email</FormLabel>
-											<FormControl>
-												<Input className="bg-white" placeholder="email" {...field} />
-											</FormControl>
-											<FormMessage />
-										</FormItem>
-									)}
-								/>
-								<FormField
-									control={form.control}
-									name="amount"
-									render={({ field }) => (
-										<FormItem>
-											<FormLabel>Amount</FormLabel>
-											<FormControl>
-												<Input className="bg-white" type="number" placeholder=" Amount" {...field} />
-											</FormControl>
-											<FormMessage />
-										</FormItem>
-									)}
-								/>
+								{
+									paymentType === "" ? " " : <FormField
+										control={form.control}
+										name="name"
+										render={({ field }) => (
+											<FormItem>
+												<FormLabel>Name</FormLabel>
+												<FormControl>
+													<Input className="bg-white" placeholder="Name" {...field} />
+												</FormControl>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+								}
+								{
+									paymentType === "" ? "" : <FormField
+										control={form.control}
+										name="email"
+										render={({ field }) => (
+											<FormItem>
+												<FormLabel>Email</FormLabel>
+												<FormControl>
+													<Input className="bg-white" placeholder="email" {...field} />
+												</FormControl>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+								}
+								{
+									paymentType === "" ? "" : <FormField
+										control={form.control}
+										name="amount"
+										render={({ field }) => (
+											<FormItem>
+												<FormLabel>Amount</FormLabel>
+												<FormControl>
+													<Input className="bg-white" type="number" placeholder=" Amount" {...field} />
+												</FormControl>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+								}
 								{
 									paymentType === 'bangladesh' && <FormField
 										control={form.control}
@@ -215,27 +221,29 @@ function ProjectDonation({ data }: { data: ProjectsProps }) {
 											}}
 										/>
 									</div>}
-								<FormField
-									control={form.control}
-									name="about"
-									render={({ field }) => (
-										<FormItem>
-											<FormLabel>About</FormLabel>
-											<FormControl>
-												<Textarea
-													placeholder="Tell us a little bit about"
-													className="resize-none bg-white"
-													{...field}
-												/>
-											</FormControl>
-											<FormMessage />
-										</FormItem>
-									)}
-								/>
+								{
+									paymentType === "" ? "" : <FormField
+										control={form.control}
+										name="about"
+										render={({ field }) => (
+											<FormItem>
+												<FormLabel>About</FormLabel>
+												<FormControl>
+													<Textarea
+														placeholder="Tell us a little bit about"
+														className="resize-none bg-white"
+														{...field}
+													/>
+												</FormControl>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+								}
 
 							</div>
 							{
-								paymentType === "" || isPending ? <Button disabled>Loading...</Button> : <Button type="submit">Submit</Button>
+								paymentType === "" || isPending ? "" : <Button type="submit">Submit</Button>
 							}
 						</form>
 					</Form>
