@@ -15,15 +15,13 @@ import Link from 'next/link'
 async function GalleryList({ query }: { query: string }) {
 	const data = await getGallery(query);
 	return (
-		<>
+		<div className="grid grid-cols-4 md:grid-cols-4 gap-2 md:gap-2">
 			{
 				data.map((item, index) => (
 					<Dialog key={index}>
 						<DialogTrigger className=''>
-							<div className="flex justify-center md:w-[308px] md:h-[288px] w-[100px] h-[80px] p-1 ">
-								{
-									item.category === "video" ? <iframe width="308" height="280" className='object-fill rounded-md' src={`${item.content}`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen ></iframe> : <Image src={item.content} className='rounded-md hover:opacity-90' width={308} height={208} alt={item.category} />
-								}
+							<div className="flex justify-center md:w-[280px] md:h-[200px] w-[100px] h-[80px] p-1 ">
+								<Image src={item.content} className='rounded-md hover:opacity-90' width={308} height={208} alt={item.category} />
 							</div>
 						</DialogTrigger>
 						<DialogContent className='w-full '>
@@ -34,7 +32,7 @@ async function GalleryList({ query }: { query: string }) {
 					</Dialog>
 				))
 			}
-		</>
+		</div>
 
 	)
 }
@@ -57,11 +55,9 @@ async function HomeGallery({ query }: {
 						</div>
 					</Suspense>
 					<div className="rounded-md md:p-1">
-						<div className="flex flex-row gap-1 md:gap-3">
-							<Suspense fallback={<h2>Loading...</h2>}>
-								<GalleryList query={query} />
-							</Suspense>
-						</div>
+						<Suspense fallback={<h2>Loading...</h2>}>
+							<GalleryList query={query} />
+						</Suspense>
 						<div className="flex justify-center py-4">
 							<Button size={"lg"} className='text-black bg-white border-2 border-black hover:border-color-sub hover:bg-color-sub hover:text-white' asChild>
 								<Link href="/gallery">আরো দেখুন</Link>
