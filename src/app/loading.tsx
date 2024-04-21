@@ -1,10 +1,11 @@
-import { Loader2 } from 'lucide-react'
 import React from 'react'
 
-export default function loading() {
+function loading() {
 	return (
-		<div className='min-h-screen absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>
-			<Loader2 className="h-10 w-10 text-blue-500 animate-spin" />
-		</div>
+		<section className='h-screen'>
+			<div className=' text-center mx-auto my-20'>loading...</div>
+		</section>
 	)
 }
+
+export default loading
