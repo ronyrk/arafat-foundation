@@ -18,7 +18,7 @@ async function BlogsList() {
 	return (
 		<div className="grid grid-cols-1 gap-1 p-2 md:grid-cols-3 justify-stretch md:gap-3">
 			{
-				data.map((item, index) => (
+				data.slice(0, 3).map((item, index) => (
 					<Link key={index} href={`blog/${item.username}`}>
 						<div className="flex flex-col border-2 rounded-md shadow-xl ">
 							<Image src={item.photoUrl} width={382} height={120} className='md:w-[382px] w-full h-[260px] object-fill rounded' alt={item.username} />
@@ -46,8 +46,8 @@ function Blog() {
 			<Suspense fallback={<h2>Loading...</h2>}>
 				<BlogsList />
 			</Suspense>
-			<div className="py-4 flex justify-center">
-				<Button size={"lg"} className=' bg-white border-black  hover:border-color-sub text-black hover:bg-color-sub hover:text-white border-2' asChild>
+			<div className="flex justify-center py-4">
+				<Button size={"lg"} className='text-black bg-white border-2 border-black  hover:border-color-sub hover:bg-color-sub hover:text-white' asChild>
 					<Link href="/blog">আরো দেখুন</Link>
 				</Button>
 			</div>

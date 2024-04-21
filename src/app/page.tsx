@@ -4,17 +4,19 @@ import Child from "@/components/Child";
 import HomeCarousel from "@/components/HomeCarousel";
 import HomeGallery from "@/components/HomeGallery";
 import OurProject from "@/components/OurProject";
+import prisma from "@/lib/prisma";
 
 
 
 
-export default function page({ searchParams }: {
+export default async function page({ searchParams }: {
   searchParams?: {
     type?: string,
     page?: string,
   }
 }) {
-  const query = searchParams?.type || "all";
+  const firstItem = (await prisma.category.findMany()).at(0);
+  const query = searchParams?.type || firstItem?.path as string;
   return (
     <div className="">
       <HomeCarousel />
