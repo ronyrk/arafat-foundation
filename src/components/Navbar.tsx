@@ -31,6 +31,10 @@ const nav: NavIProps[] = [
 		path: "gallery"
 	},
 	{
+		name: "ব্লগ",
+		path: "blog"
+	},
+	{
 		name: "কর্জে হাসানা",
 		path: "karze-hasana"
 	},
