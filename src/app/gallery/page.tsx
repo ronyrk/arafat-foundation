@@ -9,8 +9,10 @@ import {
 } from "@/components/ui/dialog"
 import { GalleryCarousel } from '@/components/Gallery'
 import { getGallery } from '@/lib/getGallery'
+import { unstable_noStore } from 'next/cache'
 
 async function GalleryList({ query }: { query: string }) {
+	unstable_noStore();
 	const data = await getGallery(query);
 	return (
 		<div className="grid grid-cols-5 py-3 md:px-1 px-5 md:grid-cols-3 content-stretch gap-3">

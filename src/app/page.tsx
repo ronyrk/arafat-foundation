@@ -5,6 +5,7 @@ import HomeCarousel from "@/components/HomeCarousel";
 import HomeGallery from "@/components/HomeGallery";
 import OurProject from "@/components/OurProject";
 import prisma from "@/lib/prisma";
+import { unstable_noStore } from "next/cache";
 
 
 
@@ -15,6 +16,7 @@ export default async function page({ searchParams }: {
     page?: string,
   }
 }) {
+  unstable_noStore();
   const firstItem = (await prisma.category.findMany()).at(0);
   const query = searchParams?.type || firstItem?.path as string;
   return (
