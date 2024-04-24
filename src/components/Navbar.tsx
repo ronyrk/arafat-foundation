@@ -86,7 +86,7 @@ function Navbar() {
 					}
 				</div>
 				<div>
-					<Button asChild className=' w-28 bg-color-main hover:bg-color-sub' size={"lg"}><Link href="https://arafatfoundation.org/donate/">দান করুন <span className='ml-[6px]'><HandHeart /></span></Link></Button>
+					<Button asChild className=' w-28 bg-color-main hover:bg-color-sub' size={"lg"}><Link href="/our-projects">দান করুন <span className='ml-[6px]'><HandHeart /></span></Link></Button>
 				</div>
 				<div className="flex md:hidden">
 					<Sheet>
