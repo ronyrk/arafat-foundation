@@ -62,7 +62,7 @@ async function MemberList({ username }: { username: string }) {
 									</div>
 
 									<div className="md:basis-3/12 w-full border-[2px]  flex justify-around rounded">
-										<Image className='object-cover rounded' src={item.teamMemberPhotoUrl} alt={item.teamMemberName} width={260} height={140} />
+										<Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className='object-cover rounded' src={item.teamMemberPhotoUrl} alt={item.teamMemberName} width={260} height={140} />
 									</div>
 
 								</div>
@@ -183,7 +183,7 @@ async function BorrowersList(params: RequestParams) {
 											</div>
 
 											<div className="md:basis-3/12 w-full border-[2px]  flex justify-around rounded">
-												<Image className='object-cover rounded' src={teamLeaderPhotoUrl} alt={teamLeaderName} width={260} height={140} />
+												<Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className='object-cover rounded' src={teamLeaderPhotoUrl} alt={teamLeaderName} width={260} height={140} />
 											</div>
 
 										</div>
@@ -250,10 +250,10 @@ async function BorrowersList(params: RequestParams) {
 								photoUrl.map((item, index) => (
 									<div key={index} >
 										<Dialog>
-											<DialogTrigger><Image className="rounded-lg" alt='mosjid' src={item} width={300} height={120} /></DialogTrigger>
+											<DialogTrigger><Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className="rounded-lg" alt='mosjid' src={item} width={300} height={120} /></DialogTrigger>
 											<DialogContent>
 												<DialogHeader>
-													<Image className="object-cover rounded " alt='mosjid' src={item} width={500} height={220} />
+													<Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className="object-cover rounded " alt='mosjid' src={item} width={500} height={220} />
 												</DialogHeader>
 											</DialogContent>
 										</Dialog>

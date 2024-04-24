@@ -21,7 +21,7 @@ async function BlogsList() {
 				data.slice(0, 3).map((item, index) => (
 					<Link key={index} href={`blog/${item.username}`}>
 						<div className="flex flex-col border-2 rounded-md shadow-xl ">
-							<Image src={item.photoUrl} width={382} height={120} className='md:w-[382px] w-full h-[260px] object-fill rounded' alt={item.username} />
+							<Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={item.photoUrl} width={382} height={120} className='md:w-[382px] w-full h-[260px] object-fill rounded' alt={item.username} />
 							<div className="justify-around w-full px-2 py-2 bg-white border-t-2">
 								<h3 className="py-2 text-sm font-medium text-color-main hover:text-color-sub">Blog  /  {`${moment(item.createAt).format('DD MMMM, YYYY')}`}</h3>
 								<h2 className="py-2 text-lg font-semibold text-color-main hover:text-color-sub">{item.title}</h2>
@@ -41,7 +41,7 @@ function Blog() {
 		<div className='py-2 md:px-20 md:py-4 bg-[#FCFCFD]'>
 			<div className='flex flex-col items-center justify-center gap-2 '>
 				<h1 className="py-2 text-xl font-semibold text-center border-dotted text-color-main">ব্লগ</h1>
-				<Image src={icon} alt='icon' />
+				<Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={icon} alt='icon' />
 			</div>
 			<Suspense fallback={<h2>Loading...</h2>}>
 				<BlogsList />

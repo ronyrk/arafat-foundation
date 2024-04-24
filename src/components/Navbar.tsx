@@ -30,13 +30,14 @@ const nav: NavIProps[] = [
 		name: "গ্যালারি",
 		path: "gallery"
 	},
-	{
-		name: "ব্লগ",
-		path: "blog"
-	},
+
 	{
 		name: "কর্জে হাসানা",
 		path: "karze-hasana"
+	},
+	{
+		name: "ব্লগ",
+		path: "blog"
 	},
 	{
 		name: "যোগাযোগ",
@@ -70,7 +71,7 @@ function Navbar() {
 			</div>
 			<div className="md:px-20 px-4 flex flex-row justify-between  bg-[#FFFFFF] gap-2 md:gap-0 items-center">
 				<Link href="/">
-					<Image className='w-[120px] h-[100] py-2 object-contain rounded' src={Logo} placeholder='blur' alt='logo' />
+					<Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className='w-[120px] h-[100] py-2 object-contain rounded' src={Logo} placeholder='blur' alt='logo' />
 				</Link>
 				<div className='hidden md:flex'>
 					<Link href="/" className={`text-[16px] py-10 mx-3 font-semibold hover:border-color-sub hover:text-color-sub  border-b-4 ${pathname === "/" ? "border-color-sub text-color-sub" : "border-white"}`}>

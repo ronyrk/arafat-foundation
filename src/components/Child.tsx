@@ -57,7 +57,7 @@ function Child() {
 			<h2 className="py-2 text-base font-medium text-center text-color-main">একটি শিশুর (আংশিক অথবা পূর্ণ) দায়িত্ব নেওয়ার মাধ্যমে আপনি একটি শিশুকে স্কুলে যেতে সাহায্য করতে পারেন যাতে সে ঝরে পড়ার ঝুঁকি ছাড়াই শিক্ষা লাভ করতে পারে।</h2>
 			<div className='flex flex-col items-center justify-center gap-2 '>
 				<h1 className="py-2 text-sm font-normal text-center border-dotted text-color-main">আমাদের শিশু স্পনসরশিপ প্রোগ্রামে আপনি একটি শিশুর জন্য সহায়তা প্রদান করতে পারেন।</h1>
-				<Image src={icon} alt='icon' />
+				<Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={icon} alt='icon' />
 			</div>
 			<Suspense fallback={<h2>Loading...</h2>}>
 				<Childs />

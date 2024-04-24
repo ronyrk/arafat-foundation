@@ -10,7 +10,7 @@ function About() {
 	return (
 		<div className='md:px-20 md:py-4 p-4 flex md:flex-row flex-col gap-x-4 gap-y-3'>
 			<div className=" basis-2/5">
-				<Image src={imag} className=' rounded-sm' priority alt='about' />
+				<Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={imag} className=' rounded-sm' priority alt='about' />
 			</div>
 			<div className=" basis-3/5 px-1">
 				<h2 className=" text-[30px] font-semibold text-color-main">আরাফাত ফাউন্ডেশন</h2>
