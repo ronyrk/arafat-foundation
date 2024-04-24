@@ -42,7 +42,7 @@ function HeaderSlider() {
 						<AlertDialog>
 							<AlertDialogTrigger>
 								<Avatar>
-									<AvatarImage src={user?.photoUrl} />
+									<AvatarImage src={user?.photoUrl} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" fetchPriority="high" loading="eager" alt='user' />
 									<AvatarFallback>U</AvatarFallback>
 								</Avatar>
 							</AlertDialogTrigger>
