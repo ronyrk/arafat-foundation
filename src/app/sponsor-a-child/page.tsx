@@ -67,7 +67,7 @@ function ChildList() {
 			<h2 className="py-2 text-base font-semibold text-center text-color-main">এতিমের অভিভাবক জান্নাতে নবীজির কাছাকাছি থাকবে </h2>
 			<div className='flex flex-col items-center justify-center gap-2 '>
 				<h1 className="py-2 text-sm font-normal text-center border-dotted text-color-main">আল্লাহর রাসূল (ﷺ) বলেছেন, ‘আমি ও এতিমের অভিভাবক জান্নাতে দুই আঙুলের ন্যায় অতি কাছাকাছি থাকব।’ (বুখারি : ৬০০৫)</h1>
-				<Image src={icon} alt='icon' />
+				<Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={icon} alt='icon' />
 			</div>
 			<Suspense fallback={<h2>Loading...</h2>}>
 				<Child />
