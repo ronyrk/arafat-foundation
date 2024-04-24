@@ -38,9 +38,12 @@ export async function generateMetadata({ params }: Props) {
 };
 
 async function htmlConvert(data: string) {
+	const jsonAndHtml = data.split("^");
+	const html = jsonAndHtml[0];
+
 	return (
 		<main className="py-2">
-			<section dangerouslySetInnerHTML={{ __html: data }} />
+			<section dangerouslySetInnerHTML={{ __html: html }} />
 		</main>
 	)
 }
