@@ -11,9 +11,11 @@ import { cookies } from 'next/headers';
 
 
 async function htmlConvert(data: string) {
+	const jsonAndHtml = data.split("^");
+	const html = jsonAndHtml[0];
 	return (
 		<div className="py-2">
-			<div dangerouslySetInnerHTML={{ __html: data }} />
+			<div dangerouslySetInnerHTML={{ __html: html }} />
 		</div>
 	)
 }
