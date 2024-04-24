@@ -26,7 +26,7 @@ export async function CarouselDemo() {
 			<h1 className="text-center text-base  text-color-main font-medium py-2">আমি একা কিছু করতে পারবো।  কিন্তু, আমরা সবাই মিলে অনেক কিছু করতে পারবো।</h1>
 			<div className=' flex justify-center flex-col items-center gap-2'>
 				<h1 className="text-center text-base  text-color-main font-medium border-dotted py-2">চলুন সবাই মিলে ভালো কিছু করি</h1>
-				<Image src={icon} alt='icon' />
+				<Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={icon} alt='icon' />
 			</div>
 			<div className=" flex justify-center items-center md:mx-0 mx-12">
 				<Carousel
@@ -39,7 +39,7 @@ export async function CarouselDemo() {
 						{data.map((item, index) => (
 							<CarouselItem key={index} className="md:basis-1/3">
 								<div className=" flex justify-center items-center flex-col">
-									<Image src={item.photoUrl} width={382} height={120} className=' md:w-[382px] w-full md:h-[260px] h-[200px] object-fill rounded' alt={item.username} />
+									<Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={item.photoUrl} width={382} height={120} className=' md:w-[382px] w-full md:h-[260px] h-[200px] object-fill rounded' alt={item.username} />
 									<div className="w-full border-2 p-2 rounded bg-white">
 										<h2 className=" text-lg font-semibold text-color-main hover:text-color-sub py-1">{item.title}</h2>
 										<p className=" text-[13px]  font-medium">{item.shortDes.slice(0, 200)}....</p>

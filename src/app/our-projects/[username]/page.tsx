@@ -67,7 +67,7 @@ async function page({ params }: {
 		<div className=''>
 			<div className="flex md:flex-row flex-col gap-1">
 				<div className="md:basis-2/3 w-full pr-1">
-					<Image src={data.photoUrl} width={828} height={420} className='md:w-[828px] md:h-[420px] object-fill rounded' alt={data.username} />
+					<Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={data.photoUrl} width={828} height={420} className='md:w-[828px] md:h-[420px] object-fill rounded' alt={data.username} />
 					<div className="py-2 flex flex-row gap-2">
 						<h2 className=' flex items-center'><CircleUserRound size={20} /> <span className=' text-sm font-medium px-2'>{data.author}</span> </h2>
 						<h2 className=' flex items-center'><CalendarDays size={20} /> <span className=' text-sm font-medium px-2'>{`${moment(data.createAt).format('MMMM DD, YYYY')}`}</span> </h2>

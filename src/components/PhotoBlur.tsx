@@ -8,7 +8,7 @@ function PhotoBlur({ url, name }: { url: string, name: string }) {
 	return (
 		<div>
 			{
-				user?.email ? <Image className=' rounded-md object-cover' src={url} alt={name} width={260} height={140} /> : <Image className=' rounded-md object-cover blur-[6px]' src={url} alt={name} width={260} height={140} />
+				user?.email ? <Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className=' rounded-md object-cover' src={url} alt={name} width={260} height={140} /> : <Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className=' rounded-md object-cover blur-[6px]' src={url} alt={name} width={260} height={140} />
 			}
 		</div>
 	)
