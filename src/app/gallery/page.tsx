@@ -21,7 +21,7 @@ async function GalleryList({ query }: { query: string }) {
 					<Dialog key={index}>
 						<DialogTrigger>
 							{
-								item.category === "video" ? <iframe width="308" height="208" className='object-fill rounded-md' src={`${item.content}`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen ></iframe> : <Image src={item.content} className=' rounded-md hover:opacity-90' width={308} height={208} alt={item.category} />
+								item.category === "video" ? <iframe width="308" height="208" className='object-fill rounded-md' src={`${item.content}`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen ></iframe> : <Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={item.content} className=' rounded-md hover:opacity-90' width={308} height={208} alt={item.category} />
 							}
 						</DialogTrigger>
 						<DialogContent className='w-fit flex items-center justify-center'>
