@@ -12,6 +12,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ProjectsProps } from "@/types";
 import { unstable_noStore } from "next/cache";
+import ProjectCarousel from "./ProjectCarousel";
 
 export async function CarouselDemo() {
 	unstable_noStore();
@@ -29,37 +30,7 @@ export async function CarouselDemo() {
 				<Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={icon} alt='icon' />
 			</div>
 			<div className=" flex justify-center items-center md:mx-0 mx-12">
-				<Carousel
-					opts={{
-						align: "start",
-					}}
-					className="w-full"
-				>
-					<CarouselContent>
-						{data.map((item, index) => (
-							<CarouselItem key={index} className="md:basis-1/3">
-								<div className=" flex justify-center items-center flex-col">
-									<Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={item.photoUrl} width={382} height={120} className=' md:w-[382px] w-full md:h-[260px] h-[200px] object-fill rounded' alt={item.username} />
-									<div className="w-full border-2 p-2 rounded bg-white">
-										<h2 className=" text-lg font-semibold text-color-main hover:text-color-sub py-1">{item.title}</h2>
-										<p className=" text-[13px]  font-medium">{item.shortDes.slice(0, 200)}....</p>
-										<div className="flex flex-row justify-around py-1 ">
-											<Button className='w-fit hover:bg-color-sub' asChild>
-												<Link href={`our-projects/${item.username}`}>বিস্তারিত দেখুন</Link>
-											</Button>
-											<Button variant={"outline"} className=' w-fit text-color-main border-color-main hover:border-color-sub border-2 hover:text-white' asChild>
-												<Link href="#">দান করুন</Link>
-											</Button>
-
-										</div>
-									</div>
-								</div>
-							</CarouselItem>
-						))}
-					</CarouselContent>
-					<CarouselPrevious className=" text-black border-color-main" />
-					<CarouselNext className=" text-black border-color-main" />
-				</Carousel>
+				<ProjectCarousel data={data} />
 			</div>
 		</div>
 	)
