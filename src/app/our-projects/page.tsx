@@ -22,7 +22,7 @@ async function Projects() {
 							<Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={item.photoUrl} width={382} height={120} className='md:w-[382px] w-full h-[260px] object-fill rounded' alt={item.username} />
 							<div className="w-full px-2 bg-white">
 								<h2 className="py-2 text-lg font-semibold text-color-main hover:text-color-sub">{item.title}</h2>
-								<p className=" text-[15px] font-medium">{item.shortDes.slice(0, 200)}....</p>
+								<p className=" text-[14px] font-medium">{item.shortDes.slice(0, 200)}....</p>
 								<div className="flex justify-between py-2 md:flex-row">
 									<Button className=' hover:bg-color-sub' asChild>
 										<Link href={`our-projects/${item.username}`}>বিস্তারিত দেখুন</Link>
