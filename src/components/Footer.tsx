@@ -33,7 +33,7 @@ function Footer() {
 									sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
 								/>
 								<h2 className=" text-sm font-medium text-[#F5F5F5] py-4">আরাফাত ফাউন্ডেশন একটি অরাজনৈতিক, অলাভজনক, উম্মাহর ঐক্য , শিক্ষা , দাওয়াহ ও মানব কল্যাণে নিবে দিত সেবা মূলমূক প্রতিষ্ঠান।</h2>
-								<Button asChild className=' w-28 flex items-center bg-color-main hover:transition hover:delay-150 hover:duration-300 hover:bg-color-sub' size={"lg"} variant={"outline"}><Link href="https://arafatfoundation.org/donate/">দান করুন <span className='ml-[6px]'><HandHeart /></span></Link></Button>
+								<Button asChild className=' w-28 flex items-center bg-color-main hover:transition hover:delay-150 hover:duration-300 hover:bg-color-sub' size={"lg"} variant={"outline"}><Link href="/our-projects">দান করুন <span className='ml-[6px]'><HandHeart /></span></Link></Button>
 							</div>
 							<div className="flex basis-1/4 flex-col  px-4">
 								<h2 className="text-[24px] font-semibold border-b-4   text-[#F5F5F5] border-[#F5F5F5]">তালিকা</h2>
