@@ -39,15 +39,15 @@ function Footer() {
 								<h2 className="text-[24px] font-semibold border-b-4   text-[#F5F5F5] border-[#F5F5F5]">তালিকা</h2>
 								<div className="flex flex-col py-4">
 									<Link href="/" className='  text-sm font-medium text-[#F5F5F5] flex flex-row hover:text-color-sub py-1' > <span className=''><ChevronRight /></span>হোম </Link>
-									<Link href="/" className='  text-sm font-medium text-[#F5F5F5] flex flex-row hover:text-color-sub py-1' > <span className=''><ChevronRight /></span>
+									<Link href="/about-us" className='  text-sm font-medium text-[#F5F5F5] flex flex-row hover:text-color-sub py-1' > <span className=''><ChevronRight /></span>
 										আমাদের সম্পর্কে</Link>
-									<Link href="/" className='  text-sm font-medium text-[#F5F5F5] flex flex-row hover:text-color-sub py-1' > <span className=''><ChevronRight /></span>
+									<Link href="/our-activities" className='  text-sm font-medium text-[#F5F5F5] flex flex-row hover:text-color-sub py-1' > <span className=''><ChevronRight /></span>
 										আমাদের কার্যক্রম</Link>
-									<Link href="/" className='  text-sm font-medium text-[#F5F5F5] flex flex-row hover:text-color-sub py-1' > <span className=''><ChevronRight /></span>
+									<Link href="/gallery" className='  text-sm font-medium text-[#F5F5F5] flex flex-row hover:text-color-sub py-1' > <span className=''><ChevronRight /></span>
 										গ্যালারি </Link>
-									<Link href="/" className='  text-sm font-medium text-[#F5F5F5] flex flex-row hover:text-color-sub py-1' > <span className=''><ChevronRight /></span>
+									<Link href="/blog" className='  text-sm font-medium text-[#F5F5F5] flex flex-row hover:text-color-sub py-1' > <span className=''><ChevronRight /></span>
 										ব্লগ</Link>
-									<Link href="/" className='  text-sm font-medium text-[#F5F5F5] flex flex-row hover:text-color-sub py-1' > <span className=''><ChevronRight /></span>
+									<Link href="/contact-us" className='  text-sm font-medium text-[#F5F5F5] flex flex-row hover:text-color-sub py-1' > <span className=''><ChevronRight /></span>
 										যোগাযোগ </Link>
 								</div>
 							</div>
