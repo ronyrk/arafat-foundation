@@ -7,9 +7,9 @@ import {
 	DialogContent,
 	DialogTrigger,
 } from "@/components/ui/dialog"
-import { GalleryCarousel } from '@/components/Gallery'
 import { getGallery } from '@/lib/getGallery'
 import { unstable_noStore } from 'next/cache'
+import prisma from '@/lib/prisma'
 
 async function GalleryList({ query }: { query: string }) {
 	unstable_noStore();
@@ -44,8 +44,8 @@ async function page({ searchParams }: {
 		page?: string,
 	}
 }) {
-	const query = searchParams?.type || "all";
-	const page = searchParams?.page || "1";
+	const firstItem = (await prisma.category.findMany()).at(0);
+	const query = searchParams?.type || firstItem?.path as string;
 	return (
 		<section className="bg-[#FCFCFD]">
 			<div className="my-2 md:mx-20 md:my-4">
