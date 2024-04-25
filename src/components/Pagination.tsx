@@ -1,11 +1,11 @@
 "use client";
 import React from 'react'
-import { Button } from './ui/button';
+import { Button } from "@/components/ui/button";
 import { useSearchParams, usePathname, useRouter } from 'next/navigation'
 
 
-function PaginationPart({ data }: { data: number }) {
-	const totalPage = Math.ceil(data / 10);
+function PaginationPart({ data, item }: { data: number, item: number }) {
+	const totalPage = Math.ceil(data / item);
 	const pathname = usePathname();
 	const { replace } = useRouter();
 	const searchParams = useSearchParams();

@@ -133,7 +133,7 @@ async function page({ searchParams }: {
 					</Suspense>
 				</Table>
 				<div className="flex justify-center py-2">
-					<PaginationPart data={length} />
+					<PaginationPart item={10} data={length} />
 				</div>
 
 			</div>

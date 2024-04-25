@@ -32,12 +32,16 @@ import { getUser } from '@/app/karze-hasana/borrowers/[username]/page';
 import { unstable_noStore } from 'next/cache';
 import MemberCreateButton from './MemberCreateButton';
 import prisma from '@/lib/prisma';
+import { getBorrowersByBranch } from '@/lib/getBorrowers';
+import PaginationPart from './Pagination';
+import { getSearchBorrowersByBranch } from '@/lib/SearchBorrowers';
 
 interface RequestParams {
 	response: {
 		info: BranchIProps,
 		loanList: LoanIProps[],
-	}
+	},
+	page: string,
 };
 
 async function MemberList({ username }: { username: string }) {
@@ -113,6 +117,10 @@ async function allPayment(username: string) {
 async function BorrowersList(params: RequestParams) {
 	const { branchName, teamLeaderName, teamLeaderAddress, teamLeaderOccupation, teamLeaderPhone, teamLeaderPhotoUrl, photoUrl, presidentAddress, presidentName, presidentOccupation, presidentPhone, SecretaryAddress, SecretaryName, SecretaryOccupation, SecretaryPhone, ImamAddress, ImamName, ImamOccupation, ImamPhone, username } = params.response.info;
 	const loanList: LoanIProps[] = params.response.loanList.slice(0, 5);
+
+	unstable_noStore();
+	const branch = await getBorrowersByBranch(username);
+	const TotalBranch = await getSearchBorrowersByBranch(params.page, username);
 	return (
 		<div className='p-2'>
 			<Accordion type="single" className='py-1' collapsible>
@@ -122,9 +130,6 @@ async function BorrowersList(params: RequestParams) {
 						<div className="flex flex-col gap-2">
 							<h2 className="text-base font-medium text-center">{branchName} এর আওতাধীন ঋণ গ্রহীতার লিস্ট</h2>
 							<div className='flex flex-col'>
-								<div className="px-4 py-2 flex justify-end">
-									<Input className='w-64' type="text" placeholder="Search" />
-								</div>
 								<Table>
 									<TableHeader>
 										<TableRow>
@@ -139,7 +144,7 @@ async function BorrowersList(params: RequestParams) {
 									<Suspense fallback={<h2 className=' text-center p-4'>Loading...</h2>} >
 										<TableBody>
 											{
-												loanList.map((item, index: number) => (
+												TotalBranch?.map((item, index: number) => (
 													<TableRow key={index}>
 														<TableCell className="font-medium">{item.code}</TableCell>
 														<TableCell className="font-medium uppercase">{item.name}</TableCell>
@@ -158,7 +163,9 @@ async function BorrowersList(params: RequestParams) {
 										</TableBody>
 									</Suspense>
 								</Table>
-
+								<div className="flex justify-center py-2">
+									<PaginationPart item={5} data={branch.length} />
+								</div>
 							</div>
 						</div>
 					</AccordionContent>
