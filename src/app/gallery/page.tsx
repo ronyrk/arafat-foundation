@@ -20,12 +20,14 @@ async function GalleryList({ query }: { query: string }) {
 				data.map((item, index) => (
 					<Dialog key={index}>
 						<DialogTrigger>
-							{
-								item.category === "video" ? <iframe width="308" height="208" className='object-fill rounded-md' src={`${item.content}`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen ></iframe> : <Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={item.content} className=' rounded-md hover:opacity-90' width={308} height={208} alt={item.category} />
-							}
+							<div className="flex justify-center md:w-[280px] md:h-[200px] w-[100px] h-[80px] p-1 ">
+								{
+									item.category === "video" ? <iframe width="308" height="208" className='object-fill rounded-md' src={`${item.content}`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen ></iframe> : <Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={item.content} className=' rounded-md hover:opacity-90' width={308} height={208} alt={item.category} />
+								}
+							</div>
 						</DialogTrigger>
-						<DialogContent className='w-fit flex items-center justify-center'>
-							<GalleryCarousel query={query} />
+						<DialogContent className='w-full flex justify-center items-center '>
+							<Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={item.content} className=' rounded-md hover:opacity-90' width={500} height={500} alt={item.category} />
 						</DialogContent>
 					</Dialog>
 				))

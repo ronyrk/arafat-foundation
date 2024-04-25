@@ -6,18 +6,18 @@ import {
 	DialogContent,
 	DialogTrigger,
 } from "@/components/ui/dialog"
-import { GalleryCarousel } from '@/components/Gallery'
 import { getGallery } from '@/lib/getGallery'
-import HomeGallerySidebar from './HomeGallerySidebar'
 import { Button } from '@/components/ui/button';
 import Link from 'next/link'
+import { unstable_noStore } from 'next/cache'
 
 async function GalleryList({ query }: { query: string }) {
+	unstable_noStore();
 	const data = await getGallery(query);
 	return (
 		<div className="grid grid-cols-4 md:grid-cols-4 gap-2 md:gap-2">
 			{
-				data.map((item, index) => (
+				data?.slice(0, 8).map((item, index) => (
 					<Dialog key={index}>
 						<DialogTrigger className=''>
 							<div className="flex justify-center md:w-[280px] md:h-[200px] w-[100px] h-[80px] p-1 ">
@@ -26,10 +26,8 @@ async function GalleryList({ query }: { query: string }) {
 								}
 							</div>
 						</DialogTrigger>
-						<DialogContent className='w-full '>
-							<div className="flex justify-center">
-								<GalleryCarousel query={query} />
-							</div>
+						<DialogContent className='w-full flex justify-center items-center '>
+							<Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={item.content} className=' rounded-md hover:opacity-90' width={500} height={500} alt={item.category} />
 						</DialogContent>
 					</Dialog>
 				))
@@ -51,11 +49,6 @@ async function HomeGallery({ query }: {
 					<Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={icon} alt='icon' />
 				</div>
 				<div className="flex flex-col gap-3">
-					<Suspense fallback={<h2>Loading...</h2>}>
-						<div className="">
-							<HomeGallerySidebar />
-						</div>
-					</Suspense>
 					<div className="rounded-md md:p-1">
 						<Suspense fallback={<h2>Loading...</h2>}>
 							<GalleryList query={query} />
