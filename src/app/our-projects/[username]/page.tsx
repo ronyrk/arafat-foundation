@@ -3,7 +3,6 @@ import React from 'react'
 import { CircleUserRound, CalendarDays } from 'lucide-react';
 import { Share } from '@/components/Share';
 import { CarouselDemo } from '@/components/CarouselType';
-import DonorCard from '@/components/ProjectDonation';
 import { unstable_noStore } from 'next/cache';
 import { ProjectsProps } from '@/types';
 import moment from 'moment';

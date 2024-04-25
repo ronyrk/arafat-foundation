@@ -135,7 +135,6 @@ function ProjectDonation({ data }: { data: ProjectsProps }) {
 										</Button>
 									</div>
 								}
-								<h2 className="text-[13px] font-medium text-color-main py-2">আপনার অনুদানের তথ্যগুলো দিয়ে সহযোগিতা করুন।</h2>
 								{
 									paymentType === "" ? " " : <FormField
 										control={form.control}
