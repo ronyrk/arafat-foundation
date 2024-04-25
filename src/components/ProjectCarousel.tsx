@@ -41,7 +41,7 @@ function ProjectCarousel({ data }: { data: ProjectsProps[] }) {
 											<Link href={`/our-projects/${item.username}`}>বিস্তারিত দেখুন</Link>
 										</Button>
 										<Button variant={"outline"} className='border-2 text-color-main border-color-main hover:text-white hover:border-color-sub' asChild>
-											<Link href="#">দান করুন</Link>
+											<Link href={`/our-projects/${item.username}`}>দান করুন</Link>
 										</Button>
 									</div>
 								</div>
