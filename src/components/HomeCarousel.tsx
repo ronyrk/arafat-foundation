@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/carousel1"
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 
 const data = ["/SP1.jpg", "/SP2.jpg", "/SP3.jpg", "/SP4.jpg", "/SP5.jpg"]
@@ -33,7 +34,9 @@ function HomeCarousel() {
 								<h2 className=" md:text-[40px] text-[18px] font-bold text-white">অপমৃত্যু থেকে বাঁচায় এবং পাপ মোচন করে |</h2>
 								<p className=" text-white md:text-xl text-[12px] font-semibold pb-4 pt-2">আরাফাত ফাউন্ডেশন একটি রাজনৈতিক এবং অলাভজনক মূলত <br /> মানব কল্যাণমূলক  নিবেদিত সেবামূলক  প্রতিষ্ঠান</p>
 								{/* <p className=" pb-2 text-white md:text-xl text-sm font-semibold "> মানব কল্যাণমূলক  নিবেদিত সেবামূলক  প্রতিষ্ঠান</p> */}
-								<Button size={"lg"} className=" px-8 py-2 bg-color-sub hover:bg-color-main">দান করুন</Button>
+								<Button size={"lg"} asChild className=" px-8 py-2 bg-color-sub hover:bg-color-main">
+									<Link href={"/our-projects"}>দান করুন</Link>
+								</Button>
 
 							</div>
 						</div>
