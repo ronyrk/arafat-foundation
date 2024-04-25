@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { unstable_noStore } from 'next/cache';
 import { ProjectsProps } from '@/types';
+import { CarouselDemo } from './CarouselType';
 
 async function Projects() {
 	unstable_noStore();
@@ -39,6 +40,7 @@ async function Projects() {
 }
 
 async function OurProject() {
+
 	return (
 		<div className='py-2 md:px-20 md:py-4 bg-[#FCFCFD]'>
 			<h1 className="py-2 text-4xl font-semibold text-center text-color-main">আমাদের প্রকল্পসমূহ</h1>
@@ -48,7 +50,7 @@ async function OurProject() {
 				<Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={icon} alt='icon' />
 			</div>
 			<Suspense fallback={<h2>Loading...</h2>}>
-				<Projects />
+				<CarouselDemo />
 			</Suspense>
 			<div className="flex justify-center py-4">
 				<Button size={"lg"} className='text-black bg-white border-2 border-black  hover:border-color-sub hover:bg-color-sub hover:text-white' asChild>
