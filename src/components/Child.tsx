@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { unstable_noStore } from 'next/cache';
 import { ChildIProps } from '@/types';
+import { ChildCarousel } from './ChildCarousel';
 
 async function Childs() {
 	unstable_noStore();
@@ -60,7 +61,7 @@ function Child() {
 				<Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={icon} alt='icon' />
 			</div>
 			<Suspense fallback={<h2>Loading...</h2>}>
-				<Childs />
+				<ChildCarousel />
 			</Suspense>
 			<div className="flex justify-center py-4">
 				<Button size={"lg"} className='text-black bg-white border-2 border-black  hover:border-color-sub hover:bg-color-sub hover:text-white' asChild>
