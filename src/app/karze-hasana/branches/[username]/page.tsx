@@ -45,8 +45,15 @@ async function getData(username: string) {
 };
 
 
-async function page({ params }: ParamsIProps) {
+async function page({ params, searchParams }: {
+	params: {
+		username: string
+	}, searchParams?: {
+		page?: string,
+	}
+}) {
 	cookies();
+	const page = searchParams?.page || "1";
 	const { username } = params;
 	const response = await getData(username);
 	const data: BranchIProps = await response.info;
@@ -57,7 +64,7 @@ async function page({ params }: ParamsIProps) {
 				<h2 className="py-1 text-3xl font-medium text-center text-color-main">{data.branchName}</h2>
 				<h2 className="py-1 text-xl font-medium text-center text-color-main">ঠিকানা:- {data.address}</h2>
 			</div>
-			<BorrowersList response={response} />
+			<BorrowersList page={page} response={response} />
 			<div className="py-2 px-4">
 				<Share username={data.username} type='branches' />
 			</div>

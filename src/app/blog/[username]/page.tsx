@@ -73,10 +73,6 @@ async function page({ params, searchParams }: {
 			<div className="flex md:flex-row flex-col gap-1">
 				<div className="md:basis-3/4 w-full">
 					<Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={data?.photoUrl} width={828} height={420} className='md:w-[828px] md:h-[420px] object-fill rounded' alt={data.username} />
-					<div className="py-2 flex flex-row gap-2">
-						<h2 className=' flex items-center'><CircleUserRound size={20} /> <span className=' text-sm font-medium px-2 lowercase'>Admin</span> </h2>
-						<h2 className=' flex items-center'><CalendarDays size={20} /> <span className=' text-sm font-medium px-2'>{`${moment(data.createAt).format('MMMM DD, YYYY')}`}</span> </h2>
-					</div>
 					<div className="py-3">
 						<h2 className=" text-[26px] text-color-main font-semibold">{data.title}</h2>
 					</div>

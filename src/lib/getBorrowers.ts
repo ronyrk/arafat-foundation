@@ -41,3 +41,13 @@ export async function getBorrowers(query: string) {
 	})
 	return result;
 };
+
+export async function getBorrowersByBranch(branch: string) {
+	unstable_noStore();
+	const result = await prisma.loan.findMany({
+		where: {
+			branch
+		}
+	});
+	return result;
+};

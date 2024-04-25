@@ -90,8 +90,8 @@ function ChildDonation({ params }: {
 	// console.log(state, stateBranch);
 
 	return (
-		<div>
-			<div className='rounded  py-4'>
+		<div className="flex justify-center items-center min-h-[60vh] py-4">
+			<div className='rounded border-2 w-1/3 p-4 shadow-2xl'>
 				<div className="flex flex-col items-center gap-2">
 					<Form {...form}>
 						<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-1">
@@ -104,7 +104,7 @@ function ChildDonation({ params }: {
 										id="paymentType"
 										value={paymentType}
 										onChange={handleTypeChange}
-										className="w-full border rounded px-1 py-[1px] cursor-pointer"
+										className="w-full border rounded px-2 py-[1px] cursor-pointer"
 									>
 										<option value="">Select a payment From</option>
 										<option value="bangladesh">Bangladesh</option>
@@ -137,7 +137,6 @@ function ChildDonation({ params }: {
 										</Button>
 									</div>
 								}
-								<h2 className="text-[13px] font-medium text-color-main">আপনার অনুদানের তথ্যগুলো দিয়ে সহযোগিতা করুন।</h2>
 								<div className=" grid grid-cols-2 gap-2">
 									{
 										paymentType === '' ? "" : <FormField
@@ -226,7 +225,7 @@ function ChildDonation({ params }: {
 										</div>}
 								</div>
 								{
-									paymentType === ' ' ? "" : <FormField
+									paymentType === '' ? "" : <FormField
 										control={form.control}
 										name="about"
 										render={({ field }) => (
