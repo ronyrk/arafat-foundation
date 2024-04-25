@@ -6,13 +6,13 @@ import {
 	DialogContent,
 	DialogTrigger,
 } from "@/components/ui/dialog"
-import { GalleryCarousel } from '@/components/Gallery'
 import { getGallery } from '@/lib/getGallery'
-import HomeGallerySidebar from './HomeGallerySidebar'
 import { Button } from '@/components/ui/button';
 import Link from 'next/link'
+import { unstable_noStore } from 'next/cache'
 
 async function GalleryList({ query }: { query: string }) {
+	unstable_noStore();
 	const data = await getGallery(query);
 	return (
 		<div className="grid grid-cols-4 md:grid-cols-4 gap-2 md:gap-2">
