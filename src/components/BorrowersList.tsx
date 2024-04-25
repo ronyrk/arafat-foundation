@@ -135,9 +135,9 @@ async function BorrowersList(params: RequestParams) {
 										<TableRow>
 											<TableHead>CODE</TableHead>
 											<TableHead className='w-[300px]'>BORROWERS NAME</TableHead>
-											<TableHead>DISBURSED</TableHead>
-											<TableHead>RECOVERED</TableHead>
 											<TableHead>BALANCE</TableHead>
+											<TableHead>RECOVERED</TableHead>
+											<TableHead>DISBURSED</TableHead>
 											<TableHead>DETAILS</TableHead>
 										</TableRow>
 									</TableHeader>
