@@ -17,7 +17,7 @@ async function Childs() {
 	return (
 		<div className="grid grid-cols-1 gap-1 p-2 px-2 md:grid-cols-4 justify-stretch md:gap-3">
 			{
-				data.slice(0, 4).map((item, index) => (
+				data.map((item, index) => (
 					<div key={index} className="relative flex flex-col border-2 rounded-md shadow-md ">
 						<Image src={item.photoUrl} width={248} height={120} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className='w-full h-[260px] object-fill rounded' alt={item.username} />
 						<p className="absolute px-2 py-[2px] text-sm bg-white rounded top-2 left-2">{item.academy}</p>
@@ -56,8 +56,8 @@ function Child() {
 		<div className='py-2 md:px-20 md:py-4 bg-[#FCFCFD]'>
 			<h1 className="py-2 text-4xl font-semibold text-center text-color-main">একটি শিশুর দায়িত্ব নিন</h1>
 			<h2 className="py-2 text-base font-medium text-center text-color-main">একটি শিশুর (আংশিক অথবা পূর্ণ) দায়িত্ব নেওয়ার মাধ্যমে আপনি একটি শিশুকে স্কুলে যেতে সাহায্য করতে পারেন যাতে সে ঝরে পড়ার ঝুঁকি ছাড়াই শিক্ষা লাভ করতে পারে।</h2>
-			<div className='flex flex-col items-center justify-center gap-2 '>
-				<h1 className="py-2 text-sm font-normal text-center border-dotted text-color-main">আমাদের শিশু স্পনসরশিপ প্রোগ্রামে আপনি একটি শিশুর জন্য সহায়তা প্রদান করতে পারেন।</h1>
+			<div className='flex flex-col items-center justify-center gap-2'>
+				<h1 className="py-2 text-[15px] font-normal text-center border-dotted text-color-main">আমাদের শিশু স্পনসরশিপ প্রোগ্রামে আপনি একটি শিশুর জন্য সহায়তা প্রদান করতে পারেন।</h1>
 				<Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={icon} alt='icon' />
 			</div>
 			<Suspense fallback={<h2>Loading...</h2>}>

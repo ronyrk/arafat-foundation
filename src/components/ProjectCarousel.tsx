@@ -21,7 +21,7 @@ function ProjectCarousel({ data }: { data: ProjectsProps[] }) {
 			}}
 			plugins={[
 				Autoplay({
-					delay: 2000,
+					delay: 4000,
 				}),
 			]}
 			className="w-full"

@@ -20,7 +20,7 @@ function BlogCarousel({ data }: { data: NewsProps[] }) {
 			}}
 			plugins={[
 				Autoplay({
-					delay: 3000,
+					delay: 4000,
 				}),
 			]}
 			className="w-full"
