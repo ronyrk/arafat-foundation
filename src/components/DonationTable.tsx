@@ -13,51 +13,6 @@ import { SponsorProps } from '@/types';
 import moment from 'moment';
 import { TotalSumChildDonation } from '@/lib/totalSum';
 
-const invoices = [
-  {
-    invoice: "INV001",
-    paymentStatus: "Paid",
-    totalAmount: "$250.00",
-    paymentMethod: "Credit Card",
-  },
-  {
-    invoice: "INV002",
-    paymentStatus: "Pending",
-    totalAmount: "$150.00",
-    paymentMethod: "PayPal",
-  },
-  {
-    invoice: "INV003",
-    paymentStatus: "Unpaid",
-    totalAmount: "$350.00",
-    paymentMethod: "Bank Transfer",
-  },
-  {
-    invoice: "INV004",
-    paymentStatus: "Paid",
-    totalAmount: "$450.00",
-    paymentMethod: "Credit Card",
-  },
-  {
-    invoice: "INV005",
-    paymentStatus: "Paid",
-    totalAmount: "$550.00",
-    paymentMethod: "PayPal",
-  },
-  {
-    invoice: "INV006",
-    paymentStatus: "Pending",
-    totalAmount: "$200.00",
-    paymentMethod: "Bank Transfer",
-  },
-  {
-    invoice: "INV007",
-    paymentStatus: "Unpaid",
-    totalAmount: "$300.00",
-    paymentMethod: "Credit Card",
-  },
-]
-
 async function DonationTable({ username }: { username: string }) {
   unstable_noStore();
   let res = await fetch(`https://af-admin.vercel.app/api/donation/${username}`);
@@ -70,9 +25,9 @@ async function DonationTable({ username }: { username: string }) {
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead className="uppercase">Donation Date</TableHead>
+          <TableHead className="uppercase">Date</TableHead>
           <TableHead className='w-[300px] uppercase'>Donor Name</TableHead>
-          <TableHead className="uppercase">Amount</TableHead>
+          <TableHead className='w-[180px] uppercase'>Amount</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>

@@ -21,7 +21,7 @@ function Footer() {
 					className='-z-20 md:brightness-50'
 				/>
 				<div className=" absolute top-4 left-0 z-10 md:bg-inherit bg-color-main">
-					<div className="md:px-20 px-4 ">
+					<div className="md:px-20 p-4 ">
 						<div className="grid md:grid-cols-4 grid-cols-1 gap-2">
 							<div className="md:flex basis-1/4 flex-col my-2 px-4 py-2 gap-x-10">
 								<Image
@@ -117,9 +117,9 @@ function Footer() {
 							</div>
 
 						</div>
-						<div className='md:mt-8'>
+						<div className='md:p-3'>
 							<hr className=" border-b-[1px] border-gray-400 w-full my-3" />
-							<div className="flex  justify-between items-center">
+							<div className="flex  md:flex-row flex-col items-center justify-between gap-2">
 								<h2 className=" text-sm font-medium text-[#F5F5F5]">স্বত্ব &#169; {new Date().getFullYear()}  আরাফাত ফাউন্ডেশন - সর্বস্বত্ব সংরক্ষিত।</h2>
 								<h2 className=" text-sm font-medium text-[#F5F5F5]">পরিষেবার শর্তাবলী
 									গোপনীয়তা নীতি</h2>

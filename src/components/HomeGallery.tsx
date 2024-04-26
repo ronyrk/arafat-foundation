@@ -43,7 +43,7 @@ async function HomeGallery({ query }: {
 }) {
 	return (
 		<section id='gallery' className="bg-[#FCFCFD]">
-			<div className="m-2 md:mx-20 md:my-4">
+			<div className="p-2 md:mx-20">
 				<h1 className="py-2 text-4xl font-semibold text-center text-color-main">গ্যালারী</h1>
 				<div className='flex flex-col items-center justify-center gap-2 py-3 '>
 					<Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={icon} alt='icon' />

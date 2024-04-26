@@ -12,7 +12,7 @@ export async function ChildCarousel() {
 	};
 	const data: ChildIProps[] = await response.json();
 	return (
-		<div className=" bg-gray-100 rounded-md">
+		<div className="rounded-md">
 			<div className=" flex justify-center items-center md:mx-0 mx-12">
 				<ChildCarouselSlider data={data} />
 			</div>

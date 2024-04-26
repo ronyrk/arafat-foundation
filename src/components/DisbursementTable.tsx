@@ -41,7 +41,7 @@ async function DisbursementTable({ username }: { username: string }) {
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead className="uppercase">Disbursement Date</TableHead>
+          <TableHead className="uppercase">Date</TableHead>
           <TableHead className="uppercase">Amount</TableHead>
           <TableHead className="uppercase">Details</TableHead>
         </TableRow>
