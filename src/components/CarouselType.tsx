@@ -11,7 +11,7 @@ export async function CarouselDemo() {
 	};
 	const data: ProjectsProps[] = await response.json();
 	return (
-		<div className=" bg-gray-100 rounded-md">
+		<div className="rounded-md">
 			<div className=" flex justify-center items-center md:mx-0 mx-12">
 				<ProjectCarousel data={data} />
 			</div>
