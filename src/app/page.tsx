@@ -26,7 +26,7 @@ export default async function page({ searchParams }: {
       <OurProject />
       <HomeGallery query={query} />
       <Child />
-      <Blog />
+      {/* <Blog /> */}
     </div>
   );
 }

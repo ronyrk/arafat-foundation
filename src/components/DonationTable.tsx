@@ -70,9 +70,9 @@ async function DonationTable({ username }: { username: string }) {
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead className="uppercase">Donation Date</TableHead>
+          <TableHead className="uppercase">Date</TableHead>
           <TableHead className='w-[300px] uppercase'>Donor Name</TableHead>
-          <TableHead className="uppercase">Amount</TableHead>
+          <TableHead className='w-[180px] uppercase'>Amount</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>

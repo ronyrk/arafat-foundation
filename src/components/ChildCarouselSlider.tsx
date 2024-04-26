@@ -47,7 +47,7 @@ function ChildCarouselSlider({ data }: { data: ChildIProps[] }) {
                     <h2 className="text-[15px]  inline  font-medium">ঠিকানা:</h2>
                     <h2 className="text-[15px] pl-2 font-medium">{item.address}</h2>
                   </div>
-                  <div className="flex justify-around py-2 md:flex-row">
+                  <div className="flex justify-around py-2 md:flex-row gap-x-2">
                     <Button className='w-[130px]  md:px-4 px-1 text-white rounded-sm bg-color-sub hover:bg-color-main' asChild>
                       <Link href={`/sponsor-a-child/${item.username}`}>প্রোফাইল দেখুন</Link>
                     </Button>

@@ -96,14 +96,14 @@ async function page({ params }: {
 						</div>
 					</div>
 				</div>
-				<div className="md:basis-9/12 w-full  border-2 p-3 flex flex-col gap-y-4 rounded-md h-fit shadow-md">
+				<div className="md:basis-9/12 w-full  border-[2px] px-1 flex flex-col gap-y-4 rounded-md h-fit shadow-md">
 					<h2 className=" text-xl text-color-main font-semibold">{data.name}</h2>
 					<div>{htmlConvert(data.description)}</div>
-					<div className="px-4 flex flex-col border-2 rounded-md py-2 gap-y-2">
+					<div className="px-1 flex flex-col border-[2px] rounded-md py-2 gap-y-2">
 						<h2 className="text-center text-lg font-semibold text-color-main">Details Of Donation</h2>
 						<DonationTable username={data.username} />
 					</div>
-					<div className="px-4 flex flex-col border-2 rounded-md py-2 gap-y-2">
+					<div className="px-1 flex flex-col border-2 rounded-md py-2 gap-y-2">
 						<h2 className="text-center text-lg font-semibold text-color-main">Details Of Donation Disbursement</h2>
 						<DisbursementTable username={data.username} />
 					</div>
