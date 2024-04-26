@@ -21,7 +21,7 @@ async function GalleryList({ query }: { query: string }) {
 	unstable_noStore();
 	const data = await getGallery(query);
 	return (
-		<div className="grid grid-cols-5 py-3 md:px-1 px-5 md:grid-cols-3 content-stretch gap-3">
+		<div className="grid py-2 md:px-1 px-1 grid-cols-3 content-stretch gap-2">
 			{
 				data.map((item, index) => (
 					<Dialog key={index}>
@@ -54,12 +54,12 @@ async function page({ searchParams }: {
 	const query = searchParams?.type || firstItem?.path as string;
 	return (
 		<section className="bg-[#FCFCFD]">
-			<div className="my-2 md:mx-20 md:my-4">
+			<div className="my-2 md:mx-20 mx-2 md:my-4">
 				<h1 className="py-2 text-4xl font-semibold text-center text-color-main">গ্যালারী</h1>
 				<div className='flex flex-col items-center justify-center gap-2 py-3 '>
 					<Image src={icon} alt='icon' />
 				</div>
-				<div className="flex flex-col gap-4 md:flex-row">
+				<div className="flex flex-col gap-1 md:flex-row">
 					<Suspense fallback={<h2>Loading...</h2>}>
 						<div className="basis-1/5">
 							<GallerySidebar />
