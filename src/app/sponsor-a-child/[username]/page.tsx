@@ -68,9 +68,9 @@ async function page({ params }: {
 	};
 	const data: ChildIProps = await res.json();
 	return (
-		<div className='py-2 '>
-			<div className='flex gap-x-3'>
-				<div className="basis-3/12">
+		<div className='py-2 mx-2'>
+			<div className='flex md:flex-row flex-col md:gap-x-3 gap-y-1'>
+				<div className="md:basis-3/12 w-full">
 					<div className="relative h-fit flex flex-col border-2 rounded-md shadow-md ">
 						<Image src={data.photoUrl} width={248} height={120} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className='w-full h-[260px] object-fill rounded' alt={data.name} />
 						<p className="absolute px-2 py-[2px] text-sm bg-white rounded top-2 left-2">{data.academy}</p>
@@ -96,7 +96,7 @@ async function page({ params }: {
 						</div>
 					</div>
 				</div>
-				<div className="basis-9/12 border-2 p-3 flex flex-col gap-y-4 rounded-md h-fit shadow-md">
+				<div className="md:basis-9/12 w-full  border-2 p-3 flex flex-col gap-y-4 rounded-md h-fit shadow-md">
 					<h2 className=" text-xl text-color-main font-semibold">{data.name}</h2>
 					<div>{htmlConvert(data.description)}</div>
 					<div className="px-4 flex flex-col border-2 rounded-md py-2 gap-y-2">
