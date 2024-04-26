@@ -21,7 +21,7 @@ function ChildCarouselSlider({ data }: { data: ChildIProps[] }) {
       }}
       plugins={[
         Autoplay({
-          delay: 2000,
+          delay: 4000,
         }),
       ]}
       className="w-full"
