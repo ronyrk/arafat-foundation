@@ -135,9 +135,9 @@ async function BorrowersList(params: RequestParams) {
 										<TableRow>
 											<TableHead>CODE</TableHead>
 											<TableHead className='w-[300px]'>BORROWERS NAME</TableHead>
-											<TableHead>BALANCE</TableHead>
-											<TableHead>RECOVERED</TableHead>
 											<TableHead>DISBURSED</TableHead>
+											<TableHead>RECOVERED</TableHead>
+											<TableHead>BALANCE</TableHead>
 											<TableHead>DETAILS</TableHead>
 										</TableRow>
 									</TableHeader>
@@ -148,9 +148,9 @@ async function BorrowersList(params: RequestParams) {
 													<TableRow key={index}>
 														<TableCell className="font-medium">{item.code}</TableCell>
 														<TableCell className="font-medium uppercase">{item.name}</TableCell>
-														<TableCell className="font-medium uppercase" >{duePayment(item.username)}</TableCell>
-														<TableCell className="font-medium uppercase">{allPayment(item.username)}</TableCell>
 														<TableCell className="font-medium uppercase">{item.balance}</TableCell>
+														<TableCell className="font-medium uppercase">{allPayment(item.username)}</TableCell>
+														<TableCell className="font-medium uppercase" >{duePayment(item.username)}</TableCell>
 														<TableCell className="font-medium uppercase">
 															<Button className='bg-color-sub' size={"sm"} asChild>
 																<Link href={`/karze-hasana/borrowers/${item.username}`}>DETAILS</Link>

@@ -9,9 +9,6 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button"
 import Link from 'next/link';
-import { BranchIProps } from '@/types';
-import { unstable_noStore } from 'next/cache';
-import { Input } from '@/components/ui/input';
 import { Metadata } from 'next';
 import SearchBox from '@/components/SearchBox';
 import { getSearchBranch } from '@/lib/SearchBranch';
@@ -40,7 +37,7 @@ async function BranchList({ searchParams }: {
 		return (
 			<TableBody>
 				{
-					branches?.slice(0, 5)?.map((item, index: number) => (
+					branches?.map((item, index: number) => (
 						<TableRow key={index}>
 							<TableCell className="font-medium">{item.code}</TableCell>
 							<TableCell className="font-medium uppercase">{item.branchName}</TableCell>
