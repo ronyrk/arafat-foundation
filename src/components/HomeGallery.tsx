@@ -15,7 +15,7 @@ async function GalleryList({ query }: { query: string }) {
 	unstable_noStore();
 	const data = await getGallery(query);
 	return (
-		<div className="grid grid-cols-4 md:grid-cols-4 gap-2 md:gap-2">
+		<div className="grid grid-cols-3 md:grid-cols-4 gap-1 md:gap-2">
 			{
 				data?.slice(0, 8).map((item, index) => (
 					<Dialog key={index}>
