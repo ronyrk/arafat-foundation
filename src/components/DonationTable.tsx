@@ -33,7 +33,7 @@ async function DonationTable({ username }: { username: string }) {
       <TableBody>
         {data.map((item, index) => (
           <TableRow key={index}>
-            <TableCell className="font-medium uppercase">{`${Moment(item.createAt).format('DD/MM/YYYY')}`}</TableCell>
+            <TableCell className="font-medium uppercase">{`${moment(item.createAt).format('DD/MM/YYYY')}`}</TableCell>
             <TableCell className="font-medium uppercase">{item.name}</TableCell>
             <TableCell className="font-medium uppercase">BDT= {item.amount} /=</TableCell>
           </TableRow>
