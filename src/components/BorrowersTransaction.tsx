@@ -45,7 +45,7 @@ async function LoanList({ username, loanAmount }: { username: string, loanAmount
 				{
 					data.map((item, index) => (
 						<TableRow key={index}>
-							<TableCell>{`${Moment(item.createAt).subtract(1, "years").format('DD/MM/YYYY')}`}</TableCell>
+							<TableCell>{`${Moment(item.createAt).format('DD/MM/YYYY')}`}</TableCell>
 							<TableCell>BDT ={calculateRemainingLoanAmount(loanAmount, index)}/=</TableCell>
 							<TableCell>BDT ={item.amount}/=</TableCell>
 							<TableCell>BDT ={calculateRemainingLoanAmountStanding(loanAmount, index, item.amount)}/=</TableCell>

@@ -44,7 +44,7 @@ async function TableRowList(params: ParamsIProps) {
 			{
 				data.map((item, index) => (
 					<TableRow key={index}>
-						<TableCell>{`${moment(item.createAt).subtract(1, "years").format('DD/MM/YYYY')}`}</TableCell>
+						<TableCell>{`${Moment(item.createAt).format('DD/MM/YYYY')}`}</TableCell>
 						<TableCell>{loanAmount(item.amount, item.type)}</TableCell>
 						<TableCell className='px-4'>{loanPayment(item.loanPayment, item.type)} </TableCell>
 					</TableRow>
