@@ -11,6 +11,7 @@ import { getGallery } from '@/lib/getGallery'
 import { unstable_noStore } from 'next/cache'
 import prisma from '@/lib/prisma'
 import { Metadata } from 'next'
+import { CategoryIProps } from '@/types'
 
 export const metadata: Metadata = {
 	title: "গ্যালারি",
@@ -50,6 +51,12 @@ async function page({ searchParams }: {
 		page?: string,
 	}
 }) {
+	unstable_noStore();
+	let res = await fetch('https://af-admin.vercel.app/api/category');
+	if (!res.ok) {
+		throw new Error("Failed to fetch data list");
+	};
+	const data: CategoryIProps[] = await res.json();
 	const firstItem = (await prisma.category.findMany()).at(0);
 	const query = searchParams?.type || firstItem?.path as string;
 	return (
@@ -62,7 +69,7 @@ async function page({ searchParams }: {
 				<div className="flex flex-col gap-1 md:flex-row">
 					<Suspense fallback={<h2>Loading...</h2>}>
 						<div className="basis-1/5">
-							<GallerySidebar />
+							<GallerySidebar data={data} />
 						</div>
 					</Suspense>
 					<div className=" md:p-1 bg-white  rounded-md border-[2px] basis-4/5">
