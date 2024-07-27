@@ -27,7 +27,9 @@ export const GET = async (request: Request) => {
 		} else {
 			const result = await prisma.expenses.findMany({
 				where: {
-					date: start
+					date: {
+						equals: "2024-07-17T07:00:00.000+00:00"
+					}
 				},
 				skip,
 				take,

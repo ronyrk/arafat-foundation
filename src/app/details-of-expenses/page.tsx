@@ -101,15 +101,15 @@ function TableExpenses() {
                                 <Button
 
                                     className={cn(
-                                        "w-[280px] justify-start text-left font-normal",
-                                        !date && "text-muted-foreground"
+                                        "w-[200px] text-white justify-start text-left font-normal",
+                                        !date && "text-muted-foreground  text-white"
                                     )}
                                 >
                                     <CalendarIcon className="mr-2 h-4 w-4" />
                                     {date ? format(date, "PPP") : <span>Pick a date</span>}
                                 </Button>
                             </PopoverTrigger>
-                            <PopoverContent className="w-auto p-0 text-black">
+                            <PopoverContent className="w-auto p-0">
                                 <Calendar
                                     mode="single"
                                     onSelect={setDate}
@@ -122,11 +122,9 @@ function TableExpenses() {
                 <Table>
                     <TableHeader>
                         <TableRow>
-                            <TableHead>DATE</TableHead>
-                            <TableHead className=' uppercase'>Amount</TableHead>
-                            <TableHead className=' uppercase'>Details</TableHead>
-                            <TableHead className=' uppercase'>Updated</TableHead>
-                            <TableHead className=' uppercase'>Deleted</TableHead>
+                            <TableHead className=' uppercase text-center'>DATE</TableHead>
+                            <TableHead className=' uppercase text-center '>Amount</TableHead>
+                            <TableHead className=' uppercase text-center'>Details</TableHead>
                         </TableRow>
                     </TableHeader>
                     <Suspense fallback={<h2 className=' text-center p-4'>Loading...</h2>} >
