@@ -188,3 +188,26 @@ export interface CategoryIProps {
 	name: string,
 	path: string,
 }
+export interface IncomeIProps {
+	id?: string,
+	date: Date,
+	amount: string,
+	transaction: string,
+	type: string,
+};
+export interface ExpensesIProps {
+	id?: string,
+	date: Date,
+	amount: string,
+	description: string
+}
+export interface SearchIProps {
+	dateFrom?: string,
+	dateTo?: string,
+	transaction?: string,
+	page?: string,
+};
+export interface SearchIExProps {
+	date?: any,
+	page?: string,
+};
