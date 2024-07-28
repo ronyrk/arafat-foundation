@@ -30,12 +30,13 @@ import axios from 'axios';
 import { IncomeIProps, SearchIProps } from '@/types';
 import toast from 'react-hot-toast';
 import { FormLabel } from '@/components/ui/form';
+import { usePathname } from 'next/navigation';
 
 
 
 
 function TableIncome() {
-
+	const pathname = usePathname();
 	const [start, setStartDate] = React.useState<Date>()
 	const [end, setEndDate] = React.useState<Date>()
 	const [transaction, setTransaction] = React.useState("");
@@ -72,11 +73,30 @@ function TableIncome() {
 	}
 	return (
 		<div className="md:mx-20 md:my-4 my-2">
-			<div className='flex flex-col'>
-				<h2 className="text-center text-xl">Income List</h2>
+			<div className="my-4 flex justify-center mx-2">
+				<h2 className=" font-medium text-2xl border-dashed border-2 border-indigo-600 rounded px-2 ">আমাদের আয় এবং ব্যায়ের হিসাব সমূহ</h2>
+			</div>
+			<div>
+				<h3 className=" text-lg mb-4 text-color-main font-medium">প্রিয় “ভাই/বোন” আপনার অনুদান আমাদের কাছে আমানত। আমাদের কাছে অনুদান পাঠানোর ২৪ ঘন্টার মধ্যে নিচের লিস্ট/
+					<Link className=' text-green-500' href="/details-of-income">Income</Link>
+					আপনার অনুদান
+					জমা হয়েছে কি না সেটি চেক করার অনুরোধরইলো । আপনার অনুদানটি এখানে জমা না হলে আমাদের সাথে  <Link className=' text-green-500' href="/contact-us">যোগাযোগ করুন</Link> ।
+				</h3>
+				<h3 className="mt-2 text-lg text-color-main font-medium">আপনি যদি নিদৃষ্টদৃ কোনো কাজ/প্রজেক্টের জন্য আমাদেরকে অনুদান দিয়ে থাকেন তবুও নিচের লিস্ট/<Link className=' text-green-500' href="/details-of-expenses">Expenses</Link> থেকে নিদৃষ্টদৃ কাজে এবং নিদৃষ্টদৃ দিনে খরচ
+					করা হয়েছে কি না সেটা চেক করার অনুরোধ রইলো ।
+				</h3>
+				<div className="flex flex-row gap-2 justify-start py-2 mx-2">
+					<Link href="/details-of-expenses"><h2 className={`text-2xl font-bold ${pathname === "/details-of-expenses" ? " text-color-sub" : " text-color-main"}`}>Expenses</h2></Link>
+					<h2 className=' text-2xl text-color-main font-bold'>|</h2>
+					<Link href="/details-of-income">
+						<h2 className={`text-2xl font-bold ${pathname === "/details-of-income" ? " text-color-sub" : " text-color-main"}`}>Income</h2></Link>
+				</div>
+			</div>
+			<div className='flex flex-col my-3 border-2 py-2 px-1 rounded-sm'>
+				<h2 className="text-center text-2xl font-semibold text-color-main">Income List</h2>
 				<div className=" flex flex-row gap-3  justify-between items-center p-2">
 					<div className=' flex flex-col gap-1'>
-						<h2 className=" text-base">From</h2>
+						<h2 className=" text-lg font-bold">From</h2>
 						<Popover>
 							<PopoverTrigger asChild>
 								<Button
@@ -100,7 +120,7 @@ function TableIncome() {
 						</Popover>
 					</div>
 					<div className=' flex flex-col gap-1'>
-						<h2 className=" text-base">To</h2>
+						<h2 className="text-lg font-bold">To</h2>
 						<Popover>
 							<PopoverTrigger asChild>
 								<Button
@@ -124,7 +144,7 @@ function TableIncome() {
 						</Popover>
 					</div>
 					<div className="">
-						<h2 className=' flex flex-col gap-1'>Transaction</h2>
+						<h2 className=' flex flex-col gap-1 font-bold text-lg'>Transaction</h2>
 						<Input className='w-64' type="text" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTransaction(e.target.value)} placeholder="Search" />
 					</div>
 				</div>
@@ -132,31 +152,32 @@ function TableIncome() {
 					<TableHeader>
 						<TableRow>
 							<TableHead>DATE</TableHead>
+							<TableHead className=' uppercase'>VIA/TYPE</TableHead>
 							<TableHead className=' uppercase'>Amount</TableHead>
-							<TableHead className=' uppercase'>Payment Method</TableHead>
 							<TableHead className=' uppercase'>Transaction ID</TableHead>
+
 						</TableRow>
 					</TableHeader>
 					<Suspense fallback={<h2 className=' text-center p-4'>Loading...</h2>} >
 						<TableBody>
-							{/* {
+							{
 								income?.map((item: any, index: number) => (
 									<TableRow key={index}>
 										<TableCell className="font-medium">{`${moment(item?.date).format('DD/MM/YYYY')}`}</TableCell>
-										<TableCell className="font-medium uppercase">{item.amount}</TableCell>
 										<TableCell className="font-medium uppercase">{item.type}</TableCell>
+										<TableCell className="font-medium uppercase">{item.amount}</TableCell>
 										<TableCell className="font-medium uppercase">{item.transaction}</TableCell>
 									</TableRow>
 								))
-							} */}
-							{/* <TableRow className=''>
+							}
+							<TableRow className=''>
 								<TableCell className=" font-bold uppercase">Total</TableCell>
 								<TableCell className="font-bold uppercase">{GetIncome(income)}</TableCell>
-							</TableRow> */}
+							</TableRow>
 						</TableBody>
 					</Suspense>
 				</Table>
-				{/* <div className="flex justify-center py-4">
+				<div className="flex justify-center py-4">
 					<div className=' flex flex-row gap-2'>
 						{
 							Array.from({ length: Math.ceil(income.length / 20) })?.map((i: any, index) => (
@@ -169,7 +190,7 @@ function TableIncome() {
 							))
 						}
 					</div >
-				</div> */}
+				</div>
 			</div>
 		</div>
 	)
