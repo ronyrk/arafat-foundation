@@ -72,17 +72,17 @@ function TableIncome() {
 		return `${sum}`;
 	}
 	return (
-		<div className="md:mx-20 md:my-4 my-2">
+		<div className="md:mx-20 mx-1 md:my-4 my-2">
 			<div className="my-4 flex justify-center mx-2">
-				<h2 className=" font-medium text-2xl border-dashed border-2 border-indigo-600 rounded px-2 ">আমাদের আয় এবং ব্যায়ের হিসাব সমূহ</h2>
+				<h2 className=" font-medium md:text-2xl text-lg border-dashed border-2 border-indigo-600 rounded px-2 ">আমাদের আয় এবং ব্যায়ের হিসাব সমূহ</h2>
 			</div>
 			<div>
-				<h3 className=" text-lg mb-4 text-color-main font-medium">প্রিয় “ভাই/বোন” আপনার অনুদান আমাদের কাছে আমানত। আমাদের কাছে অনুদান পাঠানোর ২৪ ঘন্টার মধ্যে নিচের লিস্ট/
+				<h3 className=" md:text-lg text-base mb-4 text-color-main font-medium">প্রিয় “ভাই/বোন” আপনার অনুদান আমাদের কাছে আমানত। আমাদের কাছে অনুদান পাঠানোর ২৪ ঘন্টার মধ্যে নিচের লিস্ট/
 					<Link className=' text-green-500' href="/details-of-income">Income</Link>
 					আপনার অনুদান
 					জমা হয়েছে কি না সেটি চেক করার অনুরোধরইলো । আপনার অনুদানটি এখানে জমা না হলে আমাদের সাথে  <Link className=' text-green-500' href="/contact-us">যোগাযোগ করুন</Link> ।
 				</h3>
-				<h3 className="mt-2 text-lg text-color-main font-medium">আপনি যদি নিদৃষ্টদৃ কোনো কাজ/প্রজেক্টের জন্য আমাদেরকে অনুদান দিয়ে থাকেন তবুও নিচের লিস্ট/<Link className=' text-green-500' href="/details-of-expenses">Expenses</Link> থেকে নিদৃষ্টদৃ কাজে এবং নিদৃষ্টদৃ দিনে খরচ
+				<h3 className="mt-2 md:text-lg text-base text-color-main font-medium">আপনি যদি নিদৃষ্টদৃ কোনো কাজ/প্রজেক্টের জন্য আমাদেরকে অনুদান দিয়ে থাকেন তবুও নিচের লিস্ট/<Link className=' text-green-500' href="/details-of-expenses">Expenses</Link> থেকে নিদৃষ্টদৃ কাজে এবং নিদৃষ্টদৃ দিনে খরচ
 					করা হয়েছে কি না সেটা চেক করার অনুরোধ রইলো ।
 				</h3>
 				<div className="flex flex-row gap-2 justify-start py-2 mx-2">
@@ -94,7 +94,7 @@ function TableIncome() {
 			</div>
 			<div className='flex flex-col my-3 border-2 py-2 px-1 rounded-sm'>
 				<h2 className="text-center text-2xl font-semibold text-color-main">Income List</h2>
-				<div className=" flex flex-row gap-3  justify-between items-center p-2">
+				<div className=" flex flex-row md:gap-3 gap-1  flex-wrap justify-between items-center p-2">
 					<div className=' flex flex-col gap-1'>
 						<h2 className=" text-lg font-bold">From</h2>
 						<Popover>
@@ -102,7 +102,7 @@ function TableIncome() {
 								<Button
 
 									className={cn(
-										"w-[200px] text-white justify-start text-left font-normal",
+										"w-[150px] text-white justify-start text-left font-normal",
 										!start && "text-muted-foreground  text-white"
 									)}
 								>
@@ -126,7 +126,7 @@ function TableIncome() {
 								<Button
 
 									className={cn(
-										"w-[200px] text-white justify-start text-left font-normal",
+										"w-[150px] text-white justify-start text-left font-normal",
 										!end && "text-muted-foreground  text-white"
 									)}
 								>
@@ -143,11 +143,12 @@ function TableIncome() {
 							</PopoverContent>
 						</Popover>
 					</div>
-					<div className="">
-						<h2 className=' flex flex-col gap-1 font-bold text-lg'>Transaction</h2>
+					<div className="py-2 flex flex-col justify-center">
+						<h2 className=' flex flex-col justify-center gap-1 font-bold text-lg'>Transaction</h2>
 						<Input className='w-64' type="text" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTransaction(e.target.value)} placeholder="Search" />
 					</div>
 				</div>
+
 				<Table>
 					<TableHeader>
 						<TableRow>

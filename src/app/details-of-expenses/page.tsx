@@ -70,15 +70,15 @@ function TableExpenses() {
     return (
         <div className="md:mx-20 md:my-4 my-2 text-center">
             <div className="my-4 flex justify-center mx-2">
-                <h2 className=" font-medium text-2xl border-dashed border-2 border-indigo-600 rounded px-2 ">আমাদের আয় এবং ব্যায়ের হিসাব সমূহ</h2>
+                <h2 className=" font-medium md:text-2xl text-lg border-dashed border-2 border-indigo-600 rounded px-2 ">আমাদের আয় এবং ব্যায়ের হিসাব সমূহ</h2>
             </div>
             <div>
-                <h3 className=" text-lg mb-4 text-color-main font-medium">প্রিয় “ভাই/বোন” আপনার অনুদান আমাদের কাছে আমানত। আমাদের কাছে অনুদান পাঠানোর ২৪ ঘন্টার মধ্যে নিচের লিস্ট/
+                <h3 className=" md:text-lg text-base mb-4 text-color-main font-medium">প্রিয় “ভাই/বোন” আপনার অনুদান আমাদের কাছে আমানত। আমাদের কাছে অনুদান পাঠানোর ২৪ ঘন্টার মধ্যে নিচের লিস্ট/
                     <Link className=' text-green-500' href="/details-of-income">Income</Link>
                     আপনার অনুদান
                     জমা হয়েছে কি না সেটি চেক করার অনুরোধরইলো । আপনার অনুদানটি এখানে জমা না হলে আমাদের সাথে  <Link className=' text-green-500' href="/contact-us">যোগাযোগ করুন</Link> ।
                 </h3>
-                <h3 className="mt-2 text-lg text-color-main font-medium">আপনি যদি নিদৃষ্টদৃ কোনো কাজ/প্রজেক্টের জন্য আমাদেরকে অনুদান দিয়ে থাকেন তবুও নিচের লিস্ট/<Link className=' text-green-500' href="/details-of-expenses">Expenses</Link> থেকে নিদৃষ্টদৃ কাজে এবং নিদৃষ্টদৃ দিনে খরচ
+                <h3 className="mt-2 md:text-lg text-base text-color-main font-medium">আপনি যদি নিদৃষ্টদৃ কোনো কাজ/প্রজেক্টের জন্য আমাদেরকে অনুদান দিয়ে থাকেন তবুও নিচের লিস্ট/<Link className=' text-green-500' href="/details-of-expenses">Expenses</Link> থেকে নিদৃষ্টদৃ কাজে এবং নিদৃষ্টদৃ দিনে খরচ
                     করা হয়েছে কি না সেটা চেক করার অনুরোধ রইলো ।
                 </h3>
                 <div className="flex flex-row gap-2 justify-start mx-2">
