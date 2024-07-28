@@ -13,6 +13,7 @@ export const GET = async (request: Request) => {
 	const pageNumber = Number(page) - 1;
 	const take = 20;
 	const skip = take * pageNumber;
+	console.log({ startString })
 	try {
 
 		if (startString === "udd") {
@@ -25,10 +26,14 @@ export const GET = async (request: Request) => {
 			});
 			return NextResponse.json(result)
 		} else {
+			start.setHours(start.getHours() - start.getTimezoneOffset());
+			start.setMinutes(start.getMinutes() - start.getTimezoneOffset());
+			const time = start.toISOString().slice().slice(0, -1) + '+00:00';
+			console.log(time, "2024-07-17T07:00:00.000+00:00");
 			const result = await prisma.expenses.findMany({
 				where: {
 					date: {
-						equals: "2024-07-17T07:00:00.000+00:00"
+						equals: time
 					}
 				},
 				skip,
