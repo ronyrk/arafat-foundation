@@ -143,12 +143,14 @@ function TableExpenses() {
                                                 </DialogTrigger>
                                                 <DialogContent className='p-8 bg-white'>
                                                     <DialogHeader>
-                                                        <DialogDescription>
-                                                            {
-                                                                htmlConvert(item.description)
-                                                            }
-                                                        </DialogDescription>
+                                                        <h2 className=' text-2xl text-bold text-color-main text-center'>Details</h2>
                                                     </DialogHeader>
+                                                    <DialogDescription>
+                                                        {
+                                                            htmlConvert(item.description)
+                                                        }
+                                                    </DialogDescription>
+
                                                 </DialogContent>
                                             </Dialog>
                                         </TableCell>
