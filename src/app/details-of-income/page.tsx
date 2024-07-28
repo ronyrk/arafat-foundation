@@ -29,36 +29,31 @@ import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import { IncomeIProps, SearchIProps } from '@/types';
 import toast from 'react-hot-toast';
+import { FormLabel } from '@/components/ui/form';
 
 
 
 
 function TableIncome() {
 
-	const month = new Date();
-	const year = new Date().getFullYear();
-	const [date, setDate] = React.useState<DateRange | undefined>({
-		from: addDays(new Date(), -46),
-		to: new Date(),
-	});
+	const [start, setStartDate] = React.useState<Date>()
+	const [end, setEndDate] = React.useState<Date>()
 	const [transaction, setTransaction] = React.useState("");
 	const [page, setPage] = React.useState<string>("1");
 	const [income, setIncome] = React.useState([]);
 
-	const dateFrom = DateFormateConvert(date?.from as any);
-	const dateTo = DateFormateConvert(date?.to as any);
 
 
 
 	const { mutate, isPending } = useMutation({
-		mutationFn: async ({ dateTo, dateFrom, transaction, page }: SearchIProps) => {
-			const response = await axios.get(`/api/income-search?from=${dateFrom}&to=${dateTo}&transaction=${transaction}&page=${page}`);
+		mutationFn: async ({ start, end, transaction, page }: SearchIProps) => {
+			const response = await axios.get(`/api/income-search?from=${start == undefined ? "u" : start}&to=${end == undefined ? "u" : end}&transaction=${transaction}&page=${page}`);
 			return response.data;
 		},
 	});
 
 	React.useEffect(() => {
-		mutate({ dateFrom, dateTo, page, transaction }, {
+		mutate({ start, end, page, transaction }, {
 			onSuccess: (data) => {
 				toast.success(" Successfully Updated");
 				setIncome(data);
@@ -67,7 +62,7 @@ function TableIncome() {
 				toast.error("Updated Failed");
 			}
 		});
-	}, [dateFrom, dateTo, mutate, transaction, page]);
+	}, [start, end, mutate, transaction, page]);
 
 	function GetIncome(data: IncomeIProps[]) {
 		const Amount: number[] = [];
@@ -79,45 +74,59 @@ function TableIncome() {
 		<div className="md:mx-20 md:my-4 my-2">
 			<div className='flex flex-col'>
 				<h2 className="text-center text-xl">Income List</h2>
-				<div className="p-2 flex justify-between ">
-					<div className="grid gap-2">
+				<div className=" flex flex-row gap-3  justify-between items-center p-2">
+					<div className=' flex flex-col gap-1'>
+						<h2 className=" text-base">From</h2>
 						<Popover>
 							<PopoverTrigger asChild>
 								<Button
-									id="date"
+
 									className={cn(
-										"w-[300px] justify-start text-left font-normal",
-										!date && "text-muted-foreground"
+										"w-[200px] text-white justify-start text-left font-normal",
+										!start && "text-muted-foreground  text-white"
 									)}
 								>
 									<CalendarIcon className="mr-2 h-4 w-4" />
-									{date?.from ? (
-										date.to ? (
-											<>
-												{format(date.from, "PPP")} -{" "}
-												{format(date.to, "PPP")}
-											</>
-										) : (
-											format(date.from, "PPP")
-										)
-									) : (
-										<span>Pick a date</span>
-									)}
+									{start ? format(start, "PPP") : <span>Pick a date</span>}
 								</Button>
 							</PopoverTrigger>
-							<PopoverContent className="w-auto p-0" align="start">
+							<PopoverContent className="w-auto p-0">
 								<Calendar
+									mode="single"
+									onSelect={setStartDate}
 									initialFocus
-									mode="range"
-									defaultMonth={date?.from}
-									selected={date}
-									onSelect={setDate}
-									numberOfMonths={2}
 								/>
 							</PopoverContent>
 						</Popover>
 					</div>
-					<Input className='w-64' type="text" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTransaction(e.target.value)} placeholder="Search" />
+					<div className=' flex flex-col gap-1'>
+						<h2 className=" text-base">To</h2>
+						<Popover>
+							<PopoverTrigger asChild>
+								<Button
+
+									className={cn(
+										"w-[200px] text-white justify-start text-left font-normal",
+										!end && "text-muted-foreground  text-white"
+									)}
+								>
+									<CalendarIcon className="mr-2 h-4 w-4" />
+									{end ? format(end, "PPP") : <span>Pick a date</span>}
+								</Button>
+							</PopoverTrigger>
+							<PopoverContent className="w-auto p-0">
+								<Calendar
+									mode="single"
+									onSelect={setEndDate}
+									initialFocus
+								/>
+							</PopoverContent>
+						</Popover>
+					</div>
+					<div className="">
+						<h2 className=' flex flex-col gap-1'>Transaction</h2>
+						<Input className='w-64' type="text" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTransaction(e.target.value)} placeholder="Search" />
+					</div>
 				</div>
 				<Table>
 					<TableHeader>
@@ -130,7 +139,7 @@ function TableIncome() {
 					</TableHeader>
 					<Suspense fallback={<h2 className=' text-center p-4'>Loading...</h2>} >
 						<TableBody>
-							{
+							{/* {
 								income?.map((item: any, index: number) => (
 									<TableRow key={index}>
 										<TableCell className="font-medium">{`${moment(item?.date).format('DD/MM/YYYY')}`}</TableCell>
@@ -139,15 +148,15 @@ function TableIncome() {
 										<TableCell className="font-medium uppercase">{item.transaction}</TableCell>
 									</TableRow>
 								))
-							}
-							<TableRow className=''>
+							} */}
+							{/* <TableRow className=''>
 								<TableCell className=" font-bold uppercase">Total</TableCell>
 								<TableCell className="font-bold uppercase">{GetIncome(income)}</TableCell>
-							</TableRow>
+							</TableRow> */}
 						</TableBody>
 					</Suspense>
 				</Table>
-				<div className="flex justify-center py-4">
+				{/* <div className="flex justify-center py-4">
 					<div className=' flex flex-row gap-2'>
 						{
 							Array.from({ length: Math.ceil(income.length / 20) })?.map((i: any, index) => (
@@ -160,7 +169,7 @@ function TableIncome() {
 							))
 						}
 					</div >
-				</div>
+				</div> */}
 			</div>
 		</div>
 	)

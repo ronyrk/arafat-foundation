@@ -202,8 +202,8 @@ export interface ExpensesIProps {
 	description: string
 }
 export interface SearchIProps {
-	dateFrom?: string,
-	dateTo?: string,
+	start?: any,
+	end?: any,
 	transaction?: string,
 	page?: string,
 };
