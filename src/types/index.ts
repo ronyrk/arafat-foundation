@@ -197,7 +197,7 @@ export interface IncomeIProps {
 };
 export interface ExpensesIProps {
 	id?: string,
-	date: Date,
+	date?: any,
 	amount: string,
 	description: string
 }
