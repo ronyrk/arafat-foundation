@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/dialog"
 import { getGallery } from '@/lib/getGallery'
 import { unstable_noStore } from 'next/cache'
-import prisma from '@/lib/prisma'
 import { Metadata } from 'next'
 import { CategoryIProps } from '@/types'
 
@@ -27,9 +26,9 @@ async function GalleryList({ query }: { query: string }) {
 				data.map((item, index) => (
 					<Dialog key={index}>
 						<DialogTrigger>
-							<div className="flex justify-center md:w-[280px] md:h-[200px] w-[100px] h-[80px] p-1 ">
+							<div className="flex justify-center md:w-[280px] md:h-[200px] w-[100px] h-[80px] p-2 ">
 								{
-									item.category === "video" ? <iframe width="308" height="208" className='object-fill rounded-md' src={`${item.content}`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen ></iframe> : <Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={item.content} className=' rounded-md hover:opacity-90' width={308} height={208} alt={item.category} />
+									item.category === "video" ? <iframe width="308" height="200" className='object-fill px-2 rounded' src={`${item.content}`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen ></iframe> : <Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={item.content} className=' rounded-md hover:opacity-90' width={308} height={208} alt={item.category} />
 								}
 							</div>
 						</DialogTrigger>
@@ -57,8 +56,7 @@ async function page({ searchParams }: {
 		throw new Error("Failed to fetch data list");
 	};
 	const data: CategoryIProps[] = await res.json();
-	const firstItem = (await prisma.category.findMany()).at(0);
-	const query = searchParams?.type || firstItem?.path as string;
+	const query = searchParams?.type || "all";
 	return (
 		<section className="bg-[#FCFCFD]">
 			<div className="my-2 md:mx-20 mx-2 md:my-4">

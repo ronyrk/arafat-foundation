@@ -20,7 +20,7 @@ function GallerySidebar({ data }: { data: CategoryIProps[] }) {
 	const { replace } = useRouter();
 	const searchParams = useSearchParams();
 	const handleSearch = (term: string) => {
-		const params = new URLSearchParams(searchParams);
+		const params = new URLSearchParams(searchParams as any);
 		if (term) {
 			params.set("type", term);
 		} else {
