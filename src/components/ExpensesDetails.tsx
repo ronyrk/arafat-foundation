@@ -39,6 +39,12 @@ async function htmlConvert(data: string) {
     )
 }
 
+function GetExpenses(data: ExpensesIProps[]) {
+    const Amount: number[] = [];
+    const income = data?.forEach((item) => Amount.push(Number(item.amount)));
+    const sum = Amount?.reduce((accumulator, currentValue) => accumulator + currentValue, 0)
+    return `BDT=${sum} /=`;
+}
 
 
 
@@ -68,15 +74,9 @@ function ExpensesDetails() {
         });
     }, [date, mutate, page]);
 
-    function GetExpenses(data: ExpensesIProps[]) {
-        const Amount: number[] = [];
-        const income = data?.forEach((item) => Amount.push(Number(item.amount)));
-        const sum = Amount?.reduce((accumulator, currentValue) => accumulator + currentValue, 0)
-        return `BDT=${sum} /=`;
-    }
 
     return (
-        <div className="text-center">
+        <div className="text-center my-2">
             <div className="my-4 flex justify-center mx-2">
                 <h2 className=" font-medium md:text-2xl text-lg border-dashed border-2 border-indigo-600 rounded px-2 ">আমাদের আয় এবং ব্যায়ের হিসাব সমূহ</h2>
             </div>
@@ -126,40 +126,43 @@ function ExpensesDetails() {
                         </TableRow>
                     </TableHeader>
                     <Suspense fallback={<h2 className=' text-center p-4'>Loading...</h2>} >
-                        <TableBody>
-                            {
-                                expenses?.map((item: any, index: number) => (
-                                    <TableRow key={index}>
-                                        <TableCell className="font-medium">{`${moment(item?.date).format('DD/MM/YYYY')}`}</TableCell>
-                                        <TableCell className="font-medium uppercase">BDT={item.amount} /=</TableCell>
-                                        <TableCell className="font-medium uppercase">
-                                            <Dialog>
-                                                <DialogTrigger>
-                                                    <Button className='bg-color-sub' size={"sm"}>
-                                                        Details
-                                                    </Button>
-                                                </DialogTrigger>
-                                                <DialogContent className='p-8 bg-white'>
-                                                    <DialogHeader>
-                                                        <h2 className=' text-2xl text-bold text-color-main text-center'>Details</h2>
-                                                    </DialogHeader>
-                                                    <DialogDescription>
-                                                        {
-                                                            htmlConvert(item.description)
-                                                        }
-                                                    </DialogDescription>
+                        {
+                            isPending ? <h2>Loading...</h2> :
+                                <TableBody>
+                                    {
+                                        expenses?.map((item: any, index: number) => (
+                                            <TableRow key={index}>
+                                                <TableCell className="font-medium">{`${moment(item?.date).format('DD/MM/YYYY')}`}</TableCell>
+                                                <TableCell className="font-medium uppercase">BDT={item.amount} /=</TableCell>
+                                                <TableCell className="font-medium uppercase">
+                                                    <Dialog>
+                                                        <DialogTrigger>
+                                                            <Button className='bg-color-sub' size={"sm"}>
+                                                                Details
+                                                            </Button>
+                                                        </DialogTrigger>
+                                                        <DialogContent className='p-8 bg-white'>
+                                                            <DialogHeader>
+                                                                <h2 className=' text-2xl text-bold text-color-main text-center'>Details</h2>
+                                                            </DialogHeader>
+                                                            <DialogDescription>
+                                                                {
+                                                                    htmlConvert(item.description)
+                                                                }
+                                                            </DialogDescription>
 
-                                                </DialogContent>
-                                            </Dialog>
-                                        </TableCell>
+                                                        </DialogContent>
+                                                    </Dialog>
+                                                </TableCell>
+                                            </TableRow>
+                                        ))
+                                    }
+                                    <TableRow className=''>
+                                        <TableCell className=" font-bold uppercase">Total</TableCell>
+                                        <TableCell className="font-bold uppercase">{GetExpenses(expenses)}</TableCell>
                                     </TableRow>
-                                ))
-                            }
-                            <TableRow className=''>
-                                <TableCell className=" font-bold uppercase">Total</TableCell>
-                                <TableCell className="font-bold uppercase">{GetExpenses(expenses)}</TableCell>
-                            </TableRow>
-                        </TableBody>
+                                </TableBody>
+                        }
                     </Suspense>
                 </Table>
                 <div className="flex justify-center py-4">
