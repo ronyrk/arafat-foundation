@@ -89,7 +89,7 @@ function ExpensesDetails() {
                 </div>
             </div>
             <div className='flex flex-col my-3 border-2 py-2 px-1 rounded-sm'>
-                <h2 className="text-center text-2xl font-semibold text-color-main">Expenses List</h2>
+                <h2 className="text-center text-2xl font-semibold text-color-main">Details of  Expenses</h2>
                 <div className="p-2 flex justify-between ">
                     <div className="grid gap-2">
                         <Popover>

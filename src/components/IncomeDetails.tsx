@@ -56,7 +56,6 @@ function IncomeDetails() {
     React.useEffect(() => {
         mutate({ start, end, page, transaction }, {
             onSuccess: (data) => {
-                toast.success(" Successfully Updated");
                 setIncome(data);
             },
             onError: (error) => {
@@ -69,7 +68,7 @@ function IncomeDetails() {
         const Amount: number[] = [];
         const income = data?.forEach((item) => Amount.push(Number(item.amount)));
         const sum = Amount?.reduce((accumulator, currentValue) => accumulator + currentValue, 0)
-        return `${sum}`;
+        return `BDT=${sum} /=`;
     }
     return (
         <div className="md:mx-20 mx-1 md:my-4 text-center my-2">
@@ -93,7 +92,7 @@ function IncomeDetails() {
                 </div>
             </div>
             <div className='flex flex-col my-3 border-2 py-2 px-1 rounded-sm'>
-                <h2 className="text-center text-2xl font-semibold text-color-main">Income List</h2>
+                <h2 className="text-center text-2xl font-semibold text-color-main">Details of Income</h2>
                 <div className=" flex flex-row md:gap-3 gap-1  flex-wrap justify-between items-center p-2">
                     <div className=' flex flex-col gap-1'>
                         <h2 className=" text-lg font-bold">From</h2>
@@ -152,10 +151,10 @@ function IncomeDetails() {
                 <Table>
                     <TableHeader>
                         <TableRow>
-                            <TableHead>DATE</TableHead>
-                            <TableHead className=' uppercase'>Amount</TableHead>
-                            <TableHead className=' uppercase'>VIA/TYPE</TableHead>
-                            <TableHead className=' uppercase'>Transaction ID</TableHead>
+                            <TableHead className=' uppercase text-center'>DATE</TableHead>
+                            <TableHead className=' uppercase text-center'>Amount</TableHead>
+                            <TableHead className=' uppercase text-center'>VIA/TYPE</TableHead>
+                            <TableHead className=' uppercase text-center'>Transaction ID</TableHead>
 
                         </TableRow>
                     </TableHeader>
@@ -165,7 +164,7 @@ function IncomeDetails() {
                                 income?.map((item: any, index: number) => (
                                     <TableRow key={index}>
                                         <TableCell className="font-medium">{`${moment(item?.date).format('DD/MM/YYYY')}`}</TableCell>
-                                        <TableCell className="font-medium uppercase">{item.amount}</TableCell>
+                                        <TableCell className="font-medium uppercase">BDT={item.amount}/=</TableCell>
                                         <TableCell className="font-medium uppercase">{item.type}</TableCell>
                                         <TableCell className="font-medium uppercase">{item.transaction}</TableCell>
                                     </TableRow>
