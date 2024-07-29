@@ -74,11 +74,11 @@ function ExpensesDetails() {
             </div>
             <div>
                 <h3 className=" text-base mb-4 text-color-main font-medium">প্রিয় “ভাই/বোন” আপনার অনুদান আমাদের কাছে আমানত। আমাদের কাছে অনুদান পাঠানোর ২৪ ঘন্টার মধ্যে নিচের লিস্ট/
-                    <Link className=' text-green-500' href="/details-of-income">Income</Link>
+                    <Link className=' text-green-500 mx-1' href="/details-of-income">Income</Link>
                     আপনার অনুদান
-                    জমা হয়েছে কি না সেটি চেক করার অনুরোধরইলো । আপনার অনুদানটি এখানে জমা না হলে আমাদের সাথে  <Link className=' text-green-500' href="/contact-us">যোগাযোগ করুন</Link> ।
+                    জমা হয়েছে কি না সেটি চেক করার অনুরোধ রইলো । আপনার অনুদানটি এখানে জমা না হলে আমাদের সাথে  <Link className=' text-green-500' href="/contact-us">যোগাযোগ করুন</Link> ।
                 </h3>
-                <h3 className="mt-2  text-base text-color-main font-medium">আপনি যদি নিদৃষ্টদৃ কোনো কাজ/প্রজেক্টের জন্য আমাদেরকে অনুদান দিয়ে থাকেন তবুও নিচের লিস্ট/<Link className=' text-green-500' href="/details-of-expenses">Expenses</Link> থেকে নিদৃষ্টদৃ কাজে এবং নিদৃষ্টদৃ দিনে খরচ
+                <h3 className="mt-2  text-base text-color-main font-medium">আপনি যদি নির্দিষ্ট কোনো কাজ/প্রজেক্টের জন্য আমাদেরকে অনুদান দিয়ে থাকেন তবুও নিচের লিস্ট/<Link className=' text-green-500 mx-1' href="/details-of-expenses">Expenses</Link> থেকে নির্দিষ্ট কাজে এবং নির্দিষ্ট দিনে খরচ
                     করা হয়েছে কি না সেটা চেক করার অনুরোধ রইলো ।
                 </h3>
                 <div className="flex flex-row gap-2 justify-start mx-2">
@@ -89,7 +89,7 @@ function ExpensesDetails() {
                 </div>
             </div>
             <div className='flex flex-col my-3 border-2 py-2 px-1 rounded-sm'>
-                <h2 className="text-center text-2xl font-semibold text-color-main">Expenses List</h2>
+                <h2 className="text-center text-2xl font-semibold text-color-main">Details of  Expenses</h2>
                 <div className="p-2 flex justify-between ">
                     <div className="grid gap-2">
                         <Popover>
