@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/popover"
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
-import { SearchIExProps } from '@/types';
+import { ExpensesIProps, SearchIExProps } from '@/types';
 import toast from 'react-hot-toast';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTrigger } from '@/components/ui/dialog';
 import { usePathname, useRouter } from 'next/navigation';
@@ -38,6 +38,7 @@ async function htmlConvert(data: string) {
         </div>
     )
 }
+
 
 
 
@@ -66,6 +67,13 @@ function ExpensesDetails() {
             }
         });
     }, [date, mutate, page]);
+
+    function GetExpenses(data: ExpensesIProps[]) {
+        const Amount: number[] = [];
+        const income = data?.forEach((item) => Amount.push(Number(item.amount)));
+        const sum = Amount?.reduce((accumulator, currentValue) => accumulator + currentValue, 0)
+        return `BDT=${sum} /=`;
+    }
 
     return (
         <div className="md:mx-20 md:my-4 my-2 text-center">
@@ -129,7 +137,7 @@ function ExpensesDetails() {
                                 expenses?.map((item: any, index: number) => (
                                     <TableRow key={index}>
                                         <TableCell className="font-medium">{`${moment(item?.date).format('DD/MM/YYYY')}`}</TableCell>
-                                        <TableCell className="font-medium uppercase">{item.amount}</TableCell>
+                                        <TableCell className="font-medium uppercase">BDT={item.amount} /=</TableCell>
                                         <TableCell className="font-medium uppercase">
                                             <Dialog>
                                                 <DialogTrigger>
@@ -153,6 +161,10 @@ function ExpensesDetails() {
                                     </TableRow>
                                 ))
                             }
+                            <TableRow className=''>
+                                <TableCell className=" font-bold uppercase">Total</TableCell>
+                                <TableCell className="font-bold uppercase">{GetExpenses(expenses)}</TableCell>
+                            </TableRow>
                         </TableBody>
                     </Suspense>
                 </Table>
