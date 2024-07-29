@@ -4,21 +4,34 @@ import prisma from "./prisma";
 
 export async function getGallery(query: string) {
 	unstable_noStore();
-	if (query === "video") {
+
+	if (query === "all") {
 		const result = await prisma.gallery.findMany({
-			where: {
-				category: query
+			orderBy: {
+				id: "desc"
 			}
 		});
 		return result;
+	} else if (query === "video") {
+		const result = await prisma.gallery.findMany({
+			where: {
+				category: query
+			},
+			orderBy: {
+				id: "desc"
+			}
+		});
+		return result;
+	} else {
+		const result = await prisma.gallery.findMany({
+			where: {
+				category: query
+			},
+			orderBy: {
+				id: "desc"
+			}
+		})
+		return result;
 	}
-	const result = await prisma.gallery.findMany({
-		where: {
-			category: query
-		},
-		orderBy: {
-			id: "desc"
-		}
-	})
-	return result;
+
 };
