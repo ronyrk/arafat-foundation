@@ -9,10 +9,9 @@ export const GET = async (request: Request, { params }: ParamsIProps) => {
 		const { username } = params;
 		const result = await prisma.donorPayment.findMany({
 			where: { donorUsername: username }, orderBy: {
-				createAt: "desc"
+				createAt: "asc"
 			}
 		});
-		console.log(result, "data");
 		return NextResponse.json(result);
 	} catch (error) {
 		throw new Error("Server Error")
