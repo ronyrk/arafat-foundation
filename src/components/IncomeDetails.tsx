@@ -69,20 +69,7 @@ function IncomeDetails() {
 
 
     return (
-        <div className="text-center my-2">
-            <div className="my-4 flex justify-center mx-2">
-                <h2 className=" font-medium md:text-2xl text-lg border-dashed border-2 border-indigo-600 rounded px-2 ">আমাদের আয় এবং ব্যায়ের হিসাব সমূহ</h2>
-            </div>
-            <div>
-                <h3 className=" text-base mb-4 text-color-main font-medium">প্রিয় “ভাই/বোন” আপনার অনুদান আমাদের কাছে আমানত। আমাদের কাছে অনুদান পাঠানোর ২৪ ঘন্টার মধ্যে নিচের লিস্ট/
-                    <Link className=' text-green-500 mx-1' href="/details-of-income-and-expenses/income">Income</Link>
-                    আপনার অনুদান
-                    জমা হয়েছে কি না সেটি চেক করার অনুরোধ রইলো । আপনার অনুদানটি এখানে জমা না হলে আমাদের সাথে  <Link className=' text-green-500' href="/contact-us">যোগাযোগ করুন</Link> ।
-                </h3>
-                <h3 className="mt-2 text-base text-color-main font-medium">আপনি যদি নির্দিষ্ট কোনো কাজ/প্রজেক্টের জন্য আমাদেরকে অনুদান দিয়ে থাকেন তবুও নিচের লিস্ট/<Link className=' text-green-500 mx-1' href="/details-of-income-and-expenses">Expenses</Link> থেকে নির্দিষ্ট কাজে এবং নির্দিষ্ট দিনে খরচ
-                    করা হয়েছে কি না সেটা চেক করার অনুরোধ রইলো ।
-                </h3>
-            </div>
+        <div className=" my-2">
             <div className='flex flex-col my-3  py-2 px-1 rounded-sm'>
                 <h2 className="text-center text-2xl font-semibold text-color-main">Details of Income</h2>
                 <div className=" flex flex-row md:gap-3 gap-1  flex-wrap justify-between items-center p-2">
@@ -143,10 +130,10 @@ function IncomeDetails() {
                 <Table>
                     <TableHeader>
                         <TableRow>
-                            <TableHead className=' uppercase text-center'>DATE</TableHead>
-                            <TableHead className=' uppercase text-center'>Amount</TableHead>
-                            <TableHead className=' uppercase text-center'>VIA/TYPE</TableHead>
-                            <TableHead className=' uppercase text-center'>Transaction ID</TableHead>
+                            <TableHead className=' uppercase '>DATE</TableHead>
+                            <TableHead className=' uppercase '>Amount</TableHead>
+                            <TableHead className=' uppercase '>VIA/TYPE</TableHead>
+                            <TableHead className=' uppercase '>Transaction ID</TableHead>
 
                         </TableRow>
                     </TableHeader>
