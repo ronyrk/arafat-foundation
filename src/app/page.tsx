@@ -18,7 +18,7 @@ export default async function page({ searchParams }: {
 }) {
   unstable_noStore();
   const firstItem = (await prisma.category.findMany()).at(0);
-  const query = searchParams?.type || firstItem?.path as string;
+  const query = searchParams?.type || "all";
   return (
     <div className="">
       <HomeCarousel />
