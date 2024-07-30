@@ -28,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={cn(
-        "min-h-screen  bg-slate-50 relative antialiased",
+        "min-h-screen  relative antialiased",
         fontSans.className
       )} >
         <TanStackProvider>
@@ -38,7 +38,7 @@ export default function RootLayout({
             <SpeedInsights />
             <Toaster />
             <Footer />
-            <div className=" fixed right-8 z-10 bottom-10 bg-gray-100 rounded-full">
+            <div className="fixed z-10 bg-gray-100 rounded-full  right-8 bottom-10">
               <a className="" href="#top"><ChevronUpCircle size={40} /> </a>
             </div>
           </ContextProvider>
