@@ -18,7 +18,9 @@ export async function GalleryCarousel({ query }: { query: string }) {
 					<CarouselItem key={index}>
 						<div className="flex items-center justify-center">
 							{
-								item.category === "video" ? <iframe width="540" height="480" className='  object-fill' src={`${item.content}`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen ></iframe> : <Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={item.content} className=' object-fill rounded-sm' width={600} height={540} alt={item.category} />
+								item.category === "video" ? <div className="md:flex hidden">
+									<iframe width="308" height="200" className='object-fill px-2 rounded' src={`${item.content}`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen ></iframe>
+								</div> : <Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={item.content} className=' object-fill rounded-sm' width={600} height={540} alt={item.category} />
 							}
 						</div>
 					</CarouselItem>
