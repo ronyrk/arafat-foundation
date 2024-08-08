@@ -7,38 +7,58 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
+import {
+	AlertDialog,
+	AlertDialogAction,
+	AlertDialogCancel,
+	AlertDialogContent,
+	AlertDialogDescription,
+	AlertDialogFooter,
+	AlertDialogHeader,
+	AlertDialogTitle,
+	AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
 import { unstable_noStore } from 'next/cache';
 import { LoanIProps, PaymentIProps } from '@/types';
 import Moment from "moment"
+import { Button } from './ui/button';
 import PaymentRequest from './PaymentRequest';
 
-async function LoanList({ username, loanAmount }: { username: string, loanAmount: string }) {
+function Zero(data: string) {
+	if (Number(data) !== 0) {
+		return `BDT=${data}/=`
+	} else {
+		return " "
+	}
+};
+
+async function LoanList({ username }: { username: string }) {
 	try {
 		unstable_noStore();
-		const res = await fetch(`https://arafatfoundation.vercel.app/api/loan_list/${username}`);
+		const res = await fetch(`https://af-admin.vercel.app/api/loan_list/${username}`);
 		if (!res.ok) {
 			throw new Error("Failed to fetch data");
 		}
 		const data: PaymentIProps[] = await res.json();
-		const calculateRemainingLoanAmount = async (amount: string, index: number) => {
-			const sumArray = data.slice(0, index);
-			let indexPaymentString: string[] = ["0"];
-			sumArray.forEach((item) => indexPaymentString.push(item.amount));
-			let indexPayment = indexPaymentString.map(Number)
-			const loanSumAmount = indexPayment.reduce((accumulator, currentValue) => accumulator - currentValue, Number(amount));
-			return `${loanSumAmount}`;
-		};
+		// const calculateRemainingLoanAmount = async (amount: string, index: number) => {
+		//     const sumArray = data.slice(0, index);
+		//     let indexPaymentString: string[] = ["0"];
+		//     sumArray.forEach((item) => indexPaymentString.push(item.amount));
+		//     let indexPayment = indexPaymentString.map(Number)
+		//     const loanSumAmount = indexPayment.reduce((accumulator, currentValue) => accumulator - currentValue, Number(amount));
+		//     return `${loanSumAmount}`;
+		// };
 
-		const calculateRemainingLoanAmountStanding = async (amount: string, index: number, paymentAmount: string) => {
-			const sumArray = data.slice(0, index);
-			const payment = Number(paymentAmount);
-			let indexPaymentString: string[] = ["0"];
-			sumArray.forEach((item) => indexPaymentString.push(item.amount));
-			let indexPayment = indexPaymentString.map(Number);
-			const loanSumAmount = indexPayment.reduce((accumulator, currentValue) => accumulator - currentValue, Number(amount));
-			const result = loanSumAmount - payment;
-			return result;
-		}
+		// const calculateRemainingLoanAmountStanding = async (amount: string, index: number, paymentAmount: string) => {
+		//     const sumArray = data.slice(0, index);
+		//     const payment = Number(paymentAmount);
+		//     let indexPaymentString: string[] = ["0"];
+		//     sumArray.forEach((item) => indexPaymentString.push(item.amount));
+		//     let indexPayment = indexPaymentString.map(Number);
+		//     const loanSumAmount = indexPayment.reduce((accumulator, currentValue) => accumulator - currentValue, Number(amount));
+		//     const result = loanSumAmount - payment;
+		//     return result;
+		// }
 
 		return (
 			<TableBody>
@@ -46,9 +66,8 @@ async function LoanList({ username, loanAmount }: { username: string, loanAmount
 					data.map((item, index) => (
 						<TableRow key={index}>
 							<TableCell>{`${Moment(item.createAt).format('DD/MM/YYYY')}`}</TableCell>
-							<TableCell>BDT ={calculateRemainingLoanAmount(loanAmount, index)}/=</TableCell>
-							<TableCell>BDT ={item.amount}/=</TableCell>
-							<TableCell>BDT ={calculateRemainingLoanAmountStanding(loanAmount, index, item.amount)}/=</TableCell>
+							<TableCell>{Zero(item.loanAmount)}</TableCell>
+							<TableCell>{Zero(item.amount)}</TableCell>
 						</TableRow>
 					))
 				}
@@ -60,7 +79,7 @@ async function LoanList({ username, loanAmount }: { username: string, loanAmount
 }
 
 
-function BorrowersTransaction({ username, loanAmount, data }: { username: string, data: LoanIProps, loanAmount: string }) {
+function BorrowersTransaction({ username, data }: { username: string, data: LoanIProps }) {
 	return (
 		<div className=' border-[2px] rounded-sm px-2'>
 			<PaymentRequest username={username} branch={data.branch} />
@@ -71,11 +90,10 @@ function BorrowersTransaction({ username, loanAmount, data }: { username: string
 						<TableHead>DATE</TableHead>
 						<TableHead>LOAN AMOUNT</TableHead>
 						<TableHead>LOAN PAYMENT</TableHead>
-						<TableHead>LOAN OUTSTANDING</TableHead>
 					</TableRow>
 				</TableHeader>
 				<Suspense fallback={<h2 className='text-center'>Loading...</h2>}>
-					<LoanList username={username} loanAmount={loanAmount} />
+					<LoanList username={username} />
 				</Suspense>
 			</Table>
 

@@ -86,8 +86,15 @@ export interface LoanIProps {
 export interface PaymentIProps {
 	id?: string,
 	loanusername: string,
-	photoUrl: string,
+	loanAmount: string,
 	amount: string,
+	createAt: Date
+};
+export interface PaymentRequestIProps {
+	id?: string,
+	loanusername: string,
+	amount: string,
+	photoUrl: string,
 	method: string,
 	createAt: Date
 };

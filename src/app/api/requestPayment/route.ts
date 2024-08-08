@@ -17,7 +17,7 @@ export const GET = async () => {
 
 export const POST = async (request: Request) => {
 	try {
-		const body: PaymentIProps = await request.json();
+		const body = await request.json();
 		const { loanusername, photoUrl, amount, method, createAt } = body;
 		const payment = await prisma.request.create({
 			data: {

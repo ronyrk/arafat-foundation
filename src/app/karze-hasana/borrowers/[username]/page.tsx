@@ -52,7 +52,7 @@ async function page({ params }: ParamsIProps) {
 	const { username } = params;
 
 	unstable_noStore();
-	const res = await fetch(`https://arafatfoundation.vercel.app/api/loan_list/${username}`);
+	const res = await fetch(`https://af-admin.vercel.app/api/loan_list/${username}`);
 	if (!res.ok) {
 		throw new Error("Failed to fetch data");
 	}
@@ -60,11 +60,24 @@ async function page({ params }: ParamsIProps) {
 
 	const data: LoanIProps = await getUser(username);
 
+	const totalBalance = async () => {
+		let indexPaymentString: string[] = ["0"];
+		const result = paymentList.forEach((item) => indexPaymentString.push(item.loanAmount));
+		let indexPayment = indexPaymentString.map(Number);
+		const loanSumAmount = indexPayment.reduce((accumulator, currentValue) => accumulator + currentValue, Number(data.balance));
+		return `${loanSumAmount}`;
+	}
+
 	const duePayment = async () => {
+		let indexPaymentString2: string[] = ["0"];
+		paymentList.forEach((item) => indexPaymentString2.push(item.loanAmount));
+		let indexPayment2 = indexPaymentString2.map(Number);
+		const totalBalance = indexPayment2.reduce((accumulator, currentValue) => accumulator + currentValue, Number(data.balance));
+
 		let indexPaymentString: string[] = ["0"];
 		const result = paymentList.forEach((item) => indexPaymentString.push(item.amount));
 		let indexPayment = indexPaymentString.map(Number);
-		const loanSumAmount = indexPayment.reduce((accumulator, currentValue) => accumulator - currentValue, Number(data.balance));
+		const loanSumAmount = indexPayment.reduce((accumulator, currentValue) => accumulator - currentValue, totalBalance);
 		return `${loanSumAmount}`;
 	}
 
@@ -75,6 +88,7 @@ async function page({ params }: ParamsIProps) {
 		const Amount = indexPayment.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
 		return `${Amount}`;
 	}
+
 	return (
 		<div className='flex flex-col gap-3'>
 			<div className="flex md:flex-row flex-col justify-between gap-3 px-2">
@@ -86,7 +100,7 @@ async function page({ params }: ParamsIProps) {
 					<h2 className=" font-semibold text-xl py-1  text-color-main">{data.name}</h2>
 					<AddressBlur address={data.address} />
 					<h2 className=" font-normal text-[15px]  text-color-main"><span className="font-semibold mr-2">পেশা:</span>{data.occupation}</h2>
-					<h2 className=" font-normal text-[15px]  text-color-main"><span className="font-semibold mr-2">মোট ঋণ:</span>{data.balance}</h2>
+					<h2 className=" font-normal text-[15px]  text-color-main"><span className="font-semibold mr-2">মোট ঋণ:</span>{totalBalance()}</h2>
 					<h2 className=" font-normal text-[15px]  text-color-main"><span className="font-semibold mr-2">মোট পরিশোধিত ঋণ:</span>{allPayment()}</h2>
 					<h2 className=" font-normal text-[15px]  text-color-main"><span className="font-semibold mr-2">বকেয়া ঋণ:</span>{duePayment()}</h2>
 					<PhoneNumber phone={data.phone} />
@@ -99,7 +113,7 @@ async function page({ params }: ParamsIProps) {
 			<div className="p-4">
 				<h2 className="text-[16px] font-normal text-color-main">{data.about} </h2>
 			</div>
-			<BorrowersTransaction username={username} data={data} loanAmount={data.balance} />
+			<BorrowersTransaction username={username} data={data} />
 		</div>
 	)
 }
