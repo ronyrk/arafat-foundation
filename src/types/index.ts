@@ -86,9 +86,8 @@ export interface LoanIProps {
 export interface PaymentIProps {
 	id?: string,
 	loanusername: string,
-	photoUrl: string,
+	loanAmount: string,
 	amount: string,
-	method: string,
 	createAt: Date
 };
 export interface DonorPaymentIProps {
