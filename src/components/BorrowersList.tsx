@@ -167,7 +167,7 @@ async function BorrowersList(params: RequestParams) {
 													<TableRow key={index}>
 														<TableCell className="font-medium">{item.code}</TableCell>
 														<TableCell className="font-medium uppercase">{item.name}</TableCell>
-														<TableCell className="font-medium uppercase">{item.balance}</TableCell>
+														<TableCell className="font-medium uppercase">{TotalDisbursed(item.username, item.balance)}</TableCell>
 														<TableCell className="font-medium uppercase">{allPayment(item.username)}</TableCell>
 														<TableCell className="font-medium uppercase" >{duePayment(item.username, item.balance)}</TableCell>
 														<TableCell className="font-medium uppercase">
