@@ -211,3 +211,9 @@ export interface SearchIExProps {
 	date?: any,
 	page?: string,
 };
+export interface AllLinkIProps {
+	id?: string,
+	name: string,
+	path: string,
+	type: string,
+}
