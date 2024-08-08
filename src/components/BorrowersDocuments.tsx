@@ -34,7 +34,7 @@ function BorrowersDocuments(params: any) {
 							<DialogContent>
 								<Suspense fallback={<h2 className='text-center'>Loading...</h2>}>
 									{
-										user?.email ? <Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={form1} alt="application from" className=' object-cover rounded ' width={450} height={200} /> : <Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={FormOne} placeholder='blur' alt="application from" className='rounded object-fill' width={500} height={240} />
+										user?.email ? <Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={form1} alt="application from" className=' object-fill rounded ' width={450} height={200} /> : <Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={FormOne} placeholder='blur' alt="application from" className='rounded object-fill' width={500} height={240} />
 									}
 								</Suspense>
 							</DialogContent>
