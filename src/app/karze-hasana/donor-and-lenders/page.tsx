@@ -42,7 +42,7 @@ async function DonorList({ searchParams }: {
 						<TableRow key={index}>
 							<TableCell className="font-medium">{item.code}</TableCell>
 							<TableCell className="font-medium uppercase">{item.name}</TableCell>
-							<TableCell className="font-medium uppercase" >{TotalAmount(item.status, item.username, item.amount)}</TableCell>
+							<TableCell className="font-medium uppercase" >{TotalAmount(item.status, item.username)}</TableCell>
 							<TableCell className="font-medium uppercase" >{allReturnAmount(item.status, item.username)}</TableCell>
 							<TableCell className="font-medium uppercase">{getStatus(item?.status)}</TableCell>
 							<TableCell className="font-medium uppercase">
