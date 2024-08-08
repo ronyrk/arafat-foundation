@@ -1,4 +1,5 @@
 "use client";
+import { Facebook, Linkedin, PhoneCall, Twitter } from 'lucide-react';
 import {
 	FacebookShareButton,
 	FacebookIcon,
@@ -24,25 +25,25 @@ export function Share({ username, type }: { username: string, type: string }) {
 			<div className="flex flex-row gap-4">
 				<FacebookShareButton
 					url={`https://arafatfoundation.vercel.app/karze-hasana/${type}/${username}`}
-					quote={'next-share is a social share buttons for your next React apps.'}
+					quote={'Arafat foundation LTD.'}
 				>
-					<FacebookIcon size={42} round />
+					<Facebook className=' hover:bg-blue-500 hover:text-white p-1 rounded border-2' size={40} />
 				</FacebookShareButton>
 				<TwitterShareButton
 					url={`https://arafatfoundation.vercel.app/karze-hasana/${type}/${username}`}
-					title={'next-share is a social share buttons for your next React apps.'}
+					title={'Arafat foundation LTD.'}
 				>
-					<TwitterIcon size={42} round />
+					<Twitter className=' hover:bg-blue-500 hover:text-white p-1 rounded border-2' size={40} />
 				</TwitterShareButton>
 				<LinkedinShareButton url={`https://arafatfoundation.vercel.app/karze-hasana/${type}/${username}`}>
-					<LinkedinIcon size={42} round />
+					<Linkedin className=' hover:bg-blue-500 hover:text-white p-1 rounded border-2' size={40} />
 				</LinkedinShareButton>
 				<WhatsappShareButton
 					url={`https://arafatfoundation.vercel.app/karze-hasana/${type}/${username}`}
-					title={'next-share is a social share buttons for your next React apps.'}
+					title={'Arafat foundation LTD.'}
 					separator=":: "
 				>
-					<WhatsappIcon size={42} round />
+					<PhoneCall className=' hover:bg-blue-500 hover:text-white p-1 rounded border-2' size={40} />
 				</WhatsappShareButton>
 			</div>
 		</div>
