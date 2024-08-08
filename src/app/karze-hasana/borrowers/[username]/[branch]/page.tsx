@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/select"
 import { useMutation } from "@tanstack/react-query"
 import axios from "axios"
-import { PaymentIProps } from '@/types'
+import { PaymentIProps, PaymentRequestIProps } from '@/types'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
 import { UploadButton } from '@/lib/uploading';
@@ -61,7 +61,7 @@ function Payment({ params }: {
 	});
 	// Payment Request
 	const { mutate, isPending } = useMutation({
-		mutationFn: async ({ loanusername, amount, photoUrl, method, createAt }: PaymentIProps) => {
+		mutationFn: async ({ loanusername, amount, photoUrl, method, createAt }: PaymentRequestIProps) => {
 			const response = await axios.post("/api/requestPayment", {
 				loanusername, method, amount, photoUrl, createAt
 			});
@@ -81,7 +81,7 @@ function Payment({ params }: {
 
 		// Send Payload payment Request
 		mutate({ loanusername, photoUrl, amount, method, createAt }, {
-			onSuccess: ({ message, payment }: { message: string, payment: PaymentIProps }) => {
+			onSuccess: ({ message, payment }: { message: string, payment: any }) => {
 				// console.log(message, payment, "output");
 				if (payment.id) {
 					toast.success(message);

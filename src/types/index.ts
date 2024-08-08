@@ -90,6 +90,14 @@ export interface PaymentIProps {
 	amount: string,
 	createAt: Date
 };
+export interface PaymentRequestIProps {
+	id?: string,
+	loanusername: string,
+	amount: string,
+	photoUrl: string,
+	method: string,
+	createAt: Date
+};
 export interface DonorPaymentIProps {
 	id?: string,
 	donorUsername: string,
