@@ -58,7 +58,7 @@ async function page({ params }: ParamsIProps) {
 	}
 	const paymentList: PaymentIProps[] = await res.json();
 
-	const data: LoanIProps = await getUser(username);
+	const data = await getUser(username);
 
 	const totalBalance = async () => {
 		let indexPaymentString: string[] = ["0"];
