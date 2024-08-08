@@ -12,18 +12,15 @@ import React from 'react'
 type Props = {
 	params: { username: string }
 };
-async function getUser(username: string) {
-	unstable_noStore();
-	const res = await fetch(`https://arafatfoundation.vercel.app/api/loan/${username}`);
-	if (!res.ok) {
-		throw new Error("Failed to fetch data");
-	};
-	return res.json();
-};
+
 
 
 export async function generateMetadata({ params }: Props) {
-	const user: LoanIProps = await getUser(params.username);
+	const response = await fetch(`https://arafatfoundation.vercel.app/api/loan/${params.username}`);
+	if (!response.ok) {
+		throw new Error("Failed to fetch data");
+	};
+	const user = await response.json();
 	return {
 		title: user.name,
 		description: user.about,
@@ -58,7 +55,12 @@ async function page({ params }: ParamsIProps) {
 	}
 	const paymentList: PaymentIProps[] = await res.json();
 
-	const data = await getUser(username);
+	const response = await fetch(`https://arafatfoundation.vercel.app/api/loan/${username}`);
+	if (!response.ok) {
+		throw new Error("Failed to fetch data");
+	};
+	const data = await response.json();
+
 
 	const totalBalance = async () => {
 		let indexPaymentString: string[] = ["0"];
