@@ -9,10 +9,10 @@ export const POST = async (request: Request, { params }: ParamsIdIProps) => {
 	try {
 		const { id } = params;
 		const body = await request.json();
-		const { loanusername, photoUrl, amount, method, createAt } = body;
+		const { loanusername, loanAmount, amount, createAt } = body;
 		const payment = await prisma.payment.create({
 			data: {
-				loanusername, photoUrl, amount, method, createAt
+				loanusername, loanAmount, amount, createAt
 			}
 		});
 		const deleted = await prisma.request.delete({
