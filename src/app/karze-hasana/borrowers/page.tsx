@@ -28,38 +28,57 @@ export const metadata: Metadata = {
 function SearchBarFallback() {
 	return <>placeholder</>
 }
-
-async function duePayment(username: string) {
+async function duePayment(username: string, balance: string) {
 	unstable_noStore();
 	const response = await fetch(`https://af-admin.vercel.app/api/loan_list/${username}`);
 	if (!response.ok) {
-		throw new Error("Failed to fetch data");
+		throw new Error("Failed to fetch data due payment");
 	}
 	const paymentList: PaymentIProps[] = await response.json();
-	const data: LoanIProps = await getUser(username);
+
+	let indexPaymentString2: string[] = ["0"];
+	paymentList.forEach((item) => indexPaymentString2.push(item.loanAmount));
+	let indexPayment2 = indexPaymentString2.map(Number);
+	const totalBalance = indexPayment2.reduce((accumulator, currentValue) => accumulator + currentValue, Number(balance));
 
 	let indexPaymentString: string[] = ["0"];
 	const result = paymentList.forEach((item) => indexPaymentString.push(item.amount));
 	let indexPayment = indexPaymentString.map(Number);
-	const Amount = indexPayment.reduce((accumulator, currentValue) => accumulator - currentValue, Number(data.balance));
-	return `${Amount}`;
+	const loanSumAmount = indexPayment.reduce((accumulator, currentValue) => accumulator - currentValue, totalBalance);
+	return `${loanSumAmount}`;
+
 }
+
 async function allPayment(username: string) {
 	unstable_noStore();
 	const response = await fetch(`https://af-admin.vercel.app/api/loan_list/${username}`);
 	if (!response.ok) {
-		throw new Error("Failed to fetch data");
+		throw new Error("Failed to fetch data all payment");
 	}
 	const paymentList: PaymentIProps[] = await response.json();
-	const data: LoanIProps = await getUser(username);
+
 	let indexPaymentString: string[] = ["0"];
 	const result = paymentList.forEach((item) => indexPaymentString.push(item.amount));
 	let indexPayment = indexPaymentString.map(Number);
 	const Amount = indexPayment.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
 	return `${Amount}`;
 
-
 }
+const TotalDisbursed = async (username: string, balance: string) => {
+	unstable_noStore();
+	const response = await fetch(`https://af-admin.vercel.app/api/loan_list/${username}`);
+	if (!response.ok) {
+		throw new Error("Failed to fetch data all payment");
+	}
+	const paymentList: PaymentIProps[] = await response.json();
+
+	let indexPaymentString: string[] = ["0"];
+	const result = paymentList.forEach((item) => indexPaymentString.push(item.loanAmount));
+	let indexPayment = indexPaymentString.map(Number);
+	const loanSumAmount = indexPayment.reduce((accumulator, currentValue) => accumulator + currentValue, Number(balance));
+	return `${loanSumAmount}`;
+}
+
 
 async function BorrowersList({ searchParams }: {
 	searchParams?: {
@@ -82,9 +101,9 @@ async function BorrowersList({ searchParams }: {
 						<TableRow key={index}>
 							<TableCell className="font-medium">{item?.code}</TableCell>
 							<TableCell className="font-medium uppercase">{item?.name}</TableCell>
-							<TableCell className="font-medium uppercase" >{item?.balance}</TableCell>
+							<TableCell className="font-medium uppercase" >{TotalDisbursed(item.username, item.balance)}</TableCell>
 							<TableCell className="font-medium uppercase">{allPayment(item?.username)}</TableCell>
-							<TableCell className="font-medium uppercase">{duePayment(item?.username)}</TableCell>
+							<TableCell className="font-medium uppercase">{duePayment(item?.username, item.balance)}</TableCell>
 							<TableCell className="font-medium uppercase">
 								<Button className='bg-color-sub' size={"sm"} asChild>
 									<Link href={`borrowers/${item?.username}`}>details</Link>
