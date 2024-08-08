@@ -278,9 +278,11 @@ async function BorrowersList(params: RequestParams) {
 										<Dialog>
 											<DialogTrigger><Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className="rounded-lg" alt='mosjid' src={item} width={300} height={120} /></DialogTrigger>
 											<DialogContent>
-												<DialogHeader>
-													<Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className="object-cover rounded " alt='mosjid' src={item} width={500} height={220} />
-												</DialogHeader>
+												<Suspense fallback={<h2>Loading...</h2>}>
+													<DialogHeader>
+														<Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className="object-cover rounded " alt='mosjid' src={item} width={500} height={220} />
+													</DialogHeader>
+												</Suspense>
 											</DialogContent>
 										</Dialog>
 									</div>
