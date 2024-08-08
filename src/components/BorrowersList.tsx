@@ -28,7 +28,6 @@ import {
 import { Input } from '@/components/ui/input';
 import Link from 'next/link';
 import { Button } from "@/components/ui/button"
-import { getUser } from '@/app/karze-hasana/borrowers/[username]/page';
 import { unstable_noStore } from 'next/cache';
 import MemberCreateButton from './MemberCreateButton';
 import prisma from '@/lib/prisma';

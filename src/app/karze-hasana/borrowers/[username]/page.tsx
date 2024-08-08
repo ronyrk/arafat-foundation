@@ -12,7 +12,7 @@ import React from 'react'
 type Props = {
 	params: { username: string }
 };
-export async function getUser(username: string) {
+async function getUser(username: string) {
 	unstable_noStore();
 	const res = await fetch(`https://arafatfoundation.vercel.app/api/loan/${username}`);
 	if (!res.ok) {
