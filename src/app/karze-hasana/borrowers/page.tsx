@@ -11,7 +11,6 @@ import { Button } from "@/components/ui/button"
 import Link from 'next/link';
 import { LoanIProps, PaymentIProps } from '@/types';
 import { unstable_noStore } from 'next/cache';
-import { getUser } from './[username]/page';
 import { Metadata } from 'next';
 import SearchBox from '@/components/SearchBox';
 import { getSearchBorrowers } from '@/lib/SearchBorrowers';
