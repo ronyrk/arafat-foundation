@@ -3,7 +3,7 @@
 import { DonorPaymentIProps } from "@/types";
 import { unstable_noStore } from "next/cache";
 
-export const TotalAmount = async (status: string, username: string, amount: string) => {
+export const TotalAmount = async (status: string, username: string) => {
 	unstable_noStore();
 	const response = await fetch(`https://arafatfoundation.vercel.app/api/donor_payment/donor/${username}`);
 	if (!response.ok) {

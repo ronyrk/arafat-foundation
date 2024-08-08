@@ -28,7 +28,6 @@ import {
 import { Input } from '@/components/ui/input';
 import Link from 'next/link';
 import { Button } from "@/components/ui/button"
-import { getUser } from '@/app/karze-hasana/borrowers/[username]/page';
 import { unstable_noStore } from 'next/cache';
 import MemberCreateButton from './MemberCreateButton';
 import prisma from '@/lib/prisma';
@@ -81,36 +80,55 @@ async function MemberList({ username }: { username: string }) {
 
 
 
-async function duePayment(username: string) {
+async function duePayment(username: string, balance: string) {
 	unstable_noStore();
-	const response = await fetch(`https://arafatfoundation.vercel.app/api/loan_list/${username}`);
+	const response = await fetch(`https://af-admin.vercel.app/api/loan_list/${username}`);
 	if (!response.ok) {
-		throw new Error("Failed to fetch data");
+		throw new Error("Failed to fetch data due payment");
 	}
 	const paymentList: PaymentIProps[] = await response.json();
-	const data: LoanIProps = await getUser(username);
+
+	let indexPaymentString2: string[] = ["0"];
+	paymentList.forEach((item) => indexPaymentString2.push(item.loanAmount));
+	let indexPayment2 = indexPaymentString2.map(Number);
+	const totalBalance = indexPayment2.reduce((accumulator, currentValue) => accumulator + currentValue, Number(balance));
 
 	let indexPaymentString: string[] = ["0"];
 	const result = paymentList.forEach((item) => indexPaymentString.push(item.amount));
 	let indexPayment = indexPaymentString.map(Number);
-	const Amount = indexPayment.reduce((accumulator, currentValue) => accumulator - currentValue, Number(data.balance));
-	return `${Amount}`;
+	const loanSumAmount = indexPayment.reduce((accumulator, currentValue) => accumulator - currentValue, totalBalance);
+	return `${loanSumAmount}`;
+
 }
+
 async function allPayment(username: string) {
 	unstable_noStore();
-	const response = await fetch(`https://arafatfoundation.vercel.app/api/loan_list/${username}`);
+	const response = await fetch(`https://af-admin.vercel.app/api/loan_list/${username}`);
 	if (!response.ok) {
-		throw new Error("Failed to fetch data");
+		throw new Error("Failed to fetch data all payment");
 	}
 	const paymentList: PaymentIProps[] = await response.json();
-	const data: LoanIProps = await getUser(username);
+
 	let indexPaymentString: string[] = ["0"];
 	const result = paymentList.forEach((item) => indexPaymentString.push(item.amount));
 	let indexPayment = indexPaymentString.map(Number);
 	const Amount = indexPayment.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
 	return `${Amount}`;
 
+}
+const TotalDisbursed = async (username: string, balance: string) => {
+	unstable_noStore();
+	const response = await fetch(`https://af-admin.vercel.app/api/loan_list/${username}`);
+	if (!response.ok) {
+		throw new Error("Failed to fetch data all payment");
+	}
+	const paymentList: PaymentIProps[] = await response.json();
 
+	let indexPaymentString: string[] = ["0"];
+	const result = paymentList.forEach((item) => indexPaymentString.push(item.loanAmount));
+	let indexPayment = indexPaymentString.map(Number);
+	const loanSumAmount = indexPayment.reduce((accumulator, currentValue) => accumulator + currentValue, Number(balance));
+	return `${loanSumAmount}`;
 }
 
 
@@ -121,6 +139,7 @@ async function BorrowersList(params: RequestParams) {
 	unstable_noStore();
 	const branch = await getBorrowersByBranch(username);
 	const TotalBranch = await getSearchBorrowersByBranch(params.page, username);
+	console.log(TotalBranch, "total");
 	return (
 		<div className='p-2'>
 			<Accordion type="single" className='py-1' collapsible>
@@ -150,7 +169,7 @@ async function BorrowersList(params: RequestParams) {
 														<TableCell className="font-medium uppercase">{item.name}</TableCell>
 														<TableCell className="font-medium uppercase">{item.balance}</TableCell>
 														<TableCell className="font-medium uppercase">{allPayment(item.username)}</TableCell>
-														<TableCell className="font-medium uppercase" >{duePayment(item.username)}</TableCell>
+														<TableCell className="font-medium uppercase" >{duePayment(item.username, item.balance)}</TableCell>
 														<TableCell className="font-medium uppercase">
 															<Button className='bg-color-sub' size={"sm"} asChild>
 																<Link href={`/karze-hasana/borrowers/${item.username}`}>DETAILS</Link>

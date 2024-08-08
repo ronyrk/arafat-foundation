@@ -82,18 +82,19 @@ model Admin {
 }
 
 model Donor {
-  id       String @id @default(auto()) @map("_id") @db.ObjectId
-  username String @unique
-  email    String @unique
-  code     String @unique
-  password String
-  name     String
-  photoUrl String
-  about    String
-  amount   String
-  lives    String
-  hometown String
-  status   String
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  username    String   @unique
+  email       String   @unique
+  code        String   @unique
+  password    String
+  name        String
+  photoUrl    String
+  about       String
+  amount      String?
+  lives       String
+  hometown    String
+  status      String
+  paymentDate DateTime @default("2023-12-28T18:00:00.000Z")
 }
 
 model Request {
@@ -108,9 +109,8 @@ model Request {
 model payment {
   id           String   @id @default(auto()) @map("_id") @db.ObjectId
   loanusername String
-  photoUrl     String
   amount       String
-  method       String
+  loanAmount   String
   createAt     DateTime
 }
 
@@ -123,13 +123,10 @@ model DonorPayment {
   createAt      DateTime
 }
 
-model News {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  createAt    DateTime @default(now())
-  photoUrl    String
-  description String
+model Faq {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
   title       String
-  username    String   @unique
+  description String
 }
 
 model Project {
@@ -143,9 +140,20 @@ model Project {
   username    String   @unique
 }
 
-model Donate {
+model News {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  createAt    DateTime @default(now())
+  photoUrl    String
+  description String
+  title       String
+  username    String   @unique
+  shortDes    String
+}
+
+model DonationChild {
   id       String   @id @default(auto()) @map("_id") @db.ObjectId
   name     String
+  username String
   email    String
   amount   String
   method   String?
@@ -154,7 +162,7 @@ model Donate {
   createAt DateTime @default(now())
 }
 
-model DonationChild {
+model Donation {
   id       String   @id @default(auto()) @map("_id") @db.ObjectId
   name     String
   username String
@@ -178,6 +186,14 @@ model Child {
   academy     String
 }
 
+model disbursement {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  date        String
+  description String
+  username    String
+  amount      String
+}
+
 model Gallery {
   id       String @id @default(auto()) @map("_id") @db.ObjectId
   category String
@@ -188,6 +204,17 @@ model Category {
   id   String @id @default(auto()) @map("_id") @db.ObjectId
   name String @unique
   path String @unique
+}
+
+model Donate {
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  name     String
+  email    String
+  amount   String
+  method   String?
+  photoUrl String?
+  about    String?
+  createAt DateTime @default(now())
 }
 
 model Income {
