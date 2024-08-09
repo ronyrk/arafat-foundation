@@ -115,7 +115,7 @@ async function page({ params }: ParamsIProps) {
 			<div className="p-4">
 				<h2 className="text-[16px] font-normal text-color-main">{data.about} </h2>
 			</div>
-			<BorrowersTransaction username={username} data={data} />
+			<BorrowersTransaction username={username} data={data} paymentList={paymentList} />
 		</div>
 	)
 }

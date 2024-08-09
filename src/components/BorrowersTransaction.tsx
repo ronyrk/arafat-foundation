@@ -7,21 +7,9 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
-import {
-	AlertDialog,
-	AlertDialogAction,
-	AlertDialogCancel,
-	AlertDialogContent,
-	AlertDialogDescription,
-	AlertDialogFooter,
-	AlertDialogHeader,
-	AlertDialogTitle,
-	AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
 import { unstable_noStore } from 'next/cache';
 import { LoanIProps, PaymentIProps } from '@/types';
 import Moment from "moment"
-import { Button } from './ui/button';
 import PaymentRequest from './PaymentRequest';
 
 function Zero(data: string) {
@@ -32,7 +20,7 @@ function Zero(data: string) {
 	}
 };
 
-async function LoanList({ username }: { username: string }) {
+async function LoanList({ username, paymentList, borrowers }: { username: string, paymentList: PaymentIProps[], borrowers: LoanIProps }) {
 	try {
 		unstable_noStore();
 		const res = await fetch(`https://af-admin.vercel.app/api/loan_list/${username}`);
@@ -40,6 +28,21 @@ async function LoanList({ username }: { username: string }) {
 			throw new Error("Failed to fetch data");
 		}
 		const data: PaymentIProps[] = await res.json();
+		const LoanOutStanding = async (index: number) => {
+			const loanState = paymentList.slice(0, index + 1);
+
+			let indexPaymentString2: string[] = ["0"];
+			loanState.forEach((item) => indexPaymentString2.push(item.loanAmount));
+			let indexPayment2 = indexPaymentString2.map(Number);
+			const totalBalance = indexPayment2.reduce((accumulator, currentValue) => accumulator + currentValue, Number(borrowers.balance));
+
+			let indexPaymentString: string[] = ["0"];
+			const result = loanState.forEach((item) => indexPaymentString.push(item.amount));
+			let indexPayment = indexPaymentString.map(Number);
+			const loanSumAmount = indexPayment.reduce((accumulator, currentValue) => accumulator - currentValue, totalBalance);
+
+			return `BDT=${loanSumAmount}/=`
+		}
 		// const calculateRemainingLoanAmount = async (amount: string, index: number) => {
 		//     const sumArray = data.slice(0, index);
 		//     let indexPaymentString: string[] = ["0"];
@@ -68,6 +71,7 @@ async function LoanList({ username }: { username: string }) {
 							<TableCell>{`${Moment(item.createAt).format('DD/MM/YYYY')}`}</TableCell>
 							<TableCell>{Zero(item.loanAmount)}</TableCell>
 							<TableCell>{Zero(item.amount)}</TableCell>
+							<TableCell>{LoanOutStanding(index)}</TableCell>
 						</TableRow>
 					))
 				}
@@ -79,7 +83,7 @@ async function LoanList({ username }: { username: string }) {
 }
 
 
-function BorrowersTransaction({ username, data }: { username: string, data: LoanIProps }) {
+function BorrowersTransaction({ username, data, paymentList }: { username: string, data: LoanIProps, paymentList: PaymentIProps[] }) {
 	return (
 		<div className=' border-[2px] rounded-sm px-2'>
 			<PaymentRequest username={username} branch={data.branch} />
@@ -90,10 +94,11 @@ function BorrowersTransaction({ username, data }: { username: string, data: Loan
 						<TableHead>DATE</TableHead>
 						<TableHead>LOAN AMOUNT</TableHead>
 						<TableHead>LOAN PAYMENT</TableHead>
+						<TableHead>LOAN OUTSTANDING</TableHead>
 					</TableRow>
 				</TableHeader>
 				<Suspense fallback={<h2 className='text-center'>Loading...</h2>}>
-					<LoanList username={username} />
+					<LoanList username={username} paymentList={paymentList} borrowers={data} />
 				</Suspense>
 			</Table>
 
