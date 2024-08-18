@@ -17,7 +17,7 @@ import { useMutation, useQuery } from "@tanstack/react-query"
 import axios from "axios"
 import { useRouter } from "next/navigation"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { useState } from "react"
+import { ChangeEvent, useState } from "react"
 import { Textarea } from "./ui/textarea"
 import Link from "next/link"
 import { UploadButton } from "@/lib/uploading"
@@ -30,7 +30,8 @@ const formSchema = z.object({
 	email: z.string(),
 	name: z.string(),
 	about: z.string().optional(),
-	method: z.string().optional(),
+	sendNumber: z.string().optional(),
+	transactionId: z.string().optional(),
 });
 
 
@@ -38,6 +39,11 @@ function ProjectDonation({ data }: { data: ProjectsProps }) {
 	const router = useRouter();
 	const [image, setImage] = useState<string | undefined>("");
 	const [paymentType, setPaymentType] = useState<string>("");
+	const [selectedOption, setSelectedOption] = useState<string>('');
+
+	const handleOptionChange = (event: ChangeEvent<HTMLInputElement>) => {
+		setSelectedOption(event.target.value);
+	};
 
 	const handleTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
 		const selectedValue = e.target.value;
@@ -49,38 +55,38 @@ function ProjectDonation({ data }: { data: ProjectsProps }) {
 		resolver: zodResolver(formSchema),
 	});
 
-	const { mutate, isPending } = useMutation({
-		mutationFn: async ({ name, email, amount, photoUrl, method, about }: DonateProps) => {
-			const response = await axios.post("/api/donate", {
-				name, email, amount, photoUrl, about, method
-			});
-			return response.data;
-		},
-	});
+	// const { mutate, isPending } = useMutation({
+	// 	mutationFn: async ({ name, email, amount, photoUrl, method, about }: DonateProps) => {
+	// 		const response = await axios.post("/api/donate", {
+	// 			name, email, amount, photoUrl, about, method
+	// 		});
+	// 		return response.data;
+	// 	},
+	// });
 
 	// 2. Define a submit handler.
 	function onSubmit(values: z.infer<typeof formSchema>) {
 		const amount = values.amount;
 		const name = values.name;
 		const email = values.email;
-		const method = values.method;
+		const method = "";
 		const about = values.about;
 		const photoUrl = image;
 
 
-		mutate({ name, email, amount, photoUrl, about, method }, {
-			onSuccess: (data: DonateProps) => {
-				if (data?.id) {
-					toast.success("Donate Successfully");
-				} else {
-					throw new Error("Donate Failed")
-				}
-				router.push(`/our-projects`);
-			},
-			onError: (error) => {
-				toast.error("Donate Failed");
-			}
-		});
+		// mutate({ name, email, amount, photoUrl, about, method }, {
+		// 	onSuccess: (data: DonateProps) => {
+		// 		if (data?.id) {
+		// 			toast.success("Donate Successfully");
+		// 		} else {
+		// 			throw new Error("Donate Failed")
+		// 		}
+		// 		router.push(`/our-projects`);
+		// 	},
+		// 	onError: (error) => {
+		// 		toast.error("Donate Failed");
+		// 	}
+		// });
 	};
 	// console.log(state, stateBranch);
 
@@ -95,48 +101,37 @@ function ProjectDonation({ data }: { data: ProjectsProps }) {
 						<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
 							<div className=" grid grid-cols-1 items-center gap-1">
 								<div className="rounded">
-									<label htmlFor="paymentType" className="block mb-1 font-medium">
-										Payment From:
-									</label>
-									<select
-										id="paymentType"
-										value={paymentType}
-										onChange={handleTypeChange}
-										className="w-full border rounded px-1 py-[1px] cursor-pointer"
-									>
-										<option value="">Select a payment From</option>
-										<option value="bangladesh">Bangladesh</option>
-										<option value="outside">OutSide Bangladesh</option>
-									</select>
+									<div className="p-4 flex flex-col gap-2">
+										<h2 className="my-2 font-medium text-xl">Payment From:</h2>
+										<label>
+											<input
+												type="radio"
+												name="radioGroup" // Group both radio buttons together
+												className=" text-2xl"
+												value="bangladesh"
+												checked={selectedOption === "bangladesh"}
+												onChange={handleOptionChange}
+												placeholder="Bangladesh"
+											/>
+											<span className="px-4 text-lg">Bangladesh</span>
+										</label>
+
+										<label>
+											<input
+												type="radio"
+												name="radioGroup" // Group both radio buttons together
+												value="outside"
+												checked={selectedOption === "outside"}
+												onChange={handleOptionChange}
+											/>
+											<span className="px-4 text-lg">OutSide Bangladesh</span>
+										</label>
+
+									</div>
 								</div>
+
 								{
-									paymentType === "bangladesh" && < div className="p-2">
-										<h2 className="text-[14px] font-medium">Please send your donation to the given bKash or bank accounts bellow.</h2>
-										<h2 className="text-[14px] py-1"> <span className="font-bold">bKash A/C Number:</span> 01738115411 (Send Money)</h2>
-										<h2 className="py-1 font-bold">Islami Bank Bangladesh Ltd</h2>
-										<p className=" text-sm">
-											A/C Number: 20501130203541208
-											<br />
-											A/C Name: Abdullah Al Mamun
-											<br />
-											Branch Name: Rajshahi
-											<br />
-											Routing Number: 125811932
-											<br />
-											SWIFT Code: IBBLBDDH113
-										</p>
-									</div>
-								}
-								{
-									paymentType === "outside" && <div className="">
-										<p className=" text-[15px] mb-2 font-medium">বাংলাদেশের বাইরে থেকে অর্থ প্রদানের জন্য আমরা buymeacoffe তে একটা ফান্ডরেইজিং করেছি। আপনি এখানে Credit or debit card ব্যবহার করে আমাদেরকে অনুদান পাঠাতে পারবেন(স্ট্রাইপ দ্বারা সুরক্ষিত)।</p>
-										<Button asChild className="bg-green-600 py-4 px-4 hover:bg-color-sub text-white w-full text-lg">
-											<Link href="https://www.buymeacoffee.com/arafatfoundation/e/204578">Donate on Buy Me A Coffe</Link>
-										</Button>
-									</div>
-								}
-								{
-									paymentType === "" ? " " : <FormField
+									selectedOption && <FormField
 										control={form.control}
 										name="name"
 										render={({ field }) => (
@@ -151,14 +146,14 @@ function ProjectDonation({ data }: { data: ProjectsProps }) {
 									/>
 								}
 								{
-									paymentType === "" ? "" : <FormField
+									selectedOption && <FormField
 										control={form.control}
 										name="email"
 										render={({ field }) => (
 											<FormItem>
-												<FormLabel>Email</FormLabel>
+												<FormLabel>Email or Phone</FormLabel>
 												<FormControl>
-													<Input className="bg-white" placeholder="email" {...field} />
+													<Input className="bg-white" placeholder="email or Phone" {...field} />
 												</FormControl>
 												<FormMessage />
 											</FormItem>
@@ -166,7 +161,7 @@ function ProjectDonation({ data }: { data: ProjectsProps }) {
 									/>
 								}
 								{
-									paymentType === "" ? "" : <FormField
+									selectedOption && <FormField
 										control={form.control}
 										name="amount"
 										render={({ field }) => (
@@ -181,31 +176,76 @@ function ProjectDonation({ data }: { data: ProjectsProps }) {
 									/>
 								}
 								{
-									paymentType === 'bangladesh' && <FormField
+									selectedOption === 'bangladesh' && <div className=" rounded">
+										<label htmlFor="paymentType" className="block mb-1 font-medium">
+											Payment Method:-
+										</label>
+										<select
+											id="paymentType"
+											value={paymentType}
+											onChange={handleTypeChange}
+											className="w-full border rounded px-1 py-[1px] cursor-pointer"
+										>
+											<option value="">Select a payment Method</option>
+											<option value="mobile-banking">Mobile Banking</option>
+											<option value="bank-transfer">Bank Transfer</option>
+										</select>
+									</div>
+								}
+
+								{
+									paymentType === "mobile-banking" && <FormField
 										control={form.control}
-										name="method"
+										name="sendNumber"
 										render={({ field }) => (
 											<FormItem>
-												<FormLabel>Payment Method</FormLabel>
-												<Select onValueChange={field.onChange} defaultValue={field.value}>
-													<FormControl className="bg-white">
-														<SelectTrigger>
-															<SelectValue placeholder="Select a verified type" />
-														</SelectTrigger>
-													</FormControl>
-													<SelectContent>
-														<SelectItem value="bank">Bank</SelectItem>
-														<SelectItem value="mobileBanking">Mobile Banking</SelectItem>
-													</SelectContent>
-												</Select>
+												<FormLabel>Sender Number</FormLabel>
+												<FormControl>
+													<Input className="bg-white" placeholder=" Phone" {...field} />
+												</FormControl>
 												<FormMessage />
 											</FormItem>
 										)}
 									/>
 								}
 								{
-									paymentType === "outside"
-									&& <div className="flex flex-col gap-2 py-2">
+									paymentType === "mobile-banking" && <FormField
+										control={form.control}
+										name="transactionId"
+										render={({ field }) => (
+											<FormItem>
+												<FormLabel>Transaction ID</FormLabel>
+												<FormControl>
+													<Input className="bg-white" placeholder=" Transaction ID" {...field} />
+												</FormControl>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+								}
+								{
+									selectedOption === "outside"
+									&& <div className="flex flex-row py-2">
+										<h2 className="text-lg font-medium">File:-</h2>
+										<UploadButton
+											className="ut-button:bg-color-sub  w-[350px] ut-button:ut-readying:bg-color-sub/80"
+											endpoint="imageUploader"
+											onClientUploadComplete={(res) => {
+												// Do something with the response
+												setImage(res[0].url);
+												toast.success("Image Upload successfully")
+											}}
+											onUploadError={(error: Error) => {
+												// Do something with the error.
+												toast.error(error.message);
+											}}
+										/>
+									</div>
+								}
+								{
+									paymentType === "bank-transfer"
+									&& <div className="flex flex-row py-2">
+										<h2 className="text-lg font-medium">File:-</h2>
 										<UploadButton
 											className="ut-button:bg-color-sub  w-[350px] ut-button:ut-readying:bg-color-sub/80"
 											endpoint="imageUploader"
@@ -220,8 +260,9 @@ function ProjectDonation({ data }: { data: ProjectsProps }) {
 											}}
 										/>
 									</div>}
+
 								{
-									paymentType === "" ? "" : <FormField
+									selectedOption && <FormField
 										control={form.control}
 										name="about"
 										render={({ field }) => (
@@ -242,7 +283,7 @@ function ProjectDonation({ data }: { data: ProjectsProps }) {
 
 							</div>
 							{
-								paymentType === "" || isPending ? "" : <Button type="submit">Submit</Button>
+								selectedOption === "" || paymentType === "" ? "" : <Button type="submit">Submit</Button>
 							}
 						</form>
 					</Form>

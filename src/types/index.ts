@@ -137,6 +137,7 @@ export interface ProjectsProps {
 	description: string,
 	createAt: Date,
 	username: string,
+	paymentInfo: string,
 }
 export interface NewsProps {
 	id: string,
