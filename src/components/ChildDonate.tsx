@@ -95,7 +95,7 @@ function ChildDonate({ data }: { data: ChildIProps }) {
                 } else {
                     throw new Error("Donate Failed")
                 }
-                router.push(`/sponsor-child/${item.childName}`);
+                router.push(`/sponsor-a-child/${item.childName}`);
             },
             onError: (error) => {
                 toast.error("Donate Failed");
@@ -146,13 +146,13 @@ function ChildDonate({ data }: { data: ChildIProps }) {
 
                                         </div>
                                         {
-                                            selectedOption === 'bangladesh' && <div className="">
+                                            selectedOption === 'bangladesh' ? <div className="">
                                                 <p className=" text-sm  font-medium leading-relaxed">
                                                     {htmlConvert(data.paymentInfo)}
                                                 </p>
-                                            </div>
+                                            </div> : ""
                                         }
-                                        {selectedOption === "outside" &&
+                                        {selectedOption === "outside" ?
                                             <div className="flex flex-col gap-2">
                                                 <p className=" text-sm  font-medium leading-relaxed">
                                                     {htmlConvert(data.outsidePaymentInfo)}
@@ -160,11 +160,11 @@ function ChildDonate({ data }: { data: ChildIProps }) {
                                                 <Button className=" bg-green-500" asChild>
                                                     <Link prefetch={false} href={data.link}>Donate on</Link>
                                                 </Button>
-                                            </div>}
+                                            </div> : ""}
                                     </div>
 
                                     {
-                                        selectedOption && <FormField
+                                        selectedOption ? <FormField
                                             control={form.control}
                                             name="name"
                                             render={({ field }) => (
@@ -176,10 +176,10 @@ function ChildDonate({ data }: { data: ChildIProps }) {
                                                     <FormMessage />
                                                 </FormItem>
                                             )}
-                                        />
+                                        /> : ""
                                     }
                                     {
-                                        selectedOption && <FormField
+                                        selectedOption ? <FormField
                                             control={form.control}
                                             name="email"
                                             render={({ field }) => (
@@ -191,10 +191,10 @@ function ChildDonate({ data }: { data: ChildIProps }) {
                                                     <FormMessage />
                                                 </FormItem>
                                             )}
-                                        />
+                                        /> : ""
                                     }
                                     {
-                                        selectedOption && <FormField
+                                        selectedOption ? <FormField
                                             control={form.control}
                                             name="amount"
                                             render={({ field }) => (
@@ -206,10 +206,10 @@ function ChildDonate({ data }: { data: ChildIProps }) {
                                                     <FormMessage />
                                                 </FormItem>
                                             )}
-                                        />
+                                        /> : ""
                                     }
                                     {
-                                        selectedOption === 'bangladesh' && <div className=" rounded">
+                                        selectedOption === 'bangladesh' ? <div className=" rounded">
                                             <label htmlFor="paymentType" className="block mb-1 font-medium">
                                                 Payment Method:-
                                             </label>
@@ -223,11 +223,11 @@ function ChildDonate({ data }: { data: ChildIProps }) {
                                                 <option value="mobile-banking">Mobile Banking</option>
                                                 <option value="bank-transfer">Bank Transfer</option>
                                             </select>
-                                        </div>
+                                        </div> : ""
                                     }
 
                                     {
-                                        paymentType === "mobile-banking" && <FormField
+                                        paymentType === "mobile-banking" ? <FormField
                                             control={form.control}
                                             name="sendNumber"
                                             render={({ field }) => (
@@ -239,10 +239,10 @@ function ChildDonate({ data }: { data: ChildIProps }) {
                                                     <FormMessage />
                                                 </FormItem>
                                             )}
-                                        />
+                                        /> : ""
                                     }
                                     {
-                                        paymentType === "mobile-banking" && <FormField
+                                        paymentType === "mobile-banking" ? <FormField
                                             control={form.control}
                                             name="transactionId"
                                             render={({ field }) => (
@@ -254,30 +254,30 @@ function ChildDonate({ data }: { data: ChildIProps }) {
                                                     <FormMessage />
                                                 </FormItem>
                                             )}
-                                        />
+                                        /> : ""
                                     }
                                     {
                                         (selectedOption === "outside" || paymentType === "bank-transfer")
-                                        && (<div className="flex flex-row py-2">
-                                            <h2 className="text-lg font-medium">File:-</h2>
-                                            <UploadButton
-                                                className="ut-button:bg-color-sub  w-[350px] ut-button:ut-readying:bg-color-sub/80"
-                                                endpoint="imageUploader"
-                                                onClientUploadComplete={(res) => {
-                                                    // Do something with the response
-                                                    setImage(res[0].url);
-                                                    toast.success("Image Upload successfully")
-                                                }}
-                                                onUploadError={(error: Error) => {
-                                                    // Do something with the error.
-                                                    toast.error(error.message);
-                                                }}
-                                            />
-                                        </div>)
+                                            ? (<div className="flex flex-row py-2">
+                                                <h2 className="text-lg font-medium">File:-</h2>
+                                                <UploadButton
+                                                    className="ut-button:bg-color-sub  w-[350px] ut-button:ut-readying:bg-color-sub/80"
+                                                    endpoint="imageUploader"
+                                                    onClientUploadComplete={(res) => {
+                                                        // Do something with the response
+                                                        setImage(res[0].url);
+                                                        toast.success("Image Upload successfully")
+                                                    }}
+                                                    onUploadError={(error: Error) => {
+                                                        // Do something with the error.
+                                                        toast.error(error.message);
+                                                    }}
+                                                />
+                                            </div>) : ""
                                     }
 
                                     {
-                                        selectedOption && <FormField
+                                        selectedOption ? <FormField
                                             control={form.control}
                                             name="about"
                                             render={({ field }) => (
@@ -293,12 +293,12 @@ function ChildDonate({ data }: { data: ChildIProps }) {
                                                     <FormMessage />
                                                 </FormItem>
                                             )}
-                                        />
+                                        /> : ""
                                     }
 
                                 </div>
                                 {
-                                    (selectedOption !== "" || paymentType !== "" || isPending) && (<Button type="submit">Submit</Button>)
+                                    (selectedOption !== "" || paymentType !== "") ? (<Button type="submit">Submit</Button>) : <Button disabled={isPending}>Loading...</Button>
                                 }
                             </form>
                         </Form>

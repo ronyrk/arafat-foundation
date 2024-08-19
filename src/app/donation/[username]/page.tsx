@@ -1,8 +1,7 @@
 import ChildDonate from '@/components/ChildDonate';
 import { ChildIProps } from '@/types';
 import { unstable_noStore } from 'next/cache';
-import React from 'react'
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card"
+import React, { Suspense } from 'react'
 
 async function page({ params }: {
 	params: {
@@ -17,7 +16,9 @@ async function page({ params }: {
 	const data: ChildIProps = await res.json();
 	return (
 		<div className="flex justify-center items-center my-4">
-			<ChildDonate data={data} />
+			<Suspense fallback={<h2>Loading...</h2>}>
+				<ChildDonate data={data} />
+			</Suspense>
 		</div>
 	)
 }
