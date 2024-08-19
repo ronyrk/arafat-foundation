@@ -176,6 +176,19 @@ export interface ChildDonateProps {
 	transaction?: string,
 	type: string,
 }
+export interface ChildDonateProps {
+	id?: string,
+	childName: string,
+	name: string,
+	email: string,
+	amount: string,
+	method?: string,
+	photoUrl?: string,
+	about?: string,
+	sendNumber?: string,
+	transaction?: string,
+	type: string,
+}
 export interface SponsorProps {
 	id?: string,
 	name: string,

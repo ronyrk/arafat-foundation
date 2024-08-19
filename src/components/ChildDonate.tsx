@@ -67,7 +67,7 @@ function ChildDonate({ data }: { data: ChildIProps }) {
 
     const { mutate, isPending } = useMutation({
         mutationFn: async ({ name, email, amount, photoUrl, method, about, type, transaction, sendNumber, childName }: ChildDonateProps) => {
-            const response = await axios.post("/api/sponsor-child", {
+            const response = await axios.post("/api/child-donate", {
                 name, email, amount, photoUrl, about, method, type, transaction, sendNumber, childName
             });
             return response.data;
