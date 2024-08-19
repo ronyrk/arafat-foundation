@@ -138,6 +138,8 @@ export interface ProjectsProps {
 	createAt: Date,
 	username: string,
 	paymentInfo: string,
+	outsidePaymentInfo: string,
+	link: string,
 }
 export interface NewsProps {
 	id: string,

@@ -24,6 +24,16 @@ import { UploadButton } from "@/lib/uploading"
 import toast from "react-hot-toast"
 import { DonateProps, ProjectsProps } from "@/types"
 
+async function htmlConvert(data: string) {
+	const jsonAndHtml = data.split("^");
+	const html = jsonAndHtml[0];
+	return (
+		<div className="py-2">
+			<div dangerouslySetInnerHTML={{ __html: html }} />
+		</div>
+	)
+}
+
 
 const formSchema = z.object({
 	amount: z.string(),
@@ -104,8 +114,8 @@ function ProjectDonation({ data }: { data: ProjectsProps }) {
 						<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
 							<div className=" grid grid-cols-1 items-center gap-1">
 								<div className="rounded">
-									<div className="p-4 flex flex-col gap-2">
-										<h2 className="my-2 font-medium text-xl">Payment From:</h2>
+									<div className="px-2 flex flex-col gap-2">
+										<h2 className="my-1 font-medium text-xl">Payment From:</h2>
 										<label>
 											<input
 												type="radio"
@@ -131,6 +141,22 @@ function ProjectDonation({ data }: { data: ProjectsProps }) {
 										</label>
 
 									</div>
+									{
+										selectedOption === 'bangladesh' && <div className="">
+											<p className=" text-sm  font-medium leading-relaxed">
+												{htmlConvert(data.paymentInfo)}
+											</p>
+										</div>
+									}
+									{selectedOption === "outside" &&
+										<div className="flex flex-col gap-2">
+											<p className=" text-sm  font-medium leading-relaxed">
+												{htmlConvert(data.outsidePaymentInfo)}
+											</p>
+											<Button className=" bg-green-500" asChild>
+												<Link prefetch={false} href={data.link}>Donate on</Link>
+											</Button>
+										</div>}
 								</div>
 
 								{
