@@ -150,12 +150,16 @@ export interface NewsProps {
 }
 export interface DonateProps {
 	id?: string,
+	projectName: string,
 	name: string,
 	email: string,
 	amount: string,
 	method?: string,
 	photoUrl?: string,
 	about?: string,
+	sendNumber?: string,
+	transaction?: string,
+	type: string,
 }
 export interface SponsorProps {
 	id?: string,

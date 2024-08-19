@@ -55,40 +55,43 @@ function ProjectDonation({ data }: { data: ProjectsProps }) {
 		resolver: zodResolver(formSchema),
 	});
 
-	// const { mutate, isPending } = useMutation({
-	// 	mutationFn: async ({ name, email, amount, photoUrl, method, about }: DonateProps) => {
-	// 		const response = await axios.post("/api/donate", {
-	// 			name, email, amount, photoUrl, about, method
-	// 		});
-	// 		return response.data;
-	// 	},
-	// });
+	const { mutate, isPending } = useMutation({
+		mutationFn: async ({ name, email, amount, photoUrl, method, about, type, transaction, sendNumber, projectName }: DonateProps) => {
+			const response = await axios.post("/api/donate", {
+				name, email, amount, photoUrl, about, method, type, transaction, sendNumber, projectName
+			});
+			return response.data;
+		},
+	});
 
 	// 2. Define a submit handler.
 	function onSubmit(values: z.infer<typeof formSchema>) {
 		const amount = values.amount;
 		const name = values.name;
 		const email = values.email;
-		const method = "";
+		const method = paymentType;
+		const transaction = values.transactionId;
+		const sendNumber = values.sendNumber;
 		const about = values.about;
 		const photoUrl = image;
+		const type = selectedOption;
+		const projectName = data.username;
 
 
-		// mutate({ name, email, amount, photoUrl, about, method }, {
-		// 	onSuccess: (data: DonateProps) => {
-		// 		if (data?.id) {
-		// 			toast.success("Donate Successfully");
-		// 		} else {
-		// 			throw new Error("Donate Failed")
-		// 		}
-		// 		router.push(`/our-projects`);
-		// 	},
-		// 	onError: (error) => {
-		// 		toast.error("Donate Failed");
-		// 	}
-		// });
+		mutate({ name, email, amount, photoUrl, about, method, type, transaction, sendNumber, projectName }, {
+			onSuccess: (data: DonateProps) => {
+				if (data?.id) {
+					toast.success("Donate Successfully");
+				} else {
+					throw new Error("Donate Failed")
+				}
+				router.push(`/our-projects`);
+			},
+			onError: (error) => {
+				toast.error("Donate Failed");
+			}
+		});
 	};
-	// console.log(state, stateBranch);
 
 	return (
 		<>
@@ -224,8 +227,8 @@ function ProjectDonation({ data }: { data: ProjectsProps }) {
 									/>
 								}
 								{
-									selectedOption === "outside"
-									&& <div className="flex flex-row py-2">
+									(selectedOption === "outside" || paymentType === "bank-transfer")
+									&& (<div className="flex flex-row py-2">
 										<h2 className="text-lg font-medium">File:-</h2>
 										<UploadButton
 											className="ut-button:bg-color-sub  w-[350px] ut-button:ut-readying:bg-color-sub/80"
@@ -240,26 +243,8 @@ function ProjectDonation({ data }: { data: ProjectsProps }) {
 												toast.error(error.message);
 											}}
 										/>
-									</div>
+									</div>)
 								}
-								{
-									paymentType === "bank-transfer"
-									&& <div className="flex flex-row py-2">
-										<h2 className="text-lg font-medium">File:-</h2>
-										<UploadButton
-											className="ut-button:bg-color-sub  w-[350px] ut-button:ut-readying:bg-color-sub/80"
-											endpoint="imageUploader"
-											onClientUploadComplete={(res) => {
-												// Do something with the response
-												setImage(res[0].url);
-												toast.success("Image Upload successfully")
-											}}
-											onUploadError={(error: Error) => {
-												// Do something with the error.
-												toast.error(error.message);
-											}}
-										/>
-									</div>}
 
 								{
 									selectedOption && <FormField
@@ -283,7 +268,7 @@ function ProjectDonation({ data }: { data: ProjectsProps }) {
 
 							</div>
 							{
-								selectedOption === "" || paymentType === "" ? "" : <Button type="submit">Submit</Button>
+								(selectedOption !== "" || paymentType !== "" || isPending) && (<Button type="submit">Submit</Button>)
 							}
 						</form>
 					</Form>
