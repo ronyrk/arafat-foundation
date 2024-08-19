@@ -69,7 +69,9 @@ function ProjectDonation({ data }: { data: ProjectsProps }) {
 		const amount = values.amount;
 		const name = values.name;
 		const email = values.email;
-		const method = "";
+		const method = paymentType;
+		const transaction = values.transactionId;
+		const sendNumber = values.sendNumber;
 		const about = values.about;
 		const photoUrl = image;
 
@@ -224,8 +226,8 @@ function ProjectDonation({ data }: { data: ProjectsProps }) {
 									/>
 								}
 								{
-									selectedOption === "outside"
-									&& <div className="flex flex-row py-2">
+									(selectedOption === "outside" || paymentType === "bank-transfer")
+									&& (<div className="flex flex-row py-2">
 										<h2 className="text-lg font-medium">File:-</h2>
 										<UploadButton
 											className="ut-button:bg-color-sub  w-[350px] ut-button:ut-readying:bg-color-sub/80"
@@ -240,26 +242,8 @@ function ProjectDonation({ data }: { data: ProjectsProps }) {
 												toast.error(error.message);
 											}}
 										/>
-									</div>
+									</div>)
 								}
-								{
-									paymentType === "bank-transfer"
-									&& <div className="flex flex-row py-2">
-										<h2 className="text-lg font-medium">File:-</h2>
-										<UploadButton
-											className="ut-button:bg-color-sub  w-[350px] ut-button:ut-readying:bg-color-sub/80"
-											endpoint="imageUploader"
-											onClientUploadComplete={(res) => {
-												// Do something with the response
-												setImage(res[0].url);
-												toast.success("Image Upload successfully")
-											}}
-											onUploadError={(error: Error) => {
-												// Do something with the error.
-												toast.error(error.message);
-											}}
-										/>
-									</div>}
 
 								{
 									selectedOption && <FormField
