@@ -163,6 +163,19 @@ export interface DonateProps {
 	transaction?: string,
 	type: string,
 }
+export interface ChildDonateProps {
+	id?: string,
+	childName: string,
+	name: string,
+	email: string,
+	amount: string,
+	method?: string,
+	photoUrl?: string,
+	about?: string,
+	sendNumber?: string,
+	transaction?: string,
+	type: string,
+}
 export interface SponsorProps {
 	id?: string,
 	name: string,
@@ -184,6 +197,9 @@ export interface ChildIProps {
 	phone: string,
 	address: string,
 	academy: string,
+	paymentInfo: string,
+	outsidePaymentInfo: string,
+	link: string,
 }
 export interface DisbursementIProps {
 	id?: string,
