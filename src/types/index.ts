@@ -138,6 +138,8 @@ export interface ProjectsProps {
 	createAt: Date,
 	username: string,
 	paymentInfo: string,
+	outsidePaymentInfo: string,
+	link: string,
 }
 export interface NewsProps {
 	id: string,
@@ -151,6 +153,32 @@ export interface NewsProps {
 export interface DonateProps {
 	id?: string,
 	projectName: string,
+	name: string,
+	email: string,
+	amount: string,
+	method?: string,
+	photoUrl?: string,
+	about?: string,
+	sendNumber?: string,
+	transaction?: string,
+	type: string,
+}
+export interface ChildDonateProps {
+	id?: string,
+	childName: string,
+	name: string,
+	email: string,
+	amount: string,
+	method?: string,
+	photoUrl?: string,
+	about?: string,
+	sendNumber?: string,
+	transaction?: string,
+	type: string,
+}
+export interface ChildDonateProps {
+	id?: string,
+	childName: string,
 	name: string,
 	email: string,
 	amount: string,
@@ -182,6 +210,9 @@ export interface ChildIProps {
 	phone: string,
 	address: string,
 	academy: string,
+	paymentInfo: string,
+	outsidePaymentInfo: string,
+	link: string,
 }
 export interface DisbursementIProps {
 	id?: string,

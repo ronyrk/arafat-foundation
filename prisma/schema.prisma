@@ -130,15 +130,17 @@ model Faq {
 }
 
 model Project {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  createAt    DateTime @default(now())
-  author      String
-  photoUrl    String
-  shortDes    String
-  description String
-  title       String
-  paymentInfo String
-  username    String   @unique
+  id                 String   @id @default(auto()) @map("_id") @db.ObjectId
+  createAt           DateTime @default(now())
+  author             String
+  photoUrl           String
+  shortDes           String
+  description        String
+  title              String
+  paymentInfo        String
+  outsidePaymentInfo String
+  link               String
+  username           String   @unique
 }
 
 model News {
@@ -176,15 +178,18 @@ model Donation {
 }
 
 model Child {
-  id          String @id @default(auto()) @map("_id") @db.ObjectId
-  username    String @unique
-  name        String
-  photoUrl    String
-  description String
-  dream       String
-  phone       String
-  address     String
-  academy     String
+  id                 String @id @default(auto()) @map("_id") @db.ObjectId
+  username           String @unique
+  name               String
+  photoUrl           String
+  description        String
+  dream              String
+  phone              String
+  address            String
+  academy            String
+  paymentInfo        String
+  outsidePaymentInfo String
+  link               String
 }
 
 model disbursement {
@@ -210,6 +215,21 @@ model Category {
 model Donate {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   projectName String
+  name        String
+  email       String
+  amount      String
+  method      String?
+  photoUrl    String?
+  about       String?
+  transaction String?
+  sendNumber  String?
+  type        String
+  createAt    DateTime @default(now())
+}
+
+model ChildsDonate {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  childName   String
   name        String
   email       String
   amount      String
