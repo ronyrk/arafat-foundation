@@ -110,7 +110,7 @@ function ChildDonate({ data }: { data: ChildIProps }) {
                 <div className=' bg-gray-200 rounded p-2'>
                     <h2 className="text-xl font-medium py-1">{data.name}</h2>
                     <p className="text-sm  font-medium pr-1 leading-relaxed">
-                        আপনাদের দানকৃত অর্থের মাধ্যমেই সকল কার্যক্রম পরিচালনা করা হয়। সাধারণ দান ট্রাস্ট কে টিকিয়ে রাখতে সবচেয়ে বেশি সাহায্য করে। সাধারণ দানের অর্থেই মূলত সকল কল্যাণমুখী কার্যক্রম পরিচালিত হয়। সাধারণ দানের কোন নির্দিষ্ট পরিমাণ নেই, চাইলে যে কেউ যেকোনো পরিমাণ টাকা দান করতে পারেন।
+                        {data.shortDes}
                     </p>
 
                     <div className="flex flex-col gap-1">
@@ -147,15 +147,15 @@ function ChildDonate({ data }: { data: ChildIProps }) {
                                         </div>
                                         {
                                             selectedOption === 'bangladesh' ? <div className="">
-                                                <p className=" text-sm  font-medium leading-relaxed">
-                                                    {htmlConvert(data.paymentInfo)}
+                                                <p className=" text-sm  font-medium leading-relaxed p-2">
+                                                    <div dangerouslySetInnerHTML={{ __html: data.paymentInfo.split("^")[0] }} />
                                                 </p>
                                             </div> : ""
                                         }
                                         {selectedOption === "outside" ?
                                             <div className="flex flex-col gap-2">
-                                                <p className=" text-sm  font-medium leading-relaxed">
-                                                    {htmlConvert(data.outsidePaymentInfo)}
+                                                <p className=" text-sm  font-medium leading-relaxed p-2">
+                                                    <div dangerouslySetInnerHTML={{ __html: data.outsidePaymentInfo.split("^")[0] }} />
                                                 </p>
                                                 <Button className=" bg-green-500" asChild>
                                                     <Link prefetch={false} href={data.link}>Donate on</Link>
@@ -298,7 +298,7 @@ function ChildDonate({ data }: { data: ChildIProps }) {
 
                                 </div>
                                 {
-                                    (selectedOption !== "" || paymentType !== "") ? (<Button type="submit">Submit</Button>) : <Button disabled={isPending}>Loading...</Button>
+                                    (selectedOption === "" || paymentType === "" || isPending) ? "" : (<Button type="submit">Submit</Button>)
                                 }
                             </form>
                         </Form>
