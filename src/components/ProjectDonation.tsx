@@ -294,7 +294,7 @@ function ProjectDonation({ data }: { data: ProjectsProps }) {
 
 							</div>
 							{
-								(selectedOption === "" || paymentType === "" || isPending) ? "" : (<Button type="submit">Submit</Button>)
+								(selectedOption === "" || isPending) ? "" : (<Button type="submit">Submit</Button>)
 							}
 						</form>
 					</Form>
