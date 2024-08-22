@@ -1,13 +1,14 @@
 import Image from 'next/image';
 import React from 'react'
-import { CircleUserRound, CalendarDays } from 'lucide-react';
 import { Share } from '@/components/Share';
 import { CarouselDemo } from '@/components/CarouselType';
 import { unstable_noStore } from 'next/cache';
 import { ProjectsProps } from '@/types';
-import moment from 'moment';
 import { getProjectSingle } from '@/lib/getProjectSingle';
 import ProjectDonation from '@/components/ProjectDonation';
+import icon from "../../../../public/divider.svg"
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 
 type Props = {
@@ -83,7 +84,18 @@ async function page({ params }: {
 					<ProjectDonation data={data} />
 				</div>
 			</div>
+			<div className=' border-t-2 py-4 w-full text-color-main' />
+			<h1 className="py-2 md:text-4xl text-2xl font-semibold text-center text-color-main">চলুন সবাই মিলে ভালো কিছু করি</h1>
+			<h2 className="py-2 md:text-xl text-[16px] font-medium text-center text-color-main">আমি একা কিছু করতে পারবো।  কিন্তু, আমরা সবাই মিলে অনেক কিছু করতে পারবো।</h2>
+			<div className='flex flex-col items-center justify-center gap-2 '>
+				<Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={icon} alt='icon' />
+			</div>
 			<CarouselDemo />
+			<div className="flex justify-center py-4">
+				<Button size={"lg"} className='text-black bg-white border-2 border-black  hover:border-color-sub hover:bg-color-sub hover:text-white' asChild>
+					<Link href="/our-projects">আরো দেখুন</Link>
+				</Button>
+			</div>
 		</div>
 	)
 }
