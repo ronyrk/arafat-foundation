@@ -6,10 +6,10 @@ import DisbursementTable from '@/components/DisbursementTable';
 import { ChildCarousel } from '@/components/ChildCarousel';
 import { unstable_noStore } from 'next/cache';
 import { ChildIProps } from '@/types';
-import { SingleShare } from '@/components/SingleShare';
 import Link from 'next/link';
 import prisma from '@/lib/prisma';
-import { Item } from '@radix-ui/react-select';
+import { Share } from '@/components/Share';
+import icon from "../../../../public/divider.svg"
 
 type Props = {
 	params: { username: string }
@@ -110,7 +110,16 @@ async function page({ params }: {
 				</div>
 			</div>
 			<div className="py-4 px-2">
-				<SingleShare type='sponsor-a-child' username={data.username} />
+				<Share type='sponsor-a-child' username={data.username} />
+			</div>
+			<div className=' border-t-2 py-4 w-full text-color-main' />
+			<div className="mx-2">
+				<h1 className="py-2 md:text-4xl text-xl font-semibold text-center text-color-main">একটি শিশুর দায়িত্ব নিন</h1>
+				<h2 className="py-2 md:text-base text-[14px] font-medium text-center text-color-main">একটি শিশুর (আংশিক অথবা পূর্ণ) দায়িত্ব নেওয়ার মাধ্যমে আপনি একটি শিশুকে স্কুলে যেতে সাহায্য করতে পারেন যাতে সে ঝরে পড়ার ঝুঁকি ছাড়াই শিক্ষা লাভ করতে পারে।</h2>
+				<h2 className="py-2 md:text-[15px] text-[14px] font-normal text-center text-color-main">আমাদের শিশু স্পনসরশিপ প্রোগ্রামে আপনি একটি শিশুর জন্য সহায়তা প্রদান করতে পারেন।</h2>
+			</div>
+			<div className='flex flex-col items-center justify-center gap-2'>
+				<Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={icon} alt='icon' />
 			</div>
 			<ChildCarousel />
 		</div>
