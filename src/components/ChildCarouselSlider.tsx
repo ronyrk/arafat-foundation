@@ -52,7 +52,7 @@ function ChildCarouselSlider({ data }: { data: ChildIProps[] }) {
                       <Link href={`/sponsor-a-child/${item.username}`}>প্রোফাইল দেখুন</Link>
                     </Button>
                     <Button className='w-[130px] md:px-4 px-1 text-white rounded-sm bg-color-main hover:bg-color-sub' asChild>
-                      <Link href={`/donation/${item.username}`}>স্পন্সর করুন</Link>
+                      <Link href={`/sponsor-a-child/${item.username}`}>স্পন্সর করুন</Link>
                     </Button>
                   </div>
                 </div>
