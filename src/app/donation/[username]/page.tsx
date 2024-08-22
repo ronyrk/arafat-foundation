@@ -8,15 +8,6 @@ async function Donation({ params }: {
 		username: string
 	}
 }) {
-	// const { data, isLoading } = useQuery({
-	// 	queryKey: ["child"],
-	// 	queryFn: async () => {
-	// 		const response = await axios.get(`/api/child/${params.username}`);
-	// 		return response.data;
-	// 	},
-	// 	// refetchInterval: 1000,
-	// });
-	// console.log(data, "result");
 	unstable_noStore();
 	let res = await fetch(`https://af-admin.vercel.app/api/child/${params.username}`);
 	if (!res.ok) {
