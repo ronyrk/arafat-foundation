@@ -66,7 +66,7 @@ async function page({ params, searchParams }: {
 			</div>
 			<BorrowersList page={page} response={response} />
 			<div className="py-2 px-4">
-				<Share username={data.username} type='branches' />
+				<Share username={data.username} type='karze-hasana/branches' />
 			</div>
 		</div>
 	)

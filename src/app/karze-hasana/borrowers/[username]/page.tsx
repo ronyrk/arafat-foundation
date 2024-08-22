@@ -110,7 +110,7 @@ async function page({ params }: ParamsIProps) {
 				<BorrowersDocuments data={data} />
 			</div>
 			<div className="py-2 px-4">
-				<Share username={data.username} type='borrowers' />
+				<Share username={data.username} type='karze-hasana/borrowers' />
 			</div>
 			<div className="p-4">
 				<h2 className="text-[16px] font-normal text-color-main">{data.about} </h2>
