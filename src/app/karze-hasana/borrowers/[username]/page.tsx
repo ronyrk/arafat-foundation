@@ -4,7 +4,7 @@ import BorrowersTransaction from '@/components/BorrowersTransaction';
 import PhoneNumber from '@/components/PhoneNumber';
 import PhotoBlur from '@/components/PhotoBlur';
 import { Share } from '@/components/Share';
-import { LoanIProps, ParamsIProps, PaymentIProps } from '@/types'
+import { ParamsIProps, PaymentIProps } from '@/types'
 import { unstable_noStore } from 'next/cache';
 import React from 'react'
 
