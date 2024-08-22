@@ -24,22 +24,22 @@ export function Share({ username, type }: { username: string, type: string }) {
 			<h2 className=" uppercase flex justify-start text-xl font-bold">SHARE:</h2>
 			<div className="flex flex-row gap-4">
 				<FacebookShareButton
-					url={`https://arafatfoundation.vercel.app/karze-hasana/${type}/${username}`}
+					url={`https://arafatfoundation.vercel.app/${type}/${username}`}
 					quote={'Arafat foundation LTD.'}
 				>
 					<Facebook className=' hover:bg-blue-500 hover:text-white p-1 rounded border-2' size={40} />
 				</FacebookShareButton>
 				<TwitterShareButton
-					url={`https://arafatfoundation.vercel.app/karze-hasana/${type}/${username}`}
+					url={`https://arafatfoundation.vercel.app/${type}/${username}`}
 					title={'Arafat foundation LTD.'}
 				>
 					<Twitter className=' hover:bg-blue-500 hover:text-white p-1 rounded border-2' size={40} />
 				</TwitterShareButton>
-				<LinkedinShareButton url={`https://arafatfoundation.vercel.app/karze-hasana/${type}/${username}`}>
+				<LinkedinShareButton url={`https://arafatfoundation.vercel.app/${type}/${username}`}>
 					<Linkedin className=' hover:bg-blue-500 hover:text-white p-1 rounded border-2' size={40} />
 				</LinkedinShareButton>
 				<WhatsappShareButton
-					url={`https://arafatfoundation.vercel.app/karze-hasana/${type}/${username}`}
+					url={`https://arafatfoundation.vercel.app/${type}/${username}`}
 					title={'Arafat foundation LTD.'}
 					separator=":: "
 				>

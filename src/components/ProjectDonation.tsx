@@ -142,21 +142,21 @@ function ProjectDonation({ data }: { data: ProjectsProps }) {
 
 									</div>
 									{
-										selectedOption === 'bangladesh' && <div className="">
-											<p className=" text-sm  font-medium leading-relaxed">
-												{htmlConvert(data.paymentInfo)}
+										selectedOption === 'bangladesh' ? <div className="">
+											<p className=" text-sm  font-medium leading-relaxed p-2">
+												<div dangerouslySetInnerHTML={{ __html: data.paymentInfo.split("^")[0] }} />
 											</p>
-										</div>
+										</div> : ""
 									}
-									{selectedOption === "outside" &&
+									{selectedOption === "outside" ?
 										<div className="flex flex-col gap-2">
-											<p className=" text-sm  font-medium leading-relaxed">
-												{htmlConvert(data.outsidePaymentInfo)}
+											<p className=" text-sm  font-medium leading-relaxed p-2">
+												<div dangerouslySetInnerHTML={{ __html: data.outsidePaymentInfo.split("^")[0] }} />
 											</p>
 											<Button className=" bg-green-500" asChild>
 												<Link prefetch={false} href={data.link}>Donate on</Link>
 											</Button>
-										</div>}
+										</div> : ""}
 								</div>
 
 								{
@@ -294,7 +294,7 @@ function ProjectDonation({ data }: { data: ProjectsProps }) {
 
 							</div>
 							{
-								(selectedOption !== "" || paymentType !== "") ? (<Button type="submit">Submit</Button>) : <Button disabled={isPending}>Loading...</Button>
+								(selectedOption === "" || paymentType === "" || isPending) ? "" : (<Button type="submit">Submit</Button>)
 							}
 						</form>
 					</Form>
