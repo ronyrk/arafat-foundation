@@ -213,6 +213,7 @@ export interface ChildIProps {
 	paymentInfo: string,
 	outsidePaymentInfo: string,
 	link: string,
+	shortDes: string,
 }
 export interface DisbursementIProps {
 	id?: string,

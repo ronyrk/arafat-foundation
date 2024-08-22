@@ -190,6 +190,7 @@ model Child {
   paymentInfo        String
   outsidePaymentInfo String
   link               String
+  shortDes           String
 }
 
 model disbursement {
