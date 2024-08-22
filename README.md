@@ -1,2 +1,1 @@
-## Arafat Foundation
-## [visit](https://arafatfoundation.vercel.app/)
+## [Arafat Foundation](https://arafatfoundation.vercel.app)
