@@ -107,7 +107,7 @@ async function page({ params }: ParamsIProps) {
 				<h2 className="text-[16px] font-normal text-color-main">{data.about} </h2>
 			</div>
 			<div className="py-2 px-4">
-				<Share username={data?.username} type='donor-and-lenders' />
+				<Share username={data?.username} type='karze-hasana/donor-and-lenders' />
 			</div>
 			<DonorTable data={data} />
 		</div>

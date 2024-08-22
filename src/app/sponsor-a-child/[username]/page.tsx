@@ -122,6 +122,11 @@ async function page({ params }: {
 				<Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={icon} alt='icon' />
 			</div>
 			<ChildCarousel />
+			<div className="flex justify-center py-4">
+				<Button size={"lg"} className='text-black bg-white border-2 border-black  hover:border-color-sub hover:bg-color-sub hover:text-white' asChild>
+					<Link href="/sponsor-a-child">আরো দেখুন</Link>
+				</Button>
+			</div>
 		</div>
 	)
 }
