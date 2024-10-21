@@ -88,7 +88,7 @@ function Footer() {
 												</div>
 												<div className="flex flex-col my-2  ml-[3px]">
 													<span className='text-[14px]  text-white font-medium'>Phone</span>
-													<a className=' text-[15px] text-white font-semibold' href="tel:01602505070">01602505070</a>
+													<a className=' text-[15px] text-white font-semibold' href="tel:01674997311">01674997311 (Whatsapp)</a>
 												</div>
 											</div>
 										</div>
