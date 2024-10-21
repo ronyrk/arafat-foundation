@@ -43,16 +43,15 @@ function Footer() {
 										আমাদের সম্পর্কে</Link>
 									<Link href="/our-activities" className='  text-sm font-medium text-[#F5F5F5] flex flex-row hover:text-color-sub py-1' > <span className=''><ChevronRight /></span>
 										আমাদের কার্যক্রম</Link>
-									<Link href="/gallery" className='  text-sm font-medium text-[#F5F5F5] flex flex-row hover:text-color-sub py-1' > <span className=''><ChevronRight /></span>
-										গ্যালারি </Link>
+
 									<Link href="/details-of-income-and-expenses" className='  text-sm font-medium text-[#F5F5F5] flex flex-row hover:text-color-sub py-1' > <span className=''><ChevronRight /></span>
 										আয়ের ও ব্যায়ের হিসাব</Link>
+									<Link href="/our-all-links" className='  text-sm font-medium text-[#F5F5F5] flex flex-row hover:text-color-sub py-1' > <span className=''><ChevronRight /></span>
+										সকল লিংক  </Link>
 									<Link href="/blog" className='  text-sm font-medium text-[#F5F5F5] flex flex-row hover:text-color-sub py-1' > <span className=''><ChevronRight /></span>
 										ব্লগ</Link>
 									<Link href="/contact-us" className='  text-sm font-medium text-[#F5F5F5] flex flex-row hover:text-color-sub py-1' > <span className=''><ChevronRight /></span>
 										যোগাযোগ </Link>
-									<Link href="/our-all-links" className='  text-sm font-medium text-[#F5F5F5] flex flex-row hover:text-color-sub py-1' > <span className=''><ChevronRight /></span>
-										সকল লিংক  </Link>
 								</div>
 							</div>
 							<div className="flex basis-1/4 flex-col px-4">
@@ -88,7 +87,7 @@ function Footer() {
 												</div>
 												<div className="flex flex-col my-2  ml-[3px]">
 													<span className='text-[14px]  text-white font-medium'>Phone</span>
-													<a className=' text-[15px] text-white font-semibold' href="tel:01602505070">01602505070</a>
+													<a className=' text-[15px] text-white font-semibold' href="tel:01674997311">01674997311 (Whatsapp)</a>
 												</div>
 											</div>
 										</div>
