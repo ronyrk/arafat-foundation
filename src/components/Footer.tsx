@@ -43,16 +43,15 @@ function Footer() {
 										আমাদের সম্পর্কে</Link>
 									<Link href="/our-activities" className='  text-sm font-medium text-[#F5F5F5] flex flex-row hover:text-color-sub py-1' > <span className=''><ChevronRight /></span>
 										আমাদের কার্যক্রম</Link>
-									<Link href="/gallery" className='  text-sm font-medium text-[#F5F5F5] flex flex-row hover:text-color-sub py-1' > <span className=''><ChevronRight /></span>
-										গ্যালারি </Link>
+
 									<Link href="/details-of-income-and-expenses" className='  text-sm font-medium text-[#F5F5F5] flex flex-row hover:text-color-sub py-1' > <span className=''><ChevronRight /></span>
 										আয়ের ও ব্যায়ের হিসাব</Link>
+									<Link href="/our-all-links" className='  text-sm font-medium text-[#F5F5F5] flex flex-row hover:text-color-sub py-1' > <span className=''><ChevronRight /></span>
+										সকল লিংক  </Link>
 									<Link href="/blog" className='  text-sm font-medium text-[#F5F5F5] flex flex-row hover:text-color-sub py-1' > <span className=''><ChevronRight /></span>
 										ব্লগ</Link>
 									<Link href="/contact-us" className='  text-sm font-medium text-[#F5F5F5] flex flex-row hover:text-color-sub py-1' > <span className=''><ChevronRight /></span>
 										যোগাযোগ </Link>
-									<Link href="/our-all-links" className='  text-sm font-medium text-[#F5F5F5] flex flex-row hover:text-color-sub py-1' > <span className=''><ChevronRight /></span>
-										সকল লিংক  </Link>
 								</div>
 							</div>
 							<div className="flex basis-1/4 flex-col px-4">
