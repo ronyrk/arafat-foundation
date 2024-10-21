@@ -60,7 +60,7 @@ async function page() {
             </div>
             <div className="border-[1px]  rounded-md p-2 my-2 ">
                 <div className="flex items-center justify-center py-4  ">
-                    <h2 className=" w-fit text-center text-lg  font-semibold rounded border-dashed border-color-main border-2 uppercase px-3 py-1">Application</h2>
+                    <h2 className=" w-fit text-center text-lg  font-semibold rounded border-dashed border-color-main border-2 uppercase px-3 py-1">Others</h2>
                 </div>
                 <Suspense fallback={<h2>Loading...</h2>}>
                     <div className="grid grid-cols-4 gap-4">
