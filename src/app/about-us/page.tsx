@@ -1,6 +1,6 @@
 function page() {
   return (
-    <div className="px-2 mt-36">
+    <div className="px-2">
       <h2 className=" text-2xl  font-medium">পরিচিতি</h2>
       <p className="p-2 leading-relaxed">
         <span className=" font-bold">আরাফাত ফাউন্ডেশন</span> একটি অরাজনৈতিক,

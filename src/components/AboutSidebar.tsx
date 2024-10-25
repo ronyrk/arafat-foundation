@@ -37,7 +37,7 @@ const data: NavbarIProps[] = [
 function ABoutSidebar() {
   const pathname = usePathname();
   return (
-    <div className="flex flex-col bg-[#F1F1FA] border-2 rounded mt-36">
+    <div className="flex flex-col bg-[#F1F1FA] border-2 rounded">
       {data.map((item, index) => (
         <Link
           key={index}
