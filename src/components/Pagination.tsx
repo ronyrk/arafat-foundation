@@ -11,13 +11,13 @@ function PaginationPart({ data, item }: { data: number, item: number }) {
 	const searchParams = useSearchParams();
 
 	const handlePage = (term: string) => {
-		const params = new URLSearchParams(searchParams);
+		const params = new URLSearchParams(searchParams as any);
 		if (term) {
 			params.set("page", term);
 		} else {
 			params.delete("page");
 		}
-		replace(`${pathname}?${params.toString()}`);
+		replace(`${pathname}?${params?.toString()}`);
 	};
 	const page = searchParams.get('page');
 	const pageNumber = Number(page) || 1;

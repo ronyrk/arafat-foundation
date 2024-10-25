@@ -1,4 +1,4 @@
-import { DonateProps, LoanIProps } from "@/types";
+import { ProjectDonateRequestProps } from "@/types";
 import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
@@ -7,9 +7,9 @@ export const dynamic = 'force-dynamic'
 // Loan Created
 export const POST = async (request: Request) => {
 	try {
-		const body: DonateProps = await request.json();
+		const body: ProjectDonateRequestProps = await request.json();
 		const { name, email, amount, photoUrl, about, method, type, transaction, sendNumber, projectName } = body;
-		const result = await prisma.donate.create({
+		const result = await prisma.projectDonateRequest.create({
 			data: {
 				name, email, amount, photoUrl, about, method, type, sendNumber, transaction, projectName
 			}
