@@ -9,7 +9,7 @@ export const POST = async (request: Request) => {
     try {
         const body: ChildDonateProps = await request.json();
         const { name, email, amount, photoUrl, about, method, type, transaction, sendNumber, childName } = body;
-        const result = await prisma.childsDonate.create({
+        const result = await prisma.childsDonateRequest.create({
             data: {
                 name, email, amount, photoUrl, about, method, type, sendNumber, transaction, childName
             }

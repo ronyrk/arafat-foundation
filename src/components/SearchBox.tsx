@@ -9,7 +9,7 @@ function SearchBox() {
 	const { replace } = useRouter();
 	const searchParams = useSearchParams();
 	const handleSearch = useDebouncedCallback((term: string) => {
-		const params = new URLSearchParams(searchParams);
+		const params = new URLSearchParams(searchParams as any);
 		if (term) {
 			params.set("search", term);
 		} else {

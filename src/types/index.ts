@@ -150,6 +150,19 @@ export interface NewsProps {
 	username: string,
 	shortDes?: string,
 }
+export interface ProjectDonateRequestProps {
+	id?: string,
+	projectName: string,
+	name: string,
+	email: string,
+	amount: string,
+	method?: string,
+	photoUrl?: string,
+	about?: string,
+	sendNumber?: string,
+	transaction?: string,
+	type: string,
+}
 export interface DonateProps {
 	id?: string,
 	projectName: string,
@@ -175,19 +188,8 @@ export interface ChildDonateProps {
 	sendNumber?: string,
 	transaction?: string,
 	type: string,
-}
-export interface ChildDonateProps {
-	id?: string,
-	childName: string,
-	name: string,
-	email: string,
-	amount: string,
-	method?: string,
-	photoUrl?: string,
-	about?: string,
-	sendNumber?: string,
-	transaction?: string,
-	type: string,
+	createAt?: Date,
+
 }
 export interface SponsorProps {
 	id?: string,
