@@ -53,10 +53,10 @@ function Navbar() {
 		<div>
 			<div id='top' className='flex items-center justify-between px-4 py-2 md:px-20 bg-color-main'>
 				<div className=" flex flex-row gap-2 md:px-12 md:ml-[-38px] px-2 items-center">
-					<a className='flex flex-row items-center gap-2' href="tel:01602505070">
+					<a className='flex flex-row items-center gap-2' href="tel:01674997311">
 						<PhoneCall className='font-bold text-orange-400 cursor-pointer hover:text-orange-500' size={13} />
 
-						<span className='text-white text-[13px] font-medium  hover:text-orange-400 cursor-pointer pr-2'>01602505070</span>
+						<span className='text-white text-[13px] font-medium  hover:text-orange-400 cursor-pointer pr-2'>01674997311(whatsapp)</span>
 					</a>
 					<a className='flex flex-row items-center gap-2' href="mailto:contact@arafatfoundation.org">
 						<Mail className='font-bold text-orange-400 cursor-pointer hover:text-orange-500' size={13} />
