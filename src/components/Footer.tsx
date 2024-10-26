@@ -80,7 +80,7 @@ function Footer() {
 							<div className="flex basis-1/4 flex-col px-4">
 								<h2 className="text-[24px] font-semibold  text-white border-b-4 border-white">যোগাযোগের তথ্য</h2>
 								<div className="flex flex-col gap-0">
-									<a href="tel:01602505070">
+									<a href="tel:01674997311">
 										<div className="flex flex-row items-center">
 											<div className="flex flex-row items-center my-1">
 												<div className="bg-gray-300 transition duration-150 ease-in-out hover:bg-color-sub hover:text-white p-3 rounded-md mr-1">

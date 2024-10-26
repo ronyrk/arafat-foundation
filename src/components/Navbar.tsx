@@ -62,14 +62,14 @@ function Navbar() {
         <div className=" flex flex-row gap-2 md:px-12 md:ml-[-38px] px-2 items-center">
           <a
             className="flex flex-row items-center gap-2"
-            href="tel:01602505070"
+            href="tel:01674997311"
           >
             <PhoneCall
               className="font-bold text-orange-400 cursor-pointer hover:text-orange-500"
               size={13}
             />
             <span className="text-white text-[13px] font-medium  hover:text-orange-400 cursor-pointer pr-2">
-              01602505070
+              01674997311
             </span>
           </a>
           <a
@@ -147,11 +147,10 @@ function Navbar() {
         <div className="hidden md:flex">
           <Link
             href="/"
-            className={`text-[16px] py-10 mx-3 font-semibold hover:border-color-sub hover:text-color-sub  border-b-4 ${
-              pathname === "/"
+            className={`text-[16px] py-10 mx-3 font-semibold hover:border-color-sub hover:text-color-sub  border-b-4 ${pathname === "/"
                 ? "border-color-sub text-color-sub"
                 : "border-white"
-            }`}
+              }`}
           >
             হোম
           </Link>
@@ -159,11 +158,10 @@ function Navbar() {
             <Link
               key={index}
               href={`/${item.path}`}
-              className={`text-[16px] py-10 mx-3 font-semibold hover:border-color-sub hover:text-color-sub  border-b-4 ${
-                pathname.startsWith(item?.path, 1)
+              className={`text-[16px] py-10 mx-3 font-semibold hover:border-color-sub hover:text-color-sub  border-b-4 ${pathname.startsWith(item?.path, 1)
                   ? "border-color-sub text-color-sub"
                   : "border-white"
-              }`}
+                }`}
             >
               {item?.name}
             </Link>
@@ -193,11 +191,10 @@ function Navbar() {
                 <SheetClose asChild>
                   <Link
                     href="/"
-                    className={`text-[16px] mx-3 font-semibold hover:border-color-sub hover:text-color-sub border-b-4 ${
-                      pathname === "/"
+                    className={`text-[16px] mx-3 font-semibold hover:border-color-sub hover:text-color-sub border-b-4 ${pathname === "/"
                         ? "border-color-sub text-color-sub"
                         : "border-white"
-                    }`}
+                      }`}
                   >
                     হোম
                   </Link>
@@ -206,11 +203,10 @@ function Navbar() {
                   <SheetClose asChild key={index}>
                     <Link
                       href={`/${item.path}`}
-                      className={`text-[16px] mx-3 font-semibold hover:border-color-sub hover:text-color-sub border-b-4 ${
-                        pathname.startsWith(item?.path, 1)
+                      className={`text-[16px] mx-3 font-semibold hover:border-color-sub hover:text-color-sub border-b-4 ${pathname.startsWith(item?.path, 1)
                           ? "border-color-sub text-color-sub"
                           : "border-white"
-                      }`}
+                        }`}
                     >
                       {item?.name}
                     </Link>
