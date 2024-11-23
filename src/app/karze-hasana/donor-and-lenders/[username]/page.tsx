@@ -4,10 +4,11 @@ import { Share } from '@/components/Share';
 import { DonorIProps, DonorPaymentIProps, ParamsIProps } from '@/types'
 import { unstable_noStore } from 'next/cache';
 import React from 'react'
+import prisma from '@/lib/prisma';
 
 async function getUser(username: string) {
 	unstable_noStore();
-	const res = await fetch(`https://arafatfoundation.vercel.app/api/donor/${username}`);
+	const res = await fetch(`https://af-admin.vercel.app/api/donor/${username}`);
 	if (!res.ok) {
 		throw new Error("Failed to fetch data");
 	};
@@ -50,37 +51,52 @@ async function page({ params }: ParamsIProps) {
 	const data: DonorIProps = await getUser(username);
 
 	unstable_noStore();
-	const res = await fetch(`https://arafatfoundation.vercel.app/api/donor_payment/donor/${username}`);
-	if (!res.ok) {
-		throw new Error("Failed fetch Data");
-	};
-	const paymentList: DonorPaymentIProps[] = await res.json();
 
-	const TotalAmount = async () => {
-		if (data.status === "LEADER") {
-			const returnArray = paymentList.filter((item) => item.type === "return");
-			let returnStringArray: string[] = [];
-			returnArray.forEach((item) => returnStringArray.push(item.loanPayment));
-			const returnNumberArray = returnStringArray.map(Number);
-			const totalReturn = returnNumberArray.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
-
-			const increaseArray = paymentList.filter((item) => item.type === "increase");
-			let increaseStringArray: string[] = [];
-			increaseArray.forEach((item) => increaseStringArray.push(item.amount));
-			const increaseNumberArray = increaseStringArray.map(Number);
-			const totalIncrease = increaseNumberArray.reduce((accumulator, currentValue) => accumulator + currentValue, 0)
-			return totalIncrease - totalReturn;
-		} else {
-			let amountStringArray: string[] = [];
-			const Create = paymentList.forEach((item) => amountStringArray.push(item.amount));
-			// Convert String Array to Number Array
-			let AmountArray = amountStringArray.map(Number);
-			const totalAmount = AmountArray.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
-			// console.log(totalAmount, 'number array');
-			return `${totalAmount}`
+	const paymentList = await prisma.donorPayment.findMany({
+		where: {
+			donorUsername: username
 		}
-
+	}) as DonorPaymentIProps[];
+	const TotalLending = async () => {
+		const returnArray = paymentList.filter((item) => item.type === "LENDING");
+		let returnStringArray: string[] = [];
+		returnArray.forEach((item) => returnStringArray.push(item.amount as string));
+		const returnNumberArray = returnStringArray.map(Number);
+		const total = returnNumberArray.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+		return `${total}`;
 	}
+
+	const TotalDonate = async () => {
+		const returnArray = paymentList.filter((item) => item.type === "DONATE");
+		let returnStringArray: string[] = [];
+		returnArray.forEach((item) => returnStringArray.push(item.loanPayment as string));
+		const returnNumberArray = returnStringArray.map(Number);
+		const total = returnNumberArray.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+		return `${total}`;
+	}
+	const TotalRefound = async () => {
+		let returnStringArray: string[] = [];
+		paymentList.forEach((item) => returnStringArray.push(item.loanPayment as string));
+		const returnNumberArray = returnStringArray.map(Number);
+		const total = returnNumberArray.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+		return `${total}`;
+	}
+
+	const Outstanding = async () => {
+		const returnArray = paymentList.filter((item) => item.type === "LENDING");
+		let returnStringArray: string[] = [];
+		returnArray.forEach((item) => returnStringArray.push(item.amount as string));
+		const returnNumberArray = returnStringArray.map(Number);
+		const total = returnNumberArray.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+
+		let returnStringArray2: string[] = [];
+		paymentList.forEach((item) => returnStringArray2.push(item.loanPayment as string));
+		const returnNumberArray2 = returnStringArray2.map(Number);
+		const payment = returnNumberArray2.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+
+		return `${total - payment}`;
+	}
+
 	async function getStatus(status: string) {
 		if (status === "LEADER") {
 			return "LENDER"
@@ -100,7 +116,10 @@ async function page({ params }: ParamsIProps) {
 					<h2 className=" font-semibold text-xl py-1  text-color-main">{data.name}</h2>
 					<h2 className=" font-normal text-[15px]  text-color-main"><span className="font-semibold mr-2">Lives in :</span>{data.lives} </h2>
 					<h2 className=" font-normal text-[15px]  text-color-main"><span className="font-semibold mr-2">Home town:</span>{data.hometown}</h2>
-					<h2 className=" font-normal text-[15px]  text-color-main"><span className="font-semibold mr-2">{data.status === "LEADER" ? "Total Lending" : "Total Donation"} :- </span>{TotalAmount()}</h2>
+					<h2 className=" font-normal text-[15px]  text-color-main"><span className="font-semibold mr-2">Total Lending :- </span>{TotalLending()}</h2>
+					<h2 className=" font-normal text-[15px]  text-color-main"><span className="font-semibold mr-2">Total Donate :- </span>{TotalDonate()}</h2>
+					<h2 className=" font-normal text-[15px]  text-color-main"><span className="font-semibold mr-2">Total Refound :- </span>{TotalRefound()}</h2>
+					<h2 className=" font-normal text-[15px]  text-color-main"><span className="font-semibold mr-2">Outstanding :- </span>{Outstanding()}</h2>
 				</div>
 			</div>
 			<div className="p-4">

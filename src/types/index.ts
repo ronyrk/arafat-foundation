@@ -98,14 +98,7 @@ export interface PaymentRequestIProps {
 	method: string,
 	createAt: Date
 };
-export interface DonorPaymentIProps {
-	id?: string,
-	donorUsername: string,
-	loanPayment: string,
-	amount: string,
-	createAt: Date,
-	type: string,
-};
+
 export interface FaqIProps {
 	id?: string,
 	title: string,
@@ -263,3 +256,34 @@ export interface AllLinkIProps {
 	path: string,
 	type: string,
 }
+export interface DonorIUpdatedProps {
+	id?: string,
+	password: string,
+	name: string,
+	photoUrl: string,
+	about: string,
+	lives: string,
+	hometown: string,
+	status: string,
+	socailMedia2: string,
+	socailMedia1: string,
+	mobile: string,
+};
+export interface DonorPaymentIPropsSend {
+	id?: string,
+	donorUsername: string,
+	loanPayment?: string,
+	amount?: string,
+	createAt: Date,
+	type: string,
+	returnDate?: Date
+};
+export interface DonorPaymentIProps {
+	id?: string,
+	donorUsername: string,
+	loanPayment?: string,
+	amount?: string,
+	createAt: Date,
+	type: string,
+	returnDate?: Date,
+};
