@@ -10,6 +10,7 @@ import {
 import { DonorIProps, DonorPaymentIProps } from '@/types'
 import moment from 'moment';
 import { unstable_noStore } from 'next/cache';
+import prisma from '@/lib/prisma';
 
 interface ParamsIProps {
 	data: DonorIProps
@@ -18,11 +19,14 @@ interface ParamsIProps {
 async function TableRowList(params: ParamsIProps) {
 	const { status, username } = params.data;
 	unstable_noStore();
-	const res = await fetch(`https://arafatfoundation.vercel.app/api/donor_payment/donor/${username}`);
-	if (!res.ok) {
-		throw new Error("Failed fetch Data");
-	};
-	const data: DonorPaymentIProps[] = await res.json();
+	const data = await prisma.donorPayment.findMany({
+		where: {
+			donorUsername: username
+		},
+		orderBy: {
+			createAt: "asc"
+		}
+	}) as DonorPaymentIProps[];
 
 	const loanAmount = async (amount: string, type: string) => {
 		if (type === "increase") {
@@ -45,8 +49,8 @@ async function TableRowList(params: ParamsIProps) {
 				data.map((item, index) => (
 					<TableRow key={index}>
 						<TableCell>{`${moment(item.createAt).format('DD/MM/YYYY')}`}</TableCell>
-						<TableCell>{loanAmount(item.amount, item.type)}</TableCell>
-						<TableCell className='px-4'>{loanPayment(item.loanPayment, item.type)} </TableCell>
+						<TableCell>{loanAmount(item.amount as string, item.type)}</TableCell>
+						<TableCell className='px-4'>{loanPayment(item.loanPayment as string, item.type)} </TableCell>
 					</TableRow>
 				))
 			}
