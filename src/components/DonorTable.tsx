@@ -29,7 +29,7 @@ async function TableRowList(params: ParamsIProps) {
 	}) as DonorPaymentIProps[];
 
 	const loanAmount = async (amount: string, type: string) => {
-		if (type === "increase") {
+		if (type === "LENDING") {
 			return `BDT =${amount}/=`
 		} else {
 			return 'N/A'
@@ -37,7 +37,7 @@ async function TableRowList(params: ParamsIProps) {
 	}
 
 	const loanPayment = async (amount: string, type: string) => {
-		if (type === "return") {
+		if (type === "REFOUND" || type === "DONATE") {
 			return `BDT =${amount}/=`
 		} else {
 			return 'N/A'
