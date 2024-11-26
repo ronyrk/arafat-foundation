@@ -276,7 +276,8 @@ export interface DonorPaymentIPropsSend {
 	amount?: string,
 	createAt: Date,
 	type: string,
-	returnDate?: Date
+	returnDate?: Date,
+	donate?: string,
 };
 export interface DonorPaymentIProps {
 	id?: string,
@@ -286,4 +287,5 @@ export interface DonorPaymentIProps {
 	createAt: Date,
 	type: string,
 	returnDate?: Date,
+	donate?: string,
 };

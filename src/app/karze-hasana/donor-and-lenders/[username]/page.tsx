@@ -63,23 +63,24 @@ async function page({ params }: ParamsIProps) {
 		returnArray.forEach((item) => returnStringArray.push(item.amount as string));
 		const returnNumberArray = returnStringArray.map(Number);
 		const total = returnNumberArray.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
-		return `${total}`;
+		return total;
 	}
 
 	const TotalDonate = async () => {
 		const returnArray = paymentList.filter((item) => item.type === "DONATE");
 		let returnStringArray: string[] = [];
+		returnArray.forEach((item) => returnStringArray.push(item.donate as string));
+		const returnNumberArray = returnStringArray.map(Number);
+		const total = returnNumberArray.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+		return total;
+	}
+	const TotalRefound = async () => {
+		const returnArray = paymentList.filter((item) => item.type === "REFOUND");
+		let returnStringArray: string[] = [];
 		returnArray.forEach((item) => returnStringArray.push(item.loanPayment as string));
 		const returnNumberArray = returnStringArray.map(Number);
 		const total = returnNumberArray.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
-		return `${total}`;
-	}
-	const TotalRefound = async () => {
-		let returnStringArray: string[] = [];
-		paymentList.forEach((item) => returnStringArray.push(item.loanPayment as string));
-		const returnNumberArray = returnStringArray.map(Number);
-		const total = returnNumberArray.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
-		return `${total}`;
+		return total;
 	}
 
 	const Outstanding = async () => {
@@ -94,7 +95,28 @@ async function page({ params }: ParamsIProps) {
 		const returnNumberArray2 = returnStringArray2.map(Number);
 		const payment = returnNumberArray2.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
 
-		return `${total - payment}`;
+		const returnArray3 = paymentList.filter((item) => item.type === "DONATE");
+		let returnStringArray3: string[] = [];
+		returnArray3.forEach((item) => returnStringArray3.push(item.donate as string));
+		const returnNumberArray3 = returnStringArray3.map(Number);
+		const donate = returnNumberArray3.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+
+		return (total - payment) - donate;
+	}
+	const DonorTotalAmount = async () => {
+		const returnArray = paymentList.filter((item) => item.type === "LENDING");
+		let returnStringArray: string[] = [];
+		returnArray.forEach((item) => returnStringArray.push(item.amount as string));
+		const returnNumberArray = returnStringArray.map(Number);
+		const total = returnNumberArray.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+
+		const returnArray3 = paymentList.filter((item) => item.type === "DONATE");
+		let returnStringArray3: string[] = [];
+		returnArray3.forEach((item) => returnStringArray3.push(item.donate as string));
+		const returnNumberArray3 = returnStringArray3.map(Number);
+		const donate = returnNumberArray3.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+
+		return total + donate;
 	}
 
 	async function getStatus(status: string) {
@@ -115,11 +137,16 @@ async function page({ params }: ParamsIProps) {
 				<div className="basis-9/12 border-[2px] rounded p-1 px-2 flex flex-col justify-around">
 					<h2 className=" font-semibold text-xl py-1  text-color-main">{data.name}</h2>
 					<h2 className=" font-normal text-[15px]  text-color-main"><span className="font-semibold mr-2">Lives in :</span>{data.lives} </h2>
-					<h2 className=" font-normal text-[15px]  text-color-main"><span className="font-semibold mr-2">Home town:</span>{data.hometown}</h2>
-					<h2 className=" font-normal text-[15px]  text-color-main"><span className="font-semibold mr-2">Total Lending :- </span>{TotalLending()}</h2>
-					<h2 className=" font-normal text-[15px]  text-color-main"><span className="font-semibold mr-2">Total Donate :- </span>{TotalDonate()}</h2>
-					<h2 className=" font-normal text-[15px]  text-color-main"><span className="font-semibold mr-2">Total Refound :- </span>{TotalRefound()}</h2>
-					<h2 className=" font-normal text-[15px]  text-color-main"><span className="font-semibold mr-2">Outstanding :- </span>{Outstanding()}</h2>
+					{
+						data.status === "LEADER" ? (
+							<>
+								<h2 className=" font-normal text-[15px]  text-color-main"><span className="font-semibold mr-2">Total Lending :- </span>{TotalLending()}</h2>
+								<h2 className=" font-normal text-[15px]  text-color-main"><span className="font-semibold mr-2">Total Donate :- </span>{TotalDonate()}</h2>
+								<h2 className=" font-normal text-[15px]  text-color-main"><span className="font-semibold mr-2">Total Refound :- </span>{TotalRefound()}</h2>
+								<h2 className=" font-normal text-[15px]  text-color-main"><span className="font-semibold mr-2">Outstanding :- </span>{Outstanding()}</h2>
+							</>
+						) : <h2 className=" font-normal text-[15px]  text-color-main"><span className="font-semibold mr-2">Total Donate :- </span>{DonorTotalAmount()}</h2>
+					}
 				</div>
 			</div>
 			<div className="p-4">
