@@ -16,6 +16,15 @@ export const TotalAmount = async (status: string, username: string) => {
 	returnArray.forEach((item) => returnStringArray.push(item.amount as string));
 	const returnNumberArray = returnStringArray.map(Number);
 	const total = returnNumberArray.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
-	return `${total}`;
+
+	const returnArray2 = paymentList.filter((item) => item.type === "DONATE");
+	let returnStringArray2: string[] = [];
+	returnArray2.forEach((item) => returnStringArray2.push(item.donate as string));
+	const returnNumberArray2 = returnStringArray2.map(Number);
+	const donate = returnNumberArray2.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+
+	const result = status === "LEADER" ? total : total + donate;
+
+	return result;
 
 }
