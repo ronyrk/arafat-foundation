@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: Props) {
 
 async function getData(username: string) {
 	unstable_noStore();
-	const res = await fetch(`https://arafatfoundation.vercel.app/api/branch/${username}`);
+	const res = await fetch(`https://af-admin.vercel.app/api/branch/${username}`);
 	if (!res.ok) {
 		throw new Error("Failed to fetch data");
 	};
