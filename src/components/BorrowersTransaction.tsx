@@ -11,6 +11,7 @@ import { unstable_noStore } from 'next/cache';
 import { LoanIProps, PaymentIProps } from '@/types';
 import Moment from "moment"
 import PaymentRequest from './PaymentRequest';
+import prisma from '@/lib/prisma';
 
 function Zero(data: string) {
 	if (Number(data) !== 0) {

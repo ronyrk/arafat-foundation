@@ -7,7 +7,7 @@ import { Share } from '@/components/Share';
 import { ParamsIProps, PaymentIProps } from '@/types'
 import { unstable_noStore } from 'next/cache';
 import React from 'react'
-
+import prisma from '@/lib/prisma';
 
 type Props = {
 	params: { username: string }
