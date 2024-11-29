@@ -56,7 +56,7 @@ async function page({ params }: ParamsIProps) {
 		}
 	}) as PaymentIProps[];
 
-	const response = await fetch(`https://arafatfoundation.vercel.app/api/loan/${username}`);
+	const response = await fetch(`https://af-admin.vercel.app/api/loan/${username}`);
 	if (!response.ok) {
 		throw new Error("Failed to fetch data");
 	};
