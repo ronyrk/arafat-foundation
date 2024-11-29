@@ -16,7 +16,7 @@ type Props = {
 
 
 export async function generateMetadata({ params }: Props) {
-	const response = await fetch(`https://arafatfoundation.vercel.app/api/loan/${params.username}`);
+	const response = await fetch(`https://af-admin.vercel.app/api/loan/${params.username}`);
 	if (!response.ok) {
 		throw new Error("Failed to fetch data");
 	};
