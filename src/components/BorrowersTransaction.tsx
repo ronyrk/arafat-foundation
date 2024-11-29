@@ -23,11 +23,12 @@ function Zero(data: string) {
 async function LoanList({ username, paymentList, borrowers }: { username: string, paymentList: PaymentIProps[], borrowers: LoanIProps }) {
 	try {
 		unstable_noStore();
-		const res = await fetch(`https://af-admin.vercel.app/api/loan_list/${username}`);
-		if (!res.ok) {
-			throw new Error("Failed to fetch data");
-		}
-		const data: PaymentIProps[] = await res.json();
+
+		const data = await prisma?.payment.findMany({
+			where: {
+				loanusername: username
+			}
+		}) as PaymentIProps[];
 		const LoanOutStanding = async (index: number) => {
 			const loanState = paymentList.slice(0, index + 1);
 
