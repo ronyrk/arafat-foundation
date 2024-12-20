@@ -16,7 +16,7 @@ async function page() {
             type: "OWNER"
         }
     }) as OwnerIProps[];
-    const owners = await owner.slice(1);
+    const owners = owner.slice(1);
     const founder = await prisma.owner.findMany({
         where: {
             type: "FOUNDER"
