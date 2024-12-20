@@ -7,8 +7,10 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import Image from 'next/image';
 import icon from '../../../public/divider.svg';
+import { cookies } from 'next/headers';
 
 async function page() {
+    cookies();
     const owner = await prisma.owner.findMany({
         where: {
             type: "OWNER"
