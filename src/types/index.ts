@@ -289,3 +289,15 @@ export interface DonorPaymentIProps {
 	returnDate?: Date,
 	donate?: string,
 };
+export interface OwnerIProps {
+	id?: string,
+	username: string,
+	name: string,
+	email: string,
+	photos: string,
+	facebook: string,
+	linkedin: string,
+	phone: string,
+	about: string,
+	type: string
+}
