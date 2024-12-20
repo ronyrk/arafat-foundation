@@ -55,8 +55,10 @@ async function page() {
                         <Link href={`/team-member/founder`}>আরো দেখুন</Link>
                     </Button>
                 </div>
-                <h1 className="py-2 text-xl font-semibold text-center border-dotted text-color-main">উপদেষ্টগন</h1>
-                <Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={icon} alt='icon' />
+                <div className='flex flex-col items-center justify-center gap-2 '>
+                    <h1 className="py-2 text-xl font-semibold text-center border-dotted text-color-main">উপদেষ্টগন</h1>
+                    <Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={icon} alt='icon' />
+                </div>
                 <MemberCarousel data={advisor} />
                 <div className="flex justify-center py-4">
                     <Button size={"lg"} className='text-black bg-white border-2 border-black  hover:border-color-sub hover:bg-color-sub hover:text-white' asChild>
