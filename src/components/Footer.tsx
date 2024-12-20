@@ -52,6 +52,8 @@ function Footer() {
 										ব্লগ</Link>
 									<Link href="/contact-us" className='  text-sm font-medium text-[#F5F5F5] flex flex-row hover:text-color-sub py-1' > <span className=''><ChevronRight /></span>
 										যোগাযোগ </Link>
+									<Link href="/team-member" className='  text-sm font-medium text-[#F5F5F5] flex flex-row hover:text-color-sub py-1' > <span className=''><ChevronRight /></span>
+										টিম মেম্বার</Link>
 
 								</div>
 							</div>
