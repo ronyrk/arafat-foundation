@@ -3,19 +3,21 @@ import React from 'react'
 import icon from '../../../../public/divider.svg';
 import prisma from '@/lib/prisma';
 import { TeamMemberCard } from '@/components/ui/team-member-card';
-import { OwnerIProps } from '@/types';
 import { cookies } from 'next/headers';
+import PaginationPart from '@/components/Pagination';
+import { getSearchTeamMemberFounder } from '@/lib/getSearchTeamMember';
 
 
 
 
-async function page() {
+async function Founder({ searchParams }: {
+    searchParams?:
+    { page?: string }
+}) {
     cookies();
-    const founder = await prisma.owner.findMany({
-        where: {
-            type: "FOUNDER"
-        }
-    }) as OwnerIProps[];
+    const page = searchParams?.page || "1";
+    const length = await prisma.owner.count({ where: { type: "FOUNDER" } });
+    const founder = await getSearchTeamMemberFounder(page);
     return (
         <div className="container mx-auto px-4 py-12">
             <div className='flex flex-col items-center justify-center gap-2 '>
@@ -28,9 +30,12 @@ async function page() {
                         <TeamMemberCard key={index} {...member} />
                     ))}
                 </div>
+                <div className="flex justify-center py-2">
+                    <PaginationPart item={10} data={length} />
+                </div>
             </div>
         </div>
     )
 }
 
-export default page
+export default Founder

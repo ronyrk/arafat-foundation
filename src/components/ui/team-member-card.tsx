@@ -30,7 +30,7 @@ export function TeamMemberCard({ name, type, about, phone, linkedin, facebook, p
                         />
                     </div>
                 </div>
-                <div className="absolute bottom-[20px] flex flex-col items-center">
+                <div className="absolute bottom-[12px] flex flex-col items-center">
                     <h3 className="text-white font-medium text-center">{name}</h3>
                     <p className="text-gray-200 text-sm mb-2">{type}</p>
                     <Button
