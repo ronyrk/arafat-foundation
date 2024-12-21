@@ -3,7 +3,7 @@ import Image from 'next/image'
 import React from 'react'
 import { useUser } from './ContextProvider';
 
-function PhotoBlur({ url, name }: { url: string, name: string }) {
+function PhotoBlur({ url, name }: { url: string, name: string, author?: boolean }) {
 	const { user } = useUser();
 	return (
 		<div>
