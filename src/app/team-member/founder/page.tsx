@@ -17,7 +17,7 @@ async function page() {
         }
     }) as OwnerIProps[];
     return (
-        <div className="container mx-auto mt-[140px] px-4 py-12">
+        <div className="container mx-auto px-4 py-12">
             <div className='flex flex-col items-center justify-center gap-2 '>
                 <h1 className="py-2 text-xl font-semibold text-center border-dotted text-color-main">সদস্য গণ</h1>
                 <Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={icon} alt='icon' />

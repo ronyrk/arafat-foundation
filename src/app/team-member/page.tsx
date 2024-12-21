@@ -28,7 +28,7 @@ async function page() {
         }
     }) as OwnerIProps[];
     return (
-        <div className="container mx-auto px-4 mt-[140px] py-12">
+        <div className="container mx-auto px-4 py-12">
             <div className="space-y-12">
                 <div className='flex flex-col items-center justify-center gap-2 '>
                     <h1 className="py-2 text-xl font-semibold text-center border-dotted text-color-main">আমাদের টিম </h1>
