@@ -43,8 +43,8 @@ function MemberCarousel({ data, large = false }: { data: OwnerIProps[], large?: 
                                         />
                                     </div>
                                 </div>
-                                <div className="absolute bottom-[20px] flex flex-col items-center ">
-                                    <h3 className="text-white font-medium text-center">{item.name}</h3>
+                                <div className="absolute bottom-[10px] flex flex-col items-center ">
+                                    <h3 className="text-white font-medium text-center ">{item.name}</h3>
                                     <p className="text-gray-200 text-sm mb-2">{item.type}</p>
                                     <Button
                                         variant="secondary"

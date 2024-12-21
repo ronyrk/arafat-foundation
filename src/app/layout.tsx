@@ -31,18 +31,20 @@ export default function RootLayout({
         "min-h-screen  relative antialiased",
         fontSans.className
       )} >
-        <TanStackProvider>
-          <ContextProvider>
-            <Navbar />
-            {children}
-            <SpeedInsights />
-            <Toaster />
-            <Footer />
-            <div className="fixed z-10 bg-gray-100 rounded-full  right-8 bottom-10">
-              <a className="" href="#top"><ChevronUpCircle size={40} /> </a>
-            </div>
-          </ContextProvider>
-        </TanStackProvider>
+        <section id="top">
+          <TanStackProvider>
+            <ContextProvider>
+              <Navbar />
+              {children}
+              <SpeedInsights />
+              <Toaster />
+              <Footer />
+              <div className="fixed z-10 bg-gray-100 rounded-full  right-8 bottom-10">
+                <a className="" href="#top"><ChevronUpCircle size={40} /> </a>
+              </div>
+            </ContextProvider>
+          </TanStackProvider>
+        </section>
       </body>
     </html>
   );
