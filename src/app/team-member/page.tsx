@@ -41,7 +41,7 @@ async function page() {
                 <MemberCarousel data={owners} />
                 <div className="flex justify-center py-4">
                     <Button size={"lg"} className='text-black bg-white border-2 border-black  hover:border-color-sub hover:bg-color-sub hover:text-white' asChild>
-                        <Link href={`/team-member/founder`}>আরো দেখুন</Link>
+                        <Link href={`/team-member/owner`}>আরো দেখুন</Link>
                     </Button>
                 </div>
                 <div className='flex flex-col items-center justify-center gap-2 '>
