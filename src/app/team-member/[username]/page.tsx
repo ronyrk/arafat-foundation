@@ -1,7 +1,5 @@
-import DonorTable from '@/components/DonorTable';
-import PhotoBlur from '@/components/PhotoBlur';
 import { Share } from '@/components/Share';
-import { DonorIProps, DonorPaymentIProps, OwnerIProps, ParamsIProps } from '@/types'
+import { OwnerIProps, ParamsIProps } from '@/types'
 import { unstable_noStore } from 'next/cache';
 import React from 'react'
 import prisma from '@/lib/prisma';
