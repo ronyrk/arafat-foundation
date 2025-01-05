@@ -36,7 +36,7 @@ async function page() {
                 </div>
                 {/* Featured Team Member */}
                 <div className="max-w-sm mx-auto">
-                    <TeamMemberCard {...owner[0]} large />
+                    <TeamMemberCard {...owner[0]} />
                 </div>
                 <MemberCarousel data={owners} />
                 <div className="flex justify-center py-4">
