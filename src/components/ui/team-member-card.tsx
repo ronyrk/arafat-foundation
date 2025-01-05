@@ -1,6 +1,14 @@
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
 import Link from "next/link"
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
 
 interface TeamMemberCardProps {
     id?: string,
@@ -14,6 +22,17 @@ interface TeamMemberCardProps {
     about: string,
     type: string
     large?: boolean
+};
+
+async function htmlConvert(data: string) {
+    const jsonAndHtml = data.split("^");
+    const html = jsonAndHtml[0];
+
+    return (
+        <main className="py-2">
+            <section dangerouslySetInnerHTML={{ __html: html }} />
+        </main>
+    )
 }
 
 export function TeamMemberCard({ name, type, about, phone, linkedin, facebook, photos, email, username, large = false }: TeamMemberCardProps) {
@@ -33,15 +52,24 @@ export function TeamMemberCard({ name, type, about, phone, linkedin, facebook, p
                 <div className="absolute top-[55%] flex flex-col items-center">
                     <h3 className="text-white font-medium text-center">{name}</h3>
                     <p className="text-gray-200 text-sm mb-2">{type}</p>
-                    <Button
-                        variant="secondary"
-                        className="bg-[#FF9666] hover:bg-[#ff8652] text-white text-xs px-4 py-1 h-7"
-                        asChild
-                    >
-                        <Link href={`/team-member/${username}`}>
-                            DETAILS
-                        </Link>
-                    </Button>
+                    <Dialog>
+                        <DialogTrigger>
+                            <Button
+                                variant="secondary"
+                                className="bg-[#FF9666] hover:bg-[#ff8652] text-white text-xs px-4 py-1 h-7"
+                            >
+                                DETAILS
+                            </Button>
+                        </DialogTrigger>
+                        <DialogContent>
+                            <DialogHeader>
+                                <DialogDescription>
+                                    {htmlConvert(about)}
+                                </DialogDescription>
+                            </DialogHeader>
+                        </DialogContent>
+                    </Dialog>
+
                 </div>
             </div>
         </div>

@@ -11,7 +11,26 @@ import {
 import Image from "next/image"
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import Autoplay from "embla-carousel-autoplay"
+import Autoplay from "embla-carousel-autoplay";
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog";
+
+async function htmlConvert(data: string) {
+    const jsonAndHtml = data.split("^");
+    const html = jsonAndHtml[0];
+
+    return (
+        <main className="py-2">
+            <section dangerouslySetInnerHTML={{ __html: html }} />
+        </main>
+    )
+}
 
 function MemberCarousel({ data, large = false }: { data: OwnerIProps[], large?: boolean }) {
 
@@ -46,15 +65,23 @@ function MemberCarousel({ data, large = false }: { data: OwnerIProps[], large?: 
                                 <div className="absolute top-[55%] flex flex-col items-center">
                                     <h3 className="text-white font-medium text-center">{item.name}</h3>
                                     <p className="text-gray-200 text-sm mb-2">{item.type}</p>
-                                    <Button
-                                        variant="secondary"
-                                        className="bg-[#FF9666] hover:bg-[#ff8652] text-white text-xs px-4 py-1 h-7"
-                                        asChild
-                                    >
-                                        <Link href={`/team-member/`}>
-                                            DETAILS
-                                        </Link>
-                                    </Button>
+                                    <Dialog>
+                                        <DialogTrigger>
+                                            <Button
+                                                variant="secondary"
+                                                className="bg-[#FF9666] hover:bg-[#ff8652] text-white text-xs px-4 py-1 h-7"
+                                            >
+                                                DETAILS
+                                            </Button>
+                                        </DialogTrigger>
+                                        <DialogContent>
+                                            <DialogHeader>
+                                                <DialogDescription>
+                                                    {htmlConvert(item.about)}
+                                                </DialogDescription>
+                                            </DialogHeader>
+                                        </DialogContent>
+                                    </Dialog>
                                 </div>
                             </div>
                         </div>
