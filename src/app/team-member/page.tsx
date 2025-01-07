@@ -11,20 +11,25 @@ import { cookies } from 'next/headers';
 
 async function page() {
     cookies();
+    const single = await prisma.owner.findMany({
+        where: {
+            position: "Label-1"
+        }
+    }) as OwnerIProps[];
     const owner = await prisma.owner.findMany({
         where: {
-            type: "OWNER"
+            position: "Label-2"
         }
     }) as OwnerIProps[];
     const owners = owner.slice(1);
     const founder = await prisma.owner.findMany({
         where: {
-            type: "FOUNDER"
+            position: "Label-3"
         }
     }) as OwnerIProps[];
     const advisor = await prisma.owner.findMany({
         where: {
-            type: "ADVISOR"
+            position: "Label-4"
         }
     }) as OwnerIProps[];
     return (
@@ -36,7 +41,7 @@ async function page() {
                 </div>
                 {/* Featured Team Member */}
                 <div className="max-w-sm mx-auto">
-                    <TeamMemberCard {...owner[0]} />
+                    <TeamMemberCard {...single[0]} />
                 </div>
                 <MemberCarousel data={owners} />
                 <div className="flex justify-center py-4">

@@ -12,19 +12,17 @@ import {
 
 interface TeamMemberCardProps {
     id?: string,
-    username: string,
+    type: string,
     name: string,
-    email: string,
+    position: string,
     photos: string,
     facebook: string,
     linkedin: string,
-    phone: string,
-    about: string,
-    type: string
-    large?: boolean
+    mobile: string,
+    description: string,
 };
 
-async function htmlConvert(data: string) {
+function htmlConvert(data: string) {
     const jsonAndHtml = data.split("^");
     const html = jsonAndHtml[0];
 
@@ -35,7 +33,7 @@ async function htmlConvert(data: string) {
     )
 }
 
-export function TeamMemberCard({ name, type, about, phone, linkedin, facebook, photos, email, username, large = false }: TeamMemberCardProps) {
+export function TeamMemberCard({ name, type, position, linkedin, facebook, photos, description, mobile }: TeamMemberCardProps) {
     return (
         <div className={`relative flex flex-col items-center w-full`}>
             <div className={`w-full aspect-square relative flex flex-col items-center justify-center rounded-lg overflow-hidden bg-gradient-to-t from-[#2D2150] from-70% to-[#FF9666] to-30% group hover:shadow-xl transition-shadow duration-300`}>
@@ -64,7 +62,7 @@ export function TeamMemberCard({ name, type, about, phone, linkedin, facebook, p
                         <DialogContent>
                             <DialogHeader>
                                 <DialogDescription>
-                                    {htmlConvert(about)}
+                                    {htmlConvert(description)}
                                 </DialogDescription>
                             </DialogHeader>
                         </DialogContent>

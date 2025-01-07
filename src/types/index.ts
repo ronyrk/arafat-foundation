@@ -291,13 +291,12 @@ export interface DonorPaymentIProps {
 };
 export interface OwnerIProps {
 	id?: string,
-	username: string,
+	type: string,
 	name: string,
-	email: string,
+	position: string,
 	photos: string,
 	facebook: string,
 	linkedin: string,
-	phone: string,
-	about: string,
-	type: string
+	mobile: string,
+	description: string,
 }
