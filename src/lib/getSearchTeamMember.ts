@@ -10,7 +10,7 @@ export async function getSearchTeamMemberAdvisor(page: string) {
     unstable_noStore();
     const result = await prisma.owner.findMany({
         where: {
-            type: "ADVISOR"
+            position: "Label-4"
         },
         skip,
         take,
@@ -25,7 +25,7 @@ export async function getSearchTeamMemberFounder(page: string) {
     unstable_noStore();
     const result = await prisma.owner.findMany({
         where: {
-            type: "FOUNDER"
+            position: "Label-3"
         },
         skip,
         take,
@@ -40,7 +40,7 @@ export async function getSearchTeamMemberOwner(page: string) {
     unstable_noStore();
     const result = await prisma.owner.findMany({
         where: {
-            type: "OWNER"
+            position: "Label-2"
         },
         skip,
         take,
