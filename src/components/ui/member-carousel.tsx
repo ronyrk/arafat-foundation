@@ -21,7 +21,7 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog";
 
-async function htmlConvert(data: string) {
+function htmlConvert(data: string) {
     const jsonAndHtml = data.split("^");
     const html = jsonAndHtml[0];
 
@@ -32,7 +32,7 @@ async function htmlConvert(data: string) {
     )
 }
 
-function MemberCarousel({ data, large = false }: { data: OwnerIProps[], large?: boolean }) {
+function MemberCarousel({ data }: { data: OwnerIProps[] }) {
 
     return (
         <Carousel
@@ -77,7 +77,7 @@ function MemberCarousel({ data, large = false }: { data: OwnerIProps[], large?: 
                                         <DialogContent>
                                             <DialogHeader>
                                                 <DialogDescription>
-                                                    {htmlConvert(item.about)}
+                                                    {htmlConvert(item.description)}
                                                 </DialogDescription>
                                             </DialogHeader>
                                         </DialogContent>

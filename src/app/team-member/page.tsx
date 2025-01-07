@@ -11,20 +11,25 @@ import { cookies } from 'next/headers';
 
 async function page() {
     cookies();
+    const single = await prisma.owner.findMany({
+        where: {
+            position: "Label-1"
+        }
+    }) as OwnerIProps[];
     const owner = await prisma.owner.findMany({
         where: {
-            type: "OWNER"
+            position: "Label-2"
         }
     }) as OwnerIProps[];
     const owners = owner.slice(1);
     const founder = await prisma.owner.findMany({
         where: {
-            type: "FOUNDER"
+            position: "Label-3"
         }
     }) as OwnerIProps[];
     const advisor = await prisma.owner.findMany({
         where: {
-            type: "ADVISOR"
+            position: "Label-4"
         }
     }) as OwnerIProps[];
     return (
@@ -36,12 +41,12 @@ async function page() {
                 </div>
                 {/* Featured Team Member */}
                 <div className="max-w-sm mx-auto">
-                    <TeamMemberCard {...owner[0]} />
+                    <TeamMemberCard {...single[0]} />
                 </div>
                 <MemberCarousel data={owners} />
                 <div className="flex justify-center py-4">
                     <Button size={"lg"} className='text-black bg-white border-2 border-black  hover:border-color-sub hover:bg-color-sub hover:text-white' asChild>
-                        <Link href={`/team-member/owner`}>আরো দেখুন</Link>
+                        <Link href={`/team-member/Label-2`}>আরো দেখুন</Link>
                     </Button>
                 </div>
                 <div className='flex flex-col items-center justify-center gap-2 '>
@@ -52,7 +57,7 @@ async function page() {
                 <MemberCarousel data={founder} />
                 <div className="flex justify-center py-4">
                     <Button size={"lg"} className='text-black bg-white border-2 border-black  hover:border-color-sub hover:bg-color-sub hover:text-white' asChild>
-                        <Link href={`/team-member/founder`}>আরো দেখুন</Link>
+                        <Link href={`/team-member/Label-3`}>আরো দেখুন</Link>
                     </Button>
                 </div>
                 <div className='flex flex-col items-center justify-center gap-2 '>
@@ -62,7 +67,7 @@ async function page() {
                 <MemberCarousel data={advisor} />
                 <div className="flex justify-center py-4">
                     <Button size={"lg"} className='text-black bg-white border-2 border-black  hover:border-color-sub hover:bg-color-sub hover:text-white' asChild>
-                        <Link href={`/team-member/advisor`}>আরো দেখুন</Link>
+                        <Link href={`/team-member/Label-4`}>আরো দেখুন</Link>
                     </Button>
                 </div>
             </div>
