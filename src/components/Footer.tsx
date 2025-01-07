@@ -48,13 +48,9 @@ function Footer() {
 										আয়ের ও ব্যায়ের হিসাব</Link>
 									<Link href="/our-all-links" className='  text-sm font-medium text-[#F5F5F5] flex flex-row hover:text-color-sub py-1' > <span className=''><ChevronRight /></span>
 										সকল লিংক  </Link>
-									<Link href="/blog" className='  text-sm font-medium text-[#F5F5F5] flex flex-row hover:text-color-sub py-1' > <span className=''><ChevronRight /></span>
-										ব্লগ</Link>
+
 									<Link href="/contact-us" className='  text-sm font-medium text-[#F5F5F5] flex flex-row hover:text-color-sub py-1' > <span className=''><ChevronRight /></span>
 										যোগাযোগ </Link>
-									<Link href="/team-member" className='  text-sm font-medium text-[#F5F5F5] flex flex-row hover:text-color-sub py-1' > <span className=''><ChevronRight /></span>
-										টিম মেম্বার</Link>
-
 								</div>
 							</div>
 							<div className="flex basis-1/4 flex-col px-4">
