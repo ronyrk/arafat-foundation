@@ -46,7 +46,7 @@ async function page() {
                 <MemberCarousel data={owners} />
                 <div className="flex justify-center py-4">
                     <Button size={"lg"} className='text-black bg-white border-2 border-black  hover:border-color-sub hover:bg-color-sub hover:text-white' asChild>
-                        <Link href={`/team-member/Label-2`}>আরো দেখুন</Link>
+                        <Link href={`/team-member/board-of-directors`}>আরো দেখুন</Link>
                     </Button>
                 </div>
                 <div className='flex flex-col items-center justify-center gap-2 '>
@@ -57,7 +57,7 @@ async function page() {
                 <MemberCarousel data={founder} />
                 <div className="flex justify-center py-4">
                     <Button size={"lg"} className='text-black bg-white border-2 border-black  hover:border-color-sub hover:bg-color-sub hover:text-white' asChild>
-                        <Link href={`/team-member/Label-3`}>আরো দেখুন</Link>
+                        <Link href={`/team-member/members`}>আরো দেখুন</Link>
                     </Button>
                 </div>
                 <div className='flex flex-col items-center justify-center gap-2 '>
@@ -67,7 +67,7 @@ async function page() {
                 <MemberCarousel data={advisor} />
                 <div className="flex justify-center py-4">
                     <Button size={"lg"} className='text-black bg-white border-2 border-black  hover:border-color-sub hover:bg-color-sub hover:text-white' asChild>
-                        <Link href={`/team-member/Label-4`}>আরো দেখুন</Link>
+                        <Link href={`/team-member/advisors`}>আরো দেখুন</Link>
                     </Button>
                 </div>
             </div>
