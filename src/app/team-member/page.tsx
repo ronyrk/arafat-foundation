@@ -40,7 +40,7 @@ async function page() {
                     <Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={icon} alt='icon' />
                 </div>
                 {/* Featured Team Member */}
-                <div className="max-w-sm mx-auto">
+                <div className="flex justify-center md:basis-1/4">
                     <TeamMemberCard {...single[0]} />
                 </div>
                 <MemberCarousel data={owners} />
