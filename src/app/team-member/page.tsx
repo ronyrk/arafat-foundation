@@ -40,13 +40,13 @@ async function page() {
                     <Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={icon} alt='icon' />
                 </div>
                 {/* Featured Team Member */}
-                <div className="flex justify-center md:basis-1/4">
+                <div className="max-w-[350px] mx-auto">
                     <TeamMemberCard {...single[0]} />
                 </div>
                 <MemberCarousel data={owners} />
                 <div className="flex justify-center py-4">
                     <Button size={"lg"} className='text-black bg-white border-2 border-black  hover:border-color-sub hover:bg-color-sub hover:text-white' asChild>
-                        <Link href={`/team-member/Label-2`}>আরো দেখুন</Link>
+                        <Link href={`/team-member/board-of-directors`}>আরো দেখুন</Link>
                     </Button>
                 </div>
                 <div className='flex flex-col items-center justify-center gap-2 '>
@@ -57,7 +57,7 @@ async function page() {
                 <MemberCarousel data={founder} />
                 <div className="flex justify-center py-4">
                     <Button size={"lg"} className='text-black bg-white border-2 border-black  hover:border-color-sub hover:bg-color-sub hover:text-white' asChild>
-                        <Link href={`/team-member/Label-3`}>আরো দেখুন</Link>
+                        <Link href={`/team-member/members`}>আরো দেখুন</Link>
                     </Button>
                 </div>
                 <div className='flex flex-col items-center justify-center gap-2 '>
@@ -67,7 +67,7 @@ async function page() {
                 <MemberCarousel data={advisor} />
                 <div className="flex justify-center py-4">
                     <Button size={"lg"} className='text-black bg-white border-2 border-black  hover:border-color-sub hover:bg-color-sub hover:text-white' asChild>
-                        <Link href={`/team-member/Label-4`}>আরো দেখুন</Link>
+                        <Link href={`/team-member/advisors`}>আরো দেখুন</Link>
                     </Button>
                 </div>
             </div>
