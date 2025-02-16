@@ -36,8 +36,8 @@ function htmlConvert(data: string) {
 export function TeamMemberCard({ name, type, position, linkedin, facebook, photos, description, mobile }: TeamMemberCardProps) {
     return (
         <div className={`relative flex flex-col items-center w-full`}>
-            <div className={`w-full aspect-square relative flex flex-col items-center justify-center rounded-lg overflow-hidden bg-gradient-to-t from-[#2D2150] from-66% to-[#FF9666] to-34% group hover:shadow-xl transition-shadow duration-300`}>
-                <div className={`absolute top-[10%] flex justify-center items-center `}>
+            <div className={`w-full aspect-square relative flex flex-col items-center justify-center rounded-lg overflow-hidden bg-gradient-to-t from-[#2D2150] from-65% to-[#FF9666] to-35% group hover:shadow-xl transition-shadow duration-300`}>
+                <div className={`absolute top-[15%] flex justify-center items-center `}>
                     <div className={`relative w-32 h-32 rounded-full overflow-hidden bg-white`}>
                         <Image
                             src={photos}
