@@ -116,7 +116,7 @@ function IncomeDetails() {
                                 <Calendar
                                     mode="single"
                                     onSelect={setEndDate}
-                                    initialFocus
+
                                 />
                             </PopoverContent>
                         </Popover>
