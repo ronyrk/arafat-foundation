@@ -54,6 +54,7 @@ async function TableRowList(params: ParamsIProps) {
 						<TableCell>{`${moment(item.createAt).format('DD/MM/YYYY')}`}</TableCell>
 						<TableCell>{loanAmount(item.amount as string, item.type)}</TableCell>
 						<TableCell className='px-4'>{loanPayment(item.loanPayment as string, item.donate as string)} </TableCell>
+						<TableCell className=''>{item.type} </TableCell>
 					</TableRow>
 				))
 			}
@@ -71,8 +72,9 @@ function DonorTable(params: ParamsIProps) {
 				<TableHeader>
 					<TableRow>
 						<TableHead>DATE</TableHead>
-						<TableHead>LOAN AMOUNT</TableHead>
-						<TableHead>LOAN PAYMENT</TableHead>
+						<TableHead>AMOUNT</TableHead>
+						<TableHead>PAYMENT AMOUNT</TableHead>
+						<TableHead>TYPE</TableHead>
 					</TableRow>
 				</TableHeader>
 				<Suspense fallback={<h2>Loading...</h2>}>
