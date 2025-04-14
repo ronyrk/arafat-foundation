@@ -65,16 +65,5 @@ export async function getSearchBorrowersByBranch(page: string, branch: string) {
 		}
 	});
 
-	for (const borrower of result) {
-		const paymentList = await prisma.payment.findMany({
-			where: {
-				loanusername: borrower.username
-			}
-		});
-		const totalDisbursed = paymentList.reduce((total, item) => total + Number(item.loanAmount), Number(borrower.balance));
-		const totalPayment = paymentList.reduce((total, item) => total + Number(item.amount), 0);
-		const total = totalDisbursed - totalPayment;
-	}
-
 	return result;
 };
