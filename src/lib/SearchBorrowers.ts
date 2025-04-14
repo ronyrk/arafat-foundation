@@ -10,8 +10,7 @@ export async function getSearchBorrowers(query: string, page: string) {
 	unstable_noStore();
 	if (query === "all") {
 		const result = await prisma.loan.findMany({
-			skip,
-			take,
+
 			orderBy: {
 				code: "asc"
 			}
@@ -19,8 +18,7 @@ export async function getSearchBorrowers(query: string, page: string) {
 		return result;
 	}
 	const result = await prisma.loan.findMany({
-		skip,
-		take,
+
 		where: {
 			OR: [
 				{
@@ -66,5 +64,17 @@ export async function getSearchBorrowersByBranch(page: string, branch: string) {
 			code: "asc"
 		}
 	});
+
+	for (const borrower of result) {
+		const paymentList = await prisma.payment.findMany({
+			where: {
+				loanusername: borrower.username
+			}
+		});
+		const totalDisbursed = paymentList.reduce((total, item) => total + Number(item.loanAmount), Number(borrower.balance));
+		const totalPayment = paymentList.reduce((total, item) => total + Number(item.amount), 0);
+		const total = totalDisbursed - totalPayment;
+	}
+
 	return result;
 };
