@@ -27,28 +27,33 @@ export const metadata: Metadata = {
 function SearchBarFallback() {
 	return <>placeholder</>
 }
-async function duePayment(username: string, balance: string) {
+async function duePayment(username: string, balance: string): Promise<number> {
+	// Fetch payment data for the borrower
 	unstable_noStore();
 	const response = await fetch(`https://af-admin.vercel.app/api/loan_list/${username}`);
 	if (!response.ok) {
 		throw new Error("Failed to fetch data due payment");
 	}
 	const paymentList: PaymentIProps[] = await response.json();
-
-	let indexPaymentString2: string[] = ["0"];
-	paymentList.forEach((item) => indexPaymentString2.push(item.loanAmount));
-	let indexPayment2 = indexPaymentString2.map(Number);
-	const totalBalance = indexPayment2.reduce((accumulator, currentValue) => accumulator + currentValue, Number(balance));
-
-	let indexPaymentString: string[] = ["0"];
-	const result = paymentList.forEach((item) => indexPaymentString.push(item.amount));
-	let indexPayment = indexPaymentString.map(Number);
-	const loanSumAmount = indexPayment.reduce((accumulator, currentValue) => accumulator - currentValue, totalBalance);
-	return `${loanSumAmount}`;
+	const totalDisbursed = paymentList.reduce((total, item) => total + Number(item.loanAmount), Number(balance));
+	const totalPayment = paymentList.reduce((total, item) => total + Number(item.amount), 0);
+	const due = totalDisbursed - totalPayment;
+	return due > 0 ? due : 0;
 
 }
 
-async function allPayment(username: string) {
+async function allPayment(username: string): Promise<number> {
+	unstable_noStore();
+	const response = await fetch(`https://af-admin.vercel.app/api/loan_list/${username}`);
+	if (!response.ok) {
+		throw new Error("Failed to fetch all payment data");
+	}
+	const paymentList: PaymentIProps[] = await response.json();
+
+	// Use reduce directly to calculate the total amount
+	return paymentList.reduce((total, item) => total + Number(item.amount), 0);
+}
+const TotalDisbursed = async (username: string, balance: string): Promise<number> => {
 	unstable_noStore();
 	const response = await fetch(`https://af-admin.vercel.app/api/loan_list/${username}`);
 	if (!response.ok) {
@@ -56,26 +61,8 @@ async function allPayment(username: string) {
 	}
 	const paymentList: PaymentIProps[] = await response.json();
 
-	let indexPaymentString: string[] = ["0"];
-	const result = paymentList.forEach((item) => indexPaymentString.push(item.amount));
-	let indexPayment = indexPaymentString.map(Number);
-	const Amount = indexPayment.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
-	return `${Amount}`;
 
-}
-const TotalDisbursed = async (username: string, balance: string) => {
-	unstable_noStore();
-	const response = await fetch(`https://af-admin.vercel.app/api/loan_list/${username}`);
-	if (!response.ok) {
-		throw new Error("Failed to fetch data all payment");
-	}
-	const paymentList: PaymentIProps[] = await response.json();
-
-	let indexPaymentString: string[] = ["0"];
-	const result = paymentList.forEach((item) => indexPaymentString.push(item.loanAmount));
-	let indexPayment = indexPaymentString.map(Number);
-	const loanSumAmount = indexPayment.reduce((accumulator, currentValue) => accumulator + currentValue, Number(balance));
-	return `${loanSumAmount}`;
+	return paymentList.reduce((total, item) => total + Number(item.loanAmount), Number(balance));
 }
 
 
@@ -87,16 +74,36 @@ async function BorrowersList({ searchParams }: {
 }) {
 	const query = searchParams?.search || "all";
 	const page = searchParams?.page || "1";
+	const pageSize = 11;
+	const start = (Number(page) - 1) * pageSize;
+	const end = start + pageSize;
 
 	try {
 		const borrowers = await getSearchBorrowers(query, page);
 		const pageNumber = await getBorrowers(query);
-		const length = pageNumber?.length;
+
+		// Sort borrowers by (TotalDisbursed - allPayment) in descending order
+		const sortedBorrowers = await Promise.all(
+			borrowers.map(async (borrower) => {
+				const totalDisbursed = await TotalDisbursed(borrower.username, borrower.balance);
+				const allPayments = await allPayment(borrower.username);
+				const balanceDifference = totalDisbursed - allPayments;
+
+				return {
+					...borrower,
+					balanceDifference,
+				};
+			})
+		);
+
+
+		// Sort by balanceDifference: positive values first, then zero, then negative
+		sortedBorrowers.sort((a, b) => b.balanceDifference - a.balanceDifference);
 
 		return (
 			<TableBody>
 				{
-					borrowers.map((item, index: number) => (
+					sortedBorrowers.slice(start, end).map((item, index: number) => (
 						<TableRow key={index}>
 							<TableCell className="font-medium">{item?.code}</TableCell>
 							<TableCell className="font-medium uppercase">{item?.name}</TableCell>
@@ -114,7 +121,7 @@ async function BorrowersList({ searchParams }: {
 			</TableBody>
 		)
 	} catch (error) {
-		throw new Error("Failed Data fetch");
+		return <div className="text-center text-red-500">Failed to load data. Please try again later.</div>;
 	}
 };
 
@@ -157,7 +164,7 @@ async function page({ searchParams }: {
 			</div>
 		)
 	} catch (error) {
-		throw new Error("Data fetch failed");
+		return <div className="text-center text-red-500">Failed to load data. Please try again later.</div>;
 	}
 }
 

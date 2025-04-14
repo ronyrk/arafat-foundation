@@ -10,8 +10,7 @@ export async function getSearchBorrowers(query: string, page: string) {
 	unstable_noStore();
 	if (query === "all") {
 		const result = await prisma.loan.findMany({
-			skip,
-			take,
+
 			orderBy: {
 				code: "asc"
 			}
@@ -19,8 +18,7 @@ export async function getSearchBorrowers(query: string, page: string) {
 		return result;
 	}
 	const result = await prisma.loan.findMany({
-		skip,
-		take,
+
 		where: {
 			OR: [
 				{
@@ -66,5 +64,6 @@ export async function getSearchBorrowersByBranch(page: string, branch: string) {
 			code: "asc"
 		}
 	});
+
 	return result;
 };
