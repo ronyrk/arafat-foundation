@@ -21,14 +21,14 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover"
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { ExpensesIProps, SearchIExProps } from '@/types';
+import { DonorIProps, ExpensesIProps, SearchIExProps } from '@/types';
 import toast from 'react-hot-toast';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTrigger } from '@/components/ui/dialog';
 
 
-async function htmlConvert(data: string) {
+function htmlConvert(data: string) {
     const jsonAndHtml = data.split("^");
     const html = jsonAndHtml[0];
     return (
@@ -37,6 +37,7 @@ async function htmlConvert(data: string) {
         </div>
     )
 }
+
 
 function GetExpenses(data: ExpensesIProps[]) {
     const Amount: number[] = [];
