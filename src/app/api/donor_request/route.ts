@@ -1,16 +1,25 @@
 import { NextResponse } from "next/server"
+import prisma from "@/lib/prisma"
 
 export async function POST(request: Request) {
     try {
         // Parse the request body
-        const body = await request.json()
+        const body = await request.json();
+        const { name, phone, lives, hometown, amount, method, imageUpload, about, time } = body;
 
-        // Here you would typically process the data
-        // For example, save to a database, call another API, etc.
-        console.log("Processing NEW form data:", body)
-
-        // Simulate processing time
-        await new Promise((resolve) => setTimeout(resolve, 1000))
+        await prisma.donor_request.create({
+            data: {
+                name,
+                phone,
+                lives,
+                hometown,
+                amount,
+                method,
+                photoUrl: imageUpload, // Assuming imageUpload is a URL or base64 string
+                about,
+                return_date: time,
+            },
+        });
 
         // Return a success response
         return NextResponse.json({
