@@ -15,24 +15,6 @@ import { DonorIProps } from "@/types"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "./ui/dialog"
 import { UploadButton } from "@/lib/uploading"
 import toast from "react-hot-toast"
-import {
-    Command,
-    CommandDialog,
-    CommandEmpty,
-    CommandGroup,
-    CommandInput,
-    CommandItem,
-    CommandList,
-    CommandSeparator,
-    CommandShortcut,
-} from "@/components/ui/command"
-
-import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
-} from "@/components/ui/popover"
-import { ChevronsUpDown, Check } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select"
 import { Textarea } from "./ui/textarea"
@@ -67,7 +49,6 @@ const formSchema = z.discriminatedUnion("formType", [oldFormSchema, newFormSchem
 
 
 export default function SidebarButton({ donors }: { donors: DonorIProps[] }) {
-    const [open, setOpen] = useState(false)
     const [dialogOpen, setDialogOpen] = useState(false);
 
     const [isSubmitting, setIsSubmitting] = useState(false)
@@ -284,7 +265,13 @@ export default function SidebarButton({ donors }: { donors: DonorIProps[] }) {
                                                         <FormItem>
                                                             <FormLabel>Select donor..</FormLabel>
                                                             <FormControl>
-                                                                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                                                <Select
+                                                                    onValueChange={(value) => {
+                                                                        field.onChange(value); // Update the form state
+                                                                        handleValueChange(value); // Update the selected value
+                                                                    }}
+                                                                    defaultValue={field.value}
+                                                                >
                                                                     <SelectTrigger className="w-full">
                                                                         <SelectValue placeholder="Select option.." />
                                                                     </SelectTrigger>
@@ -298,12 +285,17 @@ export default function SidebarButton({ donors }: { donors: DonorIProps[] }) {
                                                                                 onChange={(e) => setSearchTerm(e.target.value)}
                                                                             />
                                                                         </div>
-                                                                        {donors.length > 0 ? (
+                                                                        {filteredData.length > 0 ? (
                                                                             <div className="max-h-[200px] overflow-auto">
-                                                                                {donors.map((item) => (
-                                                                                    <SelectItem key={item.username} value={item.username} onClick={() => handleValueChange(item.username)} className={cn("cursor-pointer hover:bg-color-sub/50")}>
+                                                                                {filteredData.map((item) => (
+                                                                                    <SelectItem
+                                                                                        key={item.username}
+                                                                                        value={item.username}
+                                                                                        onClick={() => handleValueChange(item.username)}
+                                                                                        className={cn("cursor-pointer hover:bg-color-sub/50")}
+                                                                                    >
                                                                                         <div className="flex flex-row pr-1">
-                                                                                            <span className="font-medium ">{item.code}</span>
+                                                                                            <span className="font-medium">{item.code}</span>
                                                                                             <span className="">--</span>
                                                                                             <span className="font-medium">{item.name}</span>
                                                                                         </div>
