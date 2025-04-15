@@ -9,6 +9,9 @@ import { Toaster } from "react-hot-toast";
 import { ChevronUpCircle } from 'lucide-react';
 import { cn } from "@/lib/utils";
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
+import { extractRouterConfig } from "uploadthing/server";
+import { ourFileRouter } from "./api/uploadthing/core";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -35,6 +38,9 @@ export default function RootLayout({
           <TanStackProvider>
             <ContextProvider>
               <Navbar />
+              <NextSSRPlugin
+                routerConfig={extractRouterConfig(ourFileRouter)}
+              />
               {children}
               <SpeedInsights />
               <Toaster />

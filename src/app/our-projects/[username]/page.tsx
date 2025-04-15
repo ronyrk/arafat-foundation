@@ -39,7 +39,7 @@ export async function generateMetadata({ params }: Props) {
 	}
 };
 
-async function htmlConvert(data: string) {
+function htmlConvert(data: string) {
 	const jsonAndHtml = data.split("^");
 	const html = jsonAndHtml[0];
 	return (

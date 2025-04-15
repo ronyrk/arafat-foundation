@@ -14,7 +14,7 @@ import icon from "../../../../public/divider.svg"
 type Props = {
 	params: { username: string }
 };
-async function htmlConvert(data: string) {
+function htmlConvert(data: string) {
 	const jsonAndHtml = data.split("^");
 	const html = jsonAndHtml[0];
 	return (
