@@ -12,7 +12,7 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { Input } from "@/components/ui/input"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { DonorIProps } from "@/types"
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog"
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "./ui/dialog"
 import { UploadButton } from "@/lib/uploading"
 import toast from "react-hot-toast"
 import {
@@ -124,9 +124,16 @@ export default function SidebarButton({ donors }: { donors: DonorIProps[] }) {
             }
 
             const data = await response.json();
+            if (response.status === 200) {
+                // Handle success response
+                toast.success("Form submitted successfully")
+                form.reset() // Reset the form after successful submission
+                setDialogOpen(false) // Close the dialog
 
-            // Reset form after successful submission
-            form.reset()
+            } else {
+                // Handle error response
+                toast.error(data.message || "An error occurred")
+            }
         } catch (error) {
             console.error("Submission error:", error)
         } finally {
@@ -148,24 +155,35 @@ export default function SidebarButton({ donors }: { donors: DonorIProps[] }) {
             <div className="pb-4" >
                 <Button variant={"ghost"} className="pl-4 py-4 text-[15px] font-semibold rounded-md" onClick={() => setDialogOpen(true)}>Open Form</Button>
             </div>
-            <div className="flex flex-col items-center justify-center gap-4">
+            <div className="flex flex-col items-center justify-center gap-1">
 
 
                 <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
                     <DialogContent className="sm:max-w-[550px]">
                         <DialogHeader>
-                            <DialogTitle>Form with Searchable Select</DialogTitle>
+                            <DialogDescription className="text-center text-base font-medium text-color-main">
+                                Please send your donation to the given bKash or bank accounts below.
+                                bKash A/C Number: 01738115411 (Send Money) <span className="mx-1"></span>
+                                Islami Bank Bangladesh Ltd
+                                A/C Number: 20501130203541208 <span className="mx-1"></span>
+                                A/C Name: Abdullah Al Mamun
+                                Branch Name: Rajshahi <span className="mx-1"></span>
+                                Routing Number: 125811932<span className="mx-1"></span>
+                                SWIFT Code: IBBLBDDH113 <span className="mx-1"></span>
+                                আপনার অনুদানের তথ্যগুলো দিয়ে সহযোগিতা করুন।
+
+                            </DialogDescription>
                         </DialogHeader>
                         <Form {...form}>
                             <form onSubmit={form.handleSubmit(onSubmit)}>
-                                <CardContent className="space-y-2">
+                                <CardContent className="space-y-1">
                                     {/* Form Type Selection */}
                                     <FormField
                                         control={form.control}
                                         name="formType"
                                         render={({ field }) => (
-                                            <FormItem className="space-y-1">
-                                                <FormLabel>Form Type</FormLabel>
+                                            <FormItem className="space-y-0">
+
                                                 <FormControl>
                                                     <RadioGroup
                                                         onValueChange={(value: "old" | "new") => {
@@ -173,19 +191,19 @@ export default function SidebarButton({ donors }: { donors: DonorIProps[] }) {
                                                             handleFormTypeChange(value)
                                                         }}
                                                         defaultValue={field.value}
-                                                        className="flex space-x-4"
+                                                        className="flex space-x-2"
                                                     >
                                                         <FormItem className="flex items-center space-x-2">
                                                             <FormControl>
                                                                 <RadioGroupItem value="old" />
                                                             </FormControl>
-                                                            <FormLabel className="font-normal cursor-pointer">Old</FormLabel>
+                                                            <FormLabel className="font-normal cursor-pointer">I am an existing donor</FormLabel>
                                                         </FormItem>
                                                         <FormItem className="flex items-center space-x-2">
                                                             <FormControl>
                                                                 <RadioGroupItem value="new" />
                                                             </FormControl>
-                                                            <FormLabel className="font-normal cursor-pointer">New</FormLabel>
+                                                            <FormLabel className="font-normal cursor-pointer">I am a new donor</FormLabel>
                                                         </FormItem>
                                                     </RadioGroup>
                                                 </FormControl>
@@ -195,10 +213,10 @@ export default function SidebarButton({ donors }: { donors: DonorIProps[] }) {
                                     />
 
                                     {/* Common Fields for Both Forms */}
-                                    <div className="grid grid-cols-1 md:grid-cols-1 gap-1">
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-1 ">
                                         {
                                             formType === "new" && (
-                                                <div className="">
+                                                <>
                                                     <FormField
                                                         control={form.control}
                                                         name="name"
@@ -254,7 +272,7 @@ export default function SidebarButton({ donors }: { donors: DonorIProps[] }) {
                                                             </FormItem>
                                                         )}
                                                     />
-                                                </div>
+                                                </>
                                             )
                                         }
                                         {
@@ -281,7 +299,7 @@ export default function SidebarButton({ donors }: { donors: DonorIProps[] }) {
                                                                             />
                                                                         </div>
                                                                         {donors.length > 0 ? (
-                                                                            <div className="max-h-[300px] overflow-auto">
+                                                                            <div className="max-h-[200px] overflow-auto">
                                                                                 {donors.map((item) => (
                                                                                     <SelectItem key={item.username} value={item.username} onClick={() => handleValueChange(item.username)} className={cn("cursor-pointer hover:bg-color-sub/50")}>
                                                                                         <div className="flex flex-row pr-1">
@@ -293,7 +311,7 @@ export default function SidebarButton({ donors }: { donors: DonorIProps[] }) {
                                                                                 ))}
                                                                             </div>
                                                                         ) : (
-                                                                            <div className="py-6 text-center text-sm">No results found</div>
+                                                                            <div className="py-3 text-center text-sm">No results found</div>
                                                                         )}
                                                                     </SelectContent>
                                                                 </Select>
@@ -359,66 +377,46 @@ export default function SidebarButton({ donors }: { donors: DonorIProps[] }) {
 
                                     {/* Additional Fields for New Form */}
                                     {formType === "new" && (
-                                        <div className="space-y-2">
-                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                                <FormField
-                                                    control={form.control}
-                                                    name="about"
-                                                    render={({ field }) => (
-                                                        <FormItem>
-                                                            <FormLabel>About</FormLabel>
-                                                            <FormControl>
-                                                                <Textarea placeholder="Bio" {...field} />
-                                                            </FormControl>
-                                                            <FormMessage />
-                                                        </FormItem>
-                                                    )}
-                                                />
-                                                <FormField
-                                                    control={form.control}
-                                                    name="imageUpload"
-                                                    render={({ field }) => (
-                                                        <FormItem>
-                                                            <FormLabel className=" flex justify-center">Profile Picture</FormLabel>
-                                                            <FormControl>
-                                                                <UploadButton
-                                                                    className="ut-button:bg-color-sub  ut-button:ut-readying:bg-color-sub/80"
-                                                                    endpoint="imageUploader"
-                                                                    onClientUploadComplete={(res) => {
-                                                                        // Do something with the response
-                                                                        field.onChange(res[0].url)
-                                                                        toast.success("Image Upload successfully")
-                                                                    }}
-                                                                    onUploadError={(error: Error) => {
-                                                                        // Do something with the error.
-                                                                        toast.error(error.message);
-                                                                    }}
-                                                                />
-                                                            </FormControl>
-                                                            <FormMessage />
-                                                        </FormItem>
-                                                    )}
-                                                />
-                                                {/* <div className="flex flex-col py-2">
-                                                    <h2 className=" text-lg font-medium">Profile Picture:-</h2>
-                                                    <UploadButton
-                                                        className="ut-button:bg-color-sub  w-[450px] ut-button:ut-readying:bg-color-sub/80"
-                                                        endpoint="imageUploader"
-                                                        onClientUploadComplete={(res) => {
-                                                            // Do something with the response
-                                                            setImage(res[0].url);
-                                                            toast.success("Image Upload successfully")
-                                                        }}
-                                                        onUploadError={(error: Error) => {
-                                                            // Do something with the error.
-                                                            toast.error(error.message);
-                                                        }}
-                                                    />
-                                                </div> */}
-                                            </div>
-
-
-                                        </div>
+                                        <>
+                                            <FormField
+                                                control={form.control}
+                                                name="about"
+                                                render={({ field }) => (
+                                                    <FormItem>
+                                                        <FormLabel>About</FormLabel>
+                                                        <FormControl>
+                                                            <Textarea placeholder="Bio" {...field} />
+                                                        </FormControl>
+                                                        <FormMessage />
+                                                    </FormItem>
+                                                )}
+                                            />
+                                            <FormField
+                                                control={form.control}
+                                                name="imageUpload"
+                                                render={({ field }) => (
+                                                    <FormItem>
+                                                        <FormLabel className=" flex justify-center">Profile Picture</FormLabel>
+                                                        <FormControl>
+                                                            <UploadButton
+                                                                className="ut-button:bg-color-sub  ut-button:ut-readying:bg-color-sub/80"
+                                                                endpoint="imageUploader"
+                                                                onClientUploadComplete={(res) => {
+                                                                    // Do something with the response
+                                                                    field.onChange(res[0].url)
+                                                                    toast.success("Image Upload successfully")
+                                                                }}
+                                                                onUploadError={(error: Error) => {
+                                                                    // Do something with the error.
+                                                                    toast.error(error.message);
+                                                                }}
+                                                            />
+                                                        </FormControl>
+                                                        <FormMessage />
+                                                    </FormItem>
+                                                )}
+                                            />
+                                        </>
                                     )}
                                 </CardContent>
 
