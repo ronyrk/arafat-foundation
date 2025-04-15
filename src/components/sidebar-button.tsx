@@ -1,10 +1,12 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect, useMemo } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 import { Loader2, Search } from "lucide-react"
+import React from "react"
+import { FixedSizeList as List } from "react-window";
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
@@ -18,7 +20,6 @@ import toast from "react-hot-toast"
 import { cn } from "@/lib/utils"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select"
 import { Textarea } from "./ui/textarea"
-
 
 // Define the form schemas for both form types
 const oldFormSchema = z.object({
@@ -45,8 +46,33 @@ const newFormSchema = z.object({
 // Combined schema with discriminated union
 const formSchema = z.discriminatedUnion("formType", [oldFormSchema, newFormSchema])
 
+function highlightMatch(text: string, searchTerm: string) {
+    const parts = text.split(new RegExp(`(${searchTerm})`, "gi"));
+    return parts.map((part, index) =>
+        part.toLowerCase() === searchTerm.toLowerCase() ? (
+            <span key={index} className="bg-yellow-200">{part}</span>
+        ) : (
+            part
+        )
+    );
+}
 
+const MemoizedSelectItem = React.memo(({ item, onClick }: { item: DonorIProps; onClick: () => void }) => (
+    <SelectItem
+        key={item.username}
+        value={item.username}
+        onClick={onClick}
+        className={cn("cursor-pointer hover:bg-color-sub/50")}
+    >
+        <div className="flex flex-row pr-1">
+            <span className="font-medium">{item.code}</span>
+            <span className="">--</span>
+            <span className="font-medium">{item.name}</span>
+        </div>
+    </SelectItem>
+));
 
+MemoizedSelectItem.displayName = "MemoizedSelectItem";
 
 export default function SidebarButton({ donors }: { donors: DonorIProps[] }) {
     const [dialogOpen, setDialogOpen] = useState(false);
@@ -58,20 +84,7 @@ export default function SidebarButton({ donors }: { donors: DonorIProps[] }) {
     const [selectedValue, setSelectedValue] = useState("")
     const [isValid, setIsValid] = useState(true)
 
-    // Filter data based on search term
-    const filteredData = donors.filter(
-        (item) =>
-            item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            item.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            item.code.toLowerCase().includes(searchTerm.toLowerCase()),
-    )
-
-    const handleValueChange = (username: string) => {
-        setSelectedValue(username)
-        // Simple validation - check if the value exists in our data
-        const isValidValue = donors.some((item) => item.username === username)
-        setIsValid(isValidValue)
-    }
+    const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(searchTerm);
 
     // Initialize the form with react-hook-form
     const form = useForm<z.infer<typeof formSchema>>({
@@ -83,6 +96,47 @@ export default function SidebarButton({ donors }: { donors: DonorIProps[] }) {
             method: "",
         },
     })
+
+    const selectedUsername = form.watch("username");
+
+    // Validation logic
+    const isValidUsername = useMemo(() => {
+        return donors.some((item) => item.username === selectedUsername);
+    }, [selectedUsername, donors]);
+
+    // Debounce the search term
+    useEffect(() => {
+        const handler = setTimeout(() => {
+            setDebouncedSearchTerm(searchTerm);
+        }, 100); // Adjust debounce delay as needed
+        return () => clearTimeout(handler);
+    }, [searchTerm]);
+
+    // Filter data based on the debounced search term
+    const filteredData = useMemo(() => {
+        const lowerCaseSearchTerm = debouncedSearchTerm.toLowerCase();
+        return donors.filter(
+            (item) =>
+                item.name.toLowerCase().includes(lowerCaseSearchTerm) ||
+                item.email.toLowerCase().includes(lowerCaseSearchTerm) ||
+                item.code.toLowerCase().includes(lowerCaseSearchTerm)
+        );
+    }, [debouncedSearchTerm, donors]);
+
+    useEffect(() => {
+        if (filteredData.length === 1) {
+            const singleMatch = filteredData[0];
+            setSelectedValue(singleMatch.username);
+            form.setValue("username", singleMatch.username); // Update the form state
+        }
+    }, [filteredData, form]);
+
+    const handleValueChange = (username: string) => {
+        setSelectedValue(username)
+        // Simple validation - check if the value exists in our data
+        const isValidValue = donors.some((item) => item.username === username)
+        setIsValid(isValidValue)
+    }
 
     // Handle form submission
     async function onSubmit(values: z.infer<typeof formSchema>) {
@@ -279,35 +333,50 @@ export default function SidebarButton({ donors }: { donors: DonorIProps[] }) {
                                                                         <div className="flex items-center px-3 pb-2">
                                                                             <Search className="mr-2 h-4 w-4 shrink-0 opacity-50" />
                                                                             <Input
-                                                                                placeholder="Search..."
+                                                                                placeholder="Search your name or code or email..."
                                                                                 className="h-8"
                                                                                 value={searchTerm}
                                                                                 onChange={(e) => setSearchTerm(e.target.value)}
                                                                             />
+                                                                            {searchTerm && (
+                                                                                <Button
+                                                                                    variant="ghost"
+                                                                                    size="sm"
+                                                                                    onClick={() => setSearchTerm("")}
+                                                                                    className="ml-2"
+                                                                                >
+                                                                                    Clear
+                                                                                </Button>
+                                                                            )}
                                                                         </div>
-                                                                        {filteredData.length > 0 ? (
-                                                                            <div className="max-h-[200px] overflow-auto">
-                                                                                {filteredData.map((item) => (
-                                                                                    <SelectItem
-                                                                                        key={item.username}
-                                                                                        value={item.username}
-                                                                                        onClick={() => handleValueChange(item.username)}
-                                                                                        className={cn("cursor-pointer hover:bg-color-sub/50")}
-                                                                                    >
-                                                                                        <div className="flex flex-row pr-1">
-                                                                                            <span className="font-medium">{item.code}</span>
-                                                                                            <span className="">--</span>
-                                                                                            <span className="font-medium">{item.name}</span>
+                                                                        <div className="max-h-[400px] overflow-auto">
+                                                                            <List
+                                                                                height={200}
+                                                                                itemCount={filteredData.length}
+                                                                                itemSize={35}
+                                                                                width="100%"
+                                                                            >
+                                                                                {({ index, style }) => {
+                                                                                    const item = filteredData[index];
+                                                                                    return (
+                                                                                        <div style={style}>
+                                                                                            <MemoizedSelectItem
+                                                                                                item={item}
+                                                                                                onClick={() => handleValueChange(item.username)}
+                                                                                            />
                                                                                         </div>
-                                                                                    </SelectItem>
-                                                                                ))}
-                                                                            </div>
-                                                                        ) : (
-                                                                            <div className="py-3 text-center text-sm">No results found</div>
-                                                                        )}
+                                                                                    );
+                                                                                }}
+                                                                            </List>
+                                                                        </div>
                                                                     </SelectContent>
                                                                 </Select>
                                                             </FormControl>
+                                                            {!isValid && (
+                                                                <div className="text-red-500 text-sm mt-1">
+                                                                    Invalid selection. Please select a valid donor.
+                                                                </div>
+                                                            )}
                                                             <FormMessage />
                                                         </FormItem>
                                                     )}
