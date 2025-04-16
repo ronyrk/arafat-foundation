@@ -42,7 +42,7 @@ const newFormSchema = z.object({
     hometown: z.string().min(1, "Hometown is required"),
     amount: z.string().min(1, "Amount is required"),
     time: z.string().min(1, "Time is required"),
-    method: z.enum(["bank-transfer", "mobile-banking"]),
+    method: z.string().min(1, "Method is required"),
     imageUpload: z.string(),
     sendNumber: z.string().optional(),
     transactionId: z.string().optional(),
@@ -96,7 +96,7 @@ export default function SidebarButton({ donors }: { donors: DonorIProps[] }) {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            formType: "old",
+            formType: "old", // Ensure this is set to a valid value
             amount: "",
             time: "",
             method: "",
@@ -185,14 +185,42 @@ export default function SidebarButton({ donors }: { donors: DonorIProps[] }) {
 
     // Handle form type change
     const handleFormTypeChange = (value: "old" | "new") => {
-        setFormType(value)
+        setFormType(value);
 
-        // Update form values when switching form types
-        form.setValue("formType", value)
+        // Update the formType field in the form state
+        form.setValue("formType", value);
 
-        // Reset form fields
-        form.reset();
-    }
+        // Reset other form fields when switching form types
+        form.reset(
+            value === "old"
+                ? {
+                    formType: "old",
+                    amount: "",
+                    time: "",
+                    username: "",
+                    method: "",
+                    sendNumber: undefined,
+                    transactionId: undefined,
+                    invoice: undefined,
+                }
+                : {
+                    formType: "new",
+                    name: "",
+                    about: "",
+                    phone: "",
+                    lives: "",
+                    hometown: "",
+                    amount: "",
+                    time: "",
+                    method: "",
+                    imageUpload: undefined,
+                    sendNumber: undefined,
+                    transactionId: undefined,
+                    invoice: undefined,
+                }
+        );
+    };
+
     return (
         <div>
             <div className="pb-4" >
