@@ -188,7 +188,7 @@ export default function SidebarButton({ donors }: { donors: DonorIProps[] }) {
     return (
         <div>
             <div className="pb-4" >
-                <Button variant={"ghost"} className="pl-4 py-4 text-[15px] font-semibold rounded-md" onClick={() => setDialogOpen(true)}>Open Form</Button>
+                <Button variant={"ghost"} className="pl-4 py-4 text-[15px] font-semibold rounded-md" onClick={() => setDialogOpen(true)}>Give us loan</Button>
             </div>
             <div className="flex flex-col items-center justify-center gap-1">
 
