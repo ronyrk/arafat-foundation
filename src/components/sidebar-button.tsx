@@ -168,9 +168,10 @@ export default function SidebarButton({ donors }: { donors: DonorIProps[] }) {
             const data = await response.json();
             if (response.status === 200) {
                 // Handle success response
+                setDialogOpen(false) // Close the dialog
                 toast.success("Form submitted successfully")
                 form.reset() // Reset the form after successful submission
-                setDialogOpen(false) // Close the dialog
+
 
             } else {
                 // Handle error response
