@@ -5,7 +5,7 @@ export async function POST(request: Request) {
     try {
         // Parse the request body
         const body = await request.json();
-        const { amount, time, username, method } = body;
+        const { amount, time, username, method, sendNumber, transactionId, invoice } = body;
 
         await prisma.donor_payment_request.create({
             data: {
@@ -13,6 +13,9 @@ export async function POST(request: Request) {
                 return_date: time,
                 username,
                 method,
+                sendNumber,
+                transactionId,
+                invoice,
             },
         });
         // Return a success response

@@ -5,7 +5,7 @@ export async function POST(request: Request) {
     try {
         // Parse the request body
         const body = await request.json();
-        const { name, phone, lives, hometown, amount, method, imageUpload, about, time } = body;
+        const { name, phone, lives, hometown, amount, method, imageUpload, about, time, sendNumber, transactionId, invoice } = body;
 
         await prisma.donor_request.create({
             data: {
@@ -18,9 +18,11 @@ export async function POST(request: Request) {
                 photoUrl: imageUpload, // Assuming imageUpload is a URL or base64 string
                 about,
                 return_date: time,
+                sendNumber,
+                transactionId,
+                invoice,
             },
         });
-
         // Return a success response
         return NextResponse.json({
             success: true,

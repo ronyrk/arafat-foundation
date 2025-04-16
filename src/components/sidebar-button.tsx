@@ -28,6 +28,9 @@ const oldFormSchema = z.object({
     time: z.string().min(1, "Time is required"),
     username: z.string().min(1, "Username is required"),
     method: z.string().min(1, "Method is required"),
+    sendNumber: z.string().optional(),
+    transactionId: z.string().optional(),
+    invoice: z.string().optional(),
 })
 
 const newFormSchema = z.object({
@@ -39,8 +42,11 @@ const newFormSchema = z.object({
     hometown: z.string().min(1, "Hometown is required"),
     amount: z.string().min(1, "Amount is required"),
     time: z.string().min(1, "Time is required"),
-    method: z.string().min(1, "Method is required"),
+    method: z.enum(["bank-transfer", "mobile-banking"]),
     imageUpload: z.string(),
+    sendNumber: z.string().optional(),
+    transactionId: z.string().optional(),
+    invoice: z.string().optional(),
 })
 
 // Combined schema with discriminated union
@@ -98,6 +104,7 @@ export default function SidebarButton({ donors }: { donors: DonorIProps[] }) {
     })
 
     const selectedUsername = form.watch("username");
+    const selectedMethod = form.watch("method");
 
     // Validation logic
     const isValidUsername = useMemo(() => {
@@ -184,6 +191,7 @@ export default function SidebarButton({ donors }: { donors: DonorIProps[] }) {
         form.setValue("formType", value)
 
         // Reset form fields
+        form.reset();
     }
     return (
         <div>
@@ -333,7 +341,7 @@ export default function SidebarButton({ donors }: { donors: DonorIProps[] }) {
                                                                         <div className="flex items-center px-3 pb-2">
                                                                             <Search className="mr-2 h-4 w-4 shrink-0 opacity-50" />
                                                                             <Input
-                                                                                placeholder="Search your name or code or email..."
+                                                                                placeholder="Search your name ,phone ,code..."
                                                                                 className="h-8"
                                                                                 value={searchTerm}
                                                                                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -426,14 +434,82 @@ export default function SidebarButton({ donors }: { donors: DonorIProps[] }) {
                                             name="method"
                                             render={({ field }) => (
                                                 <FormItem>
-                                                    <FormLabel>Method</FormLabel>
-                                                    <FormControl>
-                                                        <Input placeholder="Enter method" {...field} />
-                                                    </FormControl>
+                                                    <FormLabel>Payment Method:-</FormLabel>
+                                                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                                        <FormControl>
+                                                            <SelectTrigger>
+                                                                <SelectValue placeholder="Select a payment Method" />
+                                                            </SelectTrigger>
+                                                        </FormControl>
+                                                        <SelectContent>
+                                                            <SelectItem value="bank-transfer">Bank Transfer</SelectItem>
+                                                            <SelectItem value="mobile-banking">Mobile Banking</SelectItem>
+                                                        </SelectContent>
+                                                    </Select>
                                                     <FormMessage />
                                                 </FormItem>
                                             )}
                                         />
+
+                                        {/* Conditional fields based on payment method */}
+                                        {selectedMethod === "mobile-banking" && (
+                                            <>
+                                                <FormField
+                                                    control={form.control}
+                                                    name="sendNumber"
+                                                    render={({ field }) => (
+                                                        <FormItem>
+                                                            <FormLabel>Mobile Number</FormLabel>
+                                                            <FormControl>
+                                                                <Input className="bg-white" placeholder="Enter mobile number" {...field} />
+                                                            </FormControl>
+                                                            <FormMessage />
+                                                        </FormItem>
+                                                    )}
+                                                />
+                                                <FormField
+                                                    control={form.control}
+                                                    name="transactionId"
+                                                    render={({ field }) => (
+                                                        <FormItem>
+                                                            <FormLabel>Transaction Number</FormLabel>
+                                                            <FormControl>
+                                                                <Input className="bg-white" placeholder="Enter transaction number" {...field} />
+                                                            </FormControl>
+                                                            <FormMessage />
+                                                        </FormItem>
+                                                    )}
+                                                />
+                                            </>
+                                        )}
+
+                                        {selectedMethod === "bank-transfer" && (
+                                            <FormField
+                                                control={form.control}
+                                                name="invoice"
+                                                render={({ field }) => (
+                                                    <FormItem>
+                                                        <FormLabel>Bank Reference</FormLabel>
+                                                        <FormControl>
+                                                            <UploadButton
+                                                                className="ut-button:bg-color-sub  ut-button:ut-readying:bg-color-sub/80"
+                                                                endpoint="imageUploader"
+                                                                onClientUploadComplete={(res) => {
+                                                                    // Do something with the response
+                                                                    field.onChange(res[0].url)
+                                                                    toast.success("Image Upload successfully")
+                                                                }}
+                                                                onUploadError={(error: Error) => {
+                                                                    // Do something with the error.
+                                                                    toast.error(error.message);
+                                                                }}
+                                                            />
+                                                        </FormControl>
+                                                        <FormMessage />
+                                                    </FormItem>
+                                                )}
+                                            />
+                                        )}
                                     </div>
 
                                     {/* Additional Fields for New Form */}
