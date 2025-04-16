@@ -145,11 +145,11 @@ export default function SidebarButton({ donors }: { donors: DonorIProps[] }) {
 
     // Handle form submission
     async function onSubmit(values: z.infer<typeof formSchema>) {
-        setIsSubmitting(true)
+        setIsSubmitting(true);
 
         try {
             // Determine which API endpoint to use based on form type
-            const endpoint = values.formType === "old" ? "/api/donor_payment_request" : "/api/donor_request"
+            const endpoint = values.formType === "old" ? "/api/donor_payment_request" : "/api/donor_request";
 
             const response = await fetch(endpoint, {
                 method: "POST",
@@ -157,28 +157,36 @@ export default function SidebarButton({ donors }: { donors: DonorIProps[] }) {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify(values),
-            })
+            });
 
             if (!response.ok) {
-                throw new Error(`Error: ${response.status}`)
+                throw new Error(`Error: ${response.status}`);
             }
 
             const data = await response.json();
             if (response.status === 200) {
                 // Handle success response
-                setDialogOpen(false) // Close the dialog
-                toast.success("Form submitted successfully")
-                form.reset() // Reset the form after successful submission
+                toast.success("Form submitted successfully");
 
+                // Reset the form with default values
+                form.reset({
+                    formType: "old", // Reset to default form type
+                    amount: "",
+                    time: "",
+                    method: "",
+                });
 
+                // Close the dialog
+                setDialogOpen(false);
             } else {
                 // Handle error response
-                toast.error(data.message || "An error occurred")
+                toast.error(data.message || "An error occurred");
             }
         } catch (error) {
-            console.error("Submission error:", error)
+            console.error("Submission error:", error);
+            toast.error("An error occurred during submission.");
         } finally {
-            setIsSubmitting(false)
+            setIsSubmitting(false);
         }
     }
 
