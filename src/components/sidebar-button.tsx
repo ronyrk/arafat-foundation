@@ -63,7 +63,7 @@ function highlightMatch(text: string, searchTerm: string) {
     );
 }
 
-const MemoizedSelectItem = React.memo(({ item, onClick }: { item: DonorIProps; onClick: () => void }) => (
+const SelectItemComponent = ({ item, onClick }: { item: DonorIProps; onClick: () => void }) => (
     <SelectItem
         key={item.username}
         value={item.username}
@@ -76,9 +76,7 @@ const MemoizedSelectItem = React.memo(({ item, onClick }: { item: DonorIProps; o
             <span className="font-medium">{item.name}</span>
         </div>
     </SelectItem>
-));
-
-MemoizedSelectItem.displayName = "MemoizedSelectItem";
+);
 
 export default function SidebarButton({ donors }: { donors: DonorIProps[] }) {
     const [dialogOpen, setDialogOpen] = useState(false);
@@ -397,7 +395,7 @@ export default function SidebarButton({ donors }: { donors: DonorIProps[] }) {
                                                                                     const item = filteredData[index];
                                                                                     return (
                                                                                         <div style={style}>
-                                                                                            <MemoizedSelectItem
+                                                                                            <SelectItemComponent
                                                                                                 item={item}
                                                                                                 onClick={() => handleValueChange(item.username)}
                                                                                             />
