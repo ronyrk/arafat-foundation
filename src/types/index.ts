@@ -1,6 +1,7 @@
 export interface DonorIProps {
 	id?: string,
 	username: string,
+	mobile: string,
 	email: string,
 	code: string,
 	password: string,
