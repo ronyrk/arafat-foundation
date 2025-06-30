@@ -38,9 +38,10 @@ async function TableRowList(params: ParamsIProps) {
 	}
 
 	const loanPayment = async (payment: string, donate: string) => {
-		if (payment === "0" && donate === "0") {
+		console.log("payment", payment, "donate", donate);
+		if (payment === "0" && donate === "0" || payment === null && donate === null) {
 			return ` N/A`
-		} else if (payment === "0") {
+		} else if (payment === "0" || payment === null || payment === undefined) {
 			return `BDT =${donate}/=`
 		} else {
 			return `BDT =${payment}/=`
