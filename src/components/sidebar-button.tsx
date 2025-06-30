@@ -237,9 +237,9 @@ export default function SidebarButton({ donors }: { donors: DonorIProps[] }) {
 
 
                 <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-                    <DialogContent className="sm:max-w-[550px]">
+                    <DialogContent className=" w-full">
                         <DialogHeader>
-                            <DialogDescription className="text-center text-base font-medium text-color-main">
+                            <DialogDescription className="text-center text-[14px] font-medium text-color-main">
                                 Please send your donation to the given bKash or bank accounts below.
                                 bKash A/C Number: 01738115411 (Send Money) <span className="mx-1"></span>
                                 Islami Bank Bangladesh Ltd
