@@ -36,19 +36,7 @@ export default async function Page({ searchParams }: PageProps) {
     const locationOptionsPromise = getLocationOptions();
 
     return (
-        <div className="flex flex-col space-y-6 p-6">
-            <div className="flex justify-between items-center">
-                <div>
-                    <h1 className="text-3xl font-bold text-gray-900">Beneficial Management</h1>
-                    <p className="text-gray-600 mt-1">Manage and track beneficial recipients</p>
-                </div>
-                <Button asChild className="bg-blue-600 hover:bg-blue-700">
-                    <Link href="/dashboard/beneficial/create">
-                        Create New Beneficial
-                    </Link>
-                </Button>
-            </div>
-
+        <div className="flex flex-col space-y-2 px-2">
             <Suspense fallback={<FilterSkeleton />}>
                 <FilterControlsWrapper locationOptionsPromise={locationOptionsPromise} />
             </Suspense>
@@ -59,9 +47,8 @@ export default async function Page({ searchParams }: PageProps) {
                         <TableRow className="bg-gray-50 ">
                             <TableHead className="font-semibold w-1/3">Profile & Details</TableHead>
                             <TableHead className="font-semibold  w-32">Status</TableHead>
-                            <TableHead className="font-semibold  w-32">Donor Info</TableHead>
-                            <TableHead className="font-semibold  w-24">Edit</TableHead>
-                            <TableHead className="font-semibold  w-24">Delete</TableHead>
+                            <TableHead className="font-semibold ">Donor Info</TableHead>
+                            <TableHead className="font-semibold  ">Details</TableHead>
                         </TableRow>
                     </TableHeader>
                     <Suspense fallback={<LoadingFallback />}>

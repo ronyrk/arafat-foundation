@@ -7,7 +7,6 @@ import {
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { ClipboardPenLine } from 'lucide-react';
-import DeleteButton from '@/components/DeleteButton';
 import Image from 'next/image';
 import { BeneficialIProps } from '@/types';
 
@@ -76,9 +75,9 @@ const BeneficialRow = memo(({ item }: { item: BeneficialIProps }) => (
             </div>
         </TableCell>
 
-        <TableCell className="font-medium p-4">
+        <TableCell className="font-medium p-2">
             {item.beneficialDonorId ? (
-                <Button className="bg-green-600 hover:bg-green-700 text-white w-full" variant="default" size="sm" asChild>
+                <Button className="bg-green-600 hover:bg-green-700 text-white w-fit" size={"sm"} asChild>
                     <Link href={`/dashboard/beneficial/donor/${item.beneficialDonor?.username}`}>
                         💝 Donor Details
                     </Link>
@@ -91,19 +90,10 @@ const BeneficialRow = memo(({ item }: { item: BeneficialIProps }) => (
             )}
         </TableCell>
 
-        <TableCell className="font-medium p-4">
-            <Button className="bg-amber-600 hover:bg-amber-700 text-white w-full" variant="default" size="sm" asChild>
-                <Link href={`/dashboard/beneficial/${item.username}`}>
-                    <ClipboardPenLine className="h-4 w-4 mr-1" />
-                    Edit
-                </Link>
+        <TableCell className="font-medium p-2">
+            <Button className='bg-color-sub' size={"sm"} asChild>
+                <Link href={`${item.username}`}>DETAILS</Link>
             </Button>
-        </TableCell>
-
-        <TableCell className="font-medium p-4">
-            <div className="w-full">
-                <DeleteButton type="beneficial" username={item.username} />
-            </div>
         </TableCell>
     </TableRow>
 ));
