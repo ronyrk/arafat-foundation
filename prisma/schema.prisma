@@ -341,6 +341,77 @@ model donor_payment_request {
   createAt      DateTime @default(now())
 }
 
+model district {
+  id             String          @id @default(auto()) @map("_id") @db.ObjectId
+  name           String          @unique
+  policeStations policeStation[]
+  createdAt      DateTime        @default(now())
+}
+
+model policeStation {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  name       String
+  districtId String   @db.ObjectId
+  district   district @relation(fields: [districtId], references: [id])
+  createdAt  DateTime @default(now())
+
+  @@index([districtId])
+}
+
+model beneficialDonor {
+  id                    String                  @id @default(auto()) @map("_id") @db.ObjectId
+  name                  String
+  username              String                  @unique
+  live                  String
+  homeTown              String
+  photoUrl              String
+  about                 String?
+  beneficialTransaction beneficialTransaction[]
+  beneficial            beneficial[]
+  createAt              DateTime                @default(now())
+}
+
+model beneficial {
+  id                    String                  @id @default(auto()) @map("_id") @db.ObjectId
+  name                  String
+  username              String                  @unique
+  phone                 String
+  village               String
+  postoffice            String
+  district              String
+  policeStation         String
+  occupation            String
+  nidFront              String
+  nidBack               String
+  photoUrl              String[]
+  about                 String?
+  beneficialTransaction beneficialTransaction[]
+  beneficialDonorId     String?                 @db.ObjectId
+  beneficialDonor       beneficialDonor?        @relation(fields: [beneficialDonorId], references: [id])
+  createAt              DateTime                @default(now())
+
+  @@index([beneficialDonorId])
+}
+
+model beneficialTransaction {
+  id                String          @id @default(auto()) @map("_id") @db.ObjectId
+  beneficialId      String          @db.ObjectId
+  beneficial        beneficial      @relation(fields: [beneficialId], references: [id])
+  amount            String
+  description       String
+  date              DateTime
+  beneficialDonorId String          @db.ObjectId
+  beneficialDonor   beneficialDonor @relation(fields: [beneficialDonorId], references: [id])
+
+  @@index([beneficialId, beneficialDonorId])
+}
+
+model beneficialQuestion {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  description String
+}
+
 enum Status {
   PENDING
   RUNNING
