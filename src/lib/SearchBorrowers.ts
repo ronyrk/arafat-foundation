@@ -38,6 +38,12 @@ export async function getSearchBorrowers(query: string, page: string) {
 						contains: query,
 						mode: "insensitive"
 					}
+				},
+				{
+					phone: {
+						contains: query,
+						mode: "insensitive"
+					}
 				}
 			]
 		},
