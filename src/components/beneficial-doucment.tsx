@@ -1,5 +1,5 @@
 "use client";
-import { LoanIProps } from '@/types'
+import { BeneficialIProps } from '@/types'
 import React, { Suspense } from 'react'
 import {
     Dialog,
@@ -11,12 +11,16 @@ import {
 import { View, FileText, Eye } from 'lucide-react';
 import Image from 'next/image';
 import { useUser } from './ContextProvider';
-import FormTwo from "../../public/form-one-part.png"
-import FormOne from "../../public/form-part-two.png"
 import nidFont from "../../public/nid-font.png"
 import nidBack from "../../public/nid-back.png"
 
-function BeneficialDocuments({ nidback, nidfont }: { nidback: string; nidfont: string; }) {
+function getStatus(item: BeneficialIProps): string {
+    return item.beneficialDonorId ? "Active" : "Inactive";
+}
+
+
+function BeneficialDocuments({ data }: { data: BeneficialIProps }) {
+
     const { user, isUserLoading } = useUser();
 
     const DocumentViewButton = ({ children, title }: { children: React.ReactNode; title: string }) => (
@@ -86,7 +90,7 @@ function BeneficialDocuments({ nidback, nidfont }: { nidback: string; nidfont: s
                         </div>
                         <DocumentViewButton title="National ID - Front Side">
                             <ImageDisplay
-                                src={user?.email ? nidfont : nidFont}
+                                src={user?.email ? data.nidFront : nidFont}
                                 alt="NID Front Side"
                                 isUserImage={!!user?.email}
                             />
@@ -103,7 +107,7 @@ function BeneficialDocuments({ nidback, nidfont }: { nidback: string; nidfont: s
                         </div>
                         <DocumentViewButton title="National ID - Back Side">
                             <ImageDisplay
-                                src={user?.email ? nidback : nidBack}
+                                src={user?.email ? data.nidBack : nidBack}
                                 alt="NID Back Side"
                                 isUserImage={!!user?.email}
                             />
@@ -115,11 +119,21 @@ function BeneficialDocuments({ nidback, nidfont }: { nidback: string; nidfont: s
             {/* Status indicator */}
             <div className="mt-4 pt-4 border-t border-gray-200">
                 <div className="flex items-center justify-between text-sm">
-                    <span className="text-gray-600">Document Status:</span>
-                    <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                        <div className="w-1.5 h-1.5 bg-green-500 rounded-full mr-2"></div>
-                        Available
-                    </span>
+                    <span className="text-gray-600">Donate Status:</span>
+                    <div className="flex flex-col items-start gap-2">
+                        <span className={`px-3 py-1 rounded-full text-xs font-medium inline-flex items-center gap-1 ${getStatus(data) === 'Active'
+                            ? 'bg-green-100 text-green-800 border border-green-200'
+                            : 'bg-red-100 text-red-800 border border-red-200'
+                            }`}>
+                            {getStatus(data) === 'Active' ? '✅' : '⚠️'}
+                            {getStatus(data)}
+                        </span>
+                        {getStatus(data) === 'Inactive' && (
+                            <div className="text-xs text-red-600 font-medium bg-red-50 px-2 py-1 rounded">
+                                🎯 Priority: Needs Donor
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
         </div>

@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/carousel"
 import BorrowersDocuments from './BorrowersDocuments';
 import BeneficialDocuments from './beneficial-doucment';
+import { Share } from './Share';
 
 // Types for your API data
 
@@ -26,8 +27,7 @@ interface BeneficialDonor {
     photoUrl: string;
     about: string;
     createAt: string;
-}
-
+};
 
 function BeneficialProfileEdit({ data }: { data: BeneficialIProps }) {
 
@@ -71,13 +71,15 @@ function BeneficialProfileEdit({ data }: { data: BeneficialIProps }) {
                         <p><strong>Phone:</strong> {phone}</p>
                     </div>
                 </div>
-                <BeneficialDocuments nidback={nidFront} nidfont={nidFront} />
+                <BeneficialDocuments data={data} />
             </div>
 
-
+            <div className="py-2 px-4">
+                <Share username={data.username} type='beneficial' />
+            </div>
 
             {/* About Section */}
-            <div className="p-4 mt-4 bg-white rounded-lg shadow mx-2">
+            <div className="px-4 my-4 bg-white rounded-lg shadow mx-2">
                 <div className="py-4" dangerouslySetInnerHTML={{ __html: about?.split("^")[0] as string }} />
             </div>
         </div>
