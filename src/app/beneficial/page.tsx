@@ -43,10 +43,10 @@ export default async function Page({ searchParams }: PageProps) {
 
             <div className="bg-white rounded-lg shadow">
                 <Table>
-                    <TableHeader>
-                        <TableRow className="bg-gray-50 ">
-                            <TableHead className="font-semibold w-1/3">Profile & Details</TableHead>
-                            <TableHead className="font-semibold  w-32">Status</TableHead>
+                    <TableHeader className=''>
+                        <TableRow className="bg-gray-50 text-center ">
+                            <TableHead className="font-semibold ">Profile & Details</TableHead>
+                            <TableHead className="font-semibold ">Status</TableHead>
                             <TableHead className="font-semibold ">Donor Info</TableHead>
                             <TableHead className="font-semibold  ">Details</TableHead>
                         </TableRow>

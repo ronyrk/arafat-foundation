@@ -20,8 +20,8 @@ function getStatus(item: BeneficialIProps): string {
 
 const BeneficialRow = memo(({ item }: { item: BeneficialIProps }) => (
     <TableRow className="hover:bg-gray-50 transition-colors">
-        <TableCell className="font-medium p-4">
-            <div className="flex items-start gap-4">
+        <TableCell className="font-medium p-2">
+            <div className="flex items-center gap-4">
                 {/* Image */}
                 <div className="flex-shrink-0">
                     <Image
@@ -39,7 +39,7 @@ const BeneficialRow = memo(({ item }: { item: BeneficialIProps }) => (
                     <div className="flex flex-col gap-1">
                         <h3 className="text-lg font-medium text-gray-900">{item.name}</h3>
                         {/* Address section with better formatting */}
-                        <div className="mt-1 space-y-1">
+                        <div className="space-y-1">
                             <div className="flex items-center gap-2 text-sm">
                                 <span className="text-gray-500">🏠</span>
                                 <span className="font-medium text-gray-700">{item.village}</span>
@@ -78,7 +78,7 @@ const BeneficialRow = memo(({ item }: { item: BeneficialIProps }) => (
         <TableCell className="font-medium p-2">
             {item.beneficialDonorId ? (
                 <Button className="bg-green-600 hover:bg-green-700 text-white w-fit" size={"sm"} asChild>
-                    <Link href={`/dashboard/beneficial/donor/${item.beneficialDonor?.username}`}>
+                    <Link href={`beneficial/donor/${item.beneficialDonor?.username}`}>
                         💝 Donor Details
                     </Link>
                 </Button>
@@ -92,7 +92,7 @@ const BeneficialRow = memo(({ item }: { item: BeneficialIProps }) => (
 
         <TableCell className="font-medium p-2">
             <Button className='bg-color-sub' size={"sm"} asChild>
-                <Link href={`${item.username}`}>DETAILS</Link>
+                <Link href={`beneficial/${item.username}`}>DETAILS</Link>
             </Button>
         </TableCell>
     </TableRow>
