@@ -6,7 +6,6 @@ import {
 } from "@/components/ui/table";
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { ClipboardPenLine } from 'lucide-react';
 import Image from 'next/image';
 import { BeneficialIProps } from '@/types';
 
@@ -20,37 +19,40 @@ function getStatus(item: BeneficialIProps): string {
 
 const BeneficialRow = memo(({ item }: { item: BeneficialIProps }) => (
     <TableRow className="hover:bg-gray-50 transition-colors">
-        <TableCell className="font-medium p-2">
-            <div className="flex items-center gap-4">
+        <TableCell className="font-medium p-1 md:p-2">
+            <div className="flex items-center gap-2 sm:gap-3 md:gap-4 min-h-[80px]">
+
                 {/* Image */}
                 <div className="flex-shrink-0">
                     <Image
                         src={item.photoUrl.at(0) as string}
                         alt={item.name}
-                        width={80}
-                        height={80}
+                        width={60}
+                        height={60}
                         priority
-                        className="rounded-lg object-cover border-2 border-gray-200"
+                        className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-lg object-cover border-2 border-gray-200"
                     />
                 </div>
 
-                {/* Personal Details right next to image */}
+                {/* Personal Details - Always inline with image */}
                 <div className="flex-1 min-w-0">
                     <div className="flex flex-col gap-1">
-                        <h3 className="text-lg font-medium text-gray-900">{item.name}</h3>
+                        <h3 className="text-sm sm:text-base md:text-lg font-medium text-gray-900 truncate">
+                            {item.name}
+                        </h3>
                         {/* Address section with better formatting */}
-                        <div className="space-y-1">
-                            <div className="flex items-center gap-2 text-sm">
+                        <div className="flex flex-col gap-1">
+                            <div className="flex flex-row gap-0 md:gap-2 text-sm">
                                 <span className="text-gray-500">🏠</span>
-                                <span className="font-medium text-gray-700">{item.village}</span>
+                                <span className="font-medium text-gray-700 truncate">{item.village}</span>
                             </div>
-                            <div className="flex items-center gap-4 text-xs text-gray-600">
-                                <span>📮 Post: {item.postoffice}</span>
-                                <span>🏛️ {item.district}</span>
+                            <div className="flex items-center gap-2 md:gap-4 text-xs text-gray-600">
+                                <span className="truncate">📮 Post: {item.postoffice}</span>
+                                <span className="truncate">🏛️ {item.district}</span>
                             </div>
-                            <div className="flex items-center gap-4 text-xs text-gray-600">
-                                <span>🚔 PS: {item.policeStation}</span>
-                                <span>💼 {item.occupation}</span>
+                            <div className="flex items-center gap-2 md:gap-4 text-xs text-gray-600">
+                                <span className="truncate">🚔 PS: {item.policeStation}</span>
+                                <span className="truncate">💼 {item.occupation}</span>
                             </div>
                         </div>
                     </div>
