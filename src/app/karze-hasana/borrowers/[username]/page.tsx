@@ -8,6 +8,7 @@ import { ParamsIProps, PaymentIProps } from '@/types'
 import { unstable_noStore } from 'next/cache';
 import React from 'react'
 import prisma from '@/lib/prisma';
+import { notFound } from 'next/navigation';
 
 type Props = {
 	params: { username: string }
@@ -61,6 +62,10 @@ async function page({ params }: ParamsIProps) {
 		throw new Error("Failed to fetch data");
 	};
 	const data = await response.json();
+
+	if (!data) {
+		notFound();
+	}
 
 
 	const totalBalance = async () => {

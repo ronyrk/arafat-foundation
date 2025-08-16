@@ -5,6 +5,7 @@ import React from 'react'
 import prisma from '@/lib/prisma';
 import { unstable_noStore } from 'next/cache';
 import { Share } from '@/components/Share';
+import { notFound } from 'next/navigation';
 
 type Props = {
 	params: { username: string }
@@ -57,6 +58,11 @@ async function page({ params, searchParams }: {
 	const { username } = params;
 	const response = await getData(username);
 	const data: BranchIProps = await response.info;
+
+	if (!data) {
+		notFound();
+	}
+
 	return (
 		<div className='p-1 px-4 border-2 rounded'>
 			<div className="flex flex-col">
