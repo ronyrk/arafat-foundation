@@ -71,7 +71,7 @@ export default function FilterControlsDonor() {
     const hasActiveFilters = currentDistrict || currentPoliceStation || currentSearch;
 
     return (
-        <div className="flex flex-col gap-4 p-4 bg-gray-50 rounded-lg">
+        <div className="flex flex-col pb-2 bg-gray-50 rounded-lg">
             <div className="flex flex-wrap gap-4 items-center">
 
                 {/* Search Input */}

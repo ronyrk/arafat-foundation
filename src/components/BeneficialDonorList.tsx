@@ -6,10 +6,8 @@ import {
 } from "@/components/ui/table";
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { ClipboardPenLine } from 'lucide-react';
-import DeleteButton from '@/components/DeleteButton';
 import Image from 'next/image';
-import { BeneficialDonorIProps, BeneficialIProps, BeneficialTransactionIProps } from '@/types';
+import { BeneficialDonorIProps, BeneficialTransactionIProps } from '@/types';
 
 interface BeneficialListProps {
     data: BeneficialDonorIProps[];
@@ -24,8 +22,8 @@ function calculateTotal(data: BeneficialTransactionIProps[]) {
 
 const BeneficialDonorRow = memo(({ item }: { item: BeneficialDonorIProps }) => (
     <TableRow className="hover:bg-gray-50 transition-colors">
-        <TableCell className="font-medium p-4">
-            <div className="flex items-start gap-4">
+        <TableCell className="font-medium p-1">
+            <div className="flex items-center gap-4">
                 {/* Image */}
                 <div className="flex-shrink-0">
                     <Image
@@ -64,19 +62,10 @@ const BeneficialDonorRow = memo(({ item }: { item: BeneficialDonorIProps }) => (
                 <p className="text-gray-500 text-lg font-medium">{calculateTotal(item.beneficialTransaction || [])}</p>
             </div>
         </TableCell>
-        <TableCell className="font-medium p-4">
-            <Button className="bg-amber-600 hover:bg-amber-700 text-white w-full" variant="default" size="sm" asChild>
-                <Link href={`${item.username}`}>
-                    <ClipboardPenLine className="h-4 w-4 mr-1" />
-                    Edit
-                </Link>
+        <TableCell className="font-medium uppercase">
+            <Button className='bg-color-sub' size={"sm"} asChild>
+                <Link href={`donor/${item?.username}`}>details</Link>
             </Button>
-        </TableCell>
-
-        <TableCell className="font-medium p-4">
-            <div className="w-full">
-                <DeleteButton type="beneficial/donor" username={item.username} />
-            </div>
         </TableCell>
     </TableRow>
 ));
