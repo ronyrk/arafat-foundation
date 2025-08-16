@@ -1,7 +1,5 @@
 import React, { Suspense } from 'react';
 import { Table, TableHeader, TableRow, TableHead, TableFooter } from "@/components/ui/table";
-import { Button } from '@/components/ui/button';
-import Link from 'next/link';
 import { getBeneficialData, getLocationOptions } from '@/lib/getBeneficialData';
 import FilterControls from '@/components/FilterControls';
 import BeneficialList from '@/components/BeneficialList';
