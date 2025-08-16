@@ -55,7 +55,7 @@ model Loan {
   id         String  @id @default(auto()) @map("_id") @db.ObjectId
   username   String  @unique
   name       String
-  code       String  @unique
+  code       String
   branch     String
   address    String
   about      String?
