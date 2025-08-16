@@ -19,7 +19,7 @@ export default function GlobalError({
 	return (
 		<html>
 			<body>
-				<div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-500 via-purple-600 to-purple-800 font-sans overflow-hidden relative">
+				<div className="min-h-screen mt-36 flex items-center justify-center bg-gradient-to-br from-indigo-500 via-purple-600 to-purple-800 font-sans overflow-hidden relative">
 					{/* Animated Content */}
 					<div className="text-center text-white z-10 max-w-lg px-8 animate-[slideInUp_0.8s_ease-out]">
 

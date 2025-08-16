@@ -5,6 +5,7 @@ import { DonorIProps, DonorPaymentIProps, ParamsIProps } from '@/types'
 import { unstable_noStore } from 'next/cache';
 import React from 'react'
 import prisma from '@/lib/prisma';
+import { notFound } from 'next/navigation';
 
 async function getUser(username: string) {
 	unstable_noStore();
@@ -49,6 +50,10 @@ export async function generateMetadata({ params }: Props) {
 async function page({ params }: ParamsIProps) {
 	const { username } = params;
 	const data: DonorIProps = await getUser(username);
+
+	if (!data) {
+		notFound();
+	}
 
 	unstable_noStore();
 

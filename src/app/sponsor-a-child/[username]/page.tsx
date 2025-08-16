@@ -10,6 +10,7 @@ import Link from 'next/link';
 import prisma from '@/lib/prisma';
 import { Share } from '@/components/Share';
 import icon from "../../../../public/divider.svg"
+import { notFound } from 'next/navigation';
 
 type Props = {
 	params: { username: string }
@@ -67,6 +68,10 @@ async function page({ params }: {
 		throw new Error("Failed to fetch data list");
 	};
 	const data: ChildIProps = await res.json();
+
+	if (!data) {
+		notFound();
+	}
 	return (
 		<div className='py-2 mx-2'>
 			<div className='flex md:flex-row flex-col md:gap-x-3 gap-y-1'>

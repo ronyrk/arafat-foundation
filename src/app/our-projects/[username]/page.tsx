@@ -9,6 +9,7 @@ import ProjectDonation from '@/components/ProjectDonation';
 import icon from "../../../../public/divider.svg"
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { notFound } from 'next/navigation';
 
 
 type Props = {
@@ -62,6 +63,10 @@ async function page({ params }: {
 		throw new Error("Failed to fetch data list");
 	};
 	const data: ProjectsProps = await res.json();
+
+	if (!data) {
+		notFound();
+	}
 
 	return (
 		<div className=''>

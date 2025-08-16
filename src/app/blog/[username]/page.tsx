@@ -8,6 +8,7 @@ import moment from 'moment';
 import NewsPortal from '@/components/NewsPortal';
 import { getNews } from '@/lib/getNews';
 import { getNewsSingle } from '@/lib/getNewsSingle';
+import { notFound } from 'next/navigation';
 
 type Props = {
 	params: { username: string }
@@ -67,6 +68,10 @@ async function page({ params, searchParams }: {
 		throw new Error("Failed to fetch data list");
 	};
 	const data: ProjectsProps = await res.json();
+
+	if (!data) {
+		notFound();
+	}
 
 	return (
 		<div className=''>

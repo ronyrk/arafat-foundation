@@ -3,6 +3,7 @@ import prisma from '@/lib/prisma';
 import BeneficialProfileEdit from '@/components/beneficial-profile';
 import { BeneficialIProps, BeneficialTransactionIProps } from '@/types';
 import BeneficialTransactionList from '@/components/transaction-list';
+import { notFound } from 'next/navigation';
 
 
 
@@ -18,6 +19,10 @@ export default async function Beneficial({ params }: { params: Promise<{ usernam
             beneficialTransaction: true,
         }
     }) as BeneficialIProps;
+
+    if (!data) {
+        notFound();
+    }
 
     return (
         <div>
