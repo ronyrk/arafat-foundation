@@ -9,7 +9,6 @@ import {
     TableRow,
 } from "@/components/ui/table";
 import moment from 'moment';
-import DeleteButton from './DeleteButton';
 import {
     Dialog,
     DialogClose,
@@ -58,9 +57,7 @@ function TransactionsList({ data }: { data: BeneficialTransactionIProps[] }) {
                                 </DialogContent>
                             </Dialog>
                         </TableCell>
-                        <TableCell className="font-medium uppercase">
-                            <DeleteButton type='beneficial/transacttion' username={item?.id as string} />
-                        </TableCell>
+
                     </TableRow>
                 ))
             }
@@ -79,7 +76,6 @@ export default function BeneficialTransactionList({ data }: { data: BeneficialTr
                         <TableHead>DATE</TableHead>
                         <TableHead className=' uppercase'>Amount</TableHead>
                         <TableHead className=' uppercase'>Description</TableHead>
-                        <TableHead className=' uppercase'>Deleted</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TransactionsList data={data} />

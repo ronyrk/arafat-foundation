@@ -108,7 +108,7 @@ async function page({ params }: ParamsIProps) {
 					<h2 className=" font-normal text-[15px]  text-color-main"><span className="font-semibold mr-2">বকেয়া ঋণ:</span>{duePayment()}</h2>
 					<PhoneNumber phone={data.phone} />
 				</div>
-				<BorrowersDocuments data={data} />
+				<BorrowersDocuments nidback={data.nidBack} nidfont={data.nidFont} form1={data.form1} form2={data.form2} />
 			</div>
 			<div className="py-2 px-4">
 				<Share username={data.username} type='karze-hasana/borrowers' />
