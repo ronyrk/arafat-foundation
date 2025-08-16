@@ -34,6 +34,12 @@ export async function getSearchDonor(query: string, page: string) {
 						mode: "insensitive"
 					}
 				},
+				{
+					mobile: {
+						contains: query,
+						mode: "insensitive"
+					}
+				}
 			]
 		},
 		orderBy: {

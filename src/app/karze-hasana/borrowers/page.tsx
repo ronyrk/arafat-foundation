@@ -74,7 +74,7 @@ async function BorrowersList({ searchParams }: {
 }) {
 	const query = searchParams?.search || "all";
 	const page = searchParams?.page || "1";
-	const pageSize = 11;
+	const pageSize = 10;
 	const start = (Number(page) - 1) * pageSize;
 	const end = start + pageSize;
 
@@ -96,16 +96,12 @@ async function BorrowersList({ searchParams }: {
 			})
 		);
 
-
-		// Sort by balanceDifference: positive values first, then zero, then negative
-		sortedBorrowers.sort((a, b) => b.balanceDifference - a.balanceDifference);
-
 		return (
 			<TableBody>
 				{
 					sortedBorrowers.slice(start, end).map((item, index: number) => (
 						<TableRow key={index}>
-							<TableCell className="font-medium">{item?.code}</TableCell>
+							<TableCell className="font-medium">{index + 1}</TableCell>
 							<TableCell className="font-medium uppercase">{item?.name}</TableCell>
 							<TableCell className="font-medium uppercase" >{TotalDisbursed(item.username, item.balance)}</TableCell>
 							<TableCell className="font-medium uppercase">{allPayment(item?.username)}</TableCell>
@@ -145,7 +141,7 @@ async function page({ searchParams }: {
 				<Table>
 					<TableHeader>
 						<TableRow>
-							<TableHead>CODE</TableHead>
+							<TableHead>INDEX</TableHead>
 							<TableHead className='w-[300px]'>BORROWERS NAME</TableHead>
 							<TableHead>DISBURSED</TableHead>
 							<TableHead>RECOVERED</TableHead>
