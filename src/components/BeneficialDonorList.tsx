@@ -29,10 +29,11 @@ const BeneficialDonorRow = memo(({ item }: { item: BeneficialDonorIProps }) => (
                     <Image
                         src={item.photoUrl}
                         alt={item.name}
-                        width={80}
-                        height={80}
+                        width={60}
+                        height={60}
                         priority
-                        className="rounded-lg object-cover border-2 border-gray-200"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-lg object-cover border-2 border-gray-200"
                     />
                 </div>
 
@@ -40,11 +41,11 @@ const BeneficialDonorRow = memo(({ item }: { item: BeneficialDonorIProps }) => (
                 <div className="flex-1 min-w-0">
                     <div className="flex flex-col gap-1">
                         {/* Address section with better formatting */}
-                        <div className="mt-2 space-y-1">
-                            <div className="flex justify-start items-center gap-2 text-sm">
-                                <span className="font-medium text-gray-700">{item.name}</span>
+                        <div className="mt-1 space-y-1">
+                            <div className="flex justify-start items-center md:gap-2 text-sm">
+                                <span className="text-sm font-medium text-gray-700">{item.name}</span>
                             </div>
-                            <div className="flex justify-start items-center gap-2 text-sm">
+                            <div className="flex justify-start items-center md:gap-2 text-sm">
                                 <span className="text-gray-500">🏠</span>
                                 <span className="font-medium text-gray-700">{item.live}</span>
                             </div>
