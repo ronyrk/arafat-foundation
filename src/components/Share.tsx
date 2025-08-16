@@ -52,7 +52,7 @@ const ShareButton = ({ icon: Icon, label, bgColor, hoverColor, children }: Share
 
 export function Share({ username, type }: { username: string, type: string }) {
 	const [copied, setCopied] = useState(false);
-	const shareUrl = `https://arafatfoundation.com/${type}/${username}`;
+	const shareUrl = `https://arafatfoundation.org/${type}/${username}`;
 	const shareTitle = 'Arafat Foundation LTD.';
 
 	const copyToClipboard = async () => {
