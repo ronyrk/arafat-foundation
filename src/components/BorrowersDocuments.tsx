@@ -17,9 +17,7 @@ import nidBack from "../../public/nid-back.png"
 
 
 
-function BorrowersDocuments(params: any) {
-	const data: LoanIProps = params.data;
-	const { nidback, nidfont, form1, form2 } = data;
+function BorrowersDocuments({ nidback, nidfont, form1, form2 }: { nidback: string; nidfont: string; form1: string; form2: string; }) {
 	const { user, isUserLoading } = useUser();
 	return (
 		<div className=" basis-4/12 border-[2px] rounded px-3 py-1 flex flex-col justify-around">
