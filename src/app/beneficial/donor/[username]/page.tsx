@@ -15,7 +15,6 @@ function TransactionsListSkeleton() {
                     <TableHead>DATE</TableHead>
                     <TableHead className=' uppercase'>Amount</TableHead>
                     <TableHead className=' uppercase'>Description</TableHead>
-                    <TableHead className=' uppercase'>Deleted</TableHead>
                 </TableRow>
             </TableHeader>
             <TableBody>
@@ -55,9 +54,7 @@ async function page({ params }: { params: Promise<{ username: string }> }) {
     return (
         <div>
             <BeneficialDonorProfileEdit data={beneficialDonor} />
-            <Suspense fallback={<TransactionsListSkeleton />}>
-                <BeneficialTransactionList data={beneficialDonor.beneficialTransaction as BeneficialTransactionIProps[]} />
-            </Suspense>
+            <BeneficialTransactionList data={beneficialDonor.beneficialTransaction as BeneficialTransactionIProps[]} />
         </div>
     )
 }
