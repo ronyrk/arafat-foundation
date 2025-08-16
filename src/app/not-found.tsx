@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 export default function NotFound() {
 	return (
-		<div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-indigo-900 to-blue-900 font-sans overflow-hidden relative">
+		<div className="min-h-screen mt-36 flex items-center justify-center bg-gradient-to-br from-gray-900 via-indigo-900 to-blue-900 font-sans overflow-hidden relative">
 
 			{/* Main Content */}
 			<div className="text-center text-white z-10 max-w-2xl px-8">
