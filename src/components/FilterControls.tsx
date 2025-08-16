@@ -105,55 +105,57 @@ export default function FilterControls({ locationOptions }: FilterControlsProps)
     return (
         <div className="flex flex-col gap-2  bg-gray-50 rounded-lg">
             <div className="flex flex-wrap gap-4 items-center">
-                {/* District Filter */}
-                <div className="min-w-[180px] relative">
-                    <Select value={currentDistrict} onValueChange={handleDistrictChange}>
-                        <SelectTrigger disabled={isPending} className={isPending ? 'opacity-50' : ''}>
-                            <SelectValue placeholder="Select District" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectItem value="all">All Districts</SelectItem>
-                            {locationOptions.districts.map((district) => (
-                                <SelectItem key={district} value={district}>
-                                    {district}
-                                </SelectItem>
-                            ))}
-                        </SelectContent>
-                    </Select>
-                    {isPending && (
-                        <div className="absolute right-8 top-1/2 transform -translate-y-1/2">
-                            <Loader2 className="h-4 w-4 animate-spin text-blue-600" />
-                        </div>
-                    )}
-                </div>
+                <div className='flex flex-row gap-2 items-center'>
+                    {/* District Filter */}
+                    <div className="min-w-[180px] relative">
+                        <Select value={currentDistrict} onValueChange={handleDistrictChange}>
+                            <SelectTrigger disabled={isPending} className={isPending ? 'opacity-50' : ''}>
+                                <SelectValue placeholder="Select District" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="all">All Districts</SelectItem>
+                                {locationOptions.districts.map((district) => (
+                                    <SelectItem key={district} value={district}>
+                                        {district}
+                                    </SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
+                        {isPending && (
+                            <div className="absolute right-8 top-1/2 transform -translate-y-1/2">
+                                <Loader2 className="h-4 w-4 animate-spin text-blue-600" />
+                            </div>
+                        )}
+                    </div>
 
-                {/* Police Station Filter */}
-                <div className="min-w-[180px] relative">
-                    <Select
-                        value={currentPoliceStation}
-                        onValueChange={handlePoliceStationChange}
-                        disabled={isPending}
-                    >
-                        <SelectTrigger className={isPending ? 'opacity-50' : ''}>
-                            <SelectValue placeholder="Select Police Station" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectItem value="all">All Police Stations</SelectItem>
-                            {filteredPoliceStations.map((ps, index) => (
-                                <SelectItem key={`${ps.policeStation}-${index}`} value={ps.policeStation}>
-                                    {ps.policeStation}
-                                    {currentDistrict === 'all' || !currentDistrict ?
-                                        ` (${ps.district})` : ''
-                                    }
-                                </SelectItem>
-                            ))}
-                        </SelectContent>
-                    </Select>
-                    {isPending && (
-                        <div className="absolute right-8 top-1/2 transform -translate-y-1/2">
-                            <Loader2 className="h-4 w-4 animate-spin text-blue-600" />
-                        </div>
-                    )}
+                    {/* Police Station Filter */}
+                    <div className="min-w-[180px] relative">
+                        <Select
+                            value={currentPoliceStation}
+                            onValueChange={handlePoliceStationChange}
+                            disabled={isPending}
+                        >
+                            <SelectTrigger className={isPending ? 'opacity-50' : ''}>
+                                <SelectValue placeholder="Select Police Station" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="all">All Police Stations</SelectItem>
+                                {filteredPoliceStations.map((ps, index) => (
+                                    <SelectItem key={`${ps.policeStation}-${index}`} value={ps.policeStation}>
+                                        {ps.policeStation}
+                                        {currentDistrict === 'all' || !currentDistrict ?
+                                            ` (${ps.district})` : ''
+                                        }
+                                    </SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
+                        {isPending && (
+                            <div className="absolute right-8 top-1/2 transform -translate-y-1/2">
+                                <Loader2 className="h-4 w-4 animate-spin text-blue-600" />
+                            </div>
+                        )}
+                    </div>
                 </div>
 
                 {/* Search Input */}
