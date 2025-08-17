@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react'
+import React, { Suspense, cache } from 'react'
 import {
 	Table,
 	TableBody,
@@ -14,7 +14,6 @@ import { LoanIProps, PaymentIProps } from '@/types';
 import { unstable_noStore } from 'next/cache';
 import { Metadata } from 'next';
 import { getBorrowerSearchData } from '@/lib/SearchBorrowers';
-import PaginationPart from '@/components/Pagination';
 import FilterControlsDonor from '@/components/FilterControlsDonor';
 import { FilterSkeleton } from '@/components/FilterSkeleton';
 import Pagination from '@/components/beneficial-pagination';
@@ -33,201 +32,257 @@ interface PageProps {
 	};
 }
 
-// Helper interface for borrower with calculated values
-interface BorrowerWithCalculations {
-	username: string;
-	name: string;
-	balance: string;
+interface BorrowerCalculations {
 	totalDisbursed: number;
 	totalPayment: number;
 	duePayment: number;
 }
 
-// Optimized payment data fetching with better error handling and timeout
-async function fetchPaymentData(username: string): Promise<PaymentIProps[]> {
-	unstable_noStore();
-
-	const controller = new AbortController();
-	const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
-
+// Cache payment data with React cache for deduplication
+const getPaymentData = cache(async (username: string): Promise<PaymentIProps[]> => {
 	try {
 		const response = await fetch(`https://af-admin.vercel.app/api/loan_list/${username}`, {
-			signal: controller.signal,
+			next: {
+				revalidate: 0, // Cache for 5 minutes
+				tags: [`loan-payments-${username}`] // Cache tags for selective revalidation
+			},
 			headers: {
 				'Cache-Control': 'no-cache',
 			}
 		});
 
-		clearTimeout(timeoutId);
-
 		if (!response.ok) {
-			console.error(`Failed to fetch payment data for ${username}:`, response.statusText);
+			console.error(`Failed to fetch payment data for ${username}: ${response.status}`);
 			return [];
 		}
 
 		const paymentList: PaymentIProps[] = await response.json();
 		return Array.isArray(paymentList) ? paymentList : [];
 	} catch (error) {
-		clearTimeout(timeoutId);
-		if (error instanceof Error && error.name === 'AbortError') {
-			console.error(`Timeout fetching payment data for ${username}`);
-		} else {
-			console.error(`Error fetching payment data for ${username}:`, error);
-		}
+		console.error(`Error fetching payment data for ${username}:`, error);
 		return [];
 	}
-}
+});
 
 // Optimized calculation function with better number parsing
-async function calculateBorrowerData(borrower: LoanIProps): Promise<BorrowerWithCalculations> {
-	const paymentList = await fetchPaymentData(borrower.username);
+const calculateBorrowerAmounts = async (borrower: LoanIProps): Promise<BorrowerCalculations> => {
+	const paymentList = await getPaymentData(borrower.username);
 
-	// Parse balance safely
-	const balance = parseFloat(borrower.balance?.replace(/[^\d.-]/g, '') || '0') || 0;
+	// Parse balance safely with better regex
+	const parseAmount = (value: string | undefined | null): number => {
+		if (!value) return 0;
+		const cleaned = String(value).replace(/[^\d.-]/g, '');
+		const parsed = parseFloat(cleaned);
+		return isNaN(parsed) ? 0 : parsed;
+	};
 
-	const totalDisbursed = paymentList.reduce((total, item) => {
-		const loanAmount = parseFloat(String(item.loanAmount)?.replace(/[^\d.-]/g, '') || '0') || 0;
-		return total + loanAmount;
-	}, balance);
+	const balance = parseAmount(borrower.balance);
 
-	const totalPayment = paymentList.reduce((total, item) => {
-		const amount = parseFloat(String(item.amount)?.replace(/[^\d.-]/g, '') || '0') || 0;
-		return total + amount;
-	}, 0);
+	// Single pass calculation for better performance
+	const { loanTotal, paymentTotal } = paymentList.reduce(
+		(acc, item) => {
+			acc.loanTotal += parseAmount(String(item.loanAmount));
+			acc.paymentTotal += parseAmount(String(item.amount));
+			return acc;
+		},
+		{ loanTotal: 0, paymentTotal: 0 }
+	);
 
+	const totalDisbursed = loanTotal + balance;
+	const totalPayment = paymentTotal;
 	const duePayment = Math.max(totalDisbursed - totalPayment, 0);
 
 	return {
-		username: borrower.username,
-		name: borrower.name,
-		balance: borrower.balance,
 		totalDisbursed,
 		totalPayment,
 		duePayment
 	};
+};
+
+// Optimized server component for individual borrower row
+async function BorrowerRow({
+	borrower,
+	index,
+	currentPage,
+	pageSize
+}: {
+	borrower: LoanIProps;
+	index: number;
+	currentPage: number;
+	pageSize: number;
+}) {
+	const calculations = await calculateBorrowerAmounts(borrower);
+	const actualIndex = (currentPage - 1) * pageSize + index + 1;
+
+	// Format currency for Bangladesh
+	const formatCurrency = (amount: number) => {
+		return amount.toLocaleString('en-BD', {
+			style: 'currency',
+			currency: 'BDT',
+			minimumFractionDigits: 0
+		});
+	};
+
+	return (
+		<TableRow>
+			<TableCell className="font-medium">{actualIndex}</TableCell>
+			<TableCell className="font-medium uppercase">{borrower.name}</TableCell>
+			<TableCell className="font-medium">
+				{formatCurrency(calculations.totalDisbursed)}
+			</TableCell>
+			<TableCell className="font-medium">
+				{formatCurrency(calculations.totalPayment)}
+			</TableCell>
+			<TableCell className="font-medium">
+				{formatCurrency(calculations.duePayment)}
+			</TableCell>
+			<TableCell className="font-medium">
+				<Button className='bg-color-sub' size={"sm"} asChild>
+					<Link href={`borrowers/${borrower.username}`}>Details</Link>
+				</Button>
+			</TableCell>
+		</TableRow>
+	);
 }
 
-// Batch processing for better performance
-async function processBorrowersInBatches(
-	borrowers: LoanIProps[],
-	batchSize: number = 3
-): Promise<BorrowerWithCalculations[]> {
-	const results: BorrowerWithCalculations[] = [];
-
-	for (let i = 0; i < borrowers.length; i += batchSize) {
-		const batch = borrowers.slice(i, i + batchSize);
-		try {
-			const batchResults = await Promise.all(
-				batch.map(borrower => calculateBorrowerData(borrower))
-			);
-			results.push(...batchResults);
-		} catch (error) {
-			console.error(`Error processing batch ${i}-${i + batchSize}:`, error);
-			// Add fallback data for failed batch
-			const fallbackData = batch.map(borrower => ({
-				username: borrower.username,
-				name: borrower.name,
-				balance: borrower.balance,
-				totalDisbursed: parseFloat(borrower.balance?.replace(/[^\d.-]/g, '') || '0') || 0,
-				totalPayment: 0,
-				duePayment: parseFloat(borrower.balance?.replace(/[^\d.-]/g, '') || '0') || 0
-			}));
-			results.push(...fallbackData);
-		}
-	}
-
-	return results;
+// Skeleton component for individual borrower rows
+function BorrowerRowSkeleton() {
+	return (
+		<TableRow>
+			<TableCell><div className="h-4 bg-gray-200 animate-pulse rounded w-8" /></TableCell>
+			<TableCell><div className="h-4 bg-gray-200 animate-pulse rounded w-32" /></TableCell>
+			<TableCell><div className="h-4 bg-gray-200 animate-pulse rounded w-24" /></TableCell>
+			<TableCell><div className="h-4 bg-gray-200 animate-pulse rounded w-24" /></TableCell>
+			<TableCell><div className="h-4 bg-gray-200 animate-pulse rounded w-24" /></TableCell>
+			<TableCell><div className="h-6 bg-gray-200 animate-pulse rounded w-20" /></TableCell>
+		</TableRow>
+	);
 }
 
+// Complete table skeleton for better UX
+function TableLoadingFallback() {
+	return (
+		<TableBody>
+			{Array.from({ length: 10 }).map((_, i) => (
+				<BorrowerRowSkeleton key={`skeleton-${i}`} />
+			))}
+		</TableBody>
+	);
+}
+
+// Empty state component
+function EmptyBorrowersState() {
+	return (
+		<TableBody>
+			<TableRow>
+				<TableCell colSpan={6} className="text-center py-8 text-gray-500">
+					<div className="flex flex-col items-center gap-2">
+						<div className="text-lg">📋</div>
+						<div>No borrowers found.</div>
+						<div className="text-sm">Try adjusting your search criteria.</div>
+					</div>
+				</TableCell>
+			</TableRow>
+		</TableBody>
+	);
+}
+
+// Error state component
+function ErrorBorrowersState() {
+	return (
+		<TableBody>
+			<TableRow>
+				<TableCell colSpan={6} className="text-center text-red-500 py-8">
+					<div className="flex flex-col items-center gap-2">
+						<div className="text-lg">⚠️</div>
+						<div>Failed to load borrowers data.</div>
+						<div className="text-sm">Please try refreshing the page.</div>
+					</div>
+				</TableCell>
+			</TableRow>
+		</TableBody>
+	);
+}
+
+// Batch process borrowers for better performance
 async function BorrowersList({ searchParams }: PageProps) {
 	try {
-		const { data: borrowers, pagination } = await getBorrowerSearchData(searchParams || {});
+		const { data: borrowers } = await getBorrowerSearchData(searchParams || {});
 
 		if (!borrowers || borrowers.length === 0) {
-			return (
-				<TableBody>
-					<TableRow>
-						<TableCell colSpan={6} className="text-center py-8">
-							No borrowers found.
-						</TableCell>
-					</TableRow>
-				</TableBody>
-			);
+			return <EmptyBorrowersState />;
 		}
-
-		// Process borrowers in batches for better performance
-		const borrowersWithCalculations = await processBorrowersInBatches(borrowers);
 
 		const currentPage = Number(searchParams?.page || '1');
 		const pageSize = 10;
 
-		return (
-			<TableBody>
-				{borrowersWithCalculations.map((item, index: number) => {
-					const actualIndex = (currentPage - 1) * pageSize + index + 1;
+		// Process borrowers in batches to avoid overwhelming the API
+		const batchSize = 5;
+		const borrowerBatches = [];
 
-					return (
-						<TableRow key={item.username}>
-							<TableCell className="font-medium">{actualIndex}</TableCell>
-							<TableCell className="font-medium uppercase">{item.name}</TableCell>
-							<TableCell className="font-medium">
-								{item.totalDisbursed.toLocaleString('en-BD', {
-									style: 'currency',
-									currency: 'BDT',
-									minimumFractionDigits: 0
-								})}
-							</TableCell>
-							<TableCell className="font-medium">
-								{item.totalPayment.toLocaleString('en-BD', {
-									style: 'currency',
-									currency: 'BDT',
-									minimumFractionDigits: 0
-								})}
-							</TableCell>
-							<TableCell className="font-medium">
-								{item.duePayment.toLocaleString('en-BD', {
-									style: 'currency',
-									currency: 'BDT',
-									minimumFractionDigits: 0
-								})}
-							</TableCell>
-							<TableCell className="font-medium">
-								<Button className='bg-color-sub' size={"sm"} asChild>
-									<Link href={`borrowers/${item.username}`}>Details</Link>
-								</Button>
-							</TableCell>
-						</TableRow>
-					);
-				})}
-			</TableBody>
-		)
-	} catch (error) {
-		console.error('Error loading borrowers list:', error);
+		for (let i = 0; i < borrowers.length; i += batchSize) {
+			borrowerBatches.push(borrowers.slice(i, i + batchSize));
+		}
+
 		return (
 			<TableBody>
-				<TableRow>
-					<TableCell colSpan={6} className="text-center text-red-500 py-8">
-						Failed to load data. Please try again later.
-					</TableCell>
-				</TableRow>
+				{borrowerBatches.map((batch, batchIndex) =>
+					batch.map((borrower: LoanIProps, index: number) => (
+						<Suspense
+							key={`borrower-${borrower.username}`}
+							fallback={<BorrowerRowSkeleton />}
+						>
+							<BorrowerRow
+								borrower={borrower}
+								index={batchIndex * batchSize + index}
+								currentPage={currentPage}
+								pageSize={pageSize}
+							/>
+						</Suspense>
+					))
+				)}
 			</TableBody>
 		);
+	} catch (error) {
+		console.error('Error loading borrowers list:', error);
+		return <ErrorBorrowersState />;
 	}
 }
 
-// Memoized filter controls wrapper
-const FilterControlsWrapper = React.memo(function FilterControlsWrapper() {
-	return <FilterControlsDonor />;
-});
+// Pre-fetch and cache borrower calculations for better performance
+async function preloadBorrowerCalculations(borrowers: LoanIProps[]) {
+	// Pre-warm the cache by batching requests
+	const promises = borrowers.map(borrower =>
+		calculateBorrowerAmounts(borrower).catch(() => null)
+	);
 
-async function page({ searchParams }: PageProps) {
+	// Process in smaller batches to avoid overwhelming the API
+	const batchSize = 8;
+	for (let i = 0; i < promises.length; i += batchSize) {
+		const batch = promises.slice(i, i + batchSize);
+		await Promise.allSettled(batch);
+
+		// Small delay between batches to be nice to the API
+		if (i + batchSize < promises.length) {
+			await new Promise(resolve => setTimeout(resolve, 100));
+		}
+	}
+}
+
+export default async function BorrowersListPage({ searchParams }: PageProps) {
 	try {
-		const { data, pagination } = await getBorrowerSearchData(searchParams || {});
+		// Fetch pagination data and borrowers list
+		const { data: borrowers, pagination } = await getBorrowerSearchData(searchParams || {});
+
+		// Pre-load calculations in the background (don't await to avoid blocking render)
+		if (borrowers && borrowers.length > 0) {
+			preloadBorrowerCalculations(borrowers).catch(console.error);
+		}
 
 		return (
 			<div className='flex flex-col'>
 				<Suspense fallback={<FilterSkeleton />}>
-					<FilterControlsWrapper />
+					<FilterControlsDonor />
 				</Suspense>
 
 				<div className="rounded-md border">
@@ -242,17 +297,11 @@ async function page({ searchParams }: PageProps) {
 								<TableHead>DETAILS</TableHead>
 							</TableRow>
 						</TableHeader>
-						<Suspense fallback={
-							<TableBody>
-								<TableRow>
-									<TableCell colSpan={6} className="text-center p-4">
-										Loading borrowers data...
-									</TableCell>
-								</TableRow>
-							</TableBody>
-						}>
+
+						<Suspense fallback={<TableLoadingFallback />}>
 							<BorrowersList searchParams={searchParams} />
 						</Suspense>
+
 						<TableFooter>
 							<TableRow>
 								<TableHead colSpan={6}>
@@ -268,15 +317,20 @@ async function page({ searchParams }: PageProps) {
 					</Table>
 				</div>
 			</div>
-		)
+		);
 	} catch (error) {
-		console.error('Error loading page:', error);
+		console.error('Error loading borrowers page:', error);
 		return (
 			<div className="text-center text-red-500 p-8">
-				Failed to load data. Please try again later.
+				<div className="flex flex-col items-center gap-4">
+					<div className="text-6xl">💥</div>
+					<div className="text-xl font-semibold">Something went wrong</div>
+					<div>Failed to load borrowers data. Please try again later.</div>
+					<Button asChild className="mt-4">
+						<Link href="/borrowers">Refresh Page</Link>
+					</Button>
+				</div>
 			</div>
 		);
 	}
 }
-
-export default page

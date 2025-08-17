@@ -155,42 +155,22 @@ export async function getBorrowerSearchData(params: FilterParams): Promise<Searc
 }
 
 
-// export async function getSearchBorrowersByBranch(page: string, branch: string) {
-// 	const pageNumber = Number(page) - 1;
-// 	const take = 5;
-// 	const skip = take * pageNumber;
+export async function getSearchBorrowersByBranch(page: string, branch: string) {
+	const pageNumber = Number(page) - 1;
+	const take = 5;
+	const skip = take * pageNumber;
 
-// 	unstable_noStore();
-// 	const result = await prisma.loan.findMany({
-// 		where: {
-// 			branch
-// 		},
-// 		skip,
-// 		take,
-// 		orderBy: {
-// 			code: "asc"
-// 		}
-// 	});
+	unstable_noStore();
+	const result = await prisma.loan.findMany({
+		where: {
+			branch
+		},
+		skip,
+		take,
+		orderBy: {
+			code: "asc"
+		}
+	});
 
-// 	return result;
-// };
-
-// export async function getSearchBorrowersByBranch(page: string, branch: string) {
-// 	const pageNumber = Number(page) - 1;
-// 	const take = 5;
-// 	const skip = take * pageNumber;
-
-// 	unstable_noStore();
-// 	const result = await prisma.loan.findMany({
-// 		where: {
-// 			branch
-// 		},
-// 		skip,
-// 		take,
-// 		orderBy: {
-// 			code: "asc"
-// 		}
-// 	});
-
-// 	return result;
-// };
+	return result;
+};
