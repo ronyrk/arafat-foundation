@@ -50,7 +50,10 @@ export async function getBorrowerSearchData(params: FilterParams): Promise<Searc
 			// For short searches, be more restrictive to avoid too many results
 			whereClause.OR = [
 				{ code: { startsWith: searchTerm, mode: 'insensitive' } },
-				{ username: { startsWith: searchTerm, mode: 'insensitive' } }
+				{ username: { startsWith: searchTerm, mode: 'insensitive' } },
+				{ code: { contains: searchTerm, mode: 'insensitive' } },
+				{ phone: { contains: searchTerm, mode: 'insensitive' } },
+				{ address: { contains: searchTerm, mode: 'insensitive' } },
 			];
 		} else {
 			// For longer searches, use contains
@@ -59,6 +62,7 @@ export async function getBorrowerSearchData(params: FilterParams): Promise<Searc
 				{ username: { contains: searchTerm, mode: 'insensitive' } },
 				{ code: { contains: searchTerm, mode: 'insensitive' } },
 				{ phone: { contains: searchTerm, mode: 'insensitive' } },
+				{ address: { contains: searchTerm, mode: 'insensitive' } },
 				// Add email search only if email field exists in schema
 				// { email: { contains: searchTerm, mode: 'insensitive' } },
 			];

@@ -21,7 +21,8 @@ export async function getDonorData(params: FilterParams) {
 			{ name: { contains: search, mode: 'insensitive' } },
 			{ username: { contains: search, mode: 'insensitive' } },
 			{ code: { contains: search, mode: 'insensitive' } },
-			{ mobile: { contains: search, mode: 'insensitive' } }
+			{ mobile: { contains: search, mode: 'insensitive' } },
+			{ lives: { contains: search, mode: 'insensitive' } }
 		];
 	}
 
