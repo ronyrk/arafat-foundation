@@ -50,7 +50,10 @@ export async function getBorrowerSearchData(params: FilterParams): Promise<Searc
 			// For short searches, be more restrictive to avoid too many results
 			whereClause.OR = [
 				{ code: { startsWith: searchTerm, mode: 'insensitive' } },
-				{ username: { startsWith: searchTerm, mode: 'insensitive' } }
+				{ username: { startsWith: searchTerm, mode: 'insensitive' } },
+				{ code: { contains: searchTerm, mode: 'insensitive' } },
+				{ phone: { contains: searchTerm, mode: 'insensitive' } },
+				{ address: { contains: searchTerm, mode: 'insensitive' } },
 			];
 		} else {
 			// For longer searches, use contains
@@ -59,6 +62,7 @@ export async function getBorrowerSearchData(params: FilterParams): Promise<Searc
 				{ username: { contains: searchTerm, mode: 'insensitive' } },
 				{ code: { contains: searchTerm, mode: 'insensitive' } },
 				{ phone: { contains: searchTerm, mode: 'insensitive' } },
+				{ address: { contains: searchTerm, mode: 'insensitive' } },
 				// Add email search only if email field exists in schema
 				// { email: { contains: searchTerm, mode: 'insensitive' } },
 			];
@@ -155,42 +159,22 @@ export async function getBorrowerSearchData(params: FilterParams): Promise<Searc
 }
 
 
-// export async function getSearchBorrowersByBranch(page: string, branch: string) {
-// 	const pageNumber = Number(page) - 1;
-// 	const take = 5;
-// 	const skip = take * pageNumber;
+export async function getSearchBorrowersByBranch(page: string, branch: string) {
+	const pageNumber = Number(page) - 1;
+	const take = 5;
+	const skip = take * pageNumber;
 
-// 	unstable_noStore();
-// 	const result = await prisma.loan.findMany({
-// 		where: {
-// 			branch
-// 		},
-// 		skip,
-// 		take,
-// 		orderBy: {
-// 			code: "asc"
-// 		}
-// 	});
+	unstable_noStore();
+	const result = await prisma.loan.findMany({
+		where: {
+			branch
+		},
+		skip,
+		take,
+		orderBy: {
+			code: "asc"
+		}
+	});
 
-// 	return result;
-// };
-
-// export async function getSearchBorrowersByBranch(page: string, branch: string) {
-// 	const pageNumber = Number(page) - 1;
-// 	const take = 5;
-// 	const skip = take * pageNumber;
-
-// 	unstable_noStore();
-// 	const result = await prisma.loan.findMany({
-// 		where: {
-// 			branch
-// 		},
-// 		skip,
-// 		take,
-// 		orderBy: {
-// 			code: "asc"
-// 		}
-// 	});
-
-// 	return result;
-// };
+	return result;
+};
