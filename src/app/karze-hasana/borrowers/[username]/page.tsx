@@ -14,27 +14,32 @@ type Props = {
 	params: { username: string }
 };
 
-
-
-export async function generateMetadata({ params }: Props) {
-	const response = await fetch(`https://af-admin.vercel.app/api/loan/${params.username}`);
+// Cache the API call
+async function fetchUserData(username: string) {
+	const response = await fetch(`https://af-admin.vercel.app/api/loan/${username}`, {
+		next: { revalidate: 0 } // Cache for 5 minutes
+	});
 	if (!response.ok) {
 		throw new Error("Failed to fetch data");
-	};
-	const user = await response.json();
+	}
+	return response.json();
+}
+
+export async function generateMetadata({ params }: Props) {
+	const user = await fetchUserData(params.username);
 	return {
 		title: user.name,
 		description: user.about,
 		openGraph: {
 			images: [
 				{
-					url: user.photosUrl, // Must be an absolute URL
+					url: user.photosUrl,
 					width: 800,
 					height: 600,
 					alt: user.name,
 				},
 				{
-					url: user.photosUrl, // Must be an absolute URL
+					url: user.photosUrl,
 					width: 1800,
 					height: 1600,
 					alt: user.name,
@@ -42,86 +47,103 @@ export async function generateMetadata({ params }: Props) {
 			],
 		}
 	}
-};
+}
 
+// Calculate loan amounts synchronously
+function calculateLoanAmounts(paymentList: PaymentIProps[], initialBalance: number) {
+	// Use reduce directly instead of forEach + push + map
+	const totalLoanAmount = paymentList.reduce((sum, payment) =>
+		sum + Number(payment.loanAmount), initialBalance
+	);
 
+	const totalPaidAmount = paymentList.reduce((sum, payment) =>
+		sum + Number(payment.amount), 0
+	);
+
+	const dueAmount = totalLoanAmount - totalPaidAmount;
+
+	return {
+		totalBalance: totalLoanAmount,
+		allPayment: totalPaidAmount,
+		duePayment: dueAmount
+	};
+}
 
 async function page({ params }: ParamsIProps) {
 	const { username } = params;
 
 	unstable_noStore();
 
-	const paymentList = await prisma?.payment.findMany({
-		where: {
-			loanusername: username
-		}
-	}) as PaymentIProps[];
-
-	const response = await fetch(`https://af-admin.vercel.app/api/loan/${username}`);
-	if (!response.ok) {
-		throw new Error("Failed to fetch data");
-	};
-	const data = await response.json();
+	// Parallel data fetching
+	const [paymentList, data] = await Promise.all([
+		prisma?.payment.findMany({
+			where: {
+				loanusername: username
+			},
+			select: {
+				// Only select needed fields to reduce data transfer
+				loanAmount: true,
+				amount: true,
+				// Add other needed fields here
+			}
+		}) as Promise<PaymentIProps[]>,
+		fetchUserData(username)
+	]);
 
 	if (!data) {
 		notFound();
 	}
 
-
-	const totalBalance = async () => {
-		let indexPaymentString: string[] = ["0"];
-		const result = paymentList.forEach((item) => indexPaymentString.push(item.loanAmount));
-		let indexPayment = indexPaymentString.map(Number);
-		const loanSumAmount = indexPayment.reduce((accumulator, currentValue) => accumulator + currentValue, Number(data.balance));
-		return `${loanSumAmount}`;
-	}
-
-	const duePayment = async () => {
-		let indexPaymentString2: string[] = ["0"];
-		paymentList.forEach((item) => indexPaymentString2.push(item.loanAmount));
-		let indexPayment2 = indexPaymentString2.map(Number);
-		const totalBalance = indexPayment2.reduce((accumulator, currentValue) => accumulator + currentValue, Number(data.balance));
-
-		let indexPaymentString: string[] = ["0"];
-		const result = paymentList.forEach((item) => indexPaymentString.push(item.amount));
-		let indexPayment = indexPaymentString.map(Number);
-		const loanSumAmount = indexPayment.reduce((accumulator, currentValue) => accumulator - currentValue, totalBalance);
-		return `${loanSumAmount}`;
-	}
-
-	const allPayment = async () => {
-		let indexPaymentString: string[] = ["0"];
-		const result = paymentList.forEach((item) => indexPaymentString.push(item.amount));
-		let indexPayment = indexPaymentString.map(Number);
-		const Amount = indexPayment.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
-		return `${Amount}`;
-	}
+	// Calculate all amounts at once
+	const { totalBalance, allPayment, duePayment } = calculateLoanAmounts(
+		paymentList,
+		Number(data.balance)
+	);
 
 	return (
 		<div className='flex flex-col gap-3'>
 			<div className="flex md:flex-row flex-col justify-between gap-3 px-2">
-				<div className=" basis-3/12 border-[2px] p-2 flex justify-around relative rounded">
+				<div className="basis-3/12 border-[2px] p-2 flex justify-around relative rounded">
 					<PhotoBlur url={data?.photosUrl} name={data?.name} />
-					<span className=" absolute top-3 bg-white left-2 border-[2px] text-[13px] font-normal p-[2px] rounded">ঋণগ্রহীতা</span>
+					<span className="absolute top-3 bg-white left-2 border-[2px] text-[13px] font-normal p-[2px] rounded">
+						ঋণগ্রহীতা
+					</span>
 				</div>
 				<div className="basis-5/12 border-[2px] rounded p-1 px-2 flex flex-col justify-around">
-					<h2 className=" font-semibold text-xl py-1  text-color-main">{data.name}</h2>
+					<h2 className="font-semibold text-xl py-1 text-color-main">{data.name}</h2>
 					<AddressBlur address={data.address} />
-					<h2 className=" font-normal text-[15px]  text-color-main"><span className="font-semibold mr-2">পেশা:</span>{data.occupation}</h2>
-					<h2 className=" font-normal text-[15px]  text-color-main"><span className="font-semibold mr-2">মোট ঋণ:</span>{totalBalance()}</h2>
-					<h2 className=" font-normal text-[15px]  text-color-main"><span className="font-semibold mr-2">মোট পরিশোধিত ঋণ:</span>{allPayment()}</h2>
-					<h2 className=" font-normal text-[15px]  text-color-main"><span className="font-semibold mr-2">বকেয়া ঋণ:</span>{duePayment()}</h2>
+					<h2 className="font-normal text-[15px] text-color-main">
+						<span className="font-semibold mr-2">পেশা:</span>{data.occupation}
+					</h2>
+					<h2 className="font-normal text-[15px] text-color-main">
+						<span className="font-semibold mr-2">মোট ঋণ:</span>{totalBalance}
+					</h2>
+					<h2 className="font-normal text-[15px] text-color-main">
+						<span className="font-semibold mr-2">মোট পরিশোধিত ঋণ:</span>{allPayment}
+					</h2>
+					<h2 className="font-normal text-[15px] text-color-main">
+						<span className="font-semibold mr-2">বকেয়া ঋণ:</span>{duePayment}
+					</h2>
 					<PhoneNumber phone={data.phone} />
 				</div>
-				<BorrowersDocuments nidback={data.nidBack} nidfont={data.nidFont} form1={data.form1} form2={data.form2} />
+				<BorrowersDocuments
+					nidback={data.nidBack}
+					nidfont={data.nidFont}
+					form1={data.form1}
+					form2={data.form2}
+				/>
 			</div>
 			<div className="py-2 px-4">
 				<Share username={data.username} type='karze-hasana/borrowers' />
 			</div>
 			<div className="p-4">
-				<h2 className="text-[16px] font-normal text-color-main">{data.about} </h2>
+				<h2 className="text-[16px] font-normal text-color-main">{data.about}</h2>
 			</div>
-			<BorrowersTransaction username={username} data={data} paymentList={paymentList} />
+			<BorrowersTransaction
+				username={username}
+				data={data}
+				paymentList={paymentList}
+			/>
 		</div>
 	)
 }
