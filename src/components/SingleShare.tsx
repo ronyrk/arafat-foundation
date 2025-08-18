@@ -23,22 +23,22 @@ export function SingleShare({ username, type }: { username: string, type: string
 			<h2 className=" uppercase flex justify-start text-xl font-bold">SHARE:</h2>
 			<div className="flex flex-row gap-4">
 				<FacebookShareButton
-					url={`https://arafatfoundation.vercel.app/${type}/${username}`}
+					url={`https://arafatfoundation.org/${type}/${username}`}
 					quote={'next-share is a social share buttons for your next React apps.'}
 				>
 					<FacebookIcon size={42} round />
 				</FacebookShareButton>
 				<TwitterShareButton
-					url={`https://arafatfoundation.vercel.app/${type}/${username}`}
+					url={`https://arafatfoundation.org/${type}/${username}`}
 					title={'next-share is a social share buttons for your next React apps.'}
 				>
 					<TwitterIcon size={42} round />
 				</TwitterShareButton>
-				<Link prefetch={false} edinShareButton url={`https://arafatfoundation.vercel.app/${type}/${username}`}>
-					<Link prefetch={false} edinIcon size={42} round />
+				<LinkedinShareButton url={`https://arafatfoundation.org/${type}/${username}`}>
+					<LinkedinIcon size={42} round />
 				</LinkedinShareButton>
 				<WhatsappShareButton
-					url={`https://arafatfoundation.vercel.app/${type}/${username}`}
+					url={`https://arafatfoundation.org/${type}/${username}`}
 					title={'next-share is a social share buttons for your next React apps.'}
 					separator=":: "
 				>
