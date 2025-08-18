@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://yourdomain.com'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://arafatfoundation.org'),
   alternates: {
     canonical: "/",
     languages: {

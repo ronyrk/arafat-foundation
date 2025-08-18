@@ -2,27 +2,64 @@ import prisma from "@/lib/prisma";
 import { ParamsIProps } from "@/types";
 import { NextResponse } from "next/server";
 
-export const dynamic = 'force-dynamic'
-// Single branch
+export const dynamic = 'force-dynamic';
+
 export const GET = async (request: Request, { params }: ParamsIProps) => {
 	try {
 		const { username } = params;
-		// Alternative
-		const user = await prisma.branch.findUnique({
-			where: { username }, select: {
-				username: true, email: true, photoUrl: true, status: true
-			}
-		});
-		if (!user) {
-			const users = await prisma.donor.findUnique({
-				where: { username }, select: {
-					username: true, name: true, email: true, photoUrl: true, status: true
-				}
-			});
-			return NextResponse.json(users);
+
+		// Validate username parameter
+		if (!username || typeof username !== 'string') {
+			return NextResponse.json(
+				{ error: 'Username is required and must be a string' },
+				{ status: 400 }
+			);
 		}
-		return NextResponse.json(user);
+
+		// Use Promise.allSettled for parallel queries instead of sequential
+		const [branchResult, donorResult] = await Promise.allSettled([
+			prisma.branch.findUnique({
+				where: { username },
+				select: {
+					username: true,
+					email: true,
+					photoUrl: true,
+					status: true
+				}
+			}),
+			prisma.donor.findUnique({
+				where: { username },
+				select: {
+					username: true,
+					name: true,
+					email: true,
+					photoUrl: true,
+					status: true
+				}
+			})
+		]);
+
+		// Check branch result first
+		if (branchResult.status === 'fulfilled' && branchResult.value) {
+			return NextResponse.json(branchResult.value);
+		}
+
+		// Check donor result
+		if (donorResult.status === 'fulfilled' && donorResult.value) {
+			return NextResponse.json(donorResult.value);
+		}
+
+		// No user found
+		return NextResponse.json(
+			{ error: 'User not found' },
+			{ status: 404 }
+		);
+
 	} catch (error) {
-		throw new Error("Server Error");
+		console.error('API Error:', error);
+		return NextResponse.json(
+			{ error: 'Internal server error' },
+			{ status: 500 }
+		);
 	}
 };
