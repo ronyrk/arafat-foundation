@@ -77,7 +77,7 @@ function page() {
                   <Instagram size={35} className="text-white" />
                 </Link>
                 <Link prefetch={false} className=" bg-blue-400 p-2 rounded-sm" href={"/"}>
-                  <Link prefetch={false} edin size={35} className="text-white" />
+                  <Linkedin size={35} className="text-white" />
                 </Link>
                 <Link prefetch={false} className=" bg-red-400 p-2 rounded-sm" href={"/"}>
                   <Youtube size={35} className="text-white" />

@@ -127,7 +127,7 @@ function Navbar() {
             </svg>
           </a>
           <a href="/" className="text-white rounded px-[2px]">
-            <Link prefetch={false} edin
+            <Linkedin
               className="text-white cursor-pointer hover:text-orange-500"
               size={18}
             />
