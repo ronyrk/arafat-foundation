@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react'
+import React, { Suspense, useMemo } from 'react'
 import {
 	Table,
 	TableBody,
@@ -7,89 +7,82 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
-import { unstable_noStore } from 'next/cache';
 import { LoanIProps, PaymentIProps } from '@/types';
 import Moment from "moment"
 import PaymentRequest from './PaymentRequest';
-import prisma from '@/lib/prisma';
 
-function Zero(data: string) {
-	if (Number(data) !== 0) {
-		return `BDT=${data}/=`
-	} else {
-		return " "
-	}
+// Utility function moved outside component to prevent recreation
+const formatAmount = (data: string): string => {
+	const amount = Number(data);
+	return amount !== 0 ? `BDT=${data}/=` : " ";
 };
 
-async function LoanList({ username, paymentList, borrowers }: { username: string, paymentList: PaymentIProps[], borrowers: LoanIProps }) {
-	try {
-		unstable_noStore();
+// Pre-calculate all outstanding amounts efficiently
+const calculateOutstandingAmounts = (paymentList: PaymentIProps[], initialBalance: number): string[] => {
+	let runningLoanTotal = initialBalance;
+	let runningPaymentTotal = 0;
 
-		const data = await prisma?.payment.findMany({
-			where: {
-				loanusername: username
-			}
-		}) as PaymentIProps[];
-		const LoanOutStanding = async (index: number) => {
-			const loanState = paymentList.slice(0, index + 1);
+	return paymentList.map((payment) => {
+		runningLoanTotal += Number(payment.loanAmount);
+		runningPaymentTotal += Number(payment.amount);
+		const outstanding = runningLoanTotal - runningPaymentTotal;
+		return `BDT=${outstanding}/=`;
+	});
+};
 
-			let indexPaymentString2: string[] = ["0"];
-			loanState.forEach((item) => indexPaymentString2.push(item.loanAmount));
-			let indexPayment2 = indexPaymentString2.map(Number);
-			const totalBalance = indexPayment2.reduce((accumulator, currentValue) => accumulator + currentValue, Number(borrowers.balance));
-
-			let indexPaymentString: string[] = ["0"];
-			const result = loanState.forEach((item) => indexPaymentString.push(item.amount));
-			let indexPayment = indexPaymentString.map(Number);
-			const loanSumAmount = indexPayment.reduce((accumulator, currentValue) => accumulator - currentValue, totalBalance);
-
-			return `BDT=${loanSumAmount}/=`
-		}
-		// const calculateRemainingLoanAmount = async (amount: string, index: number) => {
-		//     const sumArray = data.slice(0, index);
-		//     let indexPaymentString: string[] = ["0"];
-		//     sumArray.forEach((item) => indexPaymentString.push(item.amount));
-		//     let indexPayment = indexPaymentString.map(Number)
-		//     const loanSumAmount = indexPayment.reduce((accumulator, currentValue) => accumulator - currentValue, Number(amount));
-		//     return `${loanSumAmount}`;
-		// };
-
-		// const calculateRemainingLoanAmountStanding = async (amount: string, index: number, paymentAmount: string) => {
-		//     const sumArray = data.slice(0, index);
-		//     const payment = Number(paymentAmount);
-		//     let indexPaymentString: string[] = ["0"];
-		//     sumArray.forEach((item) => indexPaymentString.push(item.amount));
-		//     let indexPayment = indexPaymentString.map(Number);
-		//     const loanSumAmount = indexPayment.reduce((accumulator, currentValue) => accumulator - currentValue, Number(amount));
-		//     const result = loanSumAmount - payment;
-		//     return result;
-		// }
-
-		return (
-			<TableBody>
-				{
-					data.map((item, index) => (
-						<TableRow key={index}>
-							<TableCell>{`${Moment(item.createAt).format('DD/MM/YYYY')}`}</TableCell>
-							<TableCell>{Zero(item.loanAmount)}</TableCell>
-							<TableCell>{Zero(item.amount)}</TableCell>
-							<TableCell>{LoanOutStanding(index)}</TableCell>
-						</TableRow>
-					))
-				}
-			</TableBody>
-		)
-	} catch (error) {
-		throw new Error("Data fetch failed");
-	}
-}
-
-
-function BorrowersTransaction({ username, data, paymentList }: { username: string, data: LoanIProps, paymentList: PaymentIProps[] }) {
+// Memoized table rows component
+const LoanTableRows = React.memo(({
+	paymentList,
+	outstandingAmounts
+}: {
+	paymentList: PaymentIProps[],
+	outstandingAmounts: string[]
+}) => {
 	return (
-		<div className=' border-[2px] rounded-sm px-2'>
+		<TableBody>
+			{paymentList.map((item, index) => (
+				<TableRow key={`${item.loanusername}-${index}`}>
+					<TableCell>
+						{Moment(item.createAt).format('DD/MM/YYYY')}
+					</TableCell>
+					<TableCell>
+						{formatAmount(item.loanAmount)}
+					</TableCell>
+					<TableCell>
+						{formatAmount(item.amount)}
+					</TableCell>
+					<TableCell>
+						{outstandingAmounts[index]}
+					</TableCell>
+				</TableRow>
+			))}
+		</TableBody>
+	);
+});
+
+LoanTableRows.displayName = 'LoanTableRows';
+
+function BorrowersTransaction({
+	username,
+	data,
+	paymentList
+}: {
+	username: string,
+	data: LoanIProps,
+	paymentList: PaymentIProps[]
+}) {
+	// Memoize the outstanding amounts calculation
+	const outstandingAmounts = useMemo(() =>
+		calculateOutstandingAmounts(paymentList, Number(data.balance)),
+		[paymentList, data.balance]
+	);
+
+	return (
+		<div className='border-[2px] rounded-sm px-2'>
 			<PaymentRequest username={username} branch={data.branch} />
-			<h2 className=" text-center font-semibold text-xl py-2 text-color-main uppercase">Transaction</h2>
+			<h2 className="text-center font-semibold text-xl py-2 text-color-main uppercase">
+				Transaction
+			</h2>
 			<Table>
 				<TableHeader>
 					<TableRow>
@@ -99,11 +92,21 @@ function BorrowersTransaction({ username, data, paymentList }: { username: strin
 						<TableHead>LOAN OUTSTANDING</TableHead>
 					</TableRow>
 				</TableHeader>
-				<Suspense fallback={<h2 className='text-center'>Loading...</h2>}>
-					<LoanList username={username} paymentList={paymentList} borrowers={data} />
+				<Suspense fallback={
+					<TableBody>
+						<TableRow>
+							<TableCell colSpan={4} className="text-center py-4">
+								Loading...
+							</TableCell>
+						</TableRow>
+					</TableBody>
+				}>
+					<LoanTableRows
+						paymentList={paymentList}
+						outstandingAmounts={outstandingAmounts}
+					/>
 				</Suspense>
 			</Table>
-
 		</div>
 	)
 }
