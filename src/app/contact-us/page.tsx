@@ -67,19 +67,19 @@ function page() {
             <div className="mt-6">
               <h3 className="text-lg font-medium">Follow Us:</h3>
               <div className="flex flex-row space-x-4 items-center mt-2">
-                <Link className=" bg-blue-400 p-2 rounded-sm" href={"/"}>
+                <Link prefetch={false} className=" bg-blue-400 p-2 rounded-sm" href={"/"}>
                   <Facebook size={35} className="text-white" />
                 </Link>
-                <Link className=" bg-blue-400 p-2 rounded-sm" href={"/"}>
+                <Link prefetch={false} className=" bg-blue-400 p-2 rounded-sm" href={"/"}>
                   <Twitter size={35} className="text-white" />
                 </Link>
-                <Link className=" bg-red-400 p-2 rounded-sm" href={"/"}>
+                <Link prefetch={false} className=" bg-red-400 p-2 rounded-sm" href={"/"}>
                   <Instagram size={35} className="text-white" />
                 </Link>
-                <Link className=" bg-blue-400 p-2 rounded-sm" href={"/"}>
-                  <Linkedin size={35} className="text-white" />
+                <Link prefetch={false} className=" bg-blue-400 p-2 rounded-sm" href={"/"}>
+                  <Link prefetch={false} edin size={35} className="text-white" />
                 </Link>
-                <Link className=" bg-red-400 p-2 rounded-sm" href={"/"}>
+                <Link prefetch={false} className=" bg-red-400 p-2 rounded-sm" href={"/"}>
                   <Youtube size={35} className="text-white" />
                 </Link>
               </div>

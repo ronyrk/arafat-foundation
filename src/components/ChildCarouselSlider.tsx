@@ -30,7 +30,7 @@ function ChildCarouselSlider({ data }: { data: ChildIProps[] }) {
         {data.map((item, index) => (
           <CarouselItem key={index} className="md:basis-1/4">
             <div className="relative flex flex-col border-2 rounded-md shadow-md ">
-              <Link href={`/sponsor-a-child/${item.username}`}>
+              <Link prefetch={false} href={`/sponsor-a-child/${item.username}`}>
                 <Image src={item.photoUrl} width={248} height={120} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className='w-full h-[260px] object-fill rounded' alt={item.username} />
                 <p className="absolute px-2 py-[2px] text-sm bg-white rounded top-2 left-2">{item.academy}</p>
                 <div className="w-full px-1 bg-white">
@@ -49,10 +49,10 @@ function ChildCarouselSlider({ data }: { data: ChildIProps[] }) {
                   </div>
                   <div className="flex justify-around py-2 md:flex-row gap-x-2">
                     <Button className='w-[130px]  md:px-4 px-1 text-white rounded-sm bg-color-sub hover:bg-color-main' asChild>
-                      <Link href={`/sponsor-a-child/${item.username}`}>প্রোফাইল দেখুন</Link>
+                      <Link prefetch={false} href={`/sponsor-a-child/${item.username}`}>প্রোফাইল দেখুন</Link>
                     </Button>
                     <Button className='w-[130px] md:px-4 px-1 text-white rounded-sm bg-color-main hover:bg-color-sub' asChild>
-                      <Link href={`/sponsor-a-child/${item.username}`}>স্পন্সর করুন</Link>
+                      <Link prefetch={false} href={`/sponsor-a-child/${item.username}`}>স্পন্সর করুন</Link>
                     </Button>
                   </div>
                 </div>

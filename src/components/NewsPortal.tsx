@@ -15,7 +15,7 @@ function NewsPortal({ newsList }: { newsList: NewsProps[] }) {
       <div className="py-2 grid grid-rows-1 gap-4 ">
         {
           newsList.map((item, index) => (
-            <Link key={index} href={`/blog/${item.username}`}>
+            <Link prefetch={false} key={index} href={`/blog/${item.username}`}>
               <div className=" flex flex-row gap-2">
                 <Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={item.photoUrl} width={100} height={80} alt={item.username} className=' w-70 h-70 rounded object-fill' />
                 <div className="flex justify-around flex-col">

@@ -10,7 +10,7 @@ function MemberCreateButton({ username }: { username: string }) {
 		<div className='py-2'>
 			{
 				user?.username === username && <Button asChild>
-					<Link href={`${username}/member`}>Member Add</Link>
+					<Link prefetch={false} href={`${username}/member`}>Member Add</Link>
 				</Button>
 			}
 		</div>

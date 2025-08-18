@@ -65,7 +65,7 @@ const BeneficialDonorRow = memo(({ item }: { item: BeneficialDonorIProps }) => (
         </TableCell>
         <TableCell className="font-medium uppercase">
             <Button className='bg-color-sub' size={"sm"} asChild>
-                <Link href={`donor/${item?.username}`}>details</Link>
+                <Link prefetch={false} href={`donor/${item?.username}`}>details</Link>
             </Button>
         </TableCell>
     </TableRow>

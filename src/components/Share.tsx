@@ -155,11 +155,11 @@ export function Share({ username, type }: { username: string, type: string }) {
 						bgColor="bg-blue-50"
 						hoverColor="bg-blue-500"
 					>
-						<LinkedinShareButton
+						<Link prefetch={false} edinShareButton
 							url={shareUrl}
 							className="w-full h-full flex items-center justify-center p-4 rounded-xl transition-all duration-300 hover:bg-blue-700 group"
 						>
-							<Linkedin className="w-8 h-8 text-blue-700 group-hover:text-white transition-colors duration-300" />
+							<Link prefetch={false} edin className="w-8 h-8 text-blue-700 group-hover:text-white transition-colors duration-300" />
 						</LinkedinShareButton>
 					</ShareButton>
 

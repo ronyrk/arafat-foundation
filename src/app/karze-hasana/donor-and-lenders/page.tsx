@@ -124,7 +124,7 @@ async function DonorRow({ item, index }: { item: DonorIProps; index: number }) {
 			</TableCell>
 			<TableCell className="font-medium uppercase">
 				<Button className='bg-color-sub' size={"sm"} asChild>
-					<Link href={`donor-and-lenders/${item.username}`}>DETAILS</Link>
+					<Link prefetch={false} href={`donor-and-lenders/${item.username}`}>DETAILS</Link>
 				</Button>
 			</TableCell>
 		</TableRow>

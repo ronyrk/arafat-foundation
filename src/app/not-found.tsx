@@ -74,7 +74,7 @@ export default function NotFound() {
 
 				{/* Action Button */}
 				<div className="animate-[slideInUp_1s_ease-out_0.5s_both]">
-					<Link
+					<Link prefetch={false}
 						href="/"
 						className="group relative overflow-hidden inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-cyan-400 to-purple-400 text-white rounded-full font-semibold text-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-cyan-400/40 before:absolute before:top-0 before:-left-full before:w-full before:h-full before:bg-gradient-to-r before:from-transparent before:via-white/30 before:to-transparent before:transition-all before:duration-600 hover:before:left-full"
 					>

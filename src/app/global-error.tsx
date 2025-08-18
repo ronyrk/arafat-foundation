@@ -52,7 +52,7 @@ export default function GlobalError({
 							>
 								<span className="relative z-10">Try Again</span>
 							</button>
-							<Link
+							<Link prefetch={false}
 								href="/"
 								className="group relative overflow-hidden px-6 py-3 bg-transparent text-white border-2 border-white/50 rounded-lg font-semibold transition-all duration-300 hover:bg-white/10 hover:border-white hover:-translate-y-1 hover:shadow-lg hover:shadow-black/20 before:absolute before:top-0 before:-left-full before:w-full before:h-full before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent before:transition-all before:duration-500 hover:before:left-full"
 							>

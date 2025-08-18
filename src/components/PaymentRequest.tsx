@@ -15,7 +15,7 @@ function PaymentRequest({ username, branch }: { username: string, branch: string
 			{
 				user?.username === branch &&
 				<Button asChild>
-					<Link href={`${username}/${branch}`}>Payment Request</Link>
+					<Link prefetch={false} href={`${username}/${branch}`}>Payment Request</Link>
 				</Button>
 			}
 		</div>

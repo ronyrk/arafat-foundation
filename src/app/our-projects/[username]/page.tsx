@@ -98,7 +98,7 @@ async function page({ params }: {
 			<CarouselDemo />
 			<div className="flex justify-center py-4">
 				<Button size={"lg"} className='text-black bg-white border-2 border-black  hover:border-color-sub hover:bg-color-sub hover:text-white' asChild>
-					<Link href="/our-projects">আরো দেখুন</Link>
+					<Link prefetch={false} href="/our-projects">আরো দেখুন</Link>
 				</Button>
 			</div>
 		</div>

@@ -39,13 +39,12 @@ function ABoutSidebar() {
   return (
     <div className="flex flex-col bg-[#F1F1FA] border-2 rounded">
       {data.map((item, index) => (
-        <Link
+        <Link prefetch={false}
           key={index}
-          className={` pl-4 py-3 text-[15px] font-semibold rounded-md ${
-            pathname === item.path
+          className={` pl-4 py-3 text-[15px] font-semibold rounded-md ${pathname === item.path
               ? "bg-color-main text-white"
               : " text-black  hover:bg-[#DDDCF0] hover:text-black"
-          }`}
+            }`}
           href={item.path}
         >
           {item.name}

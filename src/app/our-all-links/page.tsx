@@ -35,7 +35,7 @@ async function page() {
                         {
                             website.map((item, index: number) => (
                                 <Button key={index} className=' bg-color-main text-white' asChild>
-                                    <Link href={item.path}>{item.name}</Link>
+                                    <Link prefetch={false} href={item.path}>{item.name}</Link>
                                 </Button>
                             ))
                         }
@@ -51,7 +51,7 @@ async function page() {
                         {
                             media.map((item, index: number) => (
                                 <Button key={index} className=' bg-color-main text-white' asChild>
-                                    <Link href={item.path}>{item.name}</Link>
+                                    <Link prefetch={false} href={item.path}>{item.name}</Link>
                                 </Button>
                             ))
                         }
@@ -67,7 +67,7 @@ async function page() {
                         {
                             application.map((item, index: number) => (
                                 <Button key={index} className=' bg-color-main text-white' asChild>
-                                    <Link href={item.path}>{item.name}</Link>
+                                    <Link prefetch={false} href={item.path}>{item.name}</Link>
                                 </Button>
                             ))
                         }

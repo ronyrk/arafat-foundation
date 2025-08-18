@@ -95,7 +95,7 @@ async function page({ params }: {
 							</div>
 							<div className="p-2 flex justify-center">
 								<Button className='w-[130px] px-4 text-white rounded-sm bg-color-main hover:bg-color-sub' asChild>
-									<Link href={`/donation/${data?.username}`}>স্পন্সর করুন</Link>
+									<Link prefetch={false} href={`/donation/${data?.username}`}>স্পন্সর করুন</Link>
 								</Button>
 							</div>
 						</div>
@@ -129,7 +129,7 @@ async function page({ params }: {
 			<ChildCarousel />
 			<div className="flex justify-center py-4">
 				<Button size={"lg"} className='text-black bg-white border-2 border-black  hover:border-color-sub hover:bg-color-sub hover:text-white' asChild>
-					<Link href="/sponsor-a-child">আরো দেখুন</Link>
+					<Link prefetch={false} href="/sponsor-a-child">আরো দেখুন</Link>
 				</Button>
 			</div>
 		</div>

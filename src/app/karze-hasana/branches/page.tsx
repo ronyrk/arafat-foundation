@@ -45,7 +45,7 @@ async function BranchList({ searchParams }: {
 							<TableCell className="font-medium uppercase">{item.ps}</TableCell>
 							<TableCell className="font-medium uppercase">
 								<Button className='bg-color-sub' size={"sm"} asChild>
-									<Link href={`branches/${item.username}`}>DETAILS</Link>
+									<Link prefetch={false} href={`branches/${item.username}`}>DETAILS</Link>
 								</Button>
 
 							</TableCell>

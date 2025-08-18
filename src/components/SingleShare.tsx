@@ -34,8 +34,8 @@ export function SingleShare({ username, type }: { username: string, type: string
 				>
 					<TwitterIcon size={42} round />
 				</TwitterShareButton>
-				<LinkedinShareButton url={`https://arafatfoundation.vercel.app/${type}/${username}`}>
-					<LinkedinIcon size={42} round />
+				<Link prefetch={false} edinShareButton url={`https://arafatfoundation.vercel.app/${type}/${username}`}>
+					<Link prefetch={false} edinIcon size={42} round />
 				</LinkedinShareButton>
 				<WhatsappShareButton
 					url={`https://arafatfoundation.vercel.app/${type}/${username}`}

@@ -264,7 +264,7 @@ async function HomeGallery({ query }: { query: string }) {
                   className="text-black bg-white border-2 border-black hover:border-color-sub hover:bg-color-sub hover:text-white transition-all duration-300"
                   asChild
                 >
-                  <Link
+                  <Link prefetch={false}
                     href="/gallery"
                     aria-label="সম্পূর্ণ গ্যালারী দেখুন"
                   >

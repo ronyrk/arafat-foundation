@@ -129,7 +129,7 @@ function ChildDonation({ item }: { item: ChildIProps }) {
 									paymentType === "outside" && <div className="">
 										<p className=" text-[15px] font-medium">বাংলাদেশের বাইরে থেকে অর্থ প্রদানের জন্য আমরা buymeacoffe তে একটা ফান্ডরেইজিং করেছি। আপনি এখানে Credit or debit card ব্যবহার করে আমাদেরকে অনুদান পাঠাতে পারবেন(স্ট্রাইপ দ্বারা সুরক্ষিত)।</p>
 										<Button asChild className="bg-green-600 py-4 px-4 hover:bg-color-sub text-white w-full text-lg">
-											<Link href="https://www.buymeacoffee.com/arafatfoundation/e/204578">Donate on Buy Me A Coffe</Link>
+											<Link prefetch={false} href="https://www.buymeacoffee.com/arafatfoundation/e/204578">Donate on Buy Me A Coffe</Link>
 										</Button>
 									</div>
 								}
