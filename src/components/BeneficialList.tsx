@@ -80,7 +80,7 @@ const BeneficialRow = memo(({ item }: { item: BeneficialIProps }) => (
         <TableCell className="font-medium p-2">
             {item.beneficialDonorId ? (
                 <Button className="bg-green-600 hover:bg-green-700 text-white w-fit" size={"sm"} asChild>
-                    <Link href={`beneficial/donor/${item.beneficialDonor?.username}`}>
+                    <Link prefetch={false} href={`beneficial/donor/${item.beneficialDonor?.username}`}>
                         💝 Donor Details
                     </Link>
                 </Button>
@@ -94,7 +94,7 @@ const BeneficialRow = memo(({ item }: { item: BeneficialIProps }) => (
 
         <TableCell className="font-medium p-2">
             <Button className='bg-color-sub' size={"sm"} asChild>
-                <Link href={`beneficial/${item.username}`}>DETAILS</Link>
+                <Link prefetch={false} href={`beneficial/${item.username}`}>DETAILS</Link>
             </Button>
         </TableCell>
     </TableRow>

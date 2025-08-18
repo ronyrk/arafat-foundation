@@ -78,10 +78,7 @@ const CarouselItemMemo = memo(({ item, index }: { item: CarouselImage; index: nu
 					asChild
 					className="px-8 py-2 bg-color-sub hover:bg-color-main"
 				>
-					<Link
-						href={"/our-projects"}
-						prefetch={true} // Prefetch the donation page for faster navigation
-					>
+					<Link prefetch={false} prefetch={false} href={"/our-projects"}>
 						দান করুন
 					</Link>
 				</Button>

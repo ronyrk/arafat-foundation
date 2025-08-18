@@ -33,44 +33,44 @@ function Footer() {
 									sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
 								/>
 								<h2 className=" text-sm font-medium text-[#F5F5F5] py-4">আরাফাত ফাউন্ডেশন একটি অরাজনৈতিক, অলাভজনক, উম্মাহর ঐক্য , শিক্ষা , দাওয়াহ ও মানব কল্যাণে নিবে দিত সেবা মূলমূক প্রতিষ্ঠান।</h2>
-								<Button asChild className=' w-28 flex items-center bg-color-main hover:transition hover:delay-150 hover:duration-300 hover:bg-color-sub' size={"lg"} variant={"outline"}><Link href="/our-projects">দান করুন <span className='ml-[6px]'><HandHeart /></span></Link></Button>
+								<Button asChild className=' w-28 flex items-center bg-color-main hover:transition hover:delay-150 hover:duration-300 hover:bg-color-sub' size={"lg"} variant={"outline"}><Link prefetch={false} href="/our-projects">দান করুন <span className='ml-[6px]'><HandHeart /></span></Link></Button>
 							</div>
 							<div className="flex basis-1/4 flex-col  px-4">
 								<h2 className="text-[24px] font-semibold border-b-4   text-[#F5F5F5] border-[#F5F5F5]">তালিকা</h2>
 								<div className="flex flex-col py-4">
-									<Link href="/" className='  text-sm font-medium text-[#F5F5F5] flex flex-row hover:text-color-sub py-1' > <span className=''><ChevronRight /></span>হোম </Link>
-									<Link href="/about-us" className='  text-sm font-medium text-[#F5F5F5] flex flex-row hover:text-color-sub py-1' > <span className=''><ChevronRight /></span>
+									<Link prefetch={false} href="/" className='  text-sm font-medium text-[#F5F5F5] flex flex-row hover:text-color-sub py-1' > <span className=''><ChevronRight /></span>হোম </Link>
+									<Link prefetch={false} href="/about-us" className='  text-sm font-medium text-[#F5F5F5] flex flex-row hover:text-color-sub py-1' > <span className=''><ChevronRight /></span>
 										আমাদের সম্পর্কে</Link>
-									<Link href="/our-activities" className='  text-sm font-medium text-[#F5F5F5] flex flex-row hover:text-color-sub py-1' > <span className=''><ChevronRight /></span>
+									<Link prefetch={false} href="/our-activities" className='  text-sm font-medium text-[#F5F5F5] flex flex-row hover:text-color-sub py-1' > <span className=''><ChevronRight /></span>
 										আমাদের কার্যক্রম</Link>
 
-									<Link href="/details-of-income-and-expenses" className='  text-sm font-medium text-[#F5F5F5] flex flex-row hover:text-color-sub py-1' > <span className=''><ChevronRight /></span>
+									<Link prefetch={false} href="/details-of-income-and-expenses" className='  text-sm font-medium text-[#F5F5F5] flex flex-row hover:text-color-sub py-1' > <span className=''><ChevronRight /></span>
 										আয়ের ও ব্যায়ের হিসাব</Link>
-									<Link href="/our-all-links" className='  text-sm font-medium text-[#F5F5F5] flex flex-row hover:text-color-sub py-1' > <span className=''><ChevronRight /></span>
+									<Link prefetch={false} href="/our-all-links" className='  text-sm font-medium text-[#F5F5F5] flex flex-row hover:text-color-sub py-1' > <span className=''><ChevronRight /></span>
 										সকল লিংক  </Link>
 
-									<Link href="/contact-us" className='  text-sm font-medium text-[#F5F5F5] flex flex-row hover:text-color-sub py-1' > <span className=''><ChevronRight /></span>
+									<Link prefetch={false} href="/contact-us" className='  text-sm font-medium text-[#F5F5F5] flex flex-row hover:text-color-sub py-1' > <span className=''><ChevronRight /></span>
 										যোগাযোগ </Link>
 								</div>
 							</div>
 							<div className="flex basis-1/4 flex-col px-4">
 								<h2 className="text-[24px] font-medium text-[#F5F5F5] border-b-4 border-white">আমাদের কার্যক্রম</h2>
 								<div className="flex flex-col py-4">
-									<Link href="/" className='  text-sm font-medium text-[#F5F5F5] flex flex-row hover:text-color-sub py-1' > <span className=''><ChevronRight /></span>
+									<Link prefetch={false} href="/" className='  text-sm font-medium text-[#F5F5F5] flex flex-row hover:text-color-sub py-1' > <span className=''><ChevronRight /></span>
 										ইসলাম প্রচার </Link>
-									<Link href="/" className='  text-sm font-medium text-[#F5F5F5] flex flex-row hover:text-color-sub py-1' > <span className=''><ChevronRight /></span>
+									<Link prefetch={false} href="/" className='  text-sm font-medium text-[#F5F5F5] flex flex-row hover:text-color-sub py-1' > <span className=''><ChevronRight /></span>
 
 										শীতবস্ত্র বিতরণ</Link>
-									<Link href="/" className='  text-sm font-medium text-[#F5F5F5] flex flex-row hover:text-color-sub py-1' > <span className=''><ChevronRight /></span>
+									<Link prefetch={false} href="/" className='  text-sm font-medium text-[#F5F5F5] flex flex-row hover:text-color-sub py-1' > <span className=''><ChevronRight /></span>
 
 										বন্যার্তদের মধ্যে ত্রাণ বিতরণ</Link>
-									<Link href="/" className='  text-sm font-medium text-[#F5F5F5] flex flex-row hover:text-color-sub py-1' > <span className=''><ChevronRight /></span>
+									<Link prefetch={false} href="/" className='  text-sm font-medium text-[#F5F5F5] flex flex-row hover:text-color-sub py-1' > <span className=''><ChevronRight /></span>
 
 										সাদাকাহ জারিয়াহ </Link>
-									<Link href="/" className='  text-sm font-medium text-[#F5F5F5] flex flex-row hover:text-color-sub py-1' > <span className=''><ChevronRight /></span>
+									<Link prefetch={false} href="/" className='  text-sm font-medium text-[#F5F5F5] flex flex-row hover:text-color-sub py-1' > <span className=''><ChevronRight /></span>
 
 										যাকাতের অর্থে স্বাবলম্বীকরণ প্রকল্প</Link>
-									<Link href="/" className=' text-sm font-medium text-[#F5F5F5] flex flex-row hover:text-color-sub py-1' > <span className=''><ChevronRight /></span>
+									<Link prefetch={false} href="/" className=' text-sm font-medium text-[#F5F5F5] flex flex-row hover:text-color-sub py-1' > <span className=''><ChevronRight /></span>
 
 										ইফতার ও রমাদান ফুড বিতরণ </Link>
 								</div>

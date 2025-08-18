@@ -54,7 +54,7 @@ function BeneficialSidebar() {
         const Icon = item.icon;
 
         return (
-            <Link href={item.href} className="group relative block">
+            <Link prefetch={false} href={item.href} className="group relative block">
                 <div className={`
                     relative overflow-hidden rounded-xl border-2 transition-all duration-300 ease-out
                     ${isActive

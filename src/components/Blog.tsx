@@ -35,7 +35,7 @@ async function Blog() {
           className="text-black bg-white border-2 border-black  hover:border-color-sub hover:bg-color-sub hover:text-white"
           asChild
         >
-          <Link href="/blog">আরো দেখুন</Link>
+          <Link prefetch={false} href="/blog">আরো দেখুন</Link>
         </Button>
       </div>
     </div>

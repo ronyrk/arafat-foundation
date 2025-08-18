@@ -74,7 +74,7 @@ function HeaderSlider() {
               </AlertDialogContent>
             </AlertDialog>
           ) : (
-            <Link
+            <Link prefetch={false}
               href="/login"
               className="font-semibold leading-6 hover:text-color-sub"
             >

@@ -138,7 +138,7 @@ async function BorrowerRow({
 			</TableCell>
 			<TableCell className="font-medium">
 				<Button className='bg-color-sub' size={"sm"} asChild>
-					<Link href={`borrowers/${borrower.username}`}>Details</Link>
+					<Link prefetch={false} href={`borrowers/${borrower.username}`}>Details</Link>
 				</Button>
 			</TableCell>
 		</TableRow>
@@ -327,7 +327,7 @@ export default async function BorrowersListPage({ searchParams }: PageProps) {
 					<div className="text-xl font-semibold">Something went wrong</div>
 					<div>Failed to load borrowers data. Please try again later.</div>
 					<Button asChild className="mt-4">
-						<Link href="/borrowers">Refresh Page</Link>
+						<Link prefetch={false} href="/borrowers">Refresh Page</Link>
 					</Button>
 				</div>
 			</div>

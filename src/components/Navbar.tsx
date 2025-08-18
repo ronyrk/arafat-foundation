@@ -127,7 +127,7 @@ function Navbar() {
             </svg>
           </a>
           <a href="/" className="text-white rounded px-[2px]">
-            <Linkedin
+            <Link prefetch={false} edin
               className="text-white cursor-pointer hover:text-orange-500"
               size={18}
             />
@@ -135,7 +135,7 @@ function Navbar() {
         </div>
       </div>
       <div className="md:px-20 px-4 flex flex-row justify-between  bg-[#FFFFFF] gap-2 md:gap-0 items-center">
-        <Link href="/">
+        <Link prefetch={false} href="/">
           <Image
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="w-[120px] h-[100] py-2 object-contain rounded"
@@ -145,22 +145,22 @@ function Navbar() {
           />
         </Link>
         <div className="hidden md:flex">
-          <Link
+          <Link prefetch={false}
             href="/"
             className={`text-[16px] py-10 mx-3 font-semibold hover:border-color-sub hover:text-color-sub  border-b-4 ${pathname === "/"
-                ? "border-color-sub text-color-sub"
-                : "border-white"
+              ? "border-color-sub text-color-sub"
+              : "border-white"
               }`}
           >
             হোম
           </Link>
           {nav.map((item, index) => (
-            <Link
+            <Link prefetch={false}
               key={index}
               href={`/${item.path}`}
               className={`text-[16px] py-10 mx-3 font-semibold hover:border-color-sub hover:text-color-sub  border-b-4 ${pathname.startsWith(item?.path, 1)
-                  ? "border-color-sub text-color-sub"
-                  : "border-white"
+                ? "border-color-sub text-color-sub"
+                : "border-white"
                 }`}
             >
               {item?.name}
@@ -173,7 +173,7 @@ function Navbar() {
             className=" w-28 bg-color-main hover:bg-color-sub"
             size={"lg"}
           >
-            <Link href="/our-projects">
+            <Link prefetch={false} href="/our-projects">
               দান করুন{" "}
               <span className="ml-[6px]">
                 <HandHeart />
@@ -189,11 +189,11 @@ function Navbar() {
             <SheetContent side={"left"}>
               <div className="flex flex-col gap-y-4">
                 <SheetClose asChild>
-                  <Link
+                  <Link prefetch={false}
                     href="/"
                     className={`text-[16px] mx-3 font-semibold hover:border-color-sub hover:text-color-sub border-b-4 ${pathname === "/"
-                        ? "border-color-sub text-color-sub"
-                        : "border-white"
+                      ? "border-color-sub text-color-sub"
+                      : "border-white"
                       }`}
                   >
                     হোম
@@ -201,11 +201,11 @@ function Navbar() {
                 </SheetClose>
                 {nav.map((item, index) => (
                   <SheetClose asChild key={index}>
-                    <Link
+                    <Link prefetch={false}
                       href={`/${item.path}`}
                       className={`text-[16px] mx-3 font-semibold hover:border-color-sub hover:text-color-sub border-b-4 ${pathname.startsWith(item?.path, 1)
-                          ? "border-color-sub text-color-sub"
-                          : "border-white"
+                        ? "border-color-sub text-color-sub"
+                        : "border-white"
                         }`}
                     >
                       {item?.name}

@@ -25,10 +25,10 @@ async function Projects() {
 							<p className=" text-[15px] font-medium">{item.shortDes.slice(0, 200)}....</p>
 							<div className="flex justify-between py-2 md:flex-row">
 								<Button className=' hover:bg-color-sub' asChild>
-									<Link href={`our-projects/${item.username}`}>বিস্তারিত দেখুন</Link>
+									<Link prefetch={false} href={`our-projects/${item.username}`}>বিস্তারিত দেখুন</Link>
 								</Button>
 								<Button variant={"outline"} className='border-2 text-color-main border-color-main hover:text-white hover:border-color-sub' asChild>
-									<Link href="#">দান করুন</Link>
+									<Link prefetch={false} href="#">দান করুন</Link>
 								</Button>
 							</div>
 						</div>
@@ -54,7 +54,7 @@ async function OurProject() {
 				</Suspense>
 				<div className="flex justify-center py-4">
 					<Button size={"lg"} className='text-black bg-white border-2 border-black  hover:border-color-sub hover:bg-color-sub hover:text-white' asChild>
-						<Link href="/our-projects">আরো দেখুন</Link>
+						<Link prefetch={false} href="/our-projects">আরো দেখুন</Link>
 					</Button>
 				</div>
 			</div>

@@ -9,8 +9,8 @@ function IncomeAndExpensesSidebar() {
     const subRoutes = routes.at(2);
     return (
         <div className='flex flex-col bg-[#F1F1FA] border-2 rounded'>
-            <Link className={` pl-4 py-3 text-[15px] font-semibold rounded-md ${pathname === "/details-of-income-and-expenses" ? "bg-color-main text-white" : " text-black  hover:bg-[#DDDCF0] hover:text-black"}`} href="/details-of-income-and-expenses">Expenses</Link>
-            <Link className={` pl-4 py-3 text-[15px] font-semibold rounded-md ${pathname === "/details-of-income-and-expenses/income" ? "bg-color-main text-white" : " text-black  hover:bg-[#DDDCF0] hover:text-black"}`} href="/details-of-income-and-expenses/income">Income</Link>
+            <Link prefetch={false} className={` pl-4 py-3 text-[15px] font-semibold rounded-md ${pathname === "/details-of-income-and-expenses" ? "bg-color-main text-white" : " text-black  hover:bg-[#DDDCF0] hover:text-black"}`} href="/details-of-income-and-expenses">Expenses</Link>
+            <Link prefetch={false} className={` pl-4 py-3 text-[15px] font-semibold rounded-md ${pathname === "/details-of-income-and-expenses/income" ? "bg-color-main text-white" : " text-black  hover:bg-[#DDDCF0] hover:text-black"}`} href="/details-of-income-and-expenses/income">Income</Link>
         </div>
     )
 }

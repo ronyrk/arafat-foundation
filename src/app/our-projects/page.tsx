@@ -18,17 +18,17 @@ async function Projects() {
 			{
 				data.map((item, index) => (
 					<div key={index} className="flex flex-col border-2 rounded shadow-md ">
-						<Link href={`/our-projects/${item.username}`}>
+						<Link prefetch={false} href={`/our-projects/${item.username}`}>
 							<Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={item.photoUrl} width={382} height={120} className='md:w-[382px] w-full h-[260px] object-fill rounded' alt={item.username} />
 							<div className="w-full px-2 bg-white">
 								<h2 className="py-2 text-lg font-semibold text-color-main hover:text-color-sub">{item.title}</h2>
 								<p className=" text-[14px] font-medium">{item.shortDes.slice(0, 200)}....</p>
 								<div className="flex justify-between py-2 md:flex-row">
 									<Button className=' hover:bg-color-sub' asChild>
-										<Link href={`our-projects/${item.username}`}>বিস্তারিত দেখুন</Link>
+										<Link prefetch={false} href={`our-projects/${item.username}`}>বিস্তারিত দেখুন</Link>
 									</Button>
 									<Button variant={"outline"} className='border-2 text-color-main border-color-main hover:text-white hover:border-color-sub' asChild>
-										<Link href={`/our-projects/${item.username}`}>দান করুন</Link>
+										<Link prefetch={false} href={`/our-projects/${item.username}`}>দান করুন</Link>
 									</Button>
 								</div>
 							</div>

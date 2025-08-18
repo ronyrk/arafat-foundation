@@ -23,11 +23,11 @@ export default function IncomeAndExpensesLayout({
                     </div>
                     <div className="bg-[#FCFCFD]">
                         <h3 className=" text-base mb-4 text-color-main font-medium">প্রিয় “ভাই/বোন” আপনার অনুদান আমাদের কাছে আমানত। আমাদের কাছে অনুদান পাঠানোর ২৪ ঘন্টার মধ্যে নিচের লিস্ট/
-                            <Link className=' text-green-500 mx-1' href="/details-of-income-and-expenses/income">Income</Link>
+                            <Link prefetch={false} className=' text-green-500 mx-1' href="/details-of-income-and-expenses/income">Income</Link>
                             আপনার অনুদান
-                            জমা হয়েছে কি না সেটি চেক করার অনুরোধ রইলো । আপনার অনুদানটি এখানে জমা না হলে আমাদের সাথে  <Link className=' text-green-500' href="/contact-us">যোগাযোগ করুন</Link> ।
+                            জমা হয়েছে কি না সেটি চেক করার অনুরোধ রইলো । আপনার অনুদানটি এখানে জমা না হলে আমাদের সাথে  <Link prefetch={false} className=' text-green-500' href="/contact-us">যোগাযোগ করুন</Link> ।
                         </h3>
-                        <h3 className="mt-2  text-base text-color-main font-medium">আপনি যদি নির্দিষ্ট কোনো কাজ/প্রজেক্টের জন্য আমাদেরকে অনুদান দিয়ে থাকেন তবুও নিচের লিস্ট/<Link className=' text-green-500 mx-1' href="/details-of-income-and-expenses">Expenses</Link> থেকে নির্দিষ্ট কাজে এবং নির্দিষ্ট দিনে খরচ
+                        <h3 className="mt-2  text-base text-color-main font-medium">আপনি যদি নির্দিষ্ট কোনো কাজ/প্রজেক্টের জন্য আমাদেরকে অনুদান দিয়ে থাকেন তবুও নিচের লিস্ট/<Link prefetch={false} className=' text-green-500 mx-1' href="/details-of-income-and-expenses">Expenses</Link> থেকে নির্দিষ্ট কাজে এবং নির্দিষ্ট দিনে খরচ
                             করা হয়েছে কি না সেটা চেক করার অনুরোধ রইলো ।
                         </h3>
                     </div>

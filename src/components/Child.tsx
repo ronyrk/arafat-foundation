@@ -53,7 +53,7 @@ async function Childs() {
                 className="md:w-[130px] md:px-4 px-1 text-white rounded-sm bg-color-sub hover:bg-color-main"
                 asChild
               >
-                <Link href={`sponsor-a-child/${item.username}`}>
+                <Link prefetch={false} href={`sponsor-a-child/${item.username}`}>
                   প্রোফাইল দেখুন
                 </Link>
               </Button>
@@ -61,7 +61,7 @@ async function Childs() {
                 className="md:w-[130px] md:px-4 px-1 text-white rounded-sm bg-color-main hover:bg-color-sub"
                 asChild
               >
-                <Link href={`/donation/${item.username}`}>স্পন্সর করুন</Link>
+                <Link prefetch={false} href={`/donation/${item.username}`}>স্পন্সর করুন</Link>
               </Button>
             </div>
           </div>
@@ -104,7 +104,7 @@ function Child() {
           className="text-black bg-white border-2 border-black  hover:border-color-sub hover:bg-color-sub hover:text-white"
           asChild
         >
-          <Link href="/sponsor-a-child">আরো দেখুন</Link>
+          <Link prefetch={false} href="/sponsor-a-child">আরো দেখুন</Link>
         </Button>
       </div>
     </div>
