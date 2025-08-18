@@ -149,7 +149,7 @@ function ChildDonate({ data }: { data: ChildIProps }) {
                                                     <div dangerouslySetInnerHTML={{ __html: data.outsidePaymentInfo.split("^")[0] }} />
                                                 </p>
                                                 <Button className=" bg-green-500" asChild>
-                                                    <Link prefetch={false} prefetch={false} href={data.link}>Donate on</Link>
+                                                    <Link prefetch={false} href={data.link}>Donate on</Link>
                                                 </Button>
                                             </div> : ""}
                                     </div>

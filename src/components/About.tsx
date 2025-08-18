@@ -102,7 +102,7 @@ function About() {
             size={"lg"}
             asChild
           >
-            <Link prefetch={false}
+            <Link
               href="/about-us"
               prefetch={true}
               aria-label="আরাফাত ফাউন্ডেশন সম্পর্কে বিস্তারিত জানুন"
