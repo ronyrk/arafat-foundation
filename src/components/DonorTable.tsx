@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react'
+import React, { Suspense, useMemo } from 'react'
 import {
 	Table,
 	TableBody,
@@ -8,67 +8,106 @@ import {
 	TableRow,
 } from "@/components/ui/table"
 import { DonorIProps, DonorPaymentIProps } from '@/types'
-import moment from 'moment';
-import { unstable_noStore } from 'next/cache';
-import prisma from '@/lib/prisma';
-import { string } from 'zod';
+import moment from 'moment'
+import { unstable_noStore } from 'next/cache'
 
 interface ParamsIProps {
 	data: DonorIProps
 }
 
-async function TableRowList(params: ParamsIProps) {
-	const { status, username } = params.data;
-	unstable_noStore();
-	const data = await prisma.donorPayment.findMany({
-		where: {
-			donorUsername: username
-		},
-		orderBy: {
-			createAt: "asc"
-		}
-	}) as DonorPaymentIProps[];
-
-	const loanAmount = async (amount: string, type: string) => {
-		if (type === "LENDING") {
-			return `BDT =${amount}/=`
-		} else {
-			return 'N/A'
-		}
-	}
-
-	const loanPayment = async (payment: string, donate: string) => {
-		console.log("payment", payment, "donate", donate);
-		if (payment === "0" && donate === "0" || payment === null && donate === null) {
-			return ` N/A`
-		} else if (payment === "0" || payment === null || payment === undefined) {
-			return `BDT =${donate}/=`
-		} else {
-			return `BDT =${payment}/=`
-		}
-	};
-	return (
-		<TableBody>
-			{
-				data.map((item, index) => (
-					<TableRow key={index}>
-						<TableCell>{`${moment(item.createAt).format('DD/MM/YYYY')}`}</TableCell>
-						<TableCell>{loanAmount(item.amount as string, item.type)}</TableCell>
-						<TableCell className='px-4'>{loanPayment(item.loanPayment as string, item.donate as string)} </TableCell>
-						<TableCell className=''>{item.type} </TableCell>
-					</TableRow>
-				))
-			}
-		</TableBody>
-	)
-
+// Utility functions moved outside component to avoid recreation
+const formatLoanAmount = (amount: string, type: string): string => {
+	return type === "LENDING" ? `BDT =${amount}/=` : 'N/A'
 }
 
+const formatLoanPayment = (payment: string | null, donate: string | null): string => {
+	const isPaymentEmpty = !payment || payment === "0"
+	const isDonateEmpty = !donate || donate === "0"
 
-function DonorTable(params: ParamsIProps) {
+	if (isPaymentEmpty && isDonateEmpty) {
+		return 'N/A'
+	}
+
+	return isPaymentEmpty ? `BDT =${donate}/=` : `BDT =${payment}/=`
+}
+
+// Memoized table row component
+const TableRowItem = React.memo(({ item, index }: { item: DonorPaymentIProps; index: number }) => {
+	const formattedDate = useMemo(() => moment(item.createAt).format('DD/MM/YYYY'), [item.createAt])
+	const loanAmount = useMemo(() => formatLoanAmount(item.amount as string, item.type), [item.amount, item.type])
+	const paymentAmount = useMemo(() => formatLoanPayment(item.loanPayment as string, item.donate as string), [item.loanPayment, item.donate])
+
 	return (
-		<div className=' border-[2px] rounded-sm px-2'>
-			<h2 className=" text-center font-semibold text-xl py-2 text-color-main uppercase">Transaction</h2>
+		<TableRow key={index}>
+			<TableCell>{formattedDate}</TableCell>
+			<TableCell>{loanAmount}</TableCell>
+			<TableCell className='px-4'>{paymentAmount}</TableCell>
+			<TableCell>{item.type}</TableCell>
+		</TableRow>
+	)
+})
+
+TableRowItem.displayName = 'TableRowItem'
+
+async function TableRowList({ data }: ParamsIProps) {
+	const { username } = data
+
+
+	try {
+		unstable_noStore();
+		const response = await fetch(`https://af-admin.vercel.app/api/donor_payment/${username}`, {
+			next: {
+				revalidate: 0,
+			}
+		})
+
+		if (!response.ok) {
+			throw new Error(`HTTP error! status: ${response.status}`)
+		}
+
+		const paymentList: DonorPaymentIProps[] = await response.json()
+
+		return (
+			<TableBody>
+				{paymentList.map((item, index) => (
+					<TableRowItem key={`${item.id || index}-${item.createAt}`} item={item} index={index} />
+				))}
+			</TableBody>
+		)
+	} catch (error) {
+		console.error('Error fetching payment data:', error)
+		return (
+			<TableBody>
+				<TableRow>
+					<TableCell colSpan={4} className="text-center text-red-500">
+						Error loading payment data
+					</TableCell>
+				</TableRow>
+			</TableBody>
+		)
+	}
+}
+
+// Loading component
+const TableSkeleton = () => (
+	<TableBody>
+		{[...Array(3)].map((_, i) => (
+			<TableRow key={i}>
+				<TableCell><div className="h-4 bg-gray-200 rounded animate-pulse" /></TableCell>
+				<TableCell><div className="h-4 bg-gray-200 rounded animate-pulse" /></TableCell>
+				<TableCell><div className="h-4 bg-gray-200 rounded animate-pulse" /></TableCell>
+				<TableCell><div className="h-4 bg-gray-200 rounded animate-pulse" /></TableCell>
+			</TableRow>
+		))}
+	</TableBody>
+)
+
+function DonorTable({ data }: ParamsIProps) {
+	return (
+		<div className='border-[2px] rounded-sm px-2'>
+			<h2 className="text-center font-semibold text-xl py-2 text-color-main uppercase">
+				Transaction
+			</h2>
 			<Table>
 				<TableHeader>
 					<TableRow>
@@ -78,11 +117,10 @@ function DonorTable(params: ParamsIProps) {
 						<TableHead>TYPE</TableHead>
 					</TableRow>
 				</TableHeader>
-				<Suspense fallback={<h2>Loading...</h2>}>
-					<TableRowList data={params.data} />
+				<Suspense fallback={<TableSkeleton />}>
+					<TableRowList data={data} />
 				</Suspense>
 			</Table>
-
 		</div>
 	)
 }
