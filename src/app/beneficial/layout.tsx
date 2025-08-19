@@ -1,6 +1,6 @@
 import BeneficialSidebar from "@/components/beneficial-sidebar";
+import BeneficialSlider from "@/components/beneficial-slider";
 import HeaderContent from "@/components/HeaderContent";
-import HeaderSlider from "@/components/HeaderSlider";
 
 
 
@@ -13,7 +13,7 @@ export default function RootLayoutBeneficial({
 }>) {
     return (
         <section className="bg-[#FCFCFD]">
-            <HeaderSlider />
+            <BeneficialSlider />
             <HeaderContent />
             <div className="md:mx-20 md:my-4 my-2">
                 <div className="flex md:flex-row flex-col gap-4">
