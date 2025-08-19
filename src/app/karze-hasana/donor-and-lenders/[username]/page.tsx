@@ -39,8 +39,9 @@ async function getPaymentData(username: string): Promise<DonorPaymentIProps[]> {
 		if (!res.ok) {
 			throw new Error(`Failed to fetch payment data: ${res.status}`);
 		}
+		const data = await res.json();
+		return data.data;
 
-		return await res.json();
 	} catch (error) {
 		console.error('Error fetching payment data:', error);
 		return [];
