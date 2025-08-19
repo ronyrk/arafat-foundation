@@ -65,7 +65,8 @@ async function TableRowList({ data }: ParamsIProps) {
 			throw new Error(`HTTP error! status: ${response.status}`)
 		}
 
-		const paymentList: DonorPaymentIProps[] = await response.json()
+		const result = await response.json()
+		const paymentList: DonorPaymentIProps[] = result.data;
 
 		return (
 			<TableBody>
