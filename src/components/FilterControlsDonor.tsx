@@ -2,7 +2,9 @@
 
 import React, { useCallback, useMemo, useState, useTransition } from 'react';
 import { useRouter, useSearchParams, usePathname } from 'next/navigation';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 import { Search, X, Loader2 } from 'lucide-react';
 
 // Simple debounce function (replace lodash if not available)
@@ -14,11 +16,16 @@ function debounce<T extends (...args: any[]) => any>(func: T, wait: number) {
     };
 }
 
+interface LocationOptions {
+    districts: string[];
+    policeStations: { policeStation: string; district: string; }[];
+}
 
+interface FilterControlsProps {
+    locationOptions: LocationOptions;
+}
 
-
-
-export default function FilterControlsDonor() {
+export default function FilterControls() {
     const router = useRouter();
     const pathname = usePathname();
     const searchParams = useSearchParams();
@@ -29,7 +36,6 @@ export default function FilterControlsDonor() {
     const currentSearch = searchParams.get('search') || '';
 
     const [searchValue, setSearchValue] = useState(currentSearch);
-
 
     const updateURL = useCallback((updates: Record<string, string>) => {
         const current = new URLSearchParams(Array.from(searchParams.entries()));
@@ -59,7 +65,7 @@ export default function FilterControlsDonor() {
     const debouncedSearch = useMemo(
         () => debounce((value: string) => {
             updateURL({ search: value });
-        }, 3000),
+        }, 300),
         [updateURL]
     );
 
@@ -68,14 +74,29 @@ export default function FilterControlsDonor() {
         debouncedSearch(value);
     }, [debouncedSearch]);
 
+    const handleDistrictChange = useCallback((value: string) => {
+        updateURL({
+            district: value,
+            policeStation: '' // Reset police station when district changes
+        });
+    }, [updateURL]);
+
+    const handlePoliceStationChange = useCallback((value: string) => {
+        updateURL({ policeStation: value });
+    }, [updateURL]);
+
+    const clearAllFilters = useCallback(() => {
+        setSearchValue('');
+        router.push(pathname);
+    }, [pathname, router]);
+
     const hasActiveFilters = currentDistrict || currentPoliceStation || currentSearch;
 
     return (
-        <div className="flex flex-col pb-2 bg-gray-50 rounded-lg">
+        <div className="flex flex-col gap-2  bg-gray-50 rounded-lg">
             <div className="flex flex-wrap gap-4 items-center">
-
                 {/* Search Input */}
-                <div className="flex-1 min-w-[250px] pb-2 relative">
+                <div className="flex-1 min-w-[250px] relative">
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
                     <Input
                         placeholder="Search by name, phone, village, post office..."
@@ -90,12 +111,34 @@ export default function FilterControlsDonor() {
                         </div>
                     )}
                 </div>
+
+                {/* Clear Filters Button */}
+                {hasActiveFilters && (
+                    <Button
+                        onClick={clearAllFilters}
+                        disabled={isPending}
+                        className="flex items-center gap-2 bg-color-sub hover:bg-color-main"
+                    >
+                        <X className="h-4 w-4" />
+                        Clear All
+                    </Button>
+                )}
             </div>
 
             {/* Active Filters Display */}
             {hasActiveFilters && (
                 <div className="flex flex-wrap gap-2 text-sm">
                     <span className="text-gray-600">Active filters:</span>
+                    {currentDistrict && (
+                        <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded-full">
+                            District: {currentDistrict}
+                        </span>
+                    )}
+                    {currentPoliceStation && (
+                        <span className="px-2 py-1 bg-green-100 text-green-800 rounded-full">
+                            Police Station: {currentPoliceStation}
+                        </span>
+                    )}
                     {currentSearch && (
                         <span className="px-2 py-1 bg-purple-100 text-purple-800 rounded-full">
                             Search: &quot;{currentSearch}&quot;
