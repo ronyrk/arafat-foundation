@@ -102,17 +102,13 @@ const FAQItem = memo(({ item, index }: { item: FaqIProps; index: number }) => {
                             <h3 className="text-lg font-semibold text-gray-800 group-hover:text-blue-600 transition-colors duration-300">
                                 {item.title}
                             </h3>
-                            <div className="flex items-center gap-2 mt-1">
-                                <Clock className="w-3 h-3 text-gray-400" />
-                                <span className="text-xs text-gray-500">Click to expand</span>
-                            </div>
                         </div>
                     </div>
                 </AccordionTrigger>
 
-                <AccordionContent className="px-2 pb-3 pt-0">
-                    <div className="ml-1 pl-1 border-l-2 border-gray-100">
-                        <div className="bg-gray-50 rounded-xl p-4 mt-2">
+                <AccordionContent className="px-1 pb-2 pt-0">
+                    <div className="border-l-2 border-gray-100">
+                        <div className="bg-gray-50 rounded-xl p-2 mt-1">
                             <HTMLContent content={item.description} />
                         </div>
                     </div>
