@@ -8,14 +8,13 @@ import { usePathname } from 'next/navigation';
 const ROUTES = [
     {
         href: "/beneficiary/about-beneficiary",
-        label: "About Us Beneficiary",
+        label: "About Beneficiaries",
         matchType: "exact" as const,
     },
     {
         href: "/beneficiaries",
         label: "Our Beneficiaries",
-        matchType: "subroute" as const,
-        subrouteKey: "beneficiaries",
+        matchType: "exact" as const,
     },
     {
         href: "/beneficiary/donors",
