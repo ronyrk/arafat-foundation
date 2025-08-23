@@ -11,22 +11,32 @@ import { BeneficialIProps } from '@/types';
 
 interface BeneficialListProps {
     data: BeneficialIProps[];
+    currentPage: number;
+    itemsPerPage: number;
 }
 
 function getStatus(item: BeneficialIProps): string {
     return item.beneficialDonorId ? "Active" : "Inactive";
 }
 
-const BeneficialRow = memo(({ item }: { item: BeneficialIProps }) => (
+const BeneficialRow = memo(({ item, index }: { item: BeneficialIProps; index: number }) => (
     <TableRow className="hover:bg-gray-50 transition-colors">
+        {/* Index Column */}
+        <TableCell className="font-medium p-2 text-center">
+            <div className="flex items-center justify-start min-h-[80px]">
+                <span className="text-base text-gray-700 bg-gray-100 rounded-full w-10 h-10 flex items-center justify-center">
+                    {index}
+                </span>
+            </div>
+        </TableCell>
+
         <TableCell className="font-medium p-1 md:p-2">
             <div className="flex items-center gap-2 sm:gap-3 md:gap-4 min-h-[80px]">
-
                 {/* Image */}
                 <div className="flex-shrink-0">
                     <Image
-                        src={item.photoUrl.at(0) as string}
-                        alt={item.name}
+                        src={item.photoUrl?.[0] || '/placeholder-image.jpg'}
+                        alt={item.name || 'Beneficiary'}
                         width={60}
                         height={60}
                         priority
@@ -34,25 +44,16 @@ const BeneficialRow = memo(({ item }: { item: BeneficialIProps }) => (
                     />
                 </div>
 
-                {/* Personal Details - Always inline with image */}
+                {/* Personal Details */}
                 <div className="flex-1 min-w-0">
                     <div className="flex flex-col gap-1">
                         <h3 className="text-sm sm:text-base md:text-lg font-medium text-gray-900 truncate">
                             {item.name}
                         </h3>
-                        {/* Address section with better formatting */}
                         <div className="flex flex-col gap-1">
                             <div className="flex flex-row gap-0 md:gap-2 text-sm">
                                 <span className="text-gray-500">🏠</span>
                                 <span className="font-medium text-gray-700 truncate">{item.village}</span>
-                            </div>
-                            <div className="flex items-center gap-2 md:gap-4 text-xs text-gray-600">
-                                <span className="truncate">📮 Post: {item.postoffice}</span>
-                                <span className="truncate">🏛️ {item.district}</span>
-                            </div>
-                            <div className="flex items-center gap-2 md:gap-4 text-xs text-gray-600">
-                                <span className="truncate">🚔 PS: {item.policeStation}</span>
-                                <span className="truncate">💼 {item.occupation}</span>
                             </div>
                         </div>
                     </div>
@@ -69,32 +70,12 @@ const BeneficialRow = memo(({ item }: { item: BeneficialIProps }) => (
                     {getStatus(item) === 'Active' ? '✅' : '⚠️'}
                     {getStatus(item)}
                 </span>
-                {getStatus(item) === 'Inactive' && (
-                    <div className="text-xs text-red-600 font-medium bg-red-50 px-2 py-1 rounded">
-                        🎯 Priority: Needs Donor
-                    </div>
-                )}
             </div>
         </TableCell>
 
         <TableCell className="font-medium p-2">
-            {item.beneficialDonorId ? (
-                <Button className="bg-green-600 hover:bg-green-700 text-white w-fit" size={"sm"} asChild>
-                    <Link prefetch={false} href={`beneficial/donor/${item.beneficialDonor?.username}`}>
-                        💝 Donor Details
-                    </Link>
-                </Button>
-            ) : (
-                <div className="text-center p-2 bg-gray-50 rounded border-2 border-dashed border-gray-300">
-                    <span className="text-gray-500 text-sm block">❌ No donor</span>
-                    <span className="text-xs text-gray-400">assigned yet</span>
-                </div>
-            )}
-        </TableCell>
-
-        <TableCell className="font-medium p-2">
             <Button className='bg-color-sub' size={"sm"} asChild>
-                <Link prefetch={false} href={`beneficial/${item.username}`}>DETAILS</Link>
+                <Link prefetch={false} href={`/beneficiary/${item.username}`}>DETAILS</Link>
             </Button>
         </TableCell>
     </TableRow>
@@ -102,31 +83,40 @@ const BeneficialRow = memo(({ item }: { item: BeneficialIProps }) => (
 
 BeneficialRow.displayName = 'BeneficialRow';
 
-const BeneficialList = memo(({ data }: BeneficialListProps) => (
-    <TableBody>
-        {data.length === 0 ? (
-            <TableRow>
-                <TableCell colSpan={7} className="text-center py-12">
-                    <div className="flex flex-col items-center gap-4">
-                        <div className="text-gray-400">
-                            <svg className="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6-4h6m2 5.291A7.962 7.962 0 0112 15c-2.34 0-4.29-1.01-5.824-2.562M15 6.306A7.962 7.962 0 0112 5c-2.34 0-4.29 1.01-5.824 2.562" />
-                            </svg>
+const BeneficialList = memo(({ data, currentPage, itemsPerPage }: BeneficialListProps) => {
+
+    const startIndex = (currentPage - 1) * itemsPerPage + 1;
+
+    return (
+        <TableBody>
+            {data.length === 0 ? (
+                <TableRow>
+                    <TableCell colSpan={5} className="text-center py-12">
+                        <div className="flex flex-col items-center gap-4">
+                            <div className="text-gray-400">
+                                <svg className="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6-4h6m2 5.291A7.962 7.962 0 0112 15c-2.34 0-4.29-1.01-5.824-2.562M15 6.306A7.962 7.962 0 0112 5c-2.34 0-4.29 1.01-5.824-2.562" />
+                                </svg>
+                            </div>
+                            <div className="text-center">
+                                <p className="text-gray-500 text-lg font-medium">No beneficiaries found</p>
+                                <p className="text-gray-400 text-sm">Try adjusting your search criteria or clear all filters</p>
+                            </div>
                         </div>
-                        <div className="text-center">
-                            <p className="text-gray-500 text-lg font-medium">No beneficiaries found</p>
-                            <p className="text-gray-400 text-sm">Try adjusting your search criteria or clear all filters</p>
-                        </div>
-                    </div>
-                </TableCell>
-            </TableRow>
-        ) : (
-            data.map((item) => (
-                <BeneficialRow key={item.id} item={item} />
-            ))
-        )}
-    </TableBody>
-));
+                    </TableCell>
+                </TableRow>
+            ) : (
+                data.map((item, arrayIndex) => (
+                    <BeneficialRow
+                        key={item.id}
+                        item={item}
+                        index={startIndex + arrayIndex}
+                    />
+                ))
+            )}
+        </TableBody>
+    );
+});
 
 BeneficialList.displayName = 'BeneficialList';
 
