@@ -33,6 +33,11 @@ export default async function Page({ searchParams }: PageProps) {
     // Show skeleton while location options are loading
     const locationOptionsPromise = getLocationOptions();
 
+    const currentPage = Number(searchParams?.page || '1');
+    const pageSize = 10;
+
+
+
     return (
         <div className="flex flex-col space-y-2 px-2">
             <Suspense fallback={<FilterSkeleton />}>
@@ -43,14 +48,18 @@ export default async function Page({ searchParams }: PageProps) {
                 <Table>
                     <TableHeader className=''>
                         <TableRow className="bg-gray-50 text-center ">
+                            <TableHead className="font-semibold ">INDEX</TableHead>
                             <TableHead className="font-semibold ">Profile & Details</TableHead>
                             <TableHead className="font-semibold ">Status</TableHead>
-                            <TableHead className="font-semibold ">Donor Info</TableHead>
                             <TableHead className="font-semibold  ">Details</TableHead>
                         </TableRow>
                     </TableHeader>
                     <Suspense fallback={<LoadingFallback />}>
-                        <BeneficialList data={data} />
+                        <BeneficialList
+                            data={data}
+                            currentPage={currentPage}
+                            itemsPerPage={pageSize}
+                        />
                     </Suspense>
                     <TableFooter>
                         <TableRow>
