@@ -39,7 +39,7 @@ export default async function Page({ searchParams }: PageProps) {
 
 
     return (
-        <div className="flex flex-col space-y-2 px-2">
+        <div className="flex flex-col space-y-2">
             <Suspense fallback={<FilterSkeleton />}>
                 <FilterControlsWrapper locationOptionsPromise={locationOptionsPromise} />
             </Suspense>
@@ -47,7 +47,7 @@ export default async function Page({ searchParams }: PageProps) {
             <div className="bg-white rounded-lg shadow">
                 <Table>
                     <TableHeader className=''>
-                        <TableRow className="bg-gray-50 text-center ">
+                        <TableRow className="bg-gray-50">
                             <TableHead className="font-semibold ">INDEX</TableHead>
                             <TableHead className="font-semibold ">Profile & Details</TableHead>
                             <TableHead className="font-semibold ">Status</TableHead>

@@ -22,7 +22,7 @@ function getStatus(item: BeneficialIProps): string {
 const BeneficialRow = memo(({ item, index }: { item: BeneficialIProps; index: number }) => (
     <TableRow className="hover:bg-gray-50 transition-colors">
         {/* Index Column */}
-        <TableCell className="font-medium p-2 text-center">
+        <TableCell className="font-medium py-2 text-center">
             <div className="flex items-center justify-start min-h-[80px]">
                 <span className="text-base text-gray-700 bg-gray-100 rounded-full w-10 h-10 flex items-center justify-center">
                     {index}
@@ -40,7 +40,7 @@ const BeneficialRow = memo(({ item, index }: { item: BeneficialIProps; index: nu
                         width={60}
                         height={60}
                         priority
-                        className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-lg object-cover border-2 border-gray-200"
+                        className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-md blur-[5px] object-cover border-2 border-gray-200"
                     />
                 </div>
 
@@ -61,7 +61,7 @@ const BeneficialRow = memo(({ item, index }: { item: BeneficialIProps; index: nu
             </div>
         </TableCell>
 
-        <TableCell className="font-medium p-4">
+        <TableCell className="font-medium p-1">
             <div className="flex flex-col items-start gap-2">
                 <span className={`px-3 py-1 rounded-full text-xs font-medium inline-flex items-center gap-1 ${getStatus(item) === 'Active'
                     ? 'bg-green-100 text-green-800 border border-green-200'
@@ -73,7 +73,7 @@ const BeneficialRow = memo(({ item, index }: { item: BeneficialIProps; index: nu
             </div>
         </TableCell>
 
-        <TableCell className="font-medium p-2">
+        <TableCell className="font-medium px-2">
             <Button className='bg-color-sub' size={"sm"} asChild>
                 <Link prefetch={false} href={`/beneficiary/${item.username}`}>DETAILS</Link>
             </Button>
