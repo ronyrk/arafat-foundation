@@ -40,7 +40,7 @@ const BeneficialRow = memo(({ item, index }: { item: BeneficialIProps; index: nu
                         width={60}
                         height={60}
                         priority
-                        className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-md blur-[5px] object-cover border-2 border-gray-200"
+                        className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-md object-cover border-2 border-gray-200"
                     />
                 </div>
 
