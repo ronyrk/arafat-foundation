@@ -128,11 +128,6 @@ function BeneficialDocuments({ data }: { data: BeneficialIProps }) {
                             {getStatus(data) === 'Active' ? '✅' : '⚠️'}
                             {getStatus(data)}
                         </span>
-                        {getStatus(data) === 'Inactive' && (
-                            <div className="text-xs text-red-600 font-medium bg-red-50 px-2 py-1 rounded">
-                                🎯 Priority: Needs Donor
-                            </div>
-                        )}
                     </div>
                 </div>
             </div>
