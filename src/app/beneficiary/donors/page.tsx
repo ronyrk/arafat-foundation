@@ -28,7 +28,7 @@ export default async function Page({ searchParams }: PageProps) {
     const { data, pagination } = await getBeneficialDonorData(searchParams || {});
 
     return (
-        <div className="flex flex-col space-y-1 p-2">
+        <div className="flex flex-col space-y-2">
             <Suspense fallback={<FilterSkeleton />}>
                 <FilterControlsWrapper />
             </Suspense>

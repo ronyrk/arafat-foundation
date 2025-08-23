@@ -178,10 +178,9 @@ export default function FilterControls({ locationOptions }: FilterControlsProps)
                 {/* Clear Filters Button */}
                 {hasActiveFilters && (
                     <Button
-                        variant="outline"
                         onClick={clearAllFilters}
                         disabled={isPending}
-                        className="flex items-center gap-2"
+                        className="flex items-center gap-2 bg-color-sub hover:bg-color-main"
                     >
                         <X className="h-4 w-4" />
                         Clear All

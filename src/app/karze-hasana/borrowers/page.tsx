@@ -280,7 +280,7 @@ export default async function BorrowersListPage({ searchParams }: PageProps) {
 		}
 
 		return (
-			<div className='flex flex-col'>
+			<div className='flex flex-col space-y-2 px-2'>
 				<Suspense fallback={<FilterSkeleton />}>
 					<FilterControlsDonor />
 				</Suspense>

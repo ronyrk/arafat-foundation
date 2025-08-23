@@ -58,7 +58,7 @@ const BeneficialDonorRow = memo(({ item }: { item: BeneficialDonorIProps }) => (
                 </div>
             </div>
         </TableCell>
-        <TableCell className="font-medium p-4">
+        <TableCell className="font-medium p-2">
             <div className="">
                 <p className="text-gray-500 text-lg font-medium">{calculateTotal(item.beneficialTransaction || [])}</p>
             </div>
