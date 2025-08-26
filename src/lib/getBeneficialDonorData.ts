@@ -18,7 +18,10 @@ export async function getBeneficialDonorData(params: FilterParams) {
     // Search filter - searches across multiple fields
     if (search && search !== 'all' && search.trim() !== '') {
         whereClause.OR = [
-            { name: { contains: search, mode: 'insensitive' } }
+            { name: { contains: search, mode: 'insensitive' } },
+            { phone: { contains: search, mode: 'insensitive' } },
+            { live: { contains: search, mode: 'insensitive' } },
+            { homeTown: { contains: search, mode: 'insensitive' } }
         ];
     }
 
@@ -32,6 +35,7 @@ export async function getBeneficialDonorData(params: FilterParams) {
                 skip,
                 take: pageSize,
                 orderBy: [
+
                     {
                         createAt: 'desc' // Within each group, order by creation date (newest first)
                     }
