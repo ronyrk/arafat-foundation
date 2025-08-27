@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Marquee from "react-fast-marquee";
-import logo from "../../public/karze-hasana.png";
+import logo from "../../public/beneficiary-logo.jpg";
 
 
 
@@ -12,7 +12,7 @@ function BeneficialSlider() {
                 <Image
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     src={logo}
-                    className="md:mr-4 mr-1 border-dashed rounded border-white md:pr-4 pr-1 border-r-2 md:w-32 w-16  h-10"
+                    className="md:mr-4 mr-1 bg-transparent border-dashed rounded border-white md:pr-4 pr-1 border-r-2 md:w-32 w-16  h-10"
                     alt="logo"
                     placeholder="blur"
                 />
