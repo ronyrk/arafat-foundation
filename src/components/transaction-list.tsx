@@ -32,6 +32,7 @@ function htmlConvert(data: string) {
 }
 
 function TransactionsList({ data }: { data: BeneficialTransactionIProps[] }) {
+
     return (
         <TableBody>
             {
