@@ -1,4 +1,4 @@
-import { BeneficialIProps } from '@/types';
+import { BeneficialIProps, TotalsIProps } from '@/types';
 import Image from 'next/image'
 import React from 'react'
 import {
@@ -14,7 +14,7 @@ import { PhoneDisplay } from './phone-number-display';
 
 
 
-function BeneficialProfileEdit({ data }: { data: BeneficialIProps }) {
+function BeneficialProfileEdit({ data, totals }: { data: BeneficialIProps, totals: TotalsIProps }) {
 
     const { id, username, name, photoUrl, about, village, district, policeStation, occupation, phone, beneficialDonorId, nidFront, nidBack } = data;
 
@@ -54,6 +54,7 @@ function BeneficialProfileEdit({ data }: { data: BeneficialIProps }) {
 
                         {/* Phone number with toggle functionality */}
                         <PhoneDisplay phone={phone} />
+                        <p><strong>Total Spend:</strong>  {totals.totalSpend}</p>
                     </div>
                 </div>
                 <BeneficialDocuments data={data} />
