@@ -1,23 +1,15 @@
 "use client";
 
-import { BeneficialDonorIProps, BeneficialTransactionIProps } from '@/types';
+import { BeneficialDonorIProps, BeneficialTransactionIProps, TotalsIProps } from '@/types';
 import Image from 'next/image'
 import React from 'react'
 import { Share } from './Share';
 
 
 
-function BeneficialDonorProfileEdit({ data }: { data: BeneficialDonorIProps }) {
-    console.log({ data })
+function BeneficialDonorProfileEdit({ data, totals }: { data: BeneficialDonorIProps, totals: TotalsIProps }) {
 
     const { username, name, photoUrl, about, live, homeTown } = data;
-
-
-    function calculateTotal(data: BeneficialTransactionIProps[]) {
-        return data.reduce((total, transaction) => {
-            return total + (parseFloat(transaction.amount) || 0);
-        }, 0);
-    }
 
 
     return (
@@ -34,7 +26,9 @@ function BeneficialDonorProfileEdit({ data }: { data: BeneficialDonorIProps }) {
                     <h3 className=" flex flex-row items-center font-normal text-[18px]  text-color-main"><span className="font-semibold mr-2">Lives in : {live}</span>
                     </h3>
 
-                    <h2 className='text-xl'>Total Donate:- {calculateTotal(data.beneficialTransaction || [])}</h2>
+                    <h2 className='text-xl'>Total Donate:- {totals.totalDonate}</h2>
+                    <h2 className='text-xl'>Total Spend:- {totals.totalSpend}</h2>
+                    <h2 className='text-xl'>Available balance:- {totals.totalBalance}</h2>
 
                 </div>
             </div>

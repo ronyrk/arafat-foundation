@@ -38,7 +38,9 @@ export default async function Page({ searchParams }: PageProps) {
                     <TableHeader>
                         <TableRow className="bg-gray-50 ">
                             <TableHead className="font-semibold ">Profile & Details</TableHead>
-                            <TableHead className="font-semibold ">Total Amount</TableHead>
+                            <TableHead className="font-semibold ">Total Donate</TableHead>
+                            <TableHead className="font-semibold ">Total Spend</TableHead>
+                            <TableHead className="font-semibold "> Available balance</TableHead>
                             <TableHead className="font-semibold ">Details</TableHead>
                         </TableRow>
                     </TableHeader>
