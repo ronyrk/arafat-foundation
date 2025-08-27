@@ -16,7 +16,11 @@ export default async function Beneficial({ params }: { params: Promise<{ usernam
         },
         include: {
             beneficialDonor: true,
-            beneficialTransaction: true,
+            beneficialTransaction: {
+                orderBy: {
+                    date: 'asc' // Order transactions by creation date (oldest first)
+                }
+            },
         }
     }) as BeneficialIProps;
 

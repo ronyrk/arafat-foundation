@@ -50,7 +50,12 @@ export async function getBeneficialData(params: FilterParams) {
                 where: whereClause,
                 include: {
                     beneficialDonor: true,
-                    beneficialTransaction: true,
+                    beneficialTransaction: {
+                        orderBy: {
+                            date: 'desc' // Order transactions by creation date (newest first)
+                        }
+                    }
+
                 },
                 skip,
                 take: pageSize,
