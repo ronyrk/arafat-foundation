@@ -135,7 +135,7 @@ const BeneficialDonorRow = memo(({ item }: { item: BeneficialDonorIProps }) => {
                                 src={item.photoUrl || '/placeholder-avatar.png'}
                                 alt={`${item.name}'s profile`}
                                 fill
-                                className="object-cover"
+                                className="object-cover blur-[5px]"
                                 sizes="64px"
                                 priority
                             />
