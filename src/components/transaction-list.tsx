@@ -50,7 +50,7 @@ function TransactionsList({ data }: { data: BeneficialTransactionIProps[] }) {
                                     <DialogHeader>
                                         <DialogDescription>
                                             {
-                                                htmlConvert(item.description)
+                                                htmlConvert(item.description || '')
                                             }
                                         </DialogDescription>
                                     </DialogHeader>

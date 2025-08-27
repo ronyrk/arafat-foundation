@@ -65,7 +65,7 @@ export default function FilterControls() {
     const debouncedSearch = useMemo(
         () => debounce((value: string) => {
             updateURL({ search: value });
-        }, 300),
+        }, 2000),
         [updateURL]
     );
 

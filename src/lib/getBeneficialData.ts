@@ -38,7 +38,6 @@ export async function getBeneficialData(params: FilterParams) {
             { name: { contains: search, mode: 'insensitive' } },
             { phone: { contains: search, mode: 'insensitive' } },
             { village: { contains: search, mode: 'insensitive' } },
-            { postoffice: { contains: search, mode: 'insensitive' } },
             { username: { contains: search, mode: 'insensitive' } },
             { occupation: { contains: search, mode: 'insensitive' } }
         ];
@@ -50,13 +49,18 @@ export async function getBeneficialData(params: FilterParams) {
                 where: whereClause,
                 include: {
                     beneficialDonor: true,
-                    beneficialTransaction: true,
+                    beneficialTransaction: {
+                        orderBy: {
+                            date: 'desc' // Order transactions by creation date (newest first)
+                        }
+                    }
+
                 },
                 skip,
                 take: pageSize,
                 orderBy: [
                     {
-                        beneficialDonorId: 'asc' // NULL values (inactive) come first, then non-NULL (active)
+                        status: 'asc' // NULL values (inactive) come first, then non-NULL (active)
                     },
                     {
                         createAt: 'desc' // Within each group, order by creation date (newest first)
