@@ -26,6 +26,8 @@ export default async function Page({ searchParams }: PageProps) {
     unstable_noStore();
 
     const { data, pagination } = await getBeneficialDonorData(searchParams || {});
+    const currentPage = Number(searchParams?.page || '1');
+    const pageSize = 10;
 
     return (
         <div className="flex flex-col space-y-2">
@@ -37,6 +39,7 @@ export default async function Page({ searchParams }: PageProps) {
                 <Table>
                     <TableHeader>
                         <TableRow className="bg-gray-50 ">
+                            <TableHead className="font-semibold ">Index</TableHead>
                             <TableHead className="font-semibold ">Profile & Details</TableHead>
                             <TableHead className="font-semibold ">Total Donate</TableHead>
                             <TableHead className="font-semibold ">Total Spend</TableHead>
@@ -46,7 +49,11 @@ export default async function Page({ searchParams }: PageProps) {
                     </TableHeader>
                     <TableBody>
                         <Suspense fallback={<LoadingFallback />}>
-                            <BeneficialDonorList data={data} />
+                            <BeneficialDonorList
+                                data={data}
+                                currentPage={currentPage}
+                                itemsPerPage={pageSize}
+                            />
                         </Suspense>
                     </TableBody>
                     <TableFooter>
