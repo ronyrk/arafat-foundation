@@ -118,6 +118,7 @@ BeneficialList.displayName = "BeneficialList";
 
 
 
+
 async function page({ params }: { params: Promise<{ username: string }> }) {
     cookies();
     const { username } = await params;

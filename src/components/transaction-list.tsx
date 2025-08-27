@@ -76,7 +76,7 @@ export default function BeneficialTransactionList({ data }: { data: BeneficialTr
                     <TableRow>
                         <TableHead>DATE</TableHead>
                         <TableHead className=' uppercase'>Amount</TableHead>
-                        <TableHead className=' uppercase'>Description</TableHead>
+                        <TableHead className=' uppercase'>Details</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TransactionsList data={data} />
