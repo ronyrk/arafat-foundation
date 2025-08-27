@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { Table, TableHeader, TableRow, TableHead, TableFooter } from "@/components/ui/table";
+import { Table, TableHeader, TableRow, TableHead, TableFooter, TableBody } from "@/components/ui/table";
 import { unstable_noStore } from 'next/cache';
 import { FilterSkeleton, LoadingFallback } from '@/components/FilterSkeleton';
 import Pagination from '@/components/beneficial-pagination';
@@ -42,9 +42,11 @@ export default async function Page({ searchParams }: PageProps) {
                             <TableHead className="font-semibold ">Details</TableHead>
                         </TableRow>
                     </TableHeader>
-                    <Suspense fallback={<LoadingFallback />}>
-                        <BeneficialDonorList data={data} />
-                    </Suspense>
+                    <TableBody>
+                        <Suspense fallback={<LoadingFallback />}>
+                            <BeneficialDonorList data={data} />
+                        </Suspense>
+                    </TableBody>
                     <TableFooter>
                         <TableRow>
                             <TableHead colSpan={6}>

@@ -1,8 +1,6 @@
 import { BeneficialIProps } from '@/types';
 import Image from 'next/image'
-import React, { useState } from 'react'
-import { Button } from '@/components/ui/button';
-
+import React from 'react'
 import {
     Carousel,
     CarouselContent,
@@ -14,22 +12,11 @@ import BeneficialDocuments from './beneficial-doucment';
 import { Share } from './Share';
 import { PhoneDisplay } from './phone-number-display';
 
-// Types for your API data
-interface BeneficialDonor {
-    id: string;
-    name: string;
-    username: string;
-    live: string;
-    homeTown: string;
-    photoUrl: string;
-    about: string;
-    createAt: string;
-};
 
 
 function BeneficialProfileEdit({ data }: { data: BeneficialIProps }) {
 
-    const { id, username, name, photoUrl, about, village, postoffice, district, policeStation, occupation, phone, beneficialDonorId, nidFront, nidBack } = data;
+    const { id, username, name, photoUrl, about, village, district, policeStation, occupation, phone, beneficialDonorId, nidFront, nidBack } = data;
 
     return (
         <div className="flex flex-col gap-6 relative">
@@ -61,7 +48,6 @@ function BeneficialProfileEdit({ data }: { data: BeneficialIProps }) {
                     <div className='grid grid-cols-1 justify-stretch gap-y-4 gap-1 mb-2'>
                         <p className='text-2xl font-semibold'><strong></strong> {name}</p>
                         <p><strong>Village:</strong> {village}</p>
-                        <p><strong>Post Office:</strong> {postoffice}</p>
                         <p><strong>District:</strong> {district}</p>
                         <p><strong>Police Station:</strong> {policeStation}</p>
                         <p><strong>Occupation:</strong> {occupation}</p>

@@ -38,7 +38,6 @@ export async function getBeneficialData(params: FilterParams) {
             { name: { contains: search, mode: 'insensitive' } },
             { phone: { contains: search, mode: 'insensitive' } },
             { village: { contains: search, mode: 'insensitive' } },
-            { postoffice: { contains: search, mode: 'insensitive' } },
             { username: { contains: search, mode: 'insensitive' } },
             { occupation: { contains: search, mode: 'insensitive' } }
         ];

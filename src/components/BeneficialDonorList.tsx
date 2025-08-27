@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useMemo } from 'react';
 import {
     TableBody,
     TableCell,
@@ -6,6 +6,7 @@ import {
 } from "@/components/ui/table";
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { MapPin, Home, Users, DollarSign, AlertCircle } from 'lucide-react';
 import Image from 'next/image';
 import { BeneficialDonorIProps, BeneficialTransactionIProps } from '@/types';
 
@@ -13,91 +14,210 @@ interface BeneficialListProps {
     data: BeneficialDonorIProps[];
 }
 
-function calculateTotal(data: BeneficialTransactionIProps[]) {
-    return data.reduce((total, transaction) => {
-        return total + (parseFloat(transaction.amount) || 0);
-    }, 0);
-}
+// Separate calculation functions for different transaction types
+const calculateDonationTotal = (data: BeneficialTransactionIProps[]): number => {
+    if (!data || !Array.isArray(data)) return 0;
+    return data
+        .filter(tx => tx?.paymentType === 'donate')
+        .reduce((total, transaction) => {
+            const amount = parseFloat(transaction?.amount || '0') || 0;
+            return total + amount;
+        }, 0);
+};
+
+const calculateSpendingTotal = (data: BeneficialTransactionIProps[]): number => {
+    if (!data || !Array.isArray(data)) return 0;
+    return data
+        .filter(tx => tx?.paymentType === 'spend')
+        .reduce((total, transaction) => {
+            const amount = parseFloat(transaction?.amount || '0') || 0;
+            return total + amount;
+        }, 0);
+};
+
+// Format currency with proper localization
+const formatCurrency = (amount: number): string => {
+    return amount.toLocaleString('en-BD', {
+        style: 'currency',
+        currency: 'BDT',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 2
+    });
+};
 
 
-const BeneficialDonorRow = memo(({ item }: { item: BeneficialDonorIProps }) => (
-    <TableRow className="hover:bg-gray-50 transition-colors">
-        <TableCell className="font-medium p-1">
-            <div className="flex items-center gap-4">
-                {/* Image */}
-                <div className="flex-shrink-0">
-                    <Image
-                        src={item.photoUrl}
-                        alt={item.name}
-                        width={60}
-                        height={60}
-                        priority
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-lg object-cover border-2 border-gray-200"
-                    />
-                </div>
-
-                {/* Personal Details right next to image */}
-                <div className="flex-1 min-w-0">
-                    <div className="flex flex-col gap-1">
-                        {/* Address section with better formatting */}
-                        <div className="mt-1 space-y-1">
-                            <div className="flex justify-start items-center md:gap-2 text-sm">
-                                <span className="text-sm font-medium text-gray-700">{item.name}</span>
-                            </div>
-                            <div className="flex justify-start items-center md:gap-2 text-sm">
-                                <span className="text-gray-500">🏠</span>
-                                <span className="font-medium text-gray-700">{item.live}</span>
-                            </div>
-                            <div className="flex justify-start items-center gap-2 text-sm">
-                                <span className="text-gray-500">🏠</span>
-                                <span className="font-medium text-gray-700">{item.homeTown}</span>
-                            </div>
+// Enhanced empty state component
+const EmptyState = memo(() => (
+    <TableRow>
+        <TableCell colSpan={6} className="py-20">
+            <div className="flex flex-col items-center justify-center space-y-8">
+                <div className="relative">
+                    <div className="w-32 h-32 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full flex items-center justify-center shadow-inner">
+                        <Users className="w-16 h-16 text-gray-400" />
+                    </div>
+                    <div className="absolute -top-2 -right-2">
+                        <div className="w-10 h-10 bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-full flex items-center justify-center shadow-sm">
+                            <AlertCircle className="w-6 h-6 text-yellow-600" />
                         </div>
                     </div>
                 </div>
+
+                <div className="text-center space-y-4 max-w-md">
+                    <h3 className="text-2xl font-bold text-gray-900">
+                        No Donors Found
+                    </h3>
+                    <div className="space-y-2">
+                        <p className="text-gray-600 text-lg">
+                            There are currently no beneficial donors in the system.
+                        </p>
+                        <p className="text-sm text-gray-500">
+                            Start by adding your first donor to begin tracking donations and spending.
+                        </p>
+                    </div>
+                </div>
+
+                <div className="flex flex-col sm:flex-row gap-4">
+                    <Button
+                        variant="outline"
+                        size="lg"
+                        onClick={() => window.location.reload()}
+                        className="min-w-[140px]"
+                    >
+                        <AlertCircle className="w-4 h-4 mr-2" />
+                        Refresh Page
+                    </Button>
+                    <Button
+                        variant="default"
+                        size="lg"
+                        asChild
+                        className="min-w-[140px] bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700"
+                    >
+                        <Link href="/dashboard/beneficial/create">
+                            <Users className="w-4 h-4 mr-2" />
+                            Add First Donor
+                        </Link>
+                    </Button>
+                </div>
             </div>
-        </TableCell>
-        <TableCell className="font-medium p-2">
-            <div className="">
-                <p className="text-gray-500 text-lg font-medium">{calculateTotal(item.beneficialTransaction || [])}</p>
-            </div>
-        </TableCell>
-        <TableCell className="font-medium uppercase">
-            <Button className='bg-color-sub' size={"sm"} asChild>
-                <Link prefetch={false} href={`donor/${item?.username}`}>details</Link>
-            </Button>
         </TableCell>
     </TableRow>
 ));
 
-BeneficialDonorRow.displayName = 'BeneficialDonorRow';
+EmptyState.displayName = 'EmptyState';
 
-const BeneficialDonorList = memo(({ data }: BeneficialListProps) => (
-    <TableBody>
-        {data.length === 0 ? (
-            <TableRow>
-                <TableCell colSpan={7} className="text-center py-12">
-                    <div className="flex flex-col items-center gap-4">
-                        <div className="text-gray-400">
-                            <svg className="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6-4h6m2 5.291A7.962 7.962 0 0112 15c-2.34 0-4.29-1.01-5.824-2.562M15 6.306A7.962 7.962 0 0112 5c-2.34 0-4.29 1.01-5.824 2.562" />
-                            </svg>
-                        </div>
-                        <div className="text-center">
-                            <p className="text-gray-500 text-lg font-medium">No beneficial donors found</p>
-                            <p className="text-gray-400 text-sm">Try adjusting your search criteria or clear all filters</p>
+// Enhanced donor row component with proper calculations
+const BeneficialDonorRow = memo(({ item }: { item: BeneficialDonorIProps }) => {
+    // Memoize all calculations
+    const financialData = useMemo(() => {
+        const donations = calculateDonationTotal(item.beneficialTransaction || []);
+        const spending = calculateSpendingTotal(item.beneficialTransaction || []);
+        const balance = donations - spending;
+
+        return {
+            donations,
+            spending,
+            balance,
+            formattedDonations: formatCurrency(donations),
+            formattedSpending: formatCurrency(spending),
+            formattedBalance: formatCurrency(balance)
+        };
+    }, [item.beneficialTransaction]);
+
+    return (
+        <TableRow className="hover:bg-gray-50/50 transition-all duration-300 group border-b border-gray-100">
+            {/* Profile Section */}
+            <TableCell className="p-1">
+                <div className="flex items-center gap-1">
+                    {/* Enhanced Image Section */}
+                    <div className="relative flex-shrink-0">
+                        <div className="relative w-16 h-16 rounded-2xl overflow-hidden border-2 border-white shadow-lg group-hover:shadow-xl transition-shadow duration-300">
+                            <Image
+                                src={item.photoUrl || '/placeholder-avatar.png'}
+                                alt={`${item.name}'s profile`}
+                                fill
+                                className="object-cover"
+                                sizes="64px"
+                                priority
+                            />
                         </div>
                     </div>
-                </TableCell>
-            </TableRow>
-        ) : (
-            data.map((item) => (
-                <BeneficialDonorRow key={item.id} item={item} />
-            ))
-        )}
-    </TableBody>
-));
+
+                    {/* Enhanced Details Section */}
+                    <div className="flex-1 min-w-0 space-y-1">
+                        <div>
+                            <h3 className="text-lg font-bold text-gray-900 truncate">
+                                {item.name || 'Unnamed Donor'}
+                            </h3>
+                        </div>
+
+                        {/* Location Information */}
+                        <div className="space-y-1">
+                            {item.live && (
+                                <div className="flex items-center gap-1 text-sm text-gray-600">
+                                    <MapPin className="h-4 w-4 text-green-500 flex-shrink-0" />
+                                    <span className="truncate">
+                                        <span className="font-medium">Lives in:</span> {item.live}
+                                    </span>
+                                </div>
+                            )}
+
+                            {item.homeTown && (
+                                <div className="flex items-center gap-1 text-sm text-gray-600">
+                                    <Home className="h-4 w-4 text-blue-500 flex-shrink-0" />
+                                    <span className="truncate">
+                                        <span className="font-medium">Home Town in:</span> {item.homeTown}
+                                    </span>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            </TableCell>
+
+
+            <TableCell className="font-medium uppercase">
+                {financialData.formattedDonations}
+            </TableCell>
+
+            <TableCell className="font-medium uppercase">
+                {financialData.formattedSpending}
+            </TableCell>
+            {/* Balance Column */}
+            <TableCell className="font-medium uppercase">
+                {financialData.formattedBalance}
+            </TableCell>
+
+            <TableCell className="font-medium uppercase">
+                <Button className='bg-color-sub' size={"sm"} asChild>
+                    <Link prefetch={false} href={`donor/${item?.username}`}>details</Link>
+                </Button>
+            </TableCell>
+        </TableRow>
+    );
+});
+
+BeneficialDonorRow.displayName = 'BeneficialDonorRow';
+
+// Main component with enhanced error handling
+const BeneficialDonorList = memo(({ data }: BeneficialListProps) => {
+    // Validate and sanitize data
+    const validData = useMemo(() => {
+        if (!data || !Array.isArray(data)) return [];
+        return data.filter(item => item && typeof item === 'object' && item.id);
+    }, [data]);
+
+    return (
+        <>
+            {validData.length === 0 ? (
+                <EmptyState />
+            ) : (
+                validData.map((item) => (
+                    <BeneficialDonorRow key={item.id || item.username} item={item} />
+                ))
+            )}
+        </>
+    );
+});
 
 BeneficialDonorList.displayName = 'BeneficialDonorList';
 
