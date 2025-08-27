@@ -65,7 +65,7 @@ export default function FilterControls() {
     const debouncedSearch = useMemo(
         () => debounce((value: string) => {
             updateURL({ search: value });
-        }, 2000),
+        }, 1000),
         [updateURL]
     );
 
@@ -94,12 +94,12 @@ export default function FilterControls() {
 
     return (
         <div className="flex flex-col gap-2  bg-gray-50 rounded-lg">
-            <div className="flex flex-wrap gap-4 items-center">
+            <div className="flex flex-wrap gap-4 items-center justify-end">
                 {/* Search Input */}
-                <div className="flex-1 min-w-[250px] relative">
+                <div className="flex-1 max-w-[500px] relative">
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
                     <Input
-                        placeholder="Search by name, phone, village, post office..."
+                        placeholder="Search by name, phone, village,..."
                         value={searchValue}
                         onChange={(e) => handleSearchChange(e.target.value)}
                         className={`pl-10 ${isPending ? 'opacity-50' : ''}`}
