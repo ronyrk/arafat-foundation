@@ -48,8 +48,6 @@ function BeneficialProfileEdit({ data, totals }: { data: BeneficialIProps, total
                     <div className='grid grid-cols-1 justify-stretch gap-y-4 gap-1 mb-2'>
                         <p className='text-2xl font-semibold'><strong></strong> {name}</p>
                         <p><strong>Village:</strong> {village}</p>
-                        <p><strong>District:</strong> {district}</p>
-                        <p><strong>Police Station:</strong> {policeStation}</p>
                         <p><strong>Occupation:</strong> {occupation}</p>
 
                         {/* Phone number with toggle functionality */}
