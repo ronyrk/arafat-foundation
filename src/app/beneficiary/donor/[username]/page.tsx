@@ -1,9 +1,7 @@
 import { cookies } from 'next/headers'
 import React, { Suspense } from 'react'
-import prisma from '@/lib/prisma';
 import { BeneficialDonorIProps, BeneficialIProps, BeneficialTransactionIProps, TotalsIProps } from '@/types';
 import BeneficialDonorProfileEdit from '@/components/beneficial-donor-profile';
-import BeneficialTransactionList from '@/components/transaction-list';
 import { notFound } from 'next/navigation';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import Image from 'next/image';
