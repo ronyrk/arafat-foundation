@@ -110,20 +110,20 @@ EmptyState.displayName = 'EmptyState';
 // Enhanced donor row component with proper calculations
 const BeneficialDonorRow = memo(({ item, index }: { item: BeneficialDonorIProps, index: number }) => {
     // Memoize all calculations
-    const financialData = useMemo(() => {
-        const donations = calculateDonationTotal(item.beneficialTransaction || []);
-        const spending = calculateSpendingTotal(item.beneficialTransaction || []);
-        const balance = donations - spending;
+    // const financialData = useMemo(() => {
+    //     const donations = calculateDonationTotal(item.beneficialTransaction || []);
+    //     const spending = calculateSpendingTotal(item.beneficialTransaction || []);
+    //     const balance = donations - spending;
 
-        return {
-            donations,
-            spending,
-            balance,
-            formattedDonations: formatCurrency(donations),
-            formattedSpending: formatCurrency(spending),
-            formattedBalance: formatCurrency(balance)
-        };
-    }, [item.beneficialTransaction]);
+    //     return {
+    //         donations,
+    //         spending,
+    //         balance,
+    //         formattedDonations: formatCurrency(donations),
+    //         formattedSpending: formatCurrency(spending),
+    //         formattedBalance: formatCurrency(balance)
+    //     };
+    // }, [item.beneficialTransaction]);
 
     return (
         <TableRow className="hover:bg-gray-50/50 transition-all duration-300 group border-b border-gray-100">
@@ -175,7 +175,7 @@ const BeneficialDonorRow = memo(({ item, index }: { item: BeneficialDonorIProps,
                                 <div className="flex items-center gap-1 text-sm text-gray-600">
                                     <Home className="h-4 w-4 text-blue-500 flex-shrink-0" />
                                     <span className="truncate">
-                                        <span className="font-medium">Home Town in:</span> {item.homeTown}
+                                        <span className="font-medium">Home Town:</span> {item.homeTown}
                                     </span>
                                 </div>
                             )}
@@ -183,20 +183,6 @@ const BeneficialDonorRow = memo(({ item, index }: { item: BeneficialDonorIProps,
                     </div>
                 </div>
             </TableCell>
-
-
-            <TableCell className="font-medium uppercase">
-                {financialData.formattedDonations}
-            </TableCell>
-
-            <TableCell className="font-medium uppercase">
-                {financialData.formattedSpending}
-            </TableCell>
-            {/* Balance Column */}
-            <TableCell className="font-medium uppercase">
-                {financialData.formattedBalance}
-            </TableCell>
-
             <TableCell className="font-medium uppercase">
                 <Button className='bg-color-sub' size={"sm"} asChild>
                     <Link prefetch={false} href={`donor/${item?.username}`}>details</Link>

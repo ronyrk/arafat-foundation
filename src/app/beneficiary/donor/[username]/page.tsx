@@ -158,22 +158,40 @@ BeneficialList.displayName = "BeneficialList";
 
 // Optimized database query with selective field loading
 
+async function fetchBeneficialDonor(username: string): Promise<BeneficialDonorIProps | null> {
+    try {
+        const response = await fetch(
+            `${process.env.NEXT_PUBLIC_BASE_URL}/api/beneficial/donor/${username}`,
+            {
+                cache: 'no-store',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            }
+        );
+
+        if (!response.ok) {
+            if (response.status === 404) {
+                return null;
+            }
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error fetching beneficial donor:', error);
+        return null;
+    }
+}
+
 
 async function page({ params }: { params: Promise<{ username: string }> }) {
     // Move cookies call after data fetching for better caching
     const { username } = await params;
 
-    const beneficialDonor = await prisma.beneficialDonor.findUnique({
-        where: { username },
-        include: {
-            beneficial: true,
-            beneficialTransaction: {
-                orderBy: {
-                    date: 'asc' // Order transactions by creation date (oldest first)
-                }
-            }
-        }
-    }) as BeneficialDonorIProps;
+
+    const beneficialDonor = await fetchBeneficialDonor(username);
 
     if (!beneficialDonor) {
         notFound();
