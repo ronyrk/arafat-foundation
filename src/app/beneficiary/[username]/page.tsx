@@ -24,22 +24,38 @@ const calculateTotals = (transactions: BeneficialTransactionIProps[]): TotalsIPr
     return { totalDonate, totalSpend, totalBalance };
 };
 
+async function fetchBeneficial(username: string): Promise<BeneficialIProps | null> {
+    try {
+        const response = await fetch(
+            `${process.env.NEXT_PUBLIC_BASE_URL}/api/beneficial/${username}`,
+            {
+                cache: 'no-store',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            }
+        );
+
+        if (!response.ok) {
+            if (response.status === 404) {
+                return null;
+            }
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error fetching beneficial donor:', error);
+        return null;
+    }
+}
+
 
 export default async function Beneficial({ params }: { params: Promise<{ username: string }> }) {
     const { username } = await params;
-    const data = await prisma.beneficial.findUnique({
-        where: {
-            username,
-        },
-        include: {
-            beneficialDonor: true,
-            beneficialTransaction: {
-                orderBy: {
-                    date: 'asc' // Order transactions by creation date (oldest first)
-                }
-            },
-        }
-    }) as BeneficialIProps;
+
+    const data = await fetchBeneficial(username);
 
     if (!data) {
         notFound();

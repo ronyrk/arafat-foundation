@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Marquee from "react-fast-marquee";
-import logo from "../../public/beneficiary-logo.jpg";
+import logo from "../../public/beneficiary-logo.png";
 
 
 
