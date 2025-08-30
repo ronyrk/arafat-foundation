@@ -126,10 +126,7 @@ async function Question() {
 
     try {
         const res = await fetch('https://af-admin.vercel.app/api/beneficial/faq', {
-            next: { revalidate: 6 }, // Cache for 1 hour
-            headers: {
-                'Cache-Control': 'max-age=6, s-maxage=3600, stale-while-revalidate=86400',
-            },
+            next: { revalidate: 0 }, // Cache for 1 hour
         });
 
         if (!res.ok) {
@@ -189,22 +186,6 @@ function FAQPage() {
                     <Suspense fallback={<FAQSkeleton />}>
                         <Question />
                     </Suspense>
-                </div>
-
-                {/* Footer */}
-                <div className="text-center mt-16">
-                    <div className="bg-white rounded-2xl border-2 border-gray-100 p-8 shadow-lg">
-                        <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <MessageCircle className="w-8 h-8 text-white" />
-                        </div>
-                        <h3 className="text-xl font-bold text-gray-800 mb-2">Still have questions?</h3>
-                        <p className="text-gray-600 mb-4">
-                            Our support team is here to help you with any additional questions.
-                        </p>
-                        <button className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl hover:from-blue-600 hover:to-purple-700 transition-all duration-200 font-semibold">
-                            Contact Support
-                        </button>
-                    </div>
                 </div>
             </div>
         </div>
