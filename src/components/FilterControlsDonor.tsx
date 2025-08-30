@@ -93,7 +93,7 @@ export default function FilterControls() {
     const hasActiveFilters = currentDistrict || currentPoliceStation || currentSearch;
 
     return (
-        <div className="flex flex-col gap-2  bg-gray-50 rounded-lg">
+        <div className="flex flex-col gap-2  bg-white rounded-lg">
             <div className="flex flex-wrap gap-4 items-center justify-end">
                 {/* Search Input */}
                 <div className="flex-1 max-w-[500px] relative">

@@ -103,7 +103,7 @@ export default function FilterControls({ locationOptions }: FilterControlsProps)
     const hasActiveFilters = currentDistrict || currentPoliceStation || currentSearch;
 
     return (
-        <div className="flex flex-col gap-2  bg-gray-50 rounded-lg">
+        <div className="flex flex-col gap-2  bg-white rounded-lg">
             <div className="flex flex-wrap gap-1 items-center justify-between">
                 <div className='flex flex-row gap-2 items-center'>
                     {/* District Filter */}
