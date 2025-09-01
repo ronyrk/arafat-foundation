@@ -29,10 +29,10 @@ export const PhoneDisplay = ({ phone }: { phone: string }) => {
 
     return (
         <div className="flex items-center gap-2">
-            <span className="font-medium"> <strong>Phone:</strong></span>
-            <span className="font-mono">
+            <h2 className="font-normal text-[15px] text-color-main">
+                <span className="font-semibold mr-2">ফোন:</span>
                 {isVisible ? phone : maskPhoneNumber(phone)}
-            </span>
+            </h2>
             <Button
                 onClick={togglePhoneVisibility}
 
