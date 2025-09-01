@@ -77,7 +77,7 @@ function BeneficialDocuments({ data }: { data: BeneficialIProps }) {
     return (
         <div className="basis-4/12 border-2 border-gray-200 hover:border-gray-300 rounded-xl px-4 py-4 flex flex-col bg-white shadow-sm transition-all duration-200">
             <div className="flex items-center gap-2 mb-4">
-                <h2 className="font-bold text-xl text-gray-800">Beneficial Documents</h2>
+                <h2 className="font-bold text-xl text-gray-800">Beneficiary Documents</h2>
             </div>
 
             <div className="space-y-4 flex-1">

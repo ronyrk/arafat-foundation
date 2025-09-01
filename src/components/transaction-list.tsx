@@ -39,7 +39,6 @@ function TransactionsList({ data }: { data: BeneficialTransactionIProps[] }) {
                 data.map((item, index: number) => (
                     <TableRow key={index}>
                         <TableCell className="font-medium">{`${moment(item.date).format('DD/MM/YYYY')}`}</TableCell>
-                        <TableCell className="font-medium uppercase">{item.amount}</TableCell>
                         <TableCell className="font-medium uppercase">
                             <Dialog>
                                 <DialogTrigger>
@@ -75,7 +74,6 @@ export default function BeneficialTransactionList({ data }: { data: BeneficialTr
                 <TableHeader>
                     <TableRow>
                         <TableHead>DATE</TableHead>
-                        <TableHead className=' uppercase'>Amount</TableHead>
                         <TableHead className=' uppercase'>Details</TableHead>
                     </TableRow>
                 </TableHeader>
