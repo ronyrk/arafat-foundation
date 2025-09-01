@@ -39,7 +39,7 @@ export default async function Page({ searchParams }: PageProps) {
 
 
     return (
-        <div className="flex flex-col space-y-2">
+        <div className="flex flex-col space-y-4">
             <Suspense fallback={<FilterSkeleton />}>
                 <FilterControlsWrapper locationOptionsPromise={locationOptionsPromise} />
             </Suspense>

@@ -20,7 +20,7 @@ function getStatus(item: BeneficialIProps): string {
 }
 
 const BeneficialRow = memo(({ item, index }: { item: BeneficialIProps; index: number }) => (
-    <TableRow className="hover:bg-gray-50 transition-colors">
+    <TableRow className="hover:bg-gray-50 hover:shadow-lg transition-shadow duration-200 my-4">
         {/* Index Column */}
         <TableCell className="font-medium py-2 text-center">
             <div className="flex items-center justify-start min-h-[80px]">
@@ -88,7 +88,7 @@ const BeneficialList = memo(({ data, currentPage, itemsPerPage }: BeneficialList
     const startIndex = (currentPage - 1) * itemsPerPage + 1;
 
     return (
-        <TableBody>
+        <TableBody className=''>
             {data.length === 0 ? (
                 <TableRow>
                     <TableCell colSpan={5} className="text-center py-12">
