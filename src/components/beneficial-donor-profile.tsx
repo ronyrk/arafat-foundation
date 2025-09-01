@@ -15,21 +15,29 @@ function BeneficialDonorProfileEdit({ data, totals }: { data: BeneficialDonorIPr
     return (
         <div className='flex flex-col gap-3 relative'>
             <div className="flex md:flex-row flex-col justify-between gap-3 px-2 relative">
-                <div className=" basis-4/12 border-[2px] p-2 flex justify-around relative rounded">
-                    <Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className=' rounded-md blur-[6px] object-cover' src={data.photoUrl} alt={data.name} width={300} height={140} />
+                <div className=" basis-4/12 border-[2px] p-1 flex justify-around relative rounded">
+                    <Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className=' rounded-md blur-[6px] h-72 object-cover' src={data.photoUrl} alt={data.name} width={300} height={140} />
                 </div>
                 <div className="basis-8/12 border-[2px] rounded p-1 px-2 flex flex-col justify-around">
-                    <h2 className=" font-semibold text-xl py-1  text-color-main"> {name}
+                    <h2 className="font-semibold text-xl py-1 text-color-main">
+                        {name}
                     </h2>
-                    <h3 className=" flex flex-row items-center font-normal text-[18px]  text-color-main"><span className="font-semibold mr-2">Home Town in : {homeTown}</span>
-                    </h3>
-                    <h3 className=" flex flex-row items-center font-normal text-[18px]  text-color-main"><span className="font-semibold mr-2">Lives in : {live}</span>
-                    </h3>
+                    <h2 className=" flex flex-row items-center font-normal text-[18px]  text-color-main"><span className="font-semibold mr-2">Lives in :</span>
+                        {live}
+                    </h2>
+                    <h2 className=" flex flex-row items-center font-normal text-[18px]  text-color-main"><span className="font-semibold mr-2">Home Town :</span>
+                        {homeTown}
+                    </h2>
+                    <h2 className=" flex flex-row items-center font-normal text-[18px]  text-color-main"><span className="font-semibold mr-2">Total Donate:- :</span>
+                        {totals.totalDonate}
+                    </h2>
+                    <h2 className=" flex flex-row items-center font-normal text-[18px]  text-color-main"><span className="font-semibold mr-2">Total Spend:- :</span>
+                        {totals.totalSpend}
+                    </h2>
 
-                    <h2 className='text-xl'>Total Donate:- {totals.totalDonate}</h2>
-                    <h2 className='text-xl'>Total Spend:- {totals.totalSpend}</h2>
-                    <h2 className='text-xl'>Available balance:- {totals.totalBalance}</h2>
-
+                    <h2 className=" flex flex-row items-center font-normal text-[18px]  text-color-main"><span className="font-semibold mr-2">Available balance:-</span>
+                        {totals.totalBalance}
+                    </h2>
                 </div>
             </div>
             <div className="p-2">
