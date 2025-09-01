@@ -27,6 +27,18 @@ function htmlConvert(data: string) {
         </div>
     );
 }
+// Pre-calculate all outstanding amounts efficiently
+const calculateOutstandingAmounts = (paymentList: BeneficialTransactionIProps[], initialBalance: number): string[] => {
+    let runningLoanTotal = initialBalance;
+    let runningPaymentTotal = 0;
+
+    return paymentList.map((payment) => {
+        runningLoanTotal += Number(payment.amount);
+        runningPaymentTotal += Number(payment.amount);
+        const outstanding = runningLoanTotal - runningPaymentTotal;
+        return `BDT=${outstanding}/=`;
+    });
+};
 
 // Optimized amount formatting with memoization
 const formatAmount = (item: BeneficialTransactionIProps, type: string): string => {

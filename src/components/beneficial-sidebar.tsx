@@ -4,25 +4,37 @@ import Link from 'next/link';
 import React, { useMemo } from 'react';
 import { usePathname } from 'next/navigation';
 
+// Define types for better type safety
+type MatchType = "exact" | "subroute" | "dynamic";
+
+interface Route {
+    href: string;
+    label: string;
+    matchType: MatchType;
+    subrouteKey?: string;
+    dynamicPattern?: string; // Pattern to match dynamic routes
+}
+
 // Move route configuration outside component to prevent recreation
-const ROUTES = [
+const ROUTES: Route[] = [
     {
         href: "/beneficiary/about-beneficiary",
         label: "About Beneficiaries",
-        matchType: "exact" as const,
+        matchType: "exact",
     },
     {
         href: "/beneficiaries",
         label: "Our Beneficiaries",
-        matchType: "exact" as const,
+        matchType: "dynamic",
+        dynamicPattern: "/beneficiaries", // Will match both /beneficiaries and /beneficiary/[name]
     },
     {
         href: "/beneficiary/donors",
         label: "Beneficiary Donors",
-        matchType: "subroute" as const,
-        subrouteKey: "donors",
+        matchType: "dynamic",
+        dynamicPattern: "/beneficiary/donor/", // Matches /beneficiary/donor/[name]
     },
-] as const;
+];
 
 // Memoized route item component to prevent unnecessary re-renders
 const RouteItem = React.memo<{
@@ -45,23 +57,63 @@ const RouteItem = React.memo<{
 
 RouteItem.displayName = 'RouteItem';
 
+// Helper function to check if a route is active
+function isRouteActive(route: Route, pathname: string): boolean {
+    if (route.matchType === "exact") {
+        return pathname === route.href;
+    }
+    else if (route.matchType === "subroute" && route.subrouteKey) {
+        const pathSegments = pathname.split('/').filter(Boolean);
+
+        if (pathSegments.includes(route.subrouteKey)) {
+            return true;
+        }
+
+        if (pathname.startsWith(route.href)) {
+            return true;
+        }
+
+        return false;
+    }
+    else if (route.matchType === "dynamic" && route.dynamicPattern) {
+        // Handle dynamic routes
+
+        // For "Our Beneficiaries" - match both /beneficiaries and /beneficiary/[name]
+        if (route.dynamicPattern === "/beneficiaries") {
+            // Match exact /beneficiaries page
+            if (pathname === "/beneficiaries") {
+                return true;
+            }
+            // Match individual beneficiary pages /beneficiary/[name] but exclude specific routes
+            if (pathname.startsWith("/beneficiary/")) {
+                const afterBeneficiary = pathname.slice("/beneficiary/".length);
+                return afterBeneficiary.length > 0 &&
+                    !afterBeneficiary.includes('/') &&
+                    !pathname.startsWith('/beneficiary/donor/') &&
+                    !pathname.startsWith('/beneficiary/about-beneficiary');
+            }
+            return false;
+        }
+
+        // For /beneficiary/donor/[name] - only match donor pages
+        else if (route.dynamicPattern === "/beneficiary/donor/") {
+            if (pathname.startsWith(route.dynamicPattern)) {
+                const afterPattern = pathname.slice(route.dynamicPattern.length);
+                return afterPattern.length > 0 && !afterPattern.includes('/');
+            }
+            return false;
+        }
+    }
+
+    return false;
+}
+
 function Sidebar() {
     const pathname = usePathname();
 
-    // Memoize route parsing to avoid recalculation on every render
-    const { subRoute, activeStates } = useMemo(() => {
-        const routes = pathname.split('/');
-        const subRoute = routes[2]; // routes.at(2) is less performant
-
-        const activeStates = ROUTES.map(route => {
-            if (route.matchType === "exact") {
-                return pathname === route.href;
-            } else {
-                return subRoute === route.subrouteKey;
-            }
-        });
-
-        return { subRoute, activeStates };
+    // Memoize active states calculation
+    const activeStates = useMemo(() => {
+        return ROUTES.map(route => isRouteActive(route, pathname));
     }, [pathname]);
 
     return (
@@ -72,11 +124,10 @@ function Sidebar() {
         >
             {ROUTES.map((route, index) => (
                 <RouteItem
-                    key={route.href}
+                    key={route.href} // Using href as key is more stable than index
                     href={route.href}
                     label={route.label}
                     isActive={activeStates[index]}
-                    className={index === 0 ? "pl-4" : undefined} // Special styling for first item
                 />
             ))}
         </nav>
