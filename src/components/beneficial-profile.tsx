@@ -11,6 +11,7 @@ import {
 import BeneficialDocuments from './beneficial-doucment';
 import { Share } from './Share';
 import { PhoneDisplay } from './phone-number-display';
+import AddressBlur from './AddressBlur';
 
 
 
@@ -20,10 +21,9 @@ function BeneficialProfileEdit({ data, totals }: { data: BeneficialIProps, total
 
     return (
         <div className="flex flex-col gap-6 relative">
-            <div className="flex md:flex-row flex-col gap-6 px-2">
-                {/* Profile Images */}
-                <div className="basis-4/12 border rounded-lg p-4 flex flex-col items-center bg-white shadow">
-                    <Carousel className="w-full max-w-xs">
+            <div className="flex md:flex-row flex-col justify-between gap-3 px-2">
+                <div className="basis-3/12 border-[2px] p-2 flex justify-around relative rounded-xl shadow-sm transition-all duration-200">
+                    <Carousel className="w-full  max-w-xs">
                         <CarouselContent>
                             {photoUrl.map((img, index) => (
                                 <CarouselItem key={index}>
@@ -33,7 +33,7 @@ function BeneficialProfileEdit({ data, totals }: { data: BeneficialIProps, total
                                         width={600}
                                         height={500}
                                         priority
-                                        className="object-cover rounded-lg"
+                                        className="object-cover rounded-lg h-72 w-full"
                                     />
                                 </CarouselItem>
                             ))}
@@ -43,20 +43,26 @@ function BeneficialProfileEdit({ data, totals }: { data: BeneficialIProps, total
                     </Carousel>
                 </div>
 
-                {/* Profile Info */}
-                <div className="basis-4/12 border rounded-lg p-4 flex flex-col gap-4 bg-white shadow">
-                    <div className='grid grid-cols-1 justify-stretch gap-y-4 gap-1 mb-2'>
-                        <p className='text-2xl font-semibold'><strong></strong> {name}</p>
-                        <p><strong>Village:</strong> {village}</p>
-                        <p><strong>Occupation:</strong> {occupation}</p>
+                <div className="basis-5/12 border-[2px] rounded-xl shadow-sm transition-all duration-200 p-1 px-2 flex flex-col justify-around">
+                    <h2 className="font-semibold text-xl py-1 text-color-main">
+                        {data.name}
+                    </h2>
+                    <AddressBlur address={village} />
+                    <h2 className="font-normal text-[15px] text-color-main">
+                        <span className="font-semibold mr-2">পেশা:</span>
+                        {data.occupation}
+                    </h2>
+                    <h2 className="font-normal text-[15px] text-color-main">
+                        <span className="font-semibold mr-2">মোট খরচ :</span>
+                        {totals.totalSpend}
+                    </h2>
 
-                        {/* Phone number with toggle functionality */}
-                        <PhoneDisplay phone={phone} />
-                        <p><strong>Total Spend:</strong>  {totals.totalSpend}</p>
-                    </div>
+                    <PhoneDisplay phone={phone} />
                 </div>
                 <BeneficialDocuments data={data} />
+
             </div>
+
 
             <div className="py-2 px-4">
                 <Share username={data.username} type='beneficial' />

@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import Image from 'next/image';
 import { BeneficialIProps } from '@/types';
+import { MapPin } from 'lucide-react';
 
 interface BeneficialListProps {
     data: BeneficialIProps[];
@@ -52,7 +53,7 @@ const BeneficialRow = memo(({ item, index }: { item: BeneficialIProps; index: nu
                         </h3>
                         <div className="flex flex-col gap-1">
                             <div className="flex flex-row gap-0 md:gap-2 text-sm">
-                                <span className="text-gray-500">🏠</span>
+                                <MapPin className="h-4 w-4 text-green-500" />
                                 <span className="font-medium text-gray-700 truncate">{item.village}</span>
                             </div>
                         </div>
