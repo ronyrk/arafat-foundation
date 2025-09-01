@@ -32,7 +32,7 @@ const ROUTES: Route[] = [
         href: "/beneficiary/donors",
         label: "Beneficiary Donors",
         matchType: "dynamic",
-        dynamicPattern: "/beneficiary/donor/", // Matches /beneficiary/donor/[name]
+        dynamicPattern: "/beneficiary/donors", // Match both /beneficiary/donors and /beneficiary/donor/[name]
     },
 ];
 
@@ -78,8 +78,22 @@ function isRouteActive(route: Route, pathname: string): boolean {
     else if (route.matchType === "dynamic" && route.dynamicPattern) {
         // Handle dynamic routes
 
+        // For "Beneficiary Donors" - match both /beneficiary/donors and /beneficiary/donor/[name]
+        if (route.dynamicPattern === "/beneficiary/donors") {
+            // Match exact /beneficiary/donors page
+            if (pathname === "/beneficiary/donors") {
+                return true;
+            }
+            // Match individual donor pages /beneficiary/donor/[name]
+            if (pathname.startsWith("/beneficiary/donor/")) {
+                const afterDonor = pathname.slice("/beneficiary/donor/".length);
+                return afterDonor.length > 0 && !afterDonor.includes('/');
+            }
+            return false;
+        }
+
         // For "Our Beneficiaries" - match both /beneficiaries and /beneficiary/[name]
-        if (route.dynamicPattern === "/beneficiaries") {
+        else if (route.dynamicPattern === "/beneficiaries") {
             // Match exact /beneficiaries page
             if (pathname === "/beneficiaries") {
                 return true;
@@ -90,16 +104,8 @@ function isRouteActive(route: Route, pathname: string): boolean {
                 return afterBeneficiary.length > 0 &&
                     !afterBeneficiary.includes('/') &&
                     !pathname.startsWith('/beneficiary/donor/') &&
+                    !pathname.startsWith('/beneficiary/donors') && // Exclude donors listing
                     !pathname.startsWith('/beneficiary/about-beneficiary');
-            }
-            return false;
-        }
-
-        // For /beneficiary/donor/[name] - only match donor pages
-        else if (route.dynamicPattern === "/beneficiary/donor/") {
-            if (pathname.startsWith(route.dynamicPattern)) {
-                const afterPattern = pathname.slice(route.dynamicPattern.length);
-                return afterPattern.length > 0 && !afterPattern.includes('/');
             }
             return false;
         }
