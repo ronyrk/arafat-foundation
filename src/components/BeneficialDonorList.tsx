@@ -126,7 +126,7 @@ const BeneficialDonorRow = memo(({ item, index }: { item: BeneficialDonorIProps,
     // }, [item.beneficialTransaction]);
 
     return (
-        <TableRow className="hover:bg-gray-50/50 transition-all duration-300 group border-b border-gray-100">
+        <TableRow className="hover:bg-gray-50 hover:shadow-lg transition-shadow duration-200 my-4">
 
             <TableCell className="font-medium py-2 text-center">
                 <div className="flex items-center justify-start min-h-[80px]">
@@ -136,11 +136,11 @@ const BeneficialDonorRow = memo(({ item, index }: { item: BeneficialDonorIProps,
                 </div>
             </TableCell>
             {/* Profile Section */}
-            <TableCell className="p-1">
-                <div className="flex items-center gap-1">
+            <TableCell className="p-3">
+                <div className="flex items-center gap-4">
                     {/* Enhanced Image Section */}
                     <div className="relative flex-shrink-0">
-                        <div className="relative w-16 h-16 rounded-2xl overflow-hidden border-2 border-white shadow-lg group-hover:shadow-xl transition-shadow duration-300">
+                        <div className="relative w-24 h-24 rounded-2xl overflow-hidden border-1 border-white shadow-lg group-hover:shadow-xl transition-shadow duration-300">
                             <Image
                                 src={item.photoUrl || '/placeholder-avatar.png'}
                                 alt={`${item.name}'s profile`}
