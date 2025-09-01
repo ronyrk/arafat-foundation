@@ -5,7 +5,7 @@ import BeneficialDonorProfileEdit from '@/components/beneficial-donor-profile';
 import { notFound } from 'next/navigation';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import Image from 'next/image';
-import { Briefcase, MapPin, Users } from 'lucide-react';
+import { Briefcase, Eye, MapPin, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Badge } from '@/components/ui/badge';
@@ -207,22 +207,15 @@ async function page({ params }: { params: Promise<{ username: string }> }) {
             <BeneficialDonorProfileEdit data={beneficialDonor} totals={totals} />
 
             {/* Enhanced Beneficial List Section */}
-            <Card className="shadow-lg my-4">
-                <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                        <Users className="h-5 w-5" />
-                        Beneficial Recipients
-                    </CardTitle>
-                </CardHeader>
+            <Card className="shadow-lg my-2">
                 <CardContent>
                     <Accordion type="single" collapsible className="w-full">
                         <AccordionItem value="beneficial-list" className="border-0">
                             <AccordionTrigger className="hover:no-underline">
                                 <div className="flex items-center gap-2">
-                                    <Badge variant="outline">
-                                        {beneficiaryCount} Recipients
-                                    </Badge>
-                                    <span>View All Recipients</span>
+                                    <button className='inline-flex items-center gap-2 px-3 py-2 text-sm font-medium text-blue-600 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2'>
+                                        <Eye className="w-4 h-4" />
+                                        View All Beneficiary Recipients for {beneficialDonor.name}</button>
                                 </div>
                             </AccordionTrigger>
                             <AccordionContent className="pt-4">
