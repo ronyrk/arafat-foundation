@@ -22,8 +22,8 @@ function BeneficialProfileEdit({ data, totals }: { data: BeneficialIProps, total
     return (
         <div className="flex flex-col gap-6 relative">
             <div className="flex md:flex-row flex-col justify-between gap-3 px-2">
-                <div className="basis-3/12 border-[2px] p-2 flex justify-around relative rounded-xl shadow-sm transition-all duration-200">
-                    <Carousel className="w-full  max-w-xs">
+                <div className="basis-3/12 border-[2px] h-60 p-2 flex justify-around relative rounded-xl shadow-sm transition-all duration-200">
+                    <Carousel className="w-full max-w-xs">
                         <CarouselContent>
                             {photoUrl.map((img, index) => (
                                 <CarouselItem key={index}>
@@ -33,7 +33,7 @@ function BeneficialProfileEdit({ data, totals }: { data: BeneficialIProps, total
                                         width={600}
                                         height={500}
                                         priority
-                                        className="object-cover rounded-lg h-72 w-full"
+                                        className="object-cover h-56 rounded-lg w-full"
                                     />
                                 </CarouselItem>
                             ))}
@@ -43,7 +43,7 @@ function BeneficialProfileEdit({ data, totals }: { data: BeneficialIProps, total
                     </Carousel>
                 </div>
 
-                <div className="basis-5/12 border-[2px] rounded-xl shadow-sm transition-all duration-200 p-1 px-2 flex flex-col justify-around">
+                <div className="basis-5/12 border-[2px] rounded-xl h-60 shadow-sm transition-all duration-200 p-1 px-2 flex flex-col justify-around">
                     <h2 className="font-semibold text-xl py-1 text-color-main">
                         {data.name}
                     </h2>

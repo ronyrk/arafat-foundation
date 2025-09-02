@@ -75,16 +75,16 @@ function BeneficialDocuments({ data }: { data: BeneficialIProps }) {
     );
 
     return (
-        <div className="basis-4/12 border-2 border-gray-200 hover:border-gray-300 rounded-xl px-4 py-4 flex flex-col bg-white shadow-sm transition-all duration-200">
+        <div className="basis-4/12 border-2 border-gray-200 h-60 hover:border-gray-300 rounded-xl px-4 py-4 flex flex-col bg-white shadow-sm transition-all duration-200">
             <div className="flex items-center gap-2 mb-4">
                 <h2 className="font-bold text-xl text-gray-800">Beneficiary Documents</h2>
             </div>
 
-            <div className="space-y-4 flex-1">
+            <div className="space-y-2 flex-1">
                 {/* NID Front */}
-                <div className="bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition-colors duration-200">
+                <div className="bg-gray-50 rounded-lg p-2 hover:bg-gray-100 transition-colors duration-200">
                     <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-1">
                             <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                             <h3 className="font-semibold text-gray-800">NID Front</h3>
                         </div>
@@ -99,9 +99,9 @@ function BeneficialDocuments({ data }: { data: BeneficialIProps }) {
                 </div>
 
                 {/* NID Back */}
-                <div className="bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition-colors duration-200">
+                <div className="bg-gray-50 rounded-lg p-2 hover:bg-gray-100 transition-colors duration-200">
                     <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-1">
                             <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                             <h3 className="font-semibold text-gray-800">NID Back</h3>
                         </div>
@@ -117,7 +117,7 @@ function BeneficialDocuments({ data }: { data: BeneficialIProps }) {
             </div>
 
             {/* Status indicator */}
-            <div className="mt-4 pt-4 border-t border-gray-200">
+            <div className="mt-1 pt-1 border-t border-gray-200">
                 <div className="flex items-center justify-between text-sm">
                     <span className="text-gray-600">Donate Status:</span>
                     <div className="flex flex-col items-start gap-2">
