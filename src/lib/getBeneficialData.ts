@@ -60,10 +60,7 @@ export async function getBeneficialData(params: FilterParams) {
                 take: pageSize,
                 orderBy: [
                     {
-                        status: 'asc' // NULL values (inactive) come first, then non-NULL (active)
-                    },
-                    {
-                        createAt: 'desc' // Within each group, order by creation date (newest first)
+                        code: "desc"
                     }
                 ]
             }),

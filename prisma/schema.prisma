@@ -361,6 +361,7 @@ model policeStation {
 model beneficialDonor {
   id                    String                  @id @default(auto()) @map("_id") @db.ObjectId
   name                  String
+  code                  String
   username              String                  @unique
   live                  String
   homeTown              String
@@ -375,6 +376,7 @@ model beneficialDonor {
 model beneficial {
   id                    String                  @id @default(auto()) @map("_id") @db.ObjectId
   name                  String
+  code                  String
   username              String                  @unique
   phone                 String
   village               String
