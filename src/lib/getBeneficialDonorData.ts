@@ -37,7 +37,7 @@ export async function getBeneficialDonorData(params: FilterParams) {
                 orderBy: [
 
                     {
-                        createAt: 'desc' // Within each group, order by creation date (newest first)
+                        code: "desc"
                     }
                 ]
             }),
