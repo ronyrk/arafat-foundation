@@ -43,7 +43,7 @@ const newFormSchema = z.object({
     amount: z.string().min(1, "Amount is required"),
     time: z.string().min(1, "Time is required"),
     method: z.string().min(1, "Method is required"),
-    imageUpload: z.string(),
+    imageUpload: z.string().optional(),
     sendNumber: z.string().optional(),
     transactionId: z.string().optional(),
     invoice: z.string().optional(),
@@ -78,7 +78,7 @@ const SelectItemComponent = ({ item, onClick }: { item: DonorIProps; onClick: ()
     </SelectItem>
 );
 
-export default function SidebarButton({ donors }: { donors: DonorIProps[] }) {
+export default function SidebarButton({ donors = [] }: { donors?: DonorIProps[] }) {
     const [dialogOpen, setDialogOpen] = useState(false);
 
     const [isSubmitting, setIsSubmitting] = useState(false)
@@ -103,6 +103,7 @@ export default function SidebarButton({ donors }: { donors: DonorIProps[] }) {
 
     const selectedUsername = form.watch("username");
     const selectedMethod = form.watch("method");
+
 
     // Validation logic
     const isValidUsername = useMemo(() => {

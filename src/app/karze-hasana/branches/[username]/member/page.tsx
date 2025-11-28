@@ -148,7 +148,7 @@ function MemberCreate({ params }: ParamsIProps) {
 							)}
 						/>
 
-						{isPending ? <Button disabled>Loading...</Button> : <Button disabled={image === ''} type="submit">Submit</Button>}
+						{isPending ? <Button disabled>Loading...</Button> : <Button type="submit">Submit</Button>}
 					</form>
 				</Form>
 			</div>
