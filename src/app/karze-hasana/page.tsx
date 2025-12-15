@@ -21,18 +21,18 @@ function htmlConvert(data: string) {
 }
 
 async function Question() {
-	// unstable_noStore();
-	// let res = await fetch('https://af-admin.vercel.app/api/faq');
-	// if (!res.ok) {
-	// 	console.log({ res })
-	// };
-	// const data: FaqIProps[] = await res.json();
+	unstable_noStore();
+	let res = await fetch('https://af-admin.vercel.app/api/faq');
+	if (!res.ok) {
+		console.log({ res })
+	};
+	const data: FaqIProps[] = await res.json();
 
 	return (
 		<>
 			<h1 className='text-2xl font-bold mb-4 text-center'>Karze Hasana FAQ</h1>
 
-			{/* <Accordion type="single" collapsible>
+			<Accordion type="single" collapsible>
 				{
 					data.map((item, index) => (
 						<AccordionItem className=' hover:bg-[#EAEAF5]' key={index} value={index.toString()}>
@@ -43,7 +43,7 @@ async function Question() {
 						</AccordionItem>
 					))
 				}
-			</Accordion> */}
+			</Accordion>
 		</>
 	)
 }
