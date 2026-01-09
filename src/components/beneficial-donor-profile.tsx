@@ -28,15 +28,27 @@ function BeneficialDonorProfileEdit({ data, totals }: { data: BeneficialDonorIPr
                     <h2 className=" flex flex-row items-center font-normal text-[15px]  text-color-main"><span className="font-semibold mr-2">Home Town :</span>
                         {homeTown}
                     </h2>
-                    <h2 className=" flex flex-row items-center font-normal text-[15px]  text-color-main"><span className="font-semibold mr-2">Total Donate:- :</span>
-                        {totals.totalDonate}
+                    <h2 className=" flex flex-row items-center font-normal text-[15px]  text-color-main"><span className="font-semibold mr-2">Total Donate:</span>
+                        {Number(totals.totalDonate).toLocaleString('en-BD', {
+                            style: 'currency',
+                            currency: 'BDT',
+                            minimumFractionDigits: 0
+                        })}
                     </h2>
-                    <h2 className=" flex flex-row items-center font-normal text-[15px]  text-color-main"><span className="font-semibold mr-2">Total Spend:- :</span>
-                        {totals.totalSpend}
+                    <h2 className=" flex flex-row items-center font-normal text-[15px]  text-color-main"><span className="font-semibold mr-2">Total Spend:</span>
+                        {Number(totals.totalSpend).toLocaleString('en-BD', {
+                            style: 'currency',
+                            currency: 'BDT',
+                            minimumFractionDigits: 0
+                        })}
                     </h2>
 
-                    <h2 className=" flex flex-row items-center font-normal text-[15px]  text-color-main"><span className="font-semibold mr-2">Available balance:-</span>
-                        {totals.totalBalance}
+                    <h2 className=" flex flex-row items-center font-normal text-[15px]  text-color-main"><span className="font-semibold mr-2">Available balance:</span>
+                        {Number(totals.totalBalance).toLocaleString('en-BD', {
+                            style: 'currency',
+                            currency: 'BDT',
+                            minimumFractionDigits: 0
+                        })}
                     </h2>
                 </div>
             </div>
