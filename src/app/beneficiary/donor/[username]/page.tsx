@@ -207,7 +207,7 @@ async function page({ params }: { params: Promise<{ username: string }> }) {
                                 <div className="flex items-center gap-2">
                                     <button className='inline-flex items-center gap-2 px-3 py-2 text-sm font-medium text-blue-600 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2'>
                                         <Eye className="w-4 h-4" />
-                                        View All Beneficiary Recipients for {beneficialDonor.name}</button>
+                                        View All Beneficiarys for {beneficialDonor.name}</button>
                                 </div>
                             </AccordionTrigger>
                             <AccordionContent className="pt-4">
