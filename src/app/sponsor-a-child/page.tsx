@@ -3,12 +3,10 @@ import React, { Suspense } from 'react'
 import icon from '../../../public/divider.svg';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { unstable_noStore } from 'next/cache';
 import { ChildIProps } from '@/types';
 
 
 async function Child() {
-	unstable_noStore();
 	let res = await fetch('https://af-admin.vercel.app/api/child', {
 		next: { revalidate: 3600 * 60 * 24 },
 	});
