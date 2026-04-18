@@ -40,9 +40,11 @@ export default async function page({
 
 	// Single fetch — branch data + paginated borrowers (with payment summaries) in one round-trip
 	const response = await fetch(
-		`https://arafatfoundation.org/api/branch/${username}?page=${page}`,
-		{ cache: "no-store" }
+		`https://af-admin.vercel.app/api/${username}?page=${page}`,
+		{ next: { revalidate: 3600 } }
 	);
+
+	// console.log({ response })
 
 	if (!response.ok) notFound();
 
@@ -66,7 +68,7 @@ export default async function page({
 			</div>
 
 			{/* Pass pre-computed pagination metadata — no more client-side counting */}
-			<BorrowersList page={page} data={branchData} />
+			<BorrowersList page={page} data={branchData} pagination={pagination} />
 
 			<div className="py-2 px-4">
 				<Share username={branchData.username} type="karze-hasana/branches" />

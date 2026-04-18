@@ -15,6 +15,7 @@ import BorrowersTable from "./BorrowersTable";
 interface BorrowersListProps {
 	data: BranchIProps;
 	page: string;
+	pagination: any;
 }
 
 export default async function BorrowersList({ data, page }: BorrowersListProps) {
