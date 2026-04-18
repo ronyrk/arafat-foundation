@@ -5,10 +5,10 @@ import prisma from "./prisma";
 export async function getBranch(query: string) {
 	unstable_noStore();
 	if (query === "all") {
-		const result = await prisma.branch.findMany();
+		const result = await prisma.branchList.findMany();
 		return result;
 	}
-	const result = await prisma.branch.findMany({
+	const result = await prisma.branchList.findMany({
 		where: {
 			OR: [
 				{

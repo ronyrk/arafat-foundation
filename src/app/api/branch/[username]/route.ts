@@ -9,8 +9,8 @@ export const GET = async (request: Request, { params }: ParamsIProps) => {
         const { username } = params;
 
         const [info, loanList] = await Promise.all([
-            prisma.branch.findUnique({ where: { username } }),
-            prisma.loan.findMany({ where: { branch: username } }),
+            prisma.branchList.findUnique({ where: { username } }),
+            prisma.borrowers.findMany({ where: { branch: username } }),
         ]);
         return NextResponse.json({ info, loanList });
     } catch (error) {

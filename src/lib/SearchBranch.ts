@@ -8,7 +8,7 @@ export async function getSearchBranch(query: string, page: string) {
 	const skip = take * pageNumber;
 	unstable_noStore();
 	if (query === "all") {
-		const result = await prisma.branch.findMany({
+		const result = await prisma.branchList.findMany({
 			take,
 			skip,
 			orderBy: {
@@ -17,7 +17,7 @@ export async function getSearchBranch(query: string, page: string) {
 		});
 		return result;
 	}
-	const result = await prisma.branch.findMany({
+	const result = await prisma.branchList.findMany({
 		take,
 		skip,
 		where: {

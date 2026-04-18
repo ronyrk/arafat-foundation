@@ -72,7 +72,7 @@ export async function getBorrowerSearchData(params: FilterParams): Promise<Searc
 	try {
 		// Use Promise.allSettled for better error handling
 		const [borrowersResult, totalCountResult] = await Promise.allSettled([
-			prisma.loan.findMany({
+			prisma.borrowers.findMany({
 				where: whereClause,
 				skip,
 				take: itemsPerPage,
@@ -101,7 +101,7 @@ export async function getBorrowerSearchData(params: FilterParams): Promise<Searc
 					status: true
 				}
 			}),
-			prisma.loan.count({
+			prisma.borrowers.count({
 				where: whereClause
 			})
 		]);
@@ -165,7 +165,7 @@ export async function getSearchBorrowersByBranch(page: string, branch: string) {
 	const skip = take * pageNumber;
 
 	unstable_noStore();
-	const result = await prisma.loan.findMany({
+	const result = await prisma.borrowers.findMany({
 		where: {
 			branch
 		},
