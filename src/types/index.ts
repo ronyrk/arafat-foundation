@@ -43,6 +43,7 @@ export interface BranchIProps {
 	SecretaryPhone: string,
 	SecretaryOccupation: string,
 	status?: string,
+	borrowers: LoanIProps[],
 };
 export interface UserNameIProps {
 	username: string,
