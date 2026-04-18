@@ -2,55 +2,23 @@
 import { unstable_noStore } from "next/cache";
 import prisma from "./prisma";
 
+const SEARCH_FIELDS = ["code", "district", "address", "branchName"] as const;
+
 export async function getSearchBranch(query: string, page: string) {
-	const pageNumber = Number(page) - 1;
-	const take = 10;
-	const skip = take * pageNumber;
 	unstable_noStore();
-	if (query === "all") {
-		const result = await prisma.branchList.findMany({
-			take,
-			skip,
-			orderBy: {
-				code: "asc"
-			}
-		});
-		return result;
-	}
-	const result = await prisma.branchList.findMany({
-		take,
-		skip,
-		where: {
-			OR: [
-				{
-					code: {
-						contains: query,
-						mode: "insensitive"
-					}
-				},
-				{
-					district: {
-						contains: query,
-						mode: "insensitive"
-					}
-				},
-				{
-					address: {
-						contains: query,
-						mode: "insensitive"
-					}
-				},
-				{
-					branchName: {
-						contains: query,
-						mode: "insensitive"
-					}
-				}
-			]
-		},
-		orderBy: {
-			code: "asc"
-		}
-	})
-	return result;
-};
+
+	const take = 10;
+	const skip = take * (Number(page) - 1);
+	const orderBy = { code: "asc" as const };
+
+	const where =
+		query === "all"
+			? {}
+			: {
+				OR: SEARCH_FIELDS.map((field) => ({
+					[field]: { contains: query, mode: "insensitive" as const },
+				})),
+			};
+
+	return prisma.branchList.findMany({ take, skip, where, orderBy });
+}

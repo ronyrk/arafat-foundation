@@ -62,8 +62,11 @@ async function page({ params, searchParams }: {
 
 	const newsList = await getNews(query);
 
-	unstable_noStore();
-	let res = await fetch(`https://af-admin.vercel.app/api/news/${username}`);
+	let res = await fetch(`https://af-admin.vercel.app/api/news/${username}`, {
+		// 	c
+		next: { revalidate: 60 * 60 * 24 }
+		// next: { revalidate: 60 * 60 * 24 } for 24 hours
+	});
 	if (!res.ok) {
 		throw new Error("Failed to fetch data list");
 	};

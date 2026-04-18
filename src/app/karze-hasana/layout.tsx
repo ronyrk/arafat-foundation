@@ -16,7 +16,6 @@ async function getDonors() {
 			next: { revalidate: 3600 * 60 * 24 },
 		});
 		const data = await res.json();
-		console.log({ data });
 
 		return data || [];
 	} catch (error) {

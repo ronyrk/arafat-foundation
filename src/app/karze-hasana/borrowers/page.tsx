@@ -43,13 +43,10 @@ const getPaymentData = cache(async (username: string): Promise<PaymentIProps[]> 
 	try {
 		const response = await fetch(`https://af-admin.vercel.app/api/loan_list/${username}`, {
 			next: {
-				revalidate: 0, // Cache for 5 minutes
-				tags: [`loan-payments-${username}`] // Cache tags for selective revalidation
+				revalidate: 3600 * 2, // Cache for 2 hours
 			},
-			headers: {
-				'Cache-Control': 'no-cache',
-			}
 		});
+
 
 		if (!response.ok) {
 			console.error(`Failed to fetch payment data for ${username}: ${response.status}`);
