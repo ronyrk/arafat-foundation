@@ -5,10 +5,10 @@ import prisma from "./prisma";
 export async function getDonor(query: string) {
 	unstable_noStore();
 	if (query === "all") {
-		const result = await prisma.donor.findMany();
+		const result = await prisma.donorList.findMany();
 		return result;
 	}
-	const result = await prisma.donor.findMany({
+	const result = await prisma.donorList.findMany({
 		where: {
 			OR: [
 				{

@@ -28,7 +28,7 @@ export async function getDonorData(params: FilterParams) {
 
 	try {
 		const [donor, totalCount] = await Promise.all([
-			prisma.donor.findMany({
+			prisma.donorList.findMany({
 				where: whereClause,
 
 				skip,
@@ -39,7 +39,7 @@ export async function getDonorData(params: FilterParams) {
 					}
 				]
 			}),
-			prisma.donor.count({
+			prisma.donorList.count({
 				where: whereClause
 			})
 		]);

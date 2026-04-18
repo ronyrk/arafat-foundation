@@ -10,6 +10,125 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// Main models
+// recently added models are at the top and the old ones are at the bottom
+
+// Demo
+
+// Branches
+model BranchList {
+  id                   String      @id @default(auto()) @map("_id") @db.ObjectId
+  code                 String      @unique
+  username             String      @unique
+  email                String      @unique
+  branchName           String
+  district             String
+  ps                   String
+  password             String
+  address              String
+  photoUrl             String[]
+  teamLeaderName       String
+  teamLeaderPhone      String
+  teamLeaderAddress    String
+  teamLeaderOccupation String
+  teamLeaderPhotoUrl   String
+  presidentName        String
+  presidentAddress     String
+  presidentPhone       String
+  presidentOccupation  String
+  ImamName             String
+  ImamAddress          String
+  ImamPhone            String
+  ImamOccupation       String
+  SecretaryName        String
+  SecretaryAddress     String
+  SecretaryPhone       String
+  SecretaryOccupation  String
+  status               String      @default("BRANCH")
+  donorLists           DonorList[]
+  borrowers            Borrowers[]
+}
+
+// Borrowers
+model Borrowers {
+  id         String     @id @default(auto()) @map("_id") @db.ObjectId
+  username   String     @unique
+  name       String
+  code       String
+  address    String
+  about      String?
+  disbursed  String?
+  recovered  String?
+  balance    String
+  form1      String
+  form2      String
+  nidfont    String
+  nidback    String
+  occupation String
+  phone      String
+  photosUrl  String
+  status     Status     @default(RUNNING)
+  branch     String
+  branchList BranchList @relation(fields: [branch], references: [username])
+  payments   payment[]
+
+  @@index([branch])
+}
+
+// borrowers payment
+model payment {
+  id           String    @id @default(auto()) @map("_id") @db.ObjectId
+  amount       String
+  loanAmount   String
+  createAt     DateTime
+  loanusername String
+  brrowser     Borrowers @relation(fields: [loanusername], references: [username])
+
+  @@index([loanusername])
+}
+
+// Donors
+model DonorList {
+  id            String         @id @default(auto()) @map("_id") @db.ObjectId
+  username      String         @unique
+  email         String         @unique
+  code          String         @unique
+  password      String
+  name          String
+  photoUrl      String
+  about         String
+  amount        String?
+  lives         String
+  hometown      String
+  status        String
+  socailMedia1  String
+  socailMedia2  String
+  mobile        String
+  branch        String
+  branchList    BranchList     @relation(fields: [branch], references: [username])
+  donorPayments DonorPayment[]
+
+  @@index([branch])
+}
+
+// Donors payment
+
+model DonorPayment {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  amount        String?
+  loanPayment   String?
+  donate        String?
+  type          String
+  status        String
+  createAt      DateTime
+  returnDate    DateTime?
+  upComing      Boolean   @default(true)
+  donorUsername String
+  donorList     DonorList @relation(fields: [donorUsername], references: [username])
+
+  @@index([donorUsername])
+}
+
 model Branch {
   id                   String   @id @default(auto()) @map("_id") @db.ObjectId
   code                 String   @unique
@@ -106,26 +225,6 @@ model Request {
   amount       String
   method       String
   createAt     DateTime
-}
-
-model payment {
-  id           String   @id @default(auto()) @map("_id") @db.ObjectId
-  loanusername String
-  amount       String
-  loanAmount   String
-  createAt     DateTime
-}
-
-model DonorPayment {
-  id            String    @id @default(auto()) @map("_id") @db.ObjectId
-  donorUsername String
-  amount        String?
-  loanPayment   String?
-  donate        String?
-  type          String
-  createAt      DateTime
-  returnDate    DateTime?
-  upComing      Boolean   @default(true)
 }
 
 model Faq {

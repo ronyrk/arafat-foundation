@@ -16,12 +16,12 @@ export const POST = async (request: NextRequest) => {
 			return NextResponse.json({ message: "Invalid request. Email and password are required." });
 		};
 		const [branch, donor] = await Promise.all([
-			prisma.branch.findUnique({
+			prisma.branchList.findUnique({
 				where: { email }, select: {
 					username: true, email: true, photoUrl: true, status: true, password: true
 				}
 			}),
-			prisma.donor.findUnique({
+			prisma.donorList.findUnique({
 				where: { email }, select: {
 					username: true, email: true, photoUrl: true, status: true, password: true
 				}
@@ -52,13 +52,13 @@ export const POST = async (request: NextRequest) => {
 			}
 		};
 		// Alternative
-		// const branch = await prisma.branch.findUnique({
+		// const branch = await prisma.branchList.findUnique({
 		// 	where: {
 		// 		email
 		// 	}
 		// })
 		// if (!branch) {
-		// 	const donor = await prisma.donor.findUnique({
+		// 	const donor = await prisma.donorList.findUnique({
 		// 		where: {
 		// 			email
 		// 		}

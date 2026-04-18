@@ -18,7 +18,7 @@ export const GET = async (request: Request, { params }: ParamsIProps) => {
 
 		// Use Promise.allSettled for parallel queries instead of sequential
 		const [branchResult, donorResult] = await Promise.allSettled([
-			prisma.branch.findUnique({
+			prisma.branchList.findUnique({
 				where: { username },
 				select: {
 					username: true,
@@ -27,7 +27,7 @@ export const GET = async (request: Request, { params }: ParamsIProps) => {
 					status: true
 				}
 			}),
-			prisma.donor.findUnique({
+			prisma.donorList.findUnique({
 				where: { username },
 				select: {
 					username: true,

@@ -14,7 +14,7 @@ type Props = {
 export async function generateMetadata({ params }: Props) {
 	unstable_noStore();
 	const username = params.username;
-	const data = await prisma.branch.findUnique({ where: { username } });
+	const data = await prisma.branchList.findUnique({ where: { username } });
 	return {
 		title: data?.branchName,
 		openGraph: {
