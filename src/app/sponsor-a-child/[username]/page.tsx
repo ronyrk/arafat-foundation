@@ -4,7 +4,6 @@ import Image from 'next/image'
 import DonationTable from '@/components/DonationTable';
 import DisbursementTable from '@/components/DisbursementTable';
 import { ChildCarousel } from '@/components/ChildCarousel';
-import { unstable_noStore } from 'next/cache';
 import { ChildIProps } from '@/types';
 import Link from 'next/link';
 import prisma from '@/lib/prisma';
@@ -26,7 +25,6 @@ function htmlConvert(data: string) {
 }
 
 export async function generateMetadata({ params }: Props) {
-	unstable_noStore();
 	const user = await prisma.child.findUnique({
 		where: {
 			username: params.username
@@ -62,8 +60,9 @@ async function page({ params }: {
 	}
 }) {
 	const { username } = params;
-	unstable_noStore();
-	let res = await fetch(`https://af-admin.vercel.app/api/child/${username}`);
+	let res = await fetch(`https://af-admin.vercel.app/api/child/${username}`, {
+		next: { revalidate: 3600 * 60 * 24 },
+	});
 	if (!res.ok) {
 		throw new Error("Failed to fetch data list");
 	};
