@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
 import { ChildIProps } from "@/types";
-import { unstable_noStore } from "next/cache";
 import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -8,8 +7,9 @@ import icon from "../../public/divider.svg";
 import { ChildCarousel } from "./ChildCarousel";
 
 async function Childs() {
-  unstable_noStore();
-  let res = await fetch("https://af-admin.vercel.app/api/child");
+  let res = await fetch("https://af-admin.vercel.app/api/child", {
+    next: { revalidate: 3600 * 8 }
+  });
   if (!res.ok) {
     throw new Error("Failed to fetch data list");
   }

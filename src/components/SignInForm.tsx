@@ -17,68 +17,58 @@ import { Input } from "@/components/ui/input";
 import { LoginIProps } from "@/types";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useUser } from "./ContextProvider";
 
 const formSchema = z.object({
-  email: z.string(),
-  password: z.string().min(6, {
-    message: "Password must be at least 6 characters.",
-  }),
+  email: z.string().email({ message: "Enter a valid email address." }),
+  password: z.string().min(6, { message: "Password must be at least 6 characters." }),
 });
 
-export function SingInForm() {
-  const { user, setUser } = useUser();
+type FormValues = z.infer<typeof formSchema>;
+
+const INPUT_CLASS =
+  "appearance-none border rounded w-full text-base py-[20px] px-3 leading-tight focus:outline-none focus:shadow-outline";
+
+export function SignInForm() {
+  const { setUser } = useUser();
   const [showPassword, setShowPassword] = useState(false);
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
   const router = useRouter();
-  // Login
+
+  const form = useForm<FormValues>({
+    resolver: zodResolver(formSchema),
+    defaultValues: { email: "", password: "" },
+  });
+
   const { mutate, isPending } = useMutation({
-    mutationFn: async ({ email, password }: LoginIProps) => {
-      const response = await axios.post("/api/login", {
-        email,
-        password,
-      });
-      return response.data;
+    mutationFn: async (credentials: LoginIProps) => {
+      const { data } = await axios.post("/api/login", credentials);
+      return data;
+    },
+    onSuccess: (data) => {
+      if (data?.username) {
+        localStorage.setItem("username", data.username);
+        setUser(data);
+        toast.success("Login successfully");
+        router.push("/karze-hasana");
+      } else {
+        toast.error(data?.message ?? "Login failed");
+      }
+    },
+    onError: () => {
+      toast.error("Login failed. Please try again.");
     },
   });
 
-  // 1. Define your form.
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-  });
-  // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    const email = values.email;
-    const password = values.password;
-    mutate(
-      { email, password },
-      {
-        onSuccess: (data) => {
-          if (data?.username) {
-            localStorage.setItem("username", data?.username);
-            setUser(data);
-            toast.success("Login Successfully");
-            router.push(`/karze-hasana`);
-          } else {
-            toast.error("Login Failed");
-          }
-        },
-        onError: (error) => {
-          toast.error("Login Failed");
-        },
-      }
-    );
-  }
+  const onSubmit = (values: FormValues) => mutate(values);
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        {/* Email */}
         <FormField
           control={form.control}
           name="email"
@@ -87,7 +77,7 @@ export function SingInForm() {
               <FormLabel>Email</FormLabel>
               <FormControl>
                 <Input
-                  className="appearance-none border rounded w-full text-base py-[20px] px-3 leading-tight focus:outline-none focus:shadow-outline"
+                  className={INPUT_CLASS}
                   type="email"
                   placeholder="example@gmail.com"
                   {...field}
@@ -97,37 +87,48 @@ export function SingInForm() {
             </FormItem>
           )}
         />
-        <div className="relative">
-          <FormField
-            control={form.control}
-            name="password"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Password</FormLabel>
+
+        {/* Password */}
+        <FormField
+          control={form.control}
+          name="password"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Password</FormLabel>
+              <div className="relative">
                 <FormControl>
                   <Input
-                    className="appearance-none border rounded w-full text-base py-[20px] px-3 leading-tight focus:outline-none focus:shadow-outline"
+                    className={INPUT_CLASS}
                     type={showPassword ? "text" : "password"}
                     placeholder="password"
                     {...field}
                   />
                 </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <div
-            className="absolute  bottom-3 right-0 pr-3 flex items-center cursor-pointer"
-            onClick={togglePasswordVisibility}
-          >
-            {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-          </div>
-        </div>
-        {isPending ? (
-          <Button disabled>Loading...</Button>
-        ) : (
-          <Button type="submit">Login</Button>
-        )}
+                <button
+                  type="button"
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  className="absolute bottom-3 right-3 text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                </button>
+              </div>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        {/* Submit */}
+        <Button type="submit" disabled={isPending} className="w-full">
+          {isPending ? (
+            <>
+              <Loader2 size={16} className="mr-2 animate-spin" />
+              Logging in...
+            </>
+          ) : (
+            "Login"
+          )}
+        </Button>
       </form>
     </Form>
   );

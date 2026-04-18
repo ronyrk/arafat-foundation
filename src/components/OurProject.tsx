@@ -3,13 +3,13 @@ import React, { Suspense } from 'react'
 import icon from '../../public/divider.svg';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { unstable_noStore } from 'next/cache';
 import { ProjectsProps } from '@/types';
 import { CarouselDemo } from './CarouselType';
 
 async function Projects() {
-	unstable_noStore();
-	let res = await fetch('https://af-admin.vercel.app/api/project');
+	let res = await fetch('https://af-admin.vercel.app/api/project', {
+		next: { revalidate: 3600 * 8 }
+	});
 	if (!res.ok) {
 		throw new Error("Failed to fetch data list");
 	};

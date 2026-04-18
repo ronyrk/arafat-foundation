@@ -1,4 +1,4 @@
-import { SingInForm } from '@/components/SignInForm'
+import { SignInForm } from '@/components/SignInForm';
 import { Metadata } from 'next';
 import React from 'react'
 
@@ -18,7 +18,7 @@ function page() {
 			</div>
 
 			<div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-				<SingInForm />
+				<SignInForm />
 			</div>
 		</div>
 	)

@@ -150,10 +150,8 @@ async function page({
     page?: string;
   };
 }) {
-  unstable_noStore();
-
   let res = await fetch("https://af-admin.vercel.app/api/category", {
-    next: { revalidate: 0 } // Cache for 1 minute
+    next: { revalidate: 3600 * 24 } // Cache for 1 minute
   });
 
   if (!res.ok) {

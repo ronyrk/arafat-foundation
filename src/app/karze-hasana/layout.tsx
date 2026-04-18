@@ -12,16 +12,15 @@ export const metadata: Metadata = {
 
 async function getDonors() {
 	try {
-		const res = await fetch("https://arafatfoundation.org/api/donor");
-		if (!res.ok) {
-			throw new Error("Network response was not ok");
-		}
+		const res = await fetch("https://af-admin.vercel.app/api/donor", {
+			next: { revalidate: 3600 * 60 * 24 },
+		});
 		const data = await res.json();
-		return data;
+
+		return data || [];
 	} catch (error) {
 		console.log("Error fetching donors:", error);
-
-
+		return [];
 	}
 }
 
@@ -30,7 +29,6 @@ export default async function KarzeHasanaLayout({
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
-
 	const donors = await getDonors();
 	return (
 		<section className="bg-[#FCFCFD]">

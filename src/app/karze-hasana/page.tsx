@@ -22,7 +22,11 @@ function htmlConvert(data: string) {
 
 async function Question() {
 	unstable_noStore();
-	let res = await fetch('https://af-admin.vercel.app/api/faq');
+	let res = await fetch('https://af-admin.vercel.app/api/faq', {
+		next: {
+			revalidate: 3600 * 24, // Cache for 24 hours
+		}
+	});
 	if (!res.ok) {
 		console.log({ res })
 	};

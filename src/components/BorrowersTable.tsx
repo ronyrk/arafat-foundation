@@ -2,7 +2,7 @@
 // components/BorrowersTable.tsx
 
 import { useEffect, useState, useCallback } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { notFound, usePathname, useRouter, useSearchParams } from "next/navigation";
 import {
     Table,
     TableBody,
@@ -160,10 +160,11 @@ export default function BorrowersTable({
             setError(false);
             try {
                 const res = await fetch(`/api/branch/${branchUsername}?page=${p}`, {
-                    cache: "no-store",
+                    next: { revalidate: 3600 },
                 });
-                if (!res.ok) throw new Error("fetch failed");
+                if (!res.ok) notFound();
                 const json = await res.json();
+                console.log({ json })
                 setRows(json.data.borrowers ?? []);
                 setMeta(json.pagination);
             } catch {

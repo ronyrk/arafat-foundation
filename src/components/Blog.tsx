@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
 import { NewsProps } from "@/types";
-import { unstable_noStore } from "next/cache";
 import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -8,8 +7,9 @@ import icon from "../../public/divider.svg";
 import BlogCarousel from "./BlogCarousel";
 
 async function Blog() {
-  unstable_noStore();
-  let res = await fetch("https://af-admin.vercel.app/api/news");
+  let res = await fetch("https://af-admin.vercel.app/api/news", {
+    next: { revalidate: 3600 * 24 }
+  });
   if (!res.ok) {
     throw new Error("Failed to fetch data list");
   }
