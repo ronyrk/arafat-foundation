@@ -66,7 +66,7 @@ export default async function page({
 			</div>
 
 			{/* Pass pre-computed pagination metadata — no more client-side counting */}
-			<BorrowersList page={page} data={branchData} pagination={pagination} />
+			<BorrowersList page={page} data={branchData} />
 
 			<div className="py-2 px-4">
 				<Share username={branchData.username} type="karze-hasana/branches" />
